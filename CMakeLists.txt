@@ -1,0 +1,58 @@
+cmake_minimum_required(VERSION 2.8.8)
+
+IF(NOT ${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
+    SET(USED_AS_SUBMODULE TRUE CACHE BOOL "Part of larger project")
+ELSE()
+    PROJECT(pkmds-g5)
+    SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/Modules)
+ENDIF(NOT ${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
+
+SET(pkmds-g5_VERSION_MAJOR 0)
+SET(pkmds-g5_VERSION_MINOR 0)
+SET(pkmds-g5_VERSION_PATCH 1)
+
+# Don't count on PKMDS's source directory being the main source directory
+# If won't be if used as a subdirectory
+SET(PKMDS_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+SET(PKMDS_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
+
+IF(NOT DEFINED LIB_SUFFIX AND REDHAT AND CMAKE_SYSTEM_PROCESSOR MATCHES "64$")
+    SET(LIB_SUFFIX 64)
+ENDIF()
+SET(LIB_SUFFIX ${LIB_SUFFIX} CACHE STRING "lib directory suffix")
+SET(RUNTIME_DIR bin)
+SET(LIBRARY_DIR lib${LIB_SUFFIX})
+SET(INCLUDE_DIR include)
+
+ADD_DEFINITIONS(-DPKMDS_CMAKE_USED)
+
+ADD_SUBDIRECTORY(include)
+ADD_SUBDIRECTORY(lib)
+IF(NOT USED_AS_SUBMODULE)
+    ADD_SUBDIRECTORY(apps)
+
+    #Create Uninstall Target
+    CONFIGURE_FILE(
+        ${PKMDS_SOURCE_DIR}/cmake_uninstall.cmake.in
+        ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake
+    @ONLY)
+
+    ADD_CUSTOM_TARGET(uninstall
+    ${CMAKE_COMMAND} -P ${PKMDS_BINARY_DIR}/cmake_uninstall.cmake
+    )
+
+    #Set the build type to Release as default
+    IF(NOT CMAKE_BUILD_TYPE)
+        SET(CMAKE_BUILD_TYPE "Release")
+    ENDIF(NOT CMAKE_BUILD_TYPE)
+    SET(CMAKE_BUILD_TYPE "${CMAKE_BUILD_TYPE}" CACHE STRING "")
+
+    MESSAGE(STATUS "")
+    MESSAGE(STATUS "Building PKMDS.")
+    MESSAGE(STATUS " - Build type: ${CMAKE_BUILD_TYPE}")
+    MESSAGE(STATUS " - Install prefix: ${CMAKE_INSTALL_PREFIX}")
+    MESSAGE(STATUS "")
+ELSE()
+    MESSAGE(STATUS "Building PKMDS as part of ${CMAKE_PROJECT_NAME}.")
+    MESSAGE(STATUS "")
+ENDIF(NOT USED_AS_SUBMODULE)

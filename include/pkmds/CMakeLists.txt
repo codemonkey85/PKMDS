@@ -1,0 +1,7 @@
+FILE(GLOB pkmds_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "*.h")
+
+IF(NOT USED_AS_SUBMODULE)
+    FOREACH(header ${pkmds_headers})
+        INSTALL(FILES ${header} DESTINATION ${INCLUDE_DIR}/pkmds COMPONENT Headers)
+    ENDFOREACH(header)
+ENDIF(NOT USED_AS_SUBMODULE)
