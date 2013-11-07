@@ -11,3 +11,88 @@
 *.lai
 *.la
 *.a
+
+# C++ objects and libs
+
+*.slo
+*.lo
+*.o
+*.a
+*.la
+*.lai
+*.so
+*.dll
+*.dylib
+
+# Built files
+
+*.obj
+*.exe
+*.exe.*
+*.exe_*
+*.pdb
+*.ilk
+
+# Qt-es
+
+*.pro.user
+*.pro.user.*
+moc_*.cpp
+qrc_*.cpp
+Makefile
+*-build-*
+*build-*
+*build-PKMDS_QT-Desktop*
+
+#VS2010
+
+*.opensdf
+*.ipch
+*.log
+*.lastbuildstate
+*.unsuccessfulbuild
+*.cdf
+*.cache
+*.obj
+*.ilk
+*.resources
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.rsp
+*.pgc
+*.pgd
+*.meta
+*.tlog
+*.manifest
+*.res
+*.pch
+*.exp
+*.idb
+*.rep
+*.xdc
+*.pdb
+*_manifest.rc
+*.bsc
+*.sbr
+*.xml
+*.metagen
+*.bi
+*.lib
+*PKMDS_Desktop_Win.lib
+*PKMDS_Desktop_Win_2010.lib
+*PKX Crypt.lib
+*PKX Editor.lib
+
+#General
+
+*.ini
+SQLite Databases
+*images.sqlite
+*veekun-pokedex.sqlite
+*QT Projects/PKX-Editor*
+*build-PKX-Editor-Desktop*
+*PKX Packet Ripper/Debug*
+*PKX Packet Ripper/Release*
+*build-PKMDS_QT-Desktop_Qt_5_1_1_MSVC2012_64bit-Release*
