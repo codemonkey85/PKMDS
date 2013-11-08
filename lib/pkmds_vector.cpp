@@ -1,7 +1,7 @@
 #ifdef PKMDS_CMAKE_USED
 #include <pkmds/pkmds_vector.h>
 #else
-#include "../../PKMDS-G5/include/pkmds/pkmds_vector.h"
+#include "../../PKMDS/include/pkmds/pkmds_vector.h"
 #endif
 #ifndef __cplusplus_cli
 bool comparebyspeciesasc(const pokemon_obj &a, const pokemon_obj &b)

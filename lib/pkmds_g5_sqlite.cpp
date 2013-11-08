@@ -1,7 +1,7 @@
 #ifdef PKMDS_CMAKE_USED
 #include <pkmds/pkmds_sql.h>
 #else
-#include "../../PKMDS-G5/include/pkmds/pkmds_sql.h"
+#include "../../PKMDS/include/pkmds/pkmds_sql.h"
 #endif
 using namespace std;
 #ifndef __cplusplus_cli
@@ -1050,7 +1050,6 @@ string lookupcharacteristic(const pokemon_obj *pkm, const int langid)
     }
     return lookupcharacteristic(statid,highval,langid);
 }
-
 string lookuppkmname(const int speciesid, const int langid)
 {
     return getastring(getspeciesnamesql(speciesid,langid));

@@ -53,3 +53,4 @@ string DllExport getmachinetypesql(const Items::items itemid, const int generati
 string DllExport getmachinemovenamesql(const Items::items itemid, const int generation = GENERATION, const int version_group = VERSION_GROUP, const int langid = LANG_ID);
 string DllExport getpokemoncolorstringsql(const Species::pkmspecies speciesid);
 string DllExport getpokemoncolorsql(const Species::pkmspecies speciesid);
+string DllExport getribbonsql(std::string ribbon, bool hoenn);
