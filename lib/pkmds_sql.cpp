@@ -1,7 +1,7 @@
 #ifdef PKMDS_CMAKE_USED
 #include <pkmds/pkmds_sql.h>
 #else
-#include "../../PKMDS-G5/include/pkmds/pkmds_sql.h"
+#include "../../PKMDS/include/pkmds/pkmds_sql.h"
 #endif
 string getspeciesnamesql(const int speciesid, const int langid)
 {
@@ -898,4 +898,19 @@ string getpokemoncolorsql(const Species::pkmspecies speciesid)
       << "               ON pokemon_colors.id = pokemon_species.color_id "
       << "WHERE  pokemon_species.id = " << (int)speciesid;
     return o.str();
+}
+string DllExport getribbonsql(std::string ribbon, bool hoenn)
+{
+    string s;
+    s += "select image from ";
+    if(hoenn)
+    {
+        s += "ribbons_hoenn";
+    }
+    else
+    {
+        s += "ribbons_sinnoh";
+    }
+    s += " where identifier = \"" + ribbon + "\"";
+    return s;
 }

@@ -1,7 +1,7 @@
 #ifdef PKMDS_CMAKE_USED
 #include <pkmds/pkmds_gba.h>
 #else
-#include "../../PKMDS-G5/include/pkmds/pkmds_gba.h"
+#include "../../PKMDS/include/pkmds/pkmds_gba.h"
 #endif
 void read(const char* file_name, gbasavefile *data)
 {

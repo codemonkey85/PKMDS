@@ -110,8 +110,8 @@ pkmviewer::pkmviewer(QWidget *parent) :
     {
         itemname = QString::fromStdString(lookupitemname(itemindex));
         if(((itemindex >= (int)Items::tm01) & (itemindex <= (int)Items::tm92)) |
-           ((itemindex >= (int)Items::tm93) & (itemindex <= (int)Items::tm95)) |
-           ((itemindex >= (int)Items::hm01) & (itemindex <= (int)Items::hm06)))
+                ((itemindex >= (int)Items::tm93) & (itemindex <= (int)Items::tm95)) |
+                ((itemindex >= (int)Items::hm01) & (itemindex <= (int)Items::hm06)))
         {
             itemname += QString::fromStdString(" (" + getmachinemovename(Items::items(itemindex)) + ")");
         }
@@ -242,14 +242,14 @@ void pkmviewer::displayPKM()
     this->setWindowTitle(QString::fromStdWString(getpkmnickname(temppkm)));
     switch(temppkm->metlevel_otgender.otgender)
     {
-        case Genders::male:
-            ui->rbOTMale->setChecked(true);
+    case Genders::male:
+        ui->rbOTMale->setChecked(true);
         break;
-        case Genders::female:
-            ui->rbOTFemale->setChecked(true);
+    case Genders::female:
+        ui->rbOTFemale->setChecked(true);
         break;
-        default:
-            ui->rbOTMale->setChecked(true);
+    default:
+        ui->rbOTMale->setChecked(true);
         break;
     }
     ui->sbTID->setValue(temppkm->tid);
@@ -385,19 +385,19 @@ void pkmviewer::displayPKM()
     ui->cbForm->clear();
     switch(temppkm->species)
     {
-        case Species::castform:
-            ui->cbForm->addItem("");
+    case Species::castform:
+        ui->cbForm->addItem("");
         break;
-        case Species::rotom:
-            ui->cbForm->addItem("");
+    case Species::rotom:
+        ui->cbForm->addItem("");
         break;
-        case Species::kyurem:
-            ui->cbForm->addItem("");
+    case Species::kyurem:
+        ui->cbForm->addItem("");
         break;
-        case Species::genesect:
-            ui->cbForm->addItem("");
+    case Species::genesect:
+        ui->cbForm->addItem("");
         break;
-        default:
+    default:
         break;
     }
     for(int formid = 0; formid < 28; formid++)
@@ -410,6 +410,7 @@ void pkmviewer::displayPKM()
     }
     ui->cbForm->setEnabled(ui->cbForm->count() > 0);
     ui->cbForm->setCurrentIndex((int)temppkm->forms.form);
+    updateribbons();
     redisplayok = true;
     updatepkrs();
     updategenderpic();
@@ -507,26 +508,26 @@ void pkmviewer::updatemarks()
             bool marked = false;
             switch(Markings::markings(i))
             {
-                case Markings::circle:
-                    marked = temppkm->markings.circle;
+            case Markings::circle:
+                marked = temppkm->markings.circle;
                 break;
-                case Markings::diamond:
-                    marked = temppkm->markings.diamond;
+            case Markings::diamond:
+                marked = temppkm->markings.diamond;
                 break;
-                case Markings::heart:
-                    marked = temppkm->markings.heart;
+            case Markings::heart:
+                marked = temppkm->markings.heart;
                 break;
-                case Markings::square:
-                    marked = temppkm->markings.square;
+            case Markings::square:
+                marked = temppkm->markings.square;
                 break;
-                case Markings::star:
-                    marked = temppkm->markings.star;
+            case Markings::star:
+                marked = temppkm->markings.star;
                 break;
-                case Markings::triangle:
-                    marked = temppkm->markings.triangle;
+            case Markings::triangle:
+                marked = temppkm->markings.triangle;
                 break;
-                default:
-                    marked = false;
+            default:
+                marked = false;
                 break;
             }
             markingspix[i] = getmarkingimage(Markings::markings(i), marked);
@@ -664,6 +665,24 @@ void pkmviewer::updatehidpwr()
     hptypescene->addPixmap(*hptypepix);
     ui->pbHPType->setScene(hptypescene);
     ui->sbHPPower->setValue(gethiddenpowerpower(temppkm));
+}
+void pkmviewer::updateribbons()
+{
+    int ribcount = 0;
+    std::array<bool, 80> switches = getribbonswitches(temppkm);
+    for(int i = 0; i < 80; i++)
+    {
+        QPixmap * ribpix = new QPixmap();
+        QGraphicsScene * ribscene = new QGraphicsScene();
+        if(switches[i])
+        {
+            *ribpix = getribbonimg(ribbon_identifiers[i],i>47);
+            ribcount++;
+        }
+        ribscene->addPixmap(*ribpix);
+        ribbonpix[i]->setScene(ribscene);
+    }
+    ui->sbRibbonCount->setValue(ribcount);
 }
 pkmviewer::~pkmviewer()
 {
