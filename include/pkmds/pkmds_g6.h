@@ -1,6 +1,6 @@
 #include "../../include/pkmds/pkmds_g5.h"
 
-namespace Species
+namespace Species_g6
 {
 	enum pkxspecies : uint16 {
 		NOTHING,
@@ -744,7 +744,7 @@ uint16 : 13;
 	}
 };
 struct pkxblocka { //
-	Species::pkxspecies species;
+	Species_g6::pkxspecies species;
 	Items::items item;
 	uint16 tid;
 	uint16 sid;
