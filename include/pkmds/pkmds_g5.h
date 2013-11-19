@@ -3465,12 +3465,13 @@ private:
 public:
 	byte DATA[0x80000];
 	box_obj * pc_storage;
-
-	void setbox(int box)
-	{
-		pc_storage = box_origin;
-		pc_storage += box;
-	};
+	/**
+	 void setbox(int box)
+	 {
+	 	pc_storage = box_origin;
+	 	pc_storage += box;
+	 };
+	 */
 	int pc_storage_size;
 	SAV_TYPES::sav_types sav_type;
 	sav_object(){}
@@ -3480,21 +3481,26 @@ public:
 		switch(sav_type)
 		{
 		case SAV_TYPES::DP:
-
+		
+			pc_storage_size = 18;
 			break;
 		case SAV_TYPES::Pt:
-
+		
+			pc_storage_size = 18;
 			break;
 		case SAV_TYPES::HGSS:
-
+		
+			pc_storage_size = 18;
 			break;
 		case SAV_TYPES::BW:
-
+		
+			pc_storage_size = 24;
 			break;
 		case SAV_TYPES::BW2:
 			//pc_storage = reinterpret_cast<gen_v_storage*>(DATA + BW2_OFFSETS::boxesstart);
 			//pc_storage = reinterpret_cast<pc_box_obj*>(DATA + BW2_OFFSETS::boxesstart);
-			box_origin = reinterpret_cast<box_obj*>(DATA + BW2_OFFSETS::boxesstart);
+			//box_origin = reinterpret_cast<box_obj*>(DATA + BW2_OFFSETS::boxesstart);
+			pc_storage = reinterpret_cast<box_obj*>(DATA + BW2_OFFSETS::boxesstart);
 			pc_storage_size = 24;
 			break;
 		default:
