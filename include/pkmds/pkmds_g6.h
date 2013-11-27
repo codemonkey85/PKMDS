@@ -1,4 +1,9 @@
+#pragma once
+#ifdef PKMDS_CMAKE_USED
+#include <pkmds/pkmds_g5.h>
+#else
 #include "../../include/pkmds/pkmds_g5.h"
+#endif
 namespace Species_g6
 {
 	enum pkxspecies : uint16 {
@@ -873,7 +878,11 @@ void DllExport encryptpkm(pokemonx_obj* pkx);
 void DllExport decryptpkm(pokemonx_obj* pkx);
 void DllExport calcchecksum(pokemonx_obj* pkx);
 void DllExport read(const char* file_name, pokemonx_obj *data);
+#ifdef _MSC_VER
 void DllExport read(const wchar_t * file_name, pokemonx_obj *data);
+#endif
 void DllExport write(const char* file_name, pokemonx_obj* data);
+#ifdef _MSC_VER
 void DllExport write(const wchar_t * file_name, pokemonx_obj* data);
+#endif
 bool DllExport getpkmshiny(const pokemonx_obj *pkx);
