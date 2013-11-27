@@ -3,13 +3,13 @@ cmake_minimum_required(VERSION 2.8.8)
 IF(NOT ${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
     SET(USED_AS_SUBMODULE TRUE CACHE BOOL "Part of larger project")
 ELSE()
-    PROJECT(pkmds-g5)
+    PROJECT(PKMDS)
     SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/Modules)
 ENDIF(NOT ${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
 
-SET(pkmds-g5_VERSION_MAJOR 0)
-SET(pkmds-g5_VERSION_MINOR 0)
-SET(pkmds-g5_VERSION_PATCH 1)
+SET(PKMDS_VERSION_MAJOR 0)
+SET(PKMDS_VERSION_MINOR 0)
+SET(PKMDS_VERSION_PATCH 1)
 
 # Don't count on PKMDS's source directory being the main source directory
 # If won't be if used as a subdirectory
