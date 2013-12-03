@@ -3493,13 +3493,10 @@ public:
 			pc_storage_size = 18;
 			break;
 		case SAV_TYPES::BW:
-		
+			pc_storage = reinterpret_cast<box_obj*>(DATA + BW_OFFSETS::boxesstart);
 			pc_storage_size = 24;
 			break;
 		case SAV_TYPES::BW2:
-			//pc_storage = reinterpret_cast<gen_v_storage*>(DATA + BW2_OFFSETS::boxesstart);
-			//pc_storage = reinterpret_cast<pc_box_obj*>(DATA + BW2_OFFSETS::boxesstart);
-			//box_origin = reinterpret_cast<box_obj*>(DATA + BW2_OFFSETS::boxesstart);
 			pc_storage = reinterpret_cast<box_obj*>(DATA + BW2_OFFSETS::boxesstart);
 			pc_storage_size = 24;
 			break;
