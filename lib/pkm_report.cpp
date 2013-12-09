@@ -165,7 +165,6 @@ void createtable()
 	vector<std::string> StarValues;
 	vector<std::string> DiamondValues;
 	POSValues.clear();
-	//    int box = 0;
 	for(int box = 0; box < 24; box++)
 	{
 		for(int slot = 0; slot < 30; slot++)
@@ -219,11 +218,13 @@ void createtable()
 				SpeedEVValues.push_back(pkm->evs.speed);
 				FormValues.push_back(getpkmformname(pkm));
 				GameValues.push_back("");
+				// TODO: Fix OT name
 				OTValues.push_back("");
 				//OTValues.push_back(QString::fromStdWString(getpkmotname(pkm)).toStdString());
 				TIDValues.push_back("");
 				SIDValues.push_back("");
 				NatureValues.push_back(getnaturename(pkm));
+				// TODO: Fix nickname
 				NicknameValues.push_back("");
 				//NicknameValues.push_back(QString::fromStdWString(getpkmnickname(pkm)).toStdString());
 				LevelValues.push_back(getpkmlevel(pkm));
@@ -379,14 +380,14 @@ void createtable()
 	ss2 << ");";
 	sqlite3_prepare_v2(db,ss2.str().c_str(),-1,&stmt,0);
 	sqlite3_step(stmt);
-	for(int i = 0; i < ColumnNames.size(); i++)
-	{
-		if(ColumnNames[i] != "Position")
-		{
-			//ui->lstColumns->addItem("");
-			//ui->lstColumns->addItem(QString::fromStdString(ColumnNames[i]));
-		}
-	}
+	//for(int i = 0; i < ColumnNames.size(); i++)
+	//{
+	//	if(ColumnNames[i] != "Position")
+	//	{
+	//		//ui->lstColumns->addItem("");
+	//		//ui->lstColumns->addItem(QString::fromStdString(ColumnNames[i]));
+	//	}
+	//}
 }
 
 void dosearch(vector<std::string> columns, string where, string order, int limit)
@@ -435,27 +436,25 @@ void dosearch(vector<std::string> columns, string where, string order, int limit
 		}
 		sqlite3_finalize(stmt);
 	}
-	////QVector<QString> vect;
 	//QVector<QString> vect;
-	//for(int i = 0; i < columns.size(); i++)
-	//{
-	//	std::ostringstream o;
-	//	o << columns[i];
-	//	vect.push_back(QString::fromStdString(o.str()));
-	//}
-	////ui->tblPKM->setHorizontalHeaderLabels(QStringList::fromVector(vect));
+	std::vector<string> vect;
+	for(int i = 0; i < columns.size(); i++)
+	{
+		std::ostringstream o;
+		o << columns[i];
+		vect.push_back(o.str());
+	}
 	//ui->tblPKM->setHorizontalHeaderLabels(QStringList::fromVector(vect));
-	//int c = 0;
-	//for(vector<vector<string> >::iterator it = results.begin(); it < results.end(); ++it)
-	//{
-	//	vector<string> row = *it;
-	//	ui->tblPKM->insertRow(ui->tblPKM->rowCount());
-	//	positions.push_back(POSValues[c]);
-	//	for(int i = 0; i < columns.size(); i++)
-	//	{
-	//		//ui->tblPKM->setItem(ui->tblPKM->rowCount()-1,i,new QTableWidgetItem(tr(QString::fromStdString(row.at(i)).toLatin1())));
-	//		ui->tblPKM->setItem(ui->tblPKM->rowCount()-1,i,new QTableWidgetItem(tr(QString::fromStdString(row.at(i)).toLatin1())));
-	//	}
-	//	c++;
-	//}
+	int c = 0;
+	for(vector<vector<string> >::iterator it = results.begin(); it < results.end(); ++it)
+	{
+		vector<string> row = *it;
+		//ui->tblPKM->insertRow(ui->tblPKM->rowCount());
+		positions.push_back(POSValues[c]);
+		for(int i = 0; i < columns.size(); i++)
+		{
+			//ui->tblPKM->setItem(ui->tblPKM->rowCount()-1,i,new QTableWidgetItem(tr(QString::fromStdString(row.at(i)).toLatin1())));
+		}
+		c++;
+	}
 }
