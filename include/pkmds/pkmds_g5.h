@@ -3465,6 +3465,7 @@ private:
 public:
 	byte DATA[0x80000];
 	box_obj * pc_storage;
+	bag_obj * bag;
 	/**
 	 void setbox(int box)
 	 {
@@ -3495,10 +3496,12 @@ public:
 		case SAV_TYPES::BW:
 			pc_storage = reinterpret_cast<box_obj*>(DATA + BW_OFFSETS::boxesstart);
 			pc_storage_size = 24;
+			bag = reinterpret_cast<bag_obj*>(DATA + BW_OFFSETS::inventory);
 			break;
 		case SAV_TYPES::BW2:
 			pc_storage = reinterpret_cast<box_obj*>(DATA + BW2_OFFSETS::boxesstart);
 			pc_storage_size = 24;
+			bag = reinterpret_cast<bag_obj*>(DATA + BW2_OFFSETS::inventory);
 			break;
 		default:
 
