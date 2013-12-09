@@ -1103,6 +1103,7 @@ string getnaturename(const pokemon_obj *pkm, const int langid)
 string lookupitemname(const int itemid, const int generation, const int langid)
 {
     if(itemid == int(Items::godstone)){return "God Stone";}
+    if(itemid == int(Items::xtransceiver2)){return lookupitemname(Items::xtransceiver,generation,langid);}
     return getastring(lookupitemnamesql(itemid,generation,langid));
 }
 string lookupitemname(const pokemon_obj &pkm, const int generation, const int langid)
