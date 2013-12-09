@@ -209,13 +209,13 @@ bool comparebyitemidasc(const item_obj & a, const item_obj & b)
 {
 	return a.id < b.id;
 }
-void sortbyitemidasc(std::array<item_obj,310> &items)
-{
-	std::sort(items.begin(), items.end(), comparebyitemidasc);
-}
 bool comparebyitemiddesc(const item_obj & a, const item_obj & b)
 {
 	return a.id > b.id;
+}
+void sortbyitemidasc(std::array<item_obj,310> &items)
+{
+	std::sort(items.begin(), items.end(), comparebyitemidasc);
 }
 void sortbyitemiddesc(std::array<item_obj,310> &items)
 {

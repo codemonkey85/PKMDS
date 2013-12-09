@@ -1,12 +1,15 @@
 #ifdef PKMDS_CMAKE_USED
-#include <pkmds/pkmds_g5_sqlite.h>
-#include <pkmds/pkmds_vector.h>
+//#include <pkmds/pkmds_g5_sqlite.h>
+//#include <pkmds/pkmds_vector.h>
+#include <pkmds/pkm_report.h>
 #else
-#include "..\\..\\include\\pkmds\\pkmds_g5_sqlite.h"
-#include "..\\..\\include\\pkmds\\pkmds_vector.h"
+//#include "..\\..\\include\\pkmds\\pkmds_g5_sqlite.h"
+//#include "..\\..\\include\\pkmds\\pkmds_vector.h"
+#include "..\\..\\include\\pkmds\\pkm_report.h"
 #endif
 using namespace std;
 void print_item_name(item_obj item);
+ofstream ofile;
 int main(int argc, char* argv[])
 {
 	//string savefile;
@@ -66,17 +69,20 @@ int main(int argc, char* argv[])
 	//	// Fix the checksum of the current box
 	//	//calcboxchecksum(&(sav->cur),box,savisbw2(sav));
 	//}
-	sortbyitemidasc(sav->bag->items_pocket);
-	cout << "Items:\n";
+	//sortbyitemidasc(sav->bag->items_pocket);
+	ofile.open("OUT.txt");
+	ofile << "Pokemon Trainer " << "(" << "" << ")'s Bag\n";
+	ofile << "=============================\nItems\n=============================\n";
 	for_each(sav->bag->items_pocket.begin(),sav->bag->items_pocket.end(),print_item_name);
-	cout << "\nMedicine:\n";
+	ofile << "=============================\nMedicine\n=============================\n";
 	for_each(sav->bag->medicine_pocket.begin(),sav->bag->medicine_pocket.end(),print_item_name);
-	cout << "\nMachines:\n";
+	ofile << "=============================\nMachines\n=============================\n";
 	for_each(sav->bag->tms_pocket.begin(),sav->bag->tms_pocket.end(),print_item_name);
-	cout << "\nBerries:\n";
+	ofile << "=============================\nBerries\n=============================\n";
 	for_each(sav->bag->berries_pocket.begin(),sav->bag->berries_pocket.end(),print_item_name);
-	cout << "\nKey Items:\n";
+	ofile << "=============================\nKey Items\n=============================\n";
 	for_each(sav->bag->keyitems_pocket.begin(),sav->bag->keyitems_pocket.end(),print_item_name);
+	ofile.close();
 	// Close the database file
 	closedb();
 	// Fix the save file checksums
@@ -89,8 +95,8 @@ int main(int argc, char* argv[])
 	ppkm = 0;
 	pkm = 0;
 	//item = 0;
-	string test = "";
-	getline(cin,test);
+	//string test = "";
+	//getline(cin,test);
 	// Exit the program and return 0
 	return 0;
 }
@@ -102,11 +108,11 @@ void print_item_name(item_obj item)
 			(((int)(item.id) >= (int)Items::tm93) & ((int)(item.id) <= (int)Items::tm95)) |
 			(((int)(item.id) >= (int)Items::hm01) & ((int)(item.id) <= (int)Items::hm06)))
 		{
-			cout << lookupitemname((int)(item.id)) << " (" << getmachinemovename(Items::items((int)(item.id))) + ") X " << item.quantity << "\n";
+			ofile << lookupitemname((int)(item.id)) << " (" << getmachinemovename(Items::items((int)(item.id))) + ") X " << item.quantity << "\n";
 		}
 		else
 		{
-			cout << lookupitemname((int)(item.id)) << " X " << item.quantity << "\n";
+			ofile << lookupitemname((int)(item.id)) << " X " << item.quantity << "\n";
 		}
 	}
 }
