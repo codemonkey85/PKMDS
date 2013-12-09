@@ -23,6 +23,10 @@ bool DllExport comparebyspdefasc(const pokemon_obj &a, const pokemon_obj &b);
 void DllExport sortbyspdefasc(std::vector<pokemon_obj>& pkm);
 bool DllExport comparebyhpasc(const pokemon_obj &a, const pokemon_obj &b);
 void DllExport sortbyhpasc(std::vector<pokemon_obj>& pkm);
+bool comparebyitemidasc(const item_obj & a, const item_obj & b);
+void sortbyitemidasc(std::array<item_obj,310> &items);
+bool comparebyitemiddesc(const item_obj & a, const item_obj & b);
+void sortbyitemiddesc(std::array<item_obj,310> &items);
 //TODO: Create a vector of pointers to pokemon_obj that can be manipulated for the purpose of inserting and deleting pokemon in the pc storage system.
 std::vector<pokemon_obj> DllExport *getpcvector(bw2savblock_obj * block, const bool encrypted = true);
 std::vector<pokemon_obj*> DllExport *getpcvectorp(bw2savblock_obj * block, const bool encrypted = true);
