@@ -1,7 +1,9 @@
 #ifdef PKMDS_CMAKE_USED
 #include <pkmds/pkmds_g5_sqlite.h>
+#include <pkmds/pkmds_vector.h>
 #else
 #include "..\\..\\include\\pkmds\\pkmds_g5_sqlite.h"
+#include "..\\..\\include\\pkmds\\pkmds_vector.h"
 #endif
 using namespace std;
 void print_item_name(item_obj item);
@@ -64,6 +66,7 @@ int main(int argc, char* argv[])
 	//	// Fix the checksum of the current box
 	//	//calcboxchecksum(&(sav->cur),box,savisbw2(sav));
 	//}
+	sortbyitemidasc(sav->bag->items_pocket);
 	cout << "Items:\n";
 	for_each(sav->bag->items_pocket.begin(),sav->bag->items_pocket.end(),print_item_name);
 	cout << "\nMedicine:\n";
