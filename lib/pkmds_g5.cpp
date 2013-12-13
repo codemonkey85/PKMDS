@@ -204,6 +204,22 @@ void decryptpkm(pokemon_obj& pkm)
     pkm.ispartydatadecrypted = 1;
     pkm.isboxdatadecrypted = 1;
 }
+void decryptpartypkm_it(party_pkm & pkm)
+{
+	decryptpkm(pkm);
+}
+void decryptpkm_it(pokemon_obj & pkm)
+{
+	decryptpkm(pkm);
+}
+void encryptpartypkm_it(party_pkm & pkm)
+{
+	encryptpkm(pkm);
+}
+void encryptpkm_it(pokemon_obj & pkm)
+{
+	encryptpkm(pkm);
+}
 void encryptpkm(party_pkm& pkm)
 {
     shufflepkm(pkm.pkm_data);
@@ -1152,4 +1168,28 @@ void deletemove(std::array<Moves::moves,4> & moves, byte move)
     temp.erase(temp.begin()+move);
     std::fill(moves.begin(),moves.end(),Moves::NOTHING);
     std::copy(temp.begin(),temp.end(),moves.begin());
+}
+void decryptparty(party_obj & party)
+{
+	std::for_each(party.pokemon.begin(),party.pokemon.end(),decryptpartypkm_it);
+}
+void decryptbox(box_obj & box)
+{
+	std::for_each(box.pokemon.begin(),box.pokemon.end(),decryptpkm_it);
+}
+void decryptpc(bw2savblock_obj & block)
+{
+	std::for_each(block.boxes.begin(),block.boxes.end(),decryptbox);
+}
+void encryptparty(party_obj & party)
+{
+	std::for_each(party.pokemon.begin(),party.pokemon.end(),encryptpartypkm_it);
+}
+void encryptbox(box_obj & box)
+{
+	std::for_each(box.pokemon.begin(),box.pokemon.end(),encryptpkm_it);
+}
+void encryptpc(bw2savblock_obj & block)
+{
+	std::for_each(block.boxes.begin(),block.boxes.end(),encryptbox);
 }
