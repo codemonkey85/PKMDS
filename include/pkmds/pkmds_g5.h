@@ -3097,6 +3097,10 @@ void DllExport pkmcrypt(party_field& pkm, uint32 pid);
 void DllExport pkmcrypt(party_field* pkm, uint32 pid);
 void DllExport encryptpkm(pokemon_obj& pkm);
 void DllExport decryptpkm(pokemon_obj& pkm);
+void DllExport decryptpartypkm_it(party_pkm & pkm);
+void DllExport decryptpkm_it(pokemon_obj & pkm);
+void DllExport encryptpartypkm_it(party_pkm & pkm);
+void DllExport encryptpkm_it(pokemon_obj & pkm);
 void DllExport encryptpkm(party_pkm& pkm);
 void DllExport decryptpkm(party_pkm& pkm);
 void DllExport encryptpkm(party_pkm* pkm);
@@ -3922,8 +3926,14 @@ std::wstring DllExport getwstring(char* in, int len); //Linux needs this
 std::string DllExport getpkrsstatus(const pokemon_obj * pkm);
 std::array<bool, 80> DllExport getribbonswitches(const pokemon_obj * pkm);
 std::vector<std::string> DllExport getobtainedribbons(const pokemon_obj * pkm);
-void deletemove(std::array<Moves::moves,4> & moves, byte move);
-void remove_pkm(bw2savblock_obj * block, const int slot);
+void DllExport deletemove(std::array<Moves::moves,4> & moves, byte move);
+void DllExport remove_pkm(bw2savblock_obj * block, const int slot);
+void DllExport decryptparty(party_obj & party);
+void DllExport decryptbox(box_obj & box);
+void DllExport decryptpc(bw2savblock_obj & block);
+void DllExport encryptparty(party_obj & party);
+void DllExport encryptbox(box_obj & box);
+void DllExport encryptpc(bw2savblock_obj & block);
 /*
 Main Save File & Backup
 
