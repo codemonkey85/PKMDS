@@ -1189,42 +1189,48 @@ int getpokemoncolor(const Species::pkmspecies speciesid)
 }
 uint32 getpkmcolor(const Species::pkmspecies species)
 {
-    switch(getpokemoncolor(species))
-    {
-    case 1:// 1 = black
-        return 0x5A5A5A;
-        break;
-    case 2:// 2 = blue
-        return 0x318CF7;
-        break;
-    case 3:// 3 = brown
-        return 0xB57331;
-        break;
-    case 4:// 4 = gray
-        return 0xA5A5A5;
-        break;
-    case 5:// 5 = green
-        return 0x42BD6B;
-        break;
-    case 6:// 6 = pink
-        return 0xFF94CE;
-        break;
-    case 7:// 7 = purple
-        return 0xAD6BC6;
-        break;
-    case 8:// 8 = red
-        return 0xF75A6B;
-        break;
-    case 9:// 9 = white
-        return 0xF7F7F7;
-        break;
-    case 10:// 10 = yellow
-        return 0xF7D64A;
-        break;
-    default:
-        return 0xF0F0F0;
-        break;
-    }
+	uint32 pkmcolor = getpkmcolorhex(getpokemoncolor(species));
+	if(pkmcolor == 0)
+	{
+		return 0xF0F0F0;
+	}
+	return pkmcolor;
+    //switch(getpokemoncolor(species))
+    //{
+    //case 1:// 1 = black
+    //    return 0x5A5A5A;
+    //    break;
+    //case 2:// 2 = blue
+    //    return 0x318CF7;
+    //    break;
+    //case 3:// 3 = brown
+    //    return 0xB57331;
+    //    break;
+    //case 4:// 4 = gray
+    //    return 0xA5A5A5;
+    //    break;
+    //case 5:// 5 = green
+    //    return 0x42BD6B;
+    //    break;
+    //case 6:// 6 = pink
+    //    return 0xFF94CE;
+    //    break;
+    //case 7:// 7 = purple
+    //    return 0xAD6BC6;
+    //    break;
+    //case 8:// 8 = red
+    //    return 0xF75A6B;
+    //    break;
+    //case 9:// 9 = white
+    //    return 0xF7F7F7;
+    //    break;
+    //case 10:// 10 = yellow
+    //    return 0xF7D64A;
+    //    break;
+    //default:
+    //    return 0xF0F0F0;
+    //    break;
+    //}
 }
 string getmachinemovename(const Items::items itemid, const int generation, const int version_group, const int langid)
 {
