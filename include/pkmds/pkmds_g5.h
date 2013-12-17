@@ -2429,7 +2429,6 @@ namespace PokemonColors
 {
 	enum pokemoncolors : byte
 	{
-		// TODO: Get the actual hashcodes (hexcodes?) of the in-game colors.
 		black=1,
 		blue,
 		brown,
@@ -2442,6 +2441,7 @@ namespace PokemonColors
 		yellow
 	};
 }
+uint32 DllExport getpkmcolorhex(int pkmcolor);
 int DllExport balltoitem(int ball);
 Types::types DllExport getarceustype(int form);
 struct pokerus {
