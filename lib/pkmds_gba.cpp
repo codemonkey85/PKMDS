@@ -18,31 +18,21 @@ void sortsavefile(gbasavefile * sav)
 }
 void sortsaveblocks(gbasavehalf * savehalf)
 {
-	std::vector<gbasaveblock*> * theblocks = new std::vector<gbasaveblock*>;
-	for(int i = 0; i < 14; i++)
-	{
-		theblocks->push_back(&(savehalf->blocks[i]));
-	}
-	sortblocks(theblocks);
-	byte * data = new byte[0x14000];
-	for(int i = 0; i < 14; i++)
-	{
-		memcpy(&(data[0x1000*i]),(*theblocks)[i],0x1000);
-	}
-	memcpy(savehalf,&data,0x14000);
+	sortblocks(savehalf->blocks);
 }
-bool compareblocks(gbasaveblock *a, gbasaveblock *b)
+bool compareblocks(gbasaveblock a, gbasaveblock b)
 {
-	return a->footer.blockid < b->footer.blockid;
+	return a.footer.blockid < b.footer.blockid;
 }
-void sortblocks(std::vector<gbasaveblock*> * theblocks)
+void sortblocks(std::array<gbasaveblock,14> & theblocks)
 {
-	std::sort((*theblocks).begin(),(*theblocks).end(),compareblocks);
+	std::sort(theblocks.begin(),theblocks.end(),compareblocks);
 }
 void decryptgbapkm(gbapokemon * pkm)
 {
 	uint32 key = (pkm->trainerid  ^ pkm->pid);
-	uint32 * pkmpnt = reinterpret_cast<uint32*>(&(pkm->encrypted));
+	uint32 * pkmpnt = new uint32;
+	pkmpnt = reinterpret_cast<uint32*>(&(pkm->encrypted));
 	for(int i = 0; i < 12; i++)
 	{
 		pkmpnt[i] = (pkmpnt[i] ^ key);
@@ -58,10 +48,11 @@ const byte t_shuffle[24][4] = {
 };
 void shufflegbapkm(gbapokemon * pkm, bool un)
 {
-	byte * pkmpnt = reinterpret_cast<byte*>(&(pkm->encrypted));
+	byte * pkmpnt = new byte();
+	pkmpnt = reinterpret_cast<byte*>(&(pkm->encrypted));
 	byte temp[48];
-	byte mode = (((((uint32*) pkmpnt)[0] >> 0xD) & 0x1F) % 24);
-
+	//byte mode = (((((uint32*) pkmpnt)[0] >> 0xD) & 0x1F) % 24);
+	byte mode = pkm->pid % 24;
 	if (un) {
 		memcpy(&(temp[t_shuffle[mode][0] * 12]), &pkmpnt[0 * 12], 12);
 		memcpy(&(temp[t_shuffle[mode][1] * 12]), &pkmpnt[1 * 12], 12);
@@ -73,5 +64,16 @@ void shufflegbapkm(gbapokemon * pkm, bool un)
 		memcpy(&(temp[2 * 12]), &pkmpnt[t_shuffle[mode][2] * 12], 12);
 		memcpy(&(temp[3 * 12]), &pkmpnt[t_shuffle[mode][3] * 12], 12);
 	}
-	memcpy(&pkmpnt, &temp, 48);
+	memcpy(pkmpnt, &temp, 48);
+}
+void DllExport calcchecksum(gbapokemon * pkm)
+{
+	uint32 sum = 0;
+	uint16 * word = new uint16();
+	word = reinterpret_cast<uint16*>(&(pkm->encrypted));
+	for(int i = 0; i < 24; i++)
+	{
+		sum += word[i];
+	}
+	pkm->checksum = sum;
 }
