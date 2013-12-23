@@ -1190,7 +1190,7 @@ void deletemove(pokemon_obj * pkm, byte move)
 	pkm->moves = moves;
 	for(int i = 0; i < 4; i++)
 	{
-		if(moves[i] = Moves::NOTHING)
+        if(moves[i] == Moves::NOTHING)
 		{
 			pkm->pp[i] = 0;
 			pkm->ppup[0] = 0;

@@ -80,42 +80,42 @@ frmBoxes::frmBoxes(QWidget *parent) :
     boxpreviewgraphics[23] = ui->pbBox24;
     this->setWindowFlags(Qt::MSWindowsFixedSizeDialogHint);
 
-//    connect(mouseEventEater, SIGNAL(send_rightButtonClicked(const QPoint&)),
-//                this, SLOT(rightButtonClicked(const QPoint&)));
+    //    connect(mouseEventEater, SIGNAL(send_rightButtonClicked(const QPoint&)),
+    //                this, SLOT(rightButtonClicked(const QPoint&)));
 
-//    /*
-////    QMenu* pContextMenu = new QMenu(this);
-////    //    QTreeWidget* pTreeWidget = new QTreeWidget();
-////    QAction* qaDeletePKM = new QAction(tr("Delete Pokemon"), pContextMenu);
-////    ui->pbBoxSlot01->setContextMenuPolicy(Qt::ActionsContextMenu);
-////    //    pTreeWidget->setContextMenuPolicy(Qt::ActionsContextMenu);
-////    //    pTreeWidget->addAction(pOpenFile);
-////    //connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
-////    //    connect(qaDeletePKM,
-////    //            SIGNAL(triggered()),
-////    //            this,
-////    //            SLOT(frmBoxes::on_actionDeletePKM(QGraphicsView * gView)));
-////    //    QString ss("QMenu{background-color: #ABABAB;border: 1px solid black;}");
-////    this->connect(
-////                qaDeletePKM,
-////                SIGNAL(triggered()),
-////                this,
-////                SLOT(open())
-////                );
-////    ui->pbBoxSlot01->addAction(qaDeletePKM);
-////    //    qApp->setStyleSheet(ss);
-////    boxgraphics[0]->setContextMenuPolicy(Qt::CustomContextMenu);
-//*/
-//    boxgraphics[0]->setContextMenuPolicy(Qt::ActionsContextMenu);
-//    QMenu* pContextMenu = new QMenu(this);
-//    QAction* qaDeletePKM = new QAction(tr("Delete Pokemon"), pContextMenu);
-//    /*this->*//*QObject::*/connect(
-//                qaDeletePKM,
-//                SIGNAL(triggered()),
-//                /*this*/boxgraphics[0],
-//                SLOT(on_actionDeletePKM(boxgraphics[0]))
-//                );
-//    boxgraphics[0]->addAction(qaDeletePKM);
+    //    /*
+    ////    QMenu* pContextMenu = new QMenu(this);
+    ////    //    QTreeWidget* pTreeWidget = new QTreeWidget();
+    ////    QAction* qaDeletePKM = new QAction(tr("Delete Pokemon"), pContextMenu);
+    ////    ui->pbBoxSlot01->setContextMenuPolicy(Qt::ActionsContextMenu);
+    ////    //    pTreeWidget->setContextMenuPolicy(Qt::ActionsContextMenu);
+    ////    //    pTreeWidget->addAction(pOpenFile);
+    ////    //connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
+    ////    //    connect(qaDeletePKM,
+    ////    //            SIGNAL(triggered()),
+    ////    //            this,
+    ////    //            SLOT(frmBoxes::on_actionDeletePKM(QGraphicsView * gView)));
+    ////    //    QString ss("QMenu{background-color: #ABABAB;border: 1px solid black;}");
+    ////    this->connect(
+    ////                qaDeletePKM,
+    ////                SIGNAL(triggered()),
+    ////                this,
+    ////                SLOT(open())
+    ////                );
+    ////    ui->pbBoxSlot01->addAction(qaDeletePKM);
+    ////    //    qApp->setStyleSheet(ss);
+    ////    boxgraphics[0]->setContextMenuPolicy(Qt::CustomContextMenu);
+    //*/
+    //    boxgraphics[0]->setContextMenuPolicy(Qt::ActionsContextMenu);
+    //    QMenu* pContextMenu = new QMenu(this);
+    //    QAction* qaDeletePKM = new QAction(tr("Delete Pokemon"), pContextMenu);
+    //    /*this->*//*QObject::*/connect(
+    //                qaDeletePKM,
+    //                SIGNAL(triggered()),
+    //                /*this*/boxgraphics[0],
+    //                SLOT(on_actionDeletePKM(boxgraphics[0]))
+    //                );
+    //    boxgraphics[0]->addAction(qaDeletePKM);
 }
 //void frmBoxes::on_actionDeletePKM(QGraphicsView * gView)
 //{
@@ -374,4 +374,32 @@ void frmBoxes::on_actionSearch_triggered()
 void frmBoxes::on_pbBoxSlot01_customContextMenuRequested(const QPoint &pos)
 {
     //        pContextMenu->show();
+}
+
+void frmBoxes::on_actionDelete_HMs_triggered()
+{
+    party_pkm * ppkm_ = new party_pkm();
+    pokemon_obj * pkm_ = new pokemon_obj();
+    for(int pslot = 0; pslot < sav->cur.party.size; pslot++)
+    {
+        ppkm_ = &(sav->cur.party.pokemon[pslot]);
+        pkm_ = &(ppkm_->pkm_data);
+        //decryptpkm(ppkm_);
+        deletehms(pkm_);
+        //encryptpkm(ppkm_);
+    }
+    //    calcpartychecksum(&(sav->cur),isbw2);
+    for(int box = 0; box < 24; box++)
+    {
+        for(int slot = 0; slot < 30; slot++)
+        {
+            pkm_ = &(sav->cur.boxes[box].pokemon[slot]);
+            //decryptpkm(pkm_);
+            deletehms(pkm_);
+            //encryptpkm(pkm_);
+        }
+        //calcboxchecksum(&(sav->cur),box,isbw2);
+    }
+    //fixsavchecksum(sav,isbw2);
+    //write("OUT.sav",sav);
 }
