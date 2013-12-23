@@ -3166,9 +3166,11 @@ struct party_obj { // size: 0x534
 uint32 : 32;
 public:
 	uint32 size;
-	std::array<party_pkm,6> pokemon;
+	std::array<party_pkm,6> pokemon; // size: 0x528
+	uint16 : 16;
+	uint16 : 16;
+	uint16 : 16;
 	uint16 checksum;
-uint16 : 16;
 	party_obj()
 	{
 		memset(this,0,sizeof(party_obj));
@@ -3531,7 +3533,7 @@ public:
 	std::array<box_obj,24> boxes; // size: 0x18000
 	bag_obj bag; // size: 0xA00
 	party_obj party; // size: 0x534
-	byte unknown3[0xD0]; //
+	byte unknown3[0xCA]; //
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
 	char trainername[0x10]; // size: 0x10
@@ -3810,6 +3812,7 @@ static const int SeedTable[] =
 	0x6E17, 0x7E36, 0x4E55, 0x5E74, 0x2E93, 0x3EB2, 0x0ED1, 0x1EF0
 };
 static const long boxsize = 0xff0;
+static const long partysize = 0x534; // 0x524;
 uint16 DllExport getchecksum(bw2savblock_obj &block, const int start, const int length);
 void DllExport calcboxchecksum(bw2savblock_obj &block, int boxindex, bool bw2);
 void DllExport calcpartychecksum(bw2savblock_obj &block, bool bw2); // ,bool bw2);

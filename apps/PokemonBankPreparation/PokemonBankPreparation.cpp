@@ -1,4 +1,4 @@
-#include "../../../PKMDS/include/pkmds/pkmds_g5.h"
+#include "../../include/pkmds/pkmds_g5.h"
 void fixpkm(pokemon_obj * pkm);
 using namespace std;
 int main(int argc, char* argv[])
@@ -20,25 +20,25 @@ int main(int argc, char* argv[])
 	if(savread)
 	{
 		bool isbw2 = savisbw2(sav);
-		decryptparty(sav->cur.party);
-		decryptpc(sav->cur);
 		for(int pslot = 0; pslot < sav->cur.party.size; pslot++)
 		{
 			ppkm = &(sav->cur.party.pokemon[pslot]);
+			decryptpkm(ppkm);
 			pkm = &(ppkm->pkm_data);
 			fixpkm(pkm);
+			encryptpkm(ppkm);
 		}
 		for(int box = 0; box < 24; box++)
 		{
 			for(int slot = 0; slot < 30; slot++)
 			{
 				pkm = &(sav->cur.boxes[box].pokemon[slot]);
+				decryptpkm(pkm);
 				fixpkm(pkm);
 				encryptpkm(pkm);
 			}
 			calcboxchecksum(&(sav->cur),box,isbw2);
 		}
-		encryptparty(sav->cur.party);
 		calcpartychecksum(&(sav->cur),isbw2);
 		fixsavchecksum(sav,isbw2);
 		write("OUT.sav",sav);
