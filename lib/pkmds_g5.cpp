@@ -1179,13 +1179,23 @@ std::vector<std::string> getobtainedribbons(const pokemon_obj * pkm)
 	}
 	return ribbonnames;
 }
-void deletemove(std::array<Moves::moves,4> & moves, byte move)
+void deletemove(pokemon_obj * pkm, byte move)
 {
+	std::array<Moves::moves,4> & moves = pkm->moves;
 	std::vector<Moves::moves> temp(4);
 	std::copy(moves.begin(),moves.end(),temp.begin());
 	temp.erase(temp.begin()+move);
 	std::fill(moves.begin(),moves.end(),Moves::NOTHING);
 	std::copy(temp.begin(),temp.end(),moves.begin());
+	pkm->moves = moves;
+	for(int i = 0; i < 4; i++)
+	{
+		if(moves[i] = Moves::NOTHING)
+		{
+			pkm->pp[i] = 0;
+			pkm->ppup[0] = 0;
+		}
+	}
 }
 void decryptparty(party_obj & party)
 {
@@ -1263,7 +1273,7 @@ void deletehms(pokemon_obj * pkm)
 			(pkm->moves[move] == Moves::dive)
 			)
 		{
-			deletemove(pkm->moves,byte(move));
+			deletemove(pkm,byte(move));
 		}
 	}
 	if(pkm->moves[0] == Moves::NOTHING)

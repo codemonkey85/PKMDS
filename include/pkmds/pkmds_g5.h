@@ -3929,7 +3929,7 @@ std::wstring DllExport getwstring(char* in, int len); //Linux needs this
 std::string DllExport getpkrsstatus(const pokemon_obj * pkm);
 std::array<bool, 80> DllExport getribbonswitches(const pokemon_obj * pkm);
 std::vector<std::string> DllExport getobtainedribbons(const pokemon_obj * pkm);
-void DllExport deletemove(std::array<Moves::moves,4> & moves, byte move);
+void DllExport deletemove(pokemon_obj * pkm, byte move);
 void DllExport remove_pkm(bw2savblock_obj * block, const int slot);
 void DllExport decryptparty(party_obj & party);
 void DllExport decryptbox(box_obj & box);

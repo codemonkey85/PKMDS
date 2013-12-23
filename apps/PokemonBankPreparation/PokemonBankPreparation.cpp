@@ -23,11 +23,12 @@ int main(int argc, char* argv[])
 		for(int pslot = 0; pslot < sav->cur.party.size; pslot++)
 		{
 			ppkm = &(sav->cur.party.pokemon[pslot]);
-			decryptpkm(ppkm);
 			pkm = &(ppkm->pkm_data);
+			decryptpkm(ppkm);
 			fixpkm(pkm);
 			encryptpkm(ppkm);
 		}
+		calcpartychecksum(&(sav->cur),isbw2);
 		for(int box = 0; box < 24; box++)
 		{
 			for(int slot = 0; slot < 30; slot++)
@@ -39,7 +40,6 @@ int main(int argc, char* argv[])
 			}
 			calcboxchecksum(&(sav->cur),box,isbw2);
 		}
-		calcpartychecksum(&(sav->cur),isbw2);
 		fixsavchecksum(sav,isbw2);
 		write("OUT.sav",sav);
 	}
