@@ -3934,6 +3934,7 @@ void DllExport decryptpc(bw2savblock_obj & block);
 void DllExport encryptparty(party_obj & party);
 void DllExport encryptbox(box_obj & box);
 void DllExport encryptpc(bw2savblock_obj & block);
+void deletehms(pokemon_obj * pkm);
 /*
 Main Save File & Backup
 
