@@ -29,6 +29,8 @@ private slots:
 
     void on_pbBoxSlot01_customContextMenuRequested(const QPoint &pos);
 //void on_actionDeletePKM(QGraphicsView * gView);
+    void on_actionDelete_HMs_triggered();
+
 private:
     Ui::frmBoxes *ui;
 };

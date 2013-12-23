@@ -2297,7 +2297,14 @@
     </property>
     <addaction name="actionSearch"/>
    </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionDelete_HMs"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
    <addaction name="menuSearch"/>
   </widget>
   <action name="actionLoad_SAV">
@@ -2313,6 +2320,11 @@
   <action name="actionSearch">
    <property name="text">
     <string>Search...</string>
+   </property>
+  </action>
+  <action name="actionDelete_HMs">
+   <property name="text">
+    <string>Delete HMs...</string>
    </property>
   </action>
  </widget>
