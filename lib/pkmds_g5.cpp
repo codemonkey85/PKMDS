@@ -287,16 +287,25 @@ uint16 getchecksum(bw2savblock_obj &block, const int start, const int length){
 }
 void calcpartychecksum(bw2savblock_obj &block, bool bw2)
 {
-	uint16 chk = getchecksum(block,0x18E00,0x534);
-	byte* data = reinterpret_cast<byte*>(&block);
-	memcpy(&*(data+0x19336),&chk,2);
-	if (bw2)
+	int start = 0;
+	if(bw2)
 	{
-		memcpy(data + (long)BW2_OFFSETS::chkcalcloc + 28, &chk, 2);
+		start = BW2_OFFSETS::partypkm;
 	}
 	else
 	{
-		memcpy(data + (long)BW_OFFSETS::chkcalcloc + 28, &chk, 2);
+		start = BW_OFFSETS::partypkm;
+	}
+	uint16 chk = getchecksum(block,start,partysize);
+	block.party.checksum = chk;
+	byte* data = reinterpret_cast<byte*>(&block);
+	if (bw2)
+	{
+		memcpy(data + (long)BW2_OFFSETS::chkcalcloc + 0x34, &chk, 2);
+	}
+	else
+	{
+		memcpy(data + (long)BW_OFFSETS::chkcalcloc + 0x34, &chk, 2);
 	}
 }
 void calcboxchecksum(bw2savblock_obj &block, int boxindex, bool bw2)
@@ -362,16 +371,25 @@ uint16 getchecksum(bw2savblock_obj *block, const int start, const int length)
 }
 void calcpartychecksum(bw2savblock_obj *block, bool bw2)
 {
-	uint16 chk = getchecksum(block,0x18E00,0x534);
-	byte* data = reinterpret_cast<byte*>(block);
-	memcpy(&*(data+0x19336),&chk,2);
-	if (bw2)
+	int start = 0;
+	if(bw2)
 	{
-		memcpy(data + (long)BW2_OFFSETS::chkcalcloc + 28, &chk, 2);
+		start = BW2_OFFSETS::partypkm;
 	}
 	else
 	{
-		memcpy(data + (long)BW_OFFSETS::chkcalcloc + 28, &chk, 2);
+		start = BW_OFFSETS::partypkm;
+	}
+	uint16 chk = getchecksum(block,start,partysize);
+	block->party.checksum = chk;
+	byte* data = reinterpret_cast<byte*>(block);
+	if (bw2)
+	{
+		memcpy(data + (long)BW2_OFFSETS::chkcalcloc + 0x34, &chk, 2);
+	}
+	else
+	{
+		memcpy(data + (long)BW_OFFSETS::chkcalcloc + 0x34, &chk, 2);
 	}
 }
 void calcboxchecksum(bw2savblock_obj *block, int boxindex, bool bw2)
