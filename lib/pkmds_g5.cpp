@@ -1181,19 +1181,19 @@ std::vector<std::string> getobtainedribbons(const pokemon_obj * pkm)
 }
 void deletemove(pokemon_obj * pkm, byte move)
 {
-	std::array<Moves::moves,4> & moves = pkm->moves;
+	std::array<Moves::moves,4> moves = pkm->moves;
 	std::vector<Moves::moves> temp(4);
 	std::copy(moves.begin(),moves.end(),temp.begin());
 	temp.erase(temp.begin()+move);
 	std::fill(moves.begin(),moves.end(),Moves::NOTHING);
 	std::copy(temp.begin(),temp.end(),moves.begin());
-	std::array<byte,4> & move_pp = pkm->pp;
+	std::array<byte,4> move_pp = pkm->pp;
 	std::vector<byte> temppp(4);
 	std::copy(move_pp.begin(),move_pp.end(),temppp.begin());
 	temppp.erase(temppp.begin()+move);
 	std::fill(move_pp.begin(),move_pp.end(),0);
 	std::copy(temppp.begin(),temppp.end(),move_pp.begin());
-	std::array<byte,4> & move_ppups = pkm->ppup;
+	std::array<byte,4> move_ppups = pkm->ppup;
 	std::vector<byte> tempppups(4);
 	std::copy(move_ppups.begin(),move_ppups.end(),tempppups.begin());
 	tempppups.erase(tempppups.begin()+move);
