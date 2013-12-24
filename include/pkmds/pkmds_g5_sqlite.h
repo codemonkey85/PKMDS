@@ -143,6 +143,7 @@ string DllExport lookuptypename(const Types::types type, const int langid = LANG
 string DllExport lookuptypename(const int type, const int langid = LANG_ID);
 string DllExport getmachinetypename(const Items::items itemid, const int generation = GENERATION, const int version_group = VERSION_GROUP);
 string DllExport getpokemoncolorstring(const Species::pkmspecies speciesid);
-int getpokemoncolor(const Species::pkmspecies speciesid);
+int DllExport getpokemoncolor(const Species::pkmspecies speciesid);
 uint32 DllExport getpkmcolor(const Species::pkmspecies species);
 string DllExport getmachinemovename(const Items::items itemid, const int generation = GENERATION, const int version_group = VERSION_GROUP, const int langid = LANG_ID);
+int DllExport getitempocket(const Items::items itemid, const int generation = GENERATION);

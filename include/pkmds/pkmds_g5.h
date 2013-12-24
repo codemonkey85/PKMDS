@@ -2441,6 +2441,20 @@ namespace PokemonColors
 		yellow
 	};
 }
+namespace ItemPockets
+{
+	enum itempockets : byte
+	{
+		misc=1,
+		medicine,
+		pokeballs,
+		machines,
+		berries,
+		mail,
+		battle,
+		key
+	};
+}
 uint32 DllExport getpkmcolorhex(int pkmcolor);
 int DllExport balltoitem(int ball);
 Types::types DllExport getarceustype(int form);
@@ -3167,9 +3181,9 @@ uint32 : 32;
 public:
 	uint32 size;
 	std::array<party_pkm,6> pokemon; // size: 0x528
-	uint16 : 16;
-	uint16 : 16;
-	uint16 : 16;
+uint16 : 16;
+uint16 : 16;
+uint16 : 16;
 	uint16 checksum;
 	party_obj()
 	{
@@ -3473,12 +3487,12 @@ public:
 	box_obj * pc_storage;
 	bag_obj * bag;
 	/**
-	 void setbox(int box)
-	 {
-	 	pc_storage = box_origin;
-	 	pc_storage += box;
-	 };
-	 */
+	void setbox(int box)
+	{
+	pc_storage = box_origin;
+	pc_storage += box;
+	};
+	*/
 	int pc_storage_size;
 	SAV_TYPES::sav_types sav_type;
 	sav_object(){}
@@ -3488,15 +3502,15 @@ public:
 		switch(sav_type)
 		{
 		case SAV_TYPES::DP:
-		
+
 			pc_storage_size = 18;
 			break;
 		case SAV_TYPES::Pt:
-		
+
 			pc_storage_size = 18;
 			break;
 		case SAV_TYPES::HGSS:
-		
+
 			pc_storage_size = 18;
 			break;
 		case SAV_TYPES::BW:
@@ -3595,86 +3609,86 @@ static const std::string ballnames[26] = {
 };
 static const int RIBBONS_MAX_NUM = 80;
 static const std::string ribbon_identifiers[RIBBONS_MAX_NUM] = {
-    "sinnoh-champ-ribbon",
-    "ability-ribbon",
-    "great-ability-ribbon",
-    "double-ability-ribbon",
-    "multi-ability-ribbon",
-    "pair-ability-ribbon",
-    "world-ability-ribbon",
-    "alert-ribbon",
-    "shock-ribbon",
-    "downcast-ribbon",
-    "careless-ribbon",
-    "relax-ribbon",
-    "snooze-ribbon",
-    "smile-ribbon",
-    "gorgeous-ribbon",
-    "royal-ribbon",
-    "gorgeous-royal-ribbon",
-    "footprint-ribbon",
-    "record-ribbon",
-    "history-ribbon",
-    "legend-ribbon",
-    "red-ribbon",
-    "green-ribbon",
-    "blue-ribbon",
-    "festival-ribbon",
-    "carnival-ribbon",
-    "classic-ribbon",
-    "premier-ribbon",
-    "cool-ribbon",
-    "cool-ribbon-great",
-    "cool-ribbon-ultra",
-    "cool-ribbon-master",
-    "beauty-ribbon",
-    "beauty-ribbon-great",
-    "beauty-ribbon-ultra",
-    "beauty-ribbon-master",
-    "cute-ribbon",
-    "cute-ribbon-great",
-    "cute-ribbon-ultra",
-    "cute-ribbon-master",
-    "smart-ribbon",
-    "smart-ribbon-great",
-    "smart-ribbon-ultra",
-    "smart-ribbon-master",
-    "tough-ribbon",
-    "tough-ribbon-great",
-    "tough-ribbon-ultra",
-    "tough-ribbon-master",
-    "cool-ribbon",
-    "cool-ribbon-super",
-    "cool-ribbon-hyper",
-    "cool-ribbon-master",
-    "beauty-ribbon",
-    "beauty-ribbon-super",
-    "beauty-ribbon-hyper",
-    "beauty-ribbon-master",
-    "cute-ribbon",
-    "cute-ribbon-super",
-    "cute-ribbon-hyper",
-    "cute-ribbon-master",
-    "smart-ribbon",
-    "smart-ribbon-super",
-    "smart-ribbon-hyper",
-    "smart-ribbon-master",
-    "tough-ribbon",
-    "tough-ribbon-super",
-    "tough-ribbon-hyper",
-    "tough-ribbon-master",
-    "champion-ribbon",
-    "winning-ribbon",
-    "victory-ribbon",
-    "artist-ribbon",
-    "effort-ribbon",
-    "marine-ribbon",
-    "land-ribbon",
-    "sky-ribbon",
-    "country-ribbon",
-    "national-ribbon",
-    "earth-ribbon",
-    "world-ribbon"
+	"sinnoh-champ-ribbon",
+	"ability-ribbon",
+	"great-ability-ribbon",
+	"double-ability-ribbon",
+	"multi-ability-ribbon",
+	"pair-ability-ribbon",
+	"world-ability-ribbon",
+	"alert-ribbon",
+	"shock-ribbon",
+	"downcast-ribbon",
+	"careless-ribbon",
+	"relax-ribbon",
+	"snooze-ribbon",
+	"smile-ribbon",
+	"gorgeous-ribbon",
+	"royal-ribbon",
+	"gorgeous-royal-ribbon",
+	"footprint-ribbon",
+	"record-ribbon",
+	"history-ribbon",
+	"legend-ribbon",
+	"red-ribbon",
+	"green-ribbon",
+	"blue-ribbon",
+	"festival-ribbon",
+	"carnival-ribbon",
+	"classic-ribbon",
+	"premier-ribbon",
+	"cool-ribbon",
+	"cool-ribbon-great",
+	"cool-ribbon-ultra",
+	"cool-ribbon-master",
+	"beauty-ribbon",
+	"beauty-ribbon-great",
+	"beauty-ribbon-ultra",
+	"beauty-ribbon-master",
+	"cute-ribbon",
+	"cute-ribbon-great",
+	"cute-ribbon-ultra",
+	"cute-ribbon-master",
+	"smart-ribbon",
+	"smart-ribbon-great",
+	"smart-ribbon-ultra",
+	"smart-ribbon-master",
+	"tough-ribbon",
+	"tough-ribbon-great",
+	"tough-ribbon-ultra",
+	"tough-ribbon-master",
+	"cool-ribbon",
+	"cool-ribbon-super",
+	"cool-ribbon-hyper",
+	"cool-ribbon-master",
+	"beauty-ribbon",
+	"beauty-ribbon-super",
+	"beauty-ribbon-hyper",
+	"beauty-ribbon-master",
+	"cute-ribbon",
+	"cute-ribbon-super",
+	"cute-ribbon-hyper",
+	"cute-ribbon-master",
+	"smart-ribbon",
+	"smart-ribbon-super",
+	"smart-ribbon-hyper",
+	"smart-ribbon-master",
+	"tough-ribbon",
+	"tough-ribbon-super",
+	"tough-ribbon-hyper",
+	"tough-ribbon-master",
+	"champion-ribbon",
+	"winning-ribbon",
+	"victory-ribbon",
+	"artist-ribbon",
+	"effort-ribbon",
+	"marine-ribbon",
+	"land-ribbon",
+	"sky-ribbon",
+	"country-ribbon",
+	"national-ribbon",
+	"earth-ribbon",
+	"world-ribbon"
 };
 static const std::string ribbon_names[RIBBONS_MAX_NUM] = {
 	"Sinnoh Champ Ribbon",
