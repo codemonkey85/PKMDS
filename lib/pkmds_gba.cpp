@@ -66,7 +66,7 @@ void shufflegbapkm(gbapokemon * pkm, bool un)
 	}
 	memcpy(pkmpnt, &temp, 48);
 }
-void DllExport calcchecksum(gbapokemon * pkm)
+void calcchecksum(gbapokemon * pkm)
 {
 	uint32 sum = 0;
 	uint16 * word = new uint16();
