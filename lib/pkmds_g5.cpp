@@ -1187,7 +1187,18 @@ void deletemove(pokemon_obj * pkm, byte move)
 	temp.erase(temp.begin()+move);
 	std::fill(moves.begin(),moves.end(),Moves::NOTHING);
 	std::copy(temp.begin(),temp.end(),moves.begin());
-	pkm->moves = moves;
+	std::array<byte,4> & move_pp = pkm->pp;
+	std::vector<byte> temppp(4);
+	std::copy(move_pp.begin(),move_pp.end(),temppp.begin());
+	temppp.erase(temppp.begin()+move);
+	std::fill(move_pp.begin(),move_pp.end(),0);
+	std::copy(temppp.begin(),temppp.end(),move_pp.begin());
+	std::array<byte,4> & move_ppups = pkm->ppup;
+	std::vector<byte> tempppups(4);
+	std::copy(move_ppups.begin(),move_ppups.end(),tempppups.begin());
+	tempppups.erase(tempppups.begin()+move);
+	std::fill(move_ppups.begin(),move_ppups.end(),0);
+	std::copy(tempppups.begin(),tempppups.end(),move_ppups.begin());
 	for(int i = 0; i < 4; i++)
 	{
         if(moves[i] == Moves::NOTHING)
@@ -1196,6 +1207,9 @@ void deletemove(pokemon_obj * pkm, byte move)
 			pkm->ppup[0] = 0;
 		}
 	}
+	pkm->moves = moves;
+	pkm->pp = move_pp;
+	pkm->ppup = move_ppups;
 }
 void decryptparty(party_obj & party)
 {
