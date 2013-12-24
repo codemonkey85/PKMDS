@@ -1254,3 +1254,98 @@ string getitempocketname(const Items::items itemid, const int generation, const 
     if(itemid == int(Items::droppeditem2)){return getitempocketname(Items::droppeditem,generation,langid);}
 	return getastring(getitempocketnamesql(itemid,generation,langid));
 }
+item_obj * finditeminbag(bw2sav_obj * sav, Items::items itemid, int & slot)
+{
+	item_obj * itemp = new item_obj();
+	slot = -1;
+	switch(ItemPockets::itempockets(getitempocket(itemid)))
+	{
+	case ItemPockets::battle:
+		for(int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
+		{
+			if(sav->cur.bag.items_pocket[i].id == itemid)
+			{
+				itemp = &(sav->cur.bag.items_pocket[i]);
+				slot = i;
+				return itemp;
+			}
+		}
+		return itemp;
+		break;
+	case ItemPockets::berries:
+		for(int i = 0; i < sav->cur.bag.berries_pocket.size(); i++)
+		{
+			if(sav->cur.bag.berries_pocket[i].id == itemid)
+			{
+				itemp = &(sav->cur.bag.berries_pocket[i]);
+				slot = i;
+				return itemp;
+			}
+		}
+		return itemp;
+		break;
+	case ItemPockets::key:
+		for(int i = 0; i < sav->cur.bag.keyitems_pocket.size(); i++)
+		{
+			if(sav->cur.bag.keyitems_pocket[i].id == itemid)
+			{
+				itemp = &(sav->cur.bag.keyitems_pocket[i]);
+				slot = i;
+				return itemp;
+			}
+		}
+		return itemp;
+		break;
+	case ItemPockets::machines:
+		for(int i = 0; i < sav->cur.bag.tms_pocket.size(); i++)
+		{
+			if(sav->cur.bag.tms_pocket[i].id == itemid)
+			{
+				itemp = &(sav->cur.bag.tms_pocket[i]);
+				slot = i;
+				return itemp;
+			}
+		}
+		return itemp;
+		break;
+	case ItemPockets::medicine:
+		for(int i = 0; i < sav->cur.bag.medicine_pocket.size(); i++)
+		{
+			if(sav->cur.bag.medicine_pocket[i].id == itemid)
+			{
+				itemp = &(sav->cur.bag.medicine_pocket[i]);
+				slot = i;
+				return itemp;
+			}
+		}
+		return itemp;
+		break;
+	case ItemPockets::misc:
+		for(int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
+		{
+			if(sav->cur.bag.items_pocket[i].id == itemid)
+			{
+				itemp = &(sav->cur.bag.items_pocket[i]);
+				slot = i;
+				return itemp;
+			}
+		}
+		return itemp;
+		break;
+	case ItemPockets::pokeballs:
+		for(int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
+		{
+			if(sav->cur.bag.items_pocket[i].id == itemid)
+			{
+				itemp = &(sav->cur.bag.items_pocket[i]);
+				slot = i;
+				return itemp;
+			}
+		}
+		return itemp;
+		break;
+	default:
+		break;
+		return itemp;
+	}
+}
