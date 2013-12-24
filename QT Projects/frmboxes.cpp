@@ -384,22 +384,16 @@ void frmBoxes::on_actionDelete_HMs_triggered()
     {
         ppkm_ = &(sav->cur.party.pokemon[pslot]);
         pkm_ = &(ppkm_->pkm_data);
-        //decryptpkm(ppkm_);
         deletehms(pkm_);
-        //encryptpkm(ppkm_);
+        calcchecksum(pkm_);
     }
-    //    calcpartychecksum(&(sav->cur),isbw2);
     for(int box = 0; box < 24; box++)
     {
         for(int slot = 0; slot < 30; slot++)
         {
             pkm_ = &(sav->cur.boxes[box].pokemon[slot]);
-            //decryptpkm(pkm_);
             deletehms(pkm_);
-            //encryptpkm(pkm_);
+            calcchecksum(pkm_);
         }
-        //calcboxchecksum(&(sav->cur),box,isbw2);
     }
-    //fixsavchecksum(sav,isbw2);
-    //write("OUT.sav",sav);
 }
