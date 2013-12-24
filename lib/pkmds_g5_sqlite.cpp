@@ -168,7 +168,7 @@ int getanint(const string &str)
     return vsqlite->getSQLInt(str);
     //free(vsqlite);
 }
-void DllExport dostatement(const string &cmd)
+void dostatement(const string &cmd)
 {}
 #endif
 int getpkmlevel(const int id, const int exp)
@@ -1236,7 +1236,7 @@ string getmachinemovename(const Items::items itemid, const int generation, const
 {
     return getastring(getmachinemovenamesql(itemid,generation,version_group,langid));
 }
-int DllExport getitempocket(const Items::items itemid, const int generation)
+int getitempocket(const Items::items itemid, const int generation)
 {
 	return getanint(getitempocketsql(itemid,generation));
 }
