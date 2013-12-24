@@ -26,6 +26,7 @@ int main(int argc, char* argv[])
 			pkm = &(ppkm->pkm_data);
 			decryptpkm(ppkm);
 			fixpkm(pkm);
+			calcchecksum(pkm);
 			encryptpkm(ppkm);
 		}
 		calcpartychecksum(&(sav->cur),isbw2);
@@ -36,6 +37,7 @@ int main(int argc, char* argv[])
 				pkm = &(sav->cur.boxes[box].pokemon[slot]);
 				decryptpkm(pkm);
 				fixpkm(pkm);
+				calcchecksum(pkm);
 				encryptpkm(pkm);
 			}
 			calcboxchecksum(&(sav->cur),box,isbw2);

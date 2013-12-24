@@ -30,7 +30,8 @@ int main(int argc, char* argv[])
 				encryptpkm(pkm);
 				sav->cur.boxes[box].pokemon[slot] = *pkm;
 				pkmit++;
-			}else
+			}
+			else
 			{
 				sav->cur.boxes[box].pokemon[slot] = *blankpkm;
 			}
