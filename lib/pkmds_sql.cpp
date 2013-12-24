@@ -929,3 +929,22 @@ string getitempocketsql(const Items::items itemid, const int generation)
 		<< "AND (item_game_indices.game_index = " << (int)itemid << ") ";
 	return o.str();
 }
+string getitempocketnamesql(const Items::items itemid, const int generation, const int langid)
+{
+	ostringstream o;
+	o << ""
+		<< "SELECT item_pocket_names.name "
+		<< "FROM   items "
+		<< "INNER JOIN item_game_indices "
+		<< "ON items.id = item_game_indices.item_id "
+		<< "INNER JOIN item_categories "
+		<< "ON items.category_id = item_categories.id "
+		<< "INNER JOIN item_pockets "
+		<< "ON item_categories.pocket_id = item_pockets.id "
+		<< "INNER JOIN item_pocket_names "
+		<< "ON item_pockets.id = item_pocket_names.item_pocket_id "
+		<< "WHERE (item_game_indices.generation_id = " << generation << ") "
+		<< "AND (item_game_indices.game_index = " << int(itemid) << ") "
+		<< "AND (item_pocket_names.local_language_id = " << langid << ") ";
+	return o.str();
+}
