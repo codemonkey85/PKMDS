@@ -54,3 +54,4 @@ string DllExport getmachinemovenamesql(const Items::items itemid, const int gene
 string DllExport getpokemoncolorstringsql(const Species::pkmspecies speciesid);
 string DllExport getpokemoncolorsql(const Species::pkmspecies speciesid);
 string DllExport getribbonsql(std::string ribbon, bool hoenn);
+string DllExport getitempocketsql(const Items::items itemid, const int generation = GENERATION);

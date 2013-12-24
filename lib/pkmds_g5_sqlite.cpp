@@ -1236,3 +1236,7 @@ string getmachinemovename(const Items::items itemid, const int generation, const
 {
     return getastring(getmachinemovenamesql(itemid,generation,version_group,langid));
 }
+int DllExport getitempocket(const Items::items itemid, const int generation)
+{
+	return getanint(getitempocketsql(itemid,generation));
+}
