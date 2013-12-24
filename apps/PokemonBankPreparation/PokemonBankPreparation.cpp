@@ -49,5 +49,13 @@ void fixpkm(pokemon_obj * pkm)
 	if(pkm->species != Species::NOTHING)
 	{
 		deletehms(pkm);
+#ifdef SetIVs
+		pkm->markings.circle = (pkm->ivs.hp == 31);
+		pkm->markings.triangle = (pkm->ivs.attack == 31);
+		pkm->markings.square = (pkm->ivs.defense == 31);
+		pkm->markings.heart = (pkm->ivs.spatk == 31);
+		pkm->markings.star = (pkm->ivs.spdef == 31);
+		pkm->markings.diamond = (pkm->ivs.speed == 31);
+#endif
 	}
 }
