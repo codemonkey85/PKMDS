@@ -148,3 +148,4 @@ uint32 DllExport getpkmcolor(const Species::pkmspecies species);
 string DllExport getmachinemovename(const Items::items itemid, const int generation = GENERATION, const int version_group = VERSION_GROUP, const int langid = LANG_ID);
 int DllExport getitempocket(const Items::items itemid, const int generation = GENERATION);
 string DllExport getitempocketname(const Items::items itemid, const int generation = GENERATION, const int langid = LANG_ID);
+DllExport item_obj * finditeminbag(bw2sav_obj * sav, Items::items itemid, int & slot);
