@@ -149,3 +149,5 @@ string DllExport getmachinemovename(const Items::items itemid, const int generat
 int DllExport getitempocket(const Items::items itemid, const int generation = GENERATION);
 string DllExport getitempocketname(const Items::items itemid, const int generation = GENERATION, const int langid = LANG_ID);
 DllExport item_obj * finditeminbag(bw2sav_obj * sav, Items::items itemid, int & slot);
+DllExport item_obj * getavailablebagslot(bw2sav_obj * sav, ItemPockets::itempockets pocket, int & slot);
+void DllExport removeitem(bw2sav_obj * sav, pokemon_obj * pkm);

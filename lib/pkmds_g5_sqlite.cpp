@@ -1349,3 +1349,125 @@ item_obj * finditeminbag(bw2sav_obj * sav, Items::items itemid, int & slot)
 		return itemp;
 	}
 }
+item_obj * getavailablebagslot(bw2sav_obj * sav, ItemPockets::itempockets pocket, int & slot)
+{
+	item_obj * itemp = new item_obj();
+	Items::items itemid = Items::NOTHING;
+	slot = -1;
+	switch(pocket)
+	{
+	case ItemPockets::battle:
+		for(int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
+		{
+			if(sav->cur.bag.items_pocket[i].id == itemid)
+			{
+				itemp = &(sav->cur.bag.items_pocket[i]);
+				slot = i;
+				return itemp;
+			}
+		}
+		return itemp;
+		break;
+	case ItemPockets::berries:
+		for(int i = 0; i < sav->cur.bag.berries_pocket.size(); i++)
+		{
+			if(sav->cur.bag.berries_pocket[i].id == itemid)
+			{
+				itemp = &(sav->cur.bag.berries_pocket[i]);
+				slot = i;
+				return itemp;
+			}
+		}
+		return itemp;
+		break;
+	case ItemPockets::key:
+		for(int i = 0; i < sav->cur.bag.keyitems_pocket.size(); i++)
+		{
+			if(sav->cur.bag.keyitems_pocket[i].id == itemid)
+			{
+				itemp = &(sav->cur.bag.keyitems_pocket[i]);
+				slot = i;
+				return itemp;
+			}
+		}
+		return itemp;
+		break;
+	case ItemPockets::machines:
+		for(int i = 0; i < sav->cur.bag.tms_pocket.size(); i++)
+		{
+			if(sav->cur.bag.tms_pocket[i].id == itemid)
+			{
+				itemp = &(sav->cur.bag.tms_pocket[i]);
+				slot = i;
+				return itemp;
+			}
+		}
+		return itemp;
+		break;
+	case ItemPockets::medicine:
+		for(int i = 0; i < sav->cur.bag.medicine_pocket.size(); i++)
+		{
+			if(sav->cur.bag.medicine_pocket[i].id == itemid)
+			{
+				itemp = &(sav->cur.bag.medicine_pocket[i]);
+				slot = i;
+				return itemp;
+			}
+		}
+		return itemp;
+		break;
+	case ItemPockets::misc:
+		for(int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
+		{
+			if(sav->cur.bag.items_pocket[i].id == itemid)
+			{
+				itemp = &(sav->cur.bag.items_pocket[i]);
+				slot = i;
+				return itemp;
+			}
+		}
+		return itemp;
+		break;
+	case ItemPockets::pokeballs:
+		for(int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
+		{
+			if(sav->cur.bag.items_pocket[i].id == itemid)
+			{
+				itemp = &(sav->cur.bag.items_pocket[i]);
+				slot = i;
+				return itemp;
+			}
+		}
+		return itemp;
+		break;
+	default:
+		return itemp;
+		break;
+	}
+}
+void removeitem(bw2sav_obj * sav, pokemon_obj * pkm)
+{
+	if(pkm->species != Species::NOTHING)
+	{
+		if(pkm->item != Items::NOTHING)
+		{
+			int itemslot = 0;
+			item_obj * itemp = finditeminbag(sav,pkm->item,itemslot);
+			if(itemslot == -1)
+			{
+				itemp = getavailablebagslot(sav,ItemPockets::itempockets(getitempocket(pkm->item)),itemslot);
+				if(itemslot != -1)
+				{
+					itemp->id = pkm->item;
+					itemp->quantity = 1;
+					pkm->item = Items::NOTHING;
+				}
+			}
+			else
+			{
+				itemp->quantity++;
+				pkm->item = Items::NOTHING;
+			}
+		}
+	}
+}
