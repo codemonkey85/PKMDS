@@ -3957,6 +3957,8 @@ void DllExport put_pkm(box_obj *box, const int slot, pokemon_obj *pkm, const boo
 void DllExport remove_pkm(box_obj &box, const int slot);
 void DllExport remove_pkm(box_obj *box, const int slot);
 void DllExport depositpkm(bw2savblock_obj * block, const int party_slot, box_obj * box, const int box_slot);
+DllExport pokemon_obj * getpcstorageavailableslot(bw2sav_obj * sav, int & box, int & slot);
+void DllExport storepkm(bw2sav_obj * sav, pokemon_obj * pkm);
 double DllExport getpkmhappiness(const pokemon_obj &pkm);
 double DllExport getpkmhappiness(const pokemon_obj *pkm);
 int DllExport getpkmhatchsteps(const pokemon_obj &pkm);

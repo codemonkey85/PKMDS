@@ -786,6 +786,47 @@ void depositpkm(bw2savblock_obj * block, const int party_slot, box_obj * box, co
 	remove_pkm(block,party_slot);
 	put_pkm(box,box_slot,&(ppkm.pkm_data),!(ppkm.pkm_data.isboxdatadecrypted));
 }
+pokemon_obj * getpcstorageavailableslot(bw2sav_obj * sav, int & box, int & slot)
+{
+	box = -1;
+	slot = -1;
+	pokemon_obj * pkm = new pokemon_obj();
+	Species::pkmspecies speciestest = Species::NOTHING;
+	for(int boxc = 0; boxc < 24; boxc++)
+	{
+		for(int slotc = 0; slotc < 30; slotc++)
+		{
+			pkm = &(sav->cur.boxes[boxc].pokemon[slotc]);
+			if(pkm->isboxdatadecrypted == 0)
+			{
+				decryptpkm(pkm);
+				speciestest = pkm->species;
+				encryptpkm(pkm);
+			}
+			else
+			{
+				speciestest = pkm->species;
+			}
+			if(speciestest == Species::NOTHING)
+			{
+				box = boxc;
+				slot = slotc;
+				return pkm;
+			}
+		}
+	}
+	return pkm;
+}
+void storepkm(bw2sav_obj * sav, pokemon_obj * pkm)
+{
+	int box = 0;
+	int slot = 0;
+	pokemon_obj * pcslot = getpcstorageavailableslot(sav,box,slot);
+	if((box != -1) & (slot != -1))
+	{
+		*pcslot = *pkm;
+	}
+}
 double getpkmhappiness(const pokemon_obj &pkm)
 {
 	return pkm.tameness / 255.0;
