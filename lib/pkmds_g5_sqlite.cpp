@@ -1522,3 +1522,41 @@ void giveitem(bw2sav_obj * sav, item_obj * item, pokemon_obj * pkm)
 		tossitem(sav,item);
 	}
 }
+void insertitem(bw2sav_obj * sav, item_obj * item, int slot)
+{
+	int test = 0;
+	getavailablebagslot(sav,ItemPockets::itempockets(getitempocket(item->id)),test);
+	item_obj * bag = getpocket(sav,ItemPockets::itempockets(getitempocket(item->id)));
+	if(test != -1)
+	{
+		int bagsize = 0;
+		switch(ItemPockets::itempockets(getitempocket(item->id)))
+		{
+		case ItemPockets::battle:
+			bagsize = sav->cur.bag.items_pocket.size();
+			break;
+		case ItemPockets::berries:
+			bagsize = sav->cur.bag.berries_pocket.size();
+			break;
+		case ItemPockets::key:
+			bagsize = sav->cur.bag.keyitems_pocket.size();
+			break;
+		case ItemPockets::machines:
+			bagsize = sav->cur.bag.tms_pocket.size();
+			break;
+		case ItemPockets::medicine:
+			bagsize = sav->cur.bag.medicine_pocket.size();
+			break;
+		case ItemPockets::misc:
+			bagsize = sav->cur.bag.items_pocket.size();
+			break;
+		case ItemPockets::pokeballs:
+			bagsize = sav->cur.bag.items_pocket.size();
+			break;
+		default:
+			break;
+		}
+		memcpy(bag+slot,bag+slot-1,sizeof(item_obj) * (bagsize-slot-1));
+		bag[slot] = *item;
+	}
+}
