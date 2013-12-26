@@ -151,3 +151,6 @@ string DllExport getitempocketname(const Items::items itemid, const int generati
 DllExport item_obj * finditeminbag(bw2sav_obj * sav, Items::items itemid, int & slot);
 DllExport item_obj * getavailablebagslot(bw2sav_obj * sav, ItemPockets::itempockets pocket, int & slot);
 void DllExport removeitem(bw2sav_obj * sav, pokemon_obj * pkm);
+DllExport item_obj * getpocket(bw2sav_obj * sav, ItemPockets::itempockets pocket);
+void tossitem(bw2sav_obj * sav, item_obj * item);
+void DllExport giveitem(bw2sav_obj * sav, item_obj * item, pokemon_obj * pkm);
