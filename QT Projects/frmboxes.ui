@@ -1234,8 +1234,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>81</width>
-       <height>1812</height>
+       <width>82</width>
+       <height>1908</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -2281,7 +2281,7 @@
      <x>0</x>
      <y>0</y>
      <width>331</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -2290,6 +2290,7 @@
     </property>
     <addaction name="actionLoad_SAV"/>
     <addaction name="actionSave_changes"/>
+    <addaction name="actionView_PKM_File"/>
    </widget>
    <widget class="QMenu" name="menuSearch">
     <property name="title">
@@ -2325,6 +2326,11 @@
   <action name="actionDelete_HMs">
    <property name="text">
     <string>Delete HMs...</string>
+   </property>
+  </action>
+  <action name="actionView_PKM_File">
+   <property name="text">
+    <string>View .PKM File</string>
    </property>
   </action>
  </widget>

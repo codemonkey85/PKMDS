@@ -397,3 +397,17 @@ void frmBoxes::on_actionDelete_HMs_triggered()
         }
     }
 }
+
+void frmBoxes::on_actionView_PKM_File_triggered()
+{
+    QString PKMFileName = QFileDialog::getOpenFileName(this,tr("Load a PKM file"),tr(""),tr("PKM Files (*.pkm)"));
+    if(PKMFileName != "")
+    {
+        pokemon_obj * pkm = new pokemon_obj();
+        read(PKMFileName.toStdString().c_str(),pkm);
+        pkmviewer * pview = new pkmviewer();
+        pview->setPKM(pkm,frmCurBoxNum, false);
+        pview->displayPKM();
+        pview->show();
+    }
+}
