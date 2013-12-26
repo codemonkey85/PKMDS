@@ -3144,7 +3144,49 @@ struct item_obj
 	{
 		memset(this,0,sizeof(item_obj));
 	}
+  item_obj& operator+=(const int& rhs) // compound assignment
+  {
+    // addition of rhs to *this takes place here
+		this->quantity += rhs;
+    return *this; // return the result by reference
+  }
+  item_obj& operator-=(const int& rhs) // compound assignment
+  {
+    // subtraction of rhs from *this takes place here
+		this->quantity -= rhs;
+    return *this; // return the result by reference
+  }
+	item_obj& operator++() {
+        // actual increment takes place here
+		this->quantity++;
+        return *this;
+    }
+    item_obj operator++(int) {
+        item_obj tmp(*this); // copy
+        operator++(); // pre-increment
+        return tmp;   // return old value
+    }
+	item_obj& operator--() {
+        // actual decrement takes place here
+		this->quantity--;
+        return *this;
+    }
+    item_obj operator--(int) {
+        item_obj tmp(*this); // copy
+        operator--(); // pre-decrement
+        return tmp;   // return old value
+    }
 };
+inline item_obj operator+(item_obj lhs, const int& rhs) // first arg by value, second by const ref
+{
+  lhs += rhs; // reuse compound assignment
+  return lhs; // return the result by value
+}
+inline item_obj operator-(item_obj lhs, const int& rhs) // first arg by value, second by const ref
+{
+  lhs -= rhs; // reuse compound assignment
+  return lhs; // return the result by value
+}
 const static int ITEMS_POCKET_SIZE = 310;
 const static int KEYITEMS_POCKET_SIZE = 83;
 const static int TMS_POCKET_SIZE = 109;
