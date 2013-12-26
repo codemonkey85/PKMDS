@@ -31,6 +31,8 @@ private slots:
 //void on_actionDeletePKM(QGraphicsView * gView);
     void on_actionDelete_HMs_triggered();
 
+    void on_actionView_PKM_File_triggered();
+
 private:
     Ui::frmBoxes *ui;
 };
