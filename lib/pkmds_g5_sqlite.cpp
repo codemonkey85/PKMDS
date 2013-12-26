@@ -1556,7 +1556,14 @@ void insertitem(bw2sav_obj * sav, item_obj * item, int slot)
 		default:
 			break;
 		}
-		memcpy(bag+slot,bag+slot-1,sizeof(item_obj) * (bagsize-slot-1));
-		bag[slot] = *item;
+		if(slot >= bagsize)
+		{
+			bag[bagsize-1] = *item;
+		}
+		else
+		{
+			memcpy(bag+slot,bag+slot-1,sizeof(item_obj) * (bagsize-slot-1));
+			bag[slot] = *item;
+		}
 	}
 }
