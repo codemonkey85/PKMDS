@@ -780,6 +780,24 @@ void remove_pkm(bw2savblock_obj * block, const int slot)
 	std::fill(block->party.pokemon.begin(),block->party.pokemon.end(),(*blankpp));
 	std::copy(party.begin(),party.end(),block->party.pokemon.begin());
 }
+void remove_pkm(pokemon_obj * pkm, bool encrypt)
+{
+	pokemon_obj blankpkm;
+	*pkm = blankpkm;
+	if(encrypt)
+	{
+		encryptpkm(pkm);
+	}
+}
+void remove_pkm(party_pkm * pkm, bool encrypt)
+{
+	party_pkm blankpkm;
+	*pkm = blankpkm;
+	if(encrypt)
+	{
+		encryptpkm(pkm);
+	}
+}
 void depositpkm(bw2savblock_obj * block, const int party_slot, box_obj * box, const int box_slot)
 {
 	party_pkm ppkm = block->party.pokemon[party_slot];
