@@ -3102,6 +3102,14 @@ struct party_pkm { // Size: 0xDC
 		memset(this,0,sizeof(party_pkm));
 	}
 };
+//struct pokemon
+//{
+//	byte DATA[136];
+//	pokemon()
+//	{
+//		memset(this,0,sizeof(pokemon));
+//	}
+//};
 byte DllExport getpkmshuffleindex(const uint32 pid);
 byte DllExport getpkmshuffleindex(const pokemon_obj &pkm);
 void DllExport unshufflepkm(pokemon_obj &pkm);
@@ -3264,19 +3272,6 @@ byte : 1;
 		memset(this,0,sizeof(wcrib2));
 	}
 };
-/*
-Ribbon Sets
-These are the values for each ribbon byte:
-Flag Value	wcrib1				wcrib2
-0x01		Country Ribbon		Special Ribbon
-0x02		National Ribbon		Memorial Ribbon
-0x04		Earth Ribbon		Wish Ribbon
-0x08		World Ribbon		Battle Champ Ribbon
-0x10		Classic Ribbon		Regional Champ Ribbon
-0x20		Premiere Ribbon		National Champ Ribbon
-0x40		Event Ribbon		World Champ Ribbon
-0x80		Birthday Ribbon		No Ribbon(Empty)
-*/
 struct gift_data
 {
 public:
@@ -3500,70 +3495,50 @@ namespace BW_OFFSETS
 		trainerdata = 0x19400
 	};
 }
-/*
-//struct pc_box_obj
-//{
-//	pokemon_obj pokemon[30];
-//private:
-//	byte buf[0x10];
-//};
-//struct pc_storage_obj
-//{
-//
-//};
-//struct gen_iv_storage //: pc_storage_obj
-//{
-//	pc_box_obj boxes[18];
-//};
-//struct gen_v_storage //: pc_storage_obj 
-//{
-//	pc_box_obj boxes[24];
-//};
-*/
 struct sav_object
 {
-private:
-	box_obj * box_origin;
-public:
 	byte DATA[0x80000];
 	box_obj * pc_storage;
 	bag_obj * bag;
-	/**
-	void setbox(int box)
-	{
-	pc_storage = box_origin;
-	pc_storage += box;
-	};
-	*/
 	int pc_storage_size;
+	int generation;
 	SAV_TYPES::sav_types sav_type;
-	sav_object(){}
-
-	void setdata()
+	sav_object()
 	{
+		pc_storage = new box_obj();
+		bag = new bag_obj();
+	}
+	void setdata(SAV_TYPES::sav_types savType)
+	{
+		this->sav_type = savType;
 		switch(sav_type)
 		{
 		case SAV_TYPES::DP:
-
+			//pc_storage = reinterpret_cast<box_obj*>(DATA + DP_OFFSETS::boxesstart);
 			pc_storage_size = 18;
+			generation = 4;
 			break;
 		case SAV_TYPES::Pt:
-
+			//pc_storage = reinterpret_cast<box_obj*>(DATA + Pt_OFFSETS::boxesstart);
 			pc_storage_size = 18;
+			generation = 4;
 			break;
 		case SAV_TYPES::HGSS:
-
+			//pc_storage = reinterpret_cast<box_obj*>(DATA + HGSS_OFFSETS::boxesstart);
 			pc_storage_size = 18;
+			generation = 4;
 			break;
 		case SAV_TYPES::BW:
 			pc_storage = reinterpret_cast<box_obj*>(DATA + BW_OFFSETS::boxesstart);
 			pc_storage_size = 24;
 			bag = reinterpret_cast<bag_obj*>(DATA + BW_OFFSETS::inventory);
+			generation = 5;
 			break;
 		case SAV_TYPES::BW2:
 			pc_storage = reinterpret_cast<box_obj*>(DATA + BW2_OFFSETS::boxesstart);
 			pc_storage_size = 24;
 			bag = reinterpret_cast<bag_obj*>(DATA + BW2_OFFSETS::inventory);
+			generation = 5;
 			break;
 		default:
 
