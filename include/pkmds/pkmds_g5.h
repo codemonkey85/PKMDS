@@ -3959,7 +3959,7 @@ void DllExport remove_pkm(box_obj *box, const int slot);
 void remove_pkm(pokemon_obj * pkm, bool encrypt = false);
 void remove_pkm(party_pkm * pkm, bool encrypt = false);
 void DllExport depositpkm(bw2savblock_obj * block, const int party_slot, box_obj * box, const int box_slot);
-DllExport pokemon_obj * getpcstorageavailableslot(bw2sav_obj * sav, int & box, int & slot);
+DllExport pokemon_obj * getpcstorageavailableslot(bw2sav_obj * sav, int & box, int & slot, int startbox = 0);
 void DllExport storepkm(bw2sav_obj * sav, pokemon_obj * pkm);
 double DllExport getpkmhappiness(const pokemon_obj &pkm);
 double DllExport getpkmhappiness(const pokemon_obj *pkm);
