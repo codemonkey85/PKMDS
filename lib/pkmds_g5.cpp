@@ -804,14 +804,19 @@ void depositpkm(bw2savblock_obj * block, const int party_slot, box_obj * box, co
 	remove_pkm(block,party_slot);
 	put_pkm(box,box_slot,&(ppkm.pkm_data),!(ppkm.pkm_data.isboxdatadecrypted));
 }
-pokemon_obj * getpcstorageavailableslot(bw2sav_obj * sav, int & box, int & slot)
+pokemon_obj * getpcstorageavailableslot(bw2sav_obj * sav, int & box, int & slot, int startbox)
 {
 	box = -1;
 	slot = -1;
 	pokemon_obj * pkm = new pokemon_obj();
 	Species::pkmspecies speciestest = Species::NOTHING;
-	for(int boxc = 0; boxc < 24; boxc++)
+	int boxcount = 0;
+	for(int boxc = startbox; boxcount < 24; boxc++)
 	{
+		if(boxc == 24)
+		{
+			boxc = 0;
+		}
 		for(int slotc = 0; slotc < 30; slotc++)
 		{
 			pkm = &(sav->cur.boxes[boxc].pokemon[slotc]);
@@ -832,6 +837,7 @@ pokemon_obj * getpcstorageavailableslot(bw2sav_obj * sav, int & box, int & slot)
 				return pkm;
 			}
 		}
+		boxcount++;
 	}
 	return pkm;
 }
@@ -1260,7 +1266,7 @@ void deletemove(pokemon_obj * pkm, byte move)
 	std::copy(tempppups.begin(),tempppups.end(),move_ppups.begin());
 	for(int i = 0; i < 4; i++)
 	{
-        if(moves[i] == Moves::NOTHING)
+		if(moves[i] == Moves::NOTHING)
 		{
 			pkm->pp[i] = 0;
 			pkm->ppup[0] = 0;
