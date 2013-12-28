@@ -1208,14 +1208,14 @@ string getmachinemovename(const Items::items itemid, const int generation, const
 int getitempocket(const Items::items itemid, const int generation)
 {
 	//if(itemid == int(Items::godstone)){return "God Stone";}
-	if(itemid == int(Items::xtransceiver2)){return getitempocket(Items::xtransceiver,generation);}
-	if(itemid == int(Items::droppeditem2)){return getitempocket(Items::droppeditem,generation);}
+	if(itemid == Items::xtransceiver2){return getitempocket(Items::xtransceiver,generation);}
+	if(itemid == Items::droppeditem2){return getitempocket(Items::droppeditem,generation);}
 	return getanint(getitempocketsql(itemid,generation));
 }
 string getitempocketname(const Items::items itemid, const int generation, const int langid)
 {
-	if(itemid == int(Items::xtransceiver2)){return getitempocketname(Items::xtransceiver,generation,langid);}
-	if(itemid == int(Items::droppeditem2)){return getitempocketname(Items::droppeditem,generation,langid);}
+	if(itemid == Items::xtransceiver2){return getitempocketname(Items::xtransceiver,generation,langid);}
+	if(itemid == Items::droppeditem2){return getitempocketname(Items::droppeditem,generation,langid);}
 	return getastring(getitempocketnamesql(itemid,generation,langid));
 }
 item_obj * finditeminbag(bw2sav_obj * sav, Items::items itemid, int & slot)
