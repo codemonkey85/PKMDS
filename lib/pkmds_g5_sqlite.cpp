@@ -1435,7 +1435,7 @@ void removeitem(bw2sav_obj * sav, pokemon_obj * pkm)
 			switch(pkm->species)
 			{
 			case Species::giratina:
-				pkm->forms.form = 0;
+				pkm->forms.form = byte(Forms::Giratina::altered);
 				break;
 			}
 		}
@@ -1532,7 +1532,7 @@ void giveitem(bw2sav_obj * sav, item_obj * item, pokemon_obj * pkm)
 	case Species::giratina:
 		if(item->id == Items::griseousorb)
 		{
-			pkm->forms.form = 1;
+			pkm->forms.form = byte(Forms::Giratina::origin);
 		}
 		break;
 	}
