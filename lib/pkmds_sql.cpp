@@ -506,7 +506,7 @@ void getspritesql(ostringstream& o, const pokemon_obj * pkm, int generation)
 	{
 		switch(pkm->forms.form)
 		{
-		case 0:
+		case byte(Forms::Keldeo::ordinary):
 			if(tshiny == "shiny")
 			{
 				formid = "647-regular";
@@ -516,7 +516,7 @@ void getspritesql(ostringstream& o, const pokemon_obj * pkm, int generation)
 				formid = "647-ordinary";
 			}
 			break;
-		case 1:
+		case byte(Forms::Keldeo::resolute):
 			formid = "647-resolution";
 			break;
 		}
@@ -686,17 +686,17 @@ void geticonsql(ostringstream& o, const pokemon_obj * pkm, int generation)
 		{
 			switch(pkm->forms.form)
 			{
-			case 0:
+			case byte(Forms::Keldeo::ordinary):
 				formid = "647-regular";
 				break;
-			case 1:
+			case byte(Forms::Keldeo::resolute):
 				formid = "647-resolution";
 				break;
 			}
 		}
-		if(int(pkm->species) == int(Species::kyurem) && pkm->forms.form != 0)
+		if(int(pkm->species) == int(Species::kyurem) && pkm->forms.form != byte(Forms::Kyurem::normal))
 		{
-			if(pkm->forms.form == 1)
+			if(pkm->forms.form == byte(Forms::Kyurem::white))
 			{
 				formid = "646-white";
 			}

@@ -1281,7 +1281,7 @@ void deletemove(pokemon_obj * pkm, byte move)
 		{
 			if(pkm->moves[i] != Moves::sacredsword)
 			{
-				pkm->forms.form = 0;
+				pkm->forms.form = byte(Forms::Keldeo::ordinary);
 			}
 		}
 	}
