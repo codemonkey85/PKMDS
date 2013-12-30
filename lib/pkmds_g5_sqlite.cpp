@@ -1432,6 +1432,12 @@ void removeitem(bw2sav_obj * sav, pokemon_obj * pkm)
 				itemp->quantity++;
 				pkm->item = Items::NOTHING;
 			}
+			switch(pkm->species)
+			{
+			case Species::giratina:
+				pkm->forms.form = 0;
+				break;
+			}
 		}
 	}
 }
@@ -1520,6 +1526,15 @@ void giveitem(bw2sav_obj * sav, item_obj * item, pokemon_obj * pkm)
 	if(item->quantity == 0)
 	{
 		tossitem(sav,item);
+	}
+	switch(pkm->species)
+	{
+	case Species::giratina:
+		if(item->id == Items::griseousorb)
+		{
+			pkm->forms.form = 1;
+		}
+		break;
 	}
 }
 void insertitem(bw2sav_obj * sav, item_obj * item, int slot)

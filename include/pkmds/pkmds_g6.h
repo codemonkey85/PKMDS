@@ -732,6 +732,86 @@ namespace Species_g6
 		bad_egg
 	};
 }
+namespace Forms
+{
+	namespace Vivillon
+	{
+		enum vivillon : byte
+		{
+			archipelago,
+			continental,
+			elegant,
+			garden,
+			high_plains,
+			icy_snow,
+			jungle,
+			marine,
+			meadow,
+			modern,
+			monsoon,
+			ocean,
+			polar,
+			river,
+			sandstorm,
+			savannah,
+			sun,
+			tundra
+		};
+	}
+	namespace Flabebe_Floette_Florges
+	{
+		enum flabebe_floette_florges : byte
+		{
+			red_flower,
+			blue_flower,
+			yellow_flower,
+			white_flower,
+			orange_flower,
+			az_unique
+		};
+	}
+	namespace Furfrou
+	{
+		enum furfrou : byte
+		{
+			no_trim,
+			heart_trim,
+			star_trim,
+			diamond_trim,
+			debutante_trim,
+			matron_trim,
+			dandy_trim,
+			la_reine_trim,
+			kabuki_trim,
+			pharoh_trim
+		};
+	}
+	namespace Aegislash
+	{
+		enum aegislash : byte
+		{
+			blade,
+			shield
+		};
+	}
+	namespace Pumpkaboo_Gourgeist
+	{
+		enum pumpkaboo_gourgeist : byte
+		{
+			small_size,
+			average_size,
+			large_size,
+			super_size
+		};
+	}
+	namespace Xerneas
+	{
+		enum xerneas : byte
+		{
+
+		};
+	}
+}
 // http://projectpokemon.org/wiki/Pokemon_X/Y_3DS_Structure
 //Unencrypted Data
 struct pkxunencryptblock { // The unencrypted block of the Pokemon data, featuring such important things as the PID and checksum.
