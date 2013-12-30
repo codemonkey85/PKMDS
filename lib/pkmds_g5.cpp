@@ -1275,6 +1275,16 @@ void deletemove(pokemon_obj * pkm, byte move)
 	pkm->moves = moves;
 	pkm->pp = move_pp;
 	pkm->ppup = move_ppups;
+	if(pkm->species == Species::keldeo)
+	{
+		for(int i = 0; i < 4; i++)
+		{
+			if(pkm->moves[i] != Moves::sacredsword)
+			{
+				pkm->forms.form = 0;
+			}
+		}
+	}
 }
 void decryptparty(party_obj & party)
 {

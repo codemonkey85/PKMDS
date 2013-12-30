@@ -2455,6 +2455,183 @@ namespace ItemPockets
 		key
 	};
 }
+namespace Forms
+{
+	namespace Pichu
+	{
+		enum pichu : byte
+		{
+			normal,
+			spikyeared
+		};
+	}
+	namespace Unown
+	{
+		enum unown : byte
+		{
+			a,
+			b,
+			c,
+			d,
+			e,
+			f,
+			g,
+			h,
+			i,
+			j,
+			k,
+			l,
+			m,
+			n,
+			o,
+			p,
+			q,
+			r,
+			s,
+			t,
+			u,
+			v,
+			w,
+			x,
+			y,
+			z,
+			exclamation,
+			question
+		};
+	}
+	namespace Castform
+	{
+		enum castform : byte
+		{
+			normal,
+			sunny,
+			rainy,
+			snowy
+		};
+	}
+	namespace Deoxys
+	{
+		enum deoxys : byte
+		{
+			normal,
+			attack,
+			defense,
+			speed
+		};
+	}
+	namespace Burmy_Wormadam
+	{
+		enum burmy_wormadam : byte
+		{
+			plant,
+			sandy,
+			trash
+		};
+	}
+	namespace Cherrim
+	{
+		enum cherrim : byte
+		{
+			overcast,
+			sunshine
+		};
+	}
+	namespace Shellos_Gastrodon
+	{
+		enum shellos_gastrodon : byte
+		{
+			west_sea,
+			east_sea
+		};
+	}
+	namespace Rotom
+	{
+		enum rotom : byte
+		{
+			normal,
+			heat,
+			wash,
+			frost,
+			fan,
+			mow
+		};
+	}
+	namespace Giratina
+	{
+		enum giratina : byte
+		{
+			altered,
+			origin
+		};
+	}
+	namespace Shaymin
+	{
+		enum shaymin : byte
+		{
+			land,
+			sky
+		};
+	}
+	namespace Basculin
+	{
+		enum basculin : byte
+		{
+			red_striped,
+			blue_striped
+		};
+	}
+	namespace Darmanitan
+	{
+		enum darmanitan : byte
+		{
+			standard_mode,
+			zen_mode
+		};
+	}
+	namespace Deerling_Sawsbuck
+	{
+		enum deerling_sawsbuck : byte
+		{
+			spring,
+			summer,
+			autumn,
+			winter
+		};
+	}
+	namespace Tornadus_Thundurus_Landorus
+	{
+		enum tornadus_thundurus_landorus : byte
+		{
+			incarnate,
+			therian
+		};
+	}
+	namespace Kyurem
+	{
+		enum kyurem : byte
+		{
+			normal,
+			black,
+			white
+		};
+	}
+	namespace Keldeo
+	{
+		enum keldeo : byte
+		{
+			ordinary,
+			resolute
+		};
+	}
+	namespace Meloetta
+	{
+		enum meloetta : byte
+		{
+			aria,
+			pirouette
+		};
+	}
+}
 uint32 DllExport getpkmcolorhex(int pkmcolor);
 int DllExport balltoitem(int ball);
 Types::types DllExport getarceustype(int form);
@@ -3152,48 +3329,48 @@ struct item_obj
 	{
 		memset(this,0,sizeof(item_obj));
 	}
-  item_obj& operator+=(const int& rhs) // compound assignment
-  {
-    // addition of rhs to *this takes place here
+	item_obj& operator+=(const int& rhs) // compound assignment
+	{
+		// addition of rhs to *this takes place here
 		this->quantity += rhs;
-    return *this; // return the result by reference
-  }
-  item_obj& operator-=(const int& rhs) // compound assignment
-  {
-    // subtraction of rhs from *this takes place here
+		return *this; // return the result by reference
+	}
+	item_obj& operator-=(const int& rhs) // compound assignment
+	{
+		// subtraction of rhs from *this takes place here
 		this->quantity -= rhs;
-    return *this; // return the result by reference
-  }
+		return *this; // return the result by reference
+	}
 	item_obj& operator++() {
-        // actual increment takes place here
+		// actual increment takes place here
 		this->quantity++;
-        return *this;
-    }
-    item_obj operator++(int) {
-        item_obj tmp(*this); // copy
-        operator++(); // pre-increment
-        return tmp;   // return old value
-    }
+		return *this;
+	}
+	item_obj operator++(int) {
+		item_obj tmp(*this); // copy
+		operator++(); // pre-increment
+		return tmp;   // return old value
+	}
 	item_obj& operator--() {
-        // actual decrement takes place here
+		// actual decrement takes place here
 		this->quantity--;
-        return *this;
-    }
-    item_obj operator--(int) {
-        item_obj tmp(*this); // copy
-        operator--(); // pre-decrement
-        return tmp;   // return old value
-    }
+		return *this;
+	}
+	item_obj operator--(int) {
+		item_obj tmp(*this); // copy
+		operator--(); // pre-decrement
+		return tmp;   // return old value
+	}
 };
 inline item_obj operator+(item_obj lhs, const int& rhs) // first arg by value, second by const ref
 {
-  lhs += rhs; // reuse compound assignment
-  return lhs; // return the result by value
+	lhs += rhs; // reuse compound assignment
+	return lhs; // return the result by value
 }
 inline item_obj operator-(item_obj lhs, const int& rhs) // first arg by value, second by const ref
 {
-  lhs -= rhs; // reuse compound assignment
-  return lhs; // return the result by value
+	lhs -= rhs; // reuse compound assignment
+	return lhs; // return the result by value
 }
 const static int ITEMS_POCKET_SIZE = 310;
 const static int KEYITEMS_POCKET_SIZE = 83;
