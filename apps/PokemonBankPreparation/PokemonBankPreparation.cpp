@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
 		for(int pslot = 0; pslot < sav->cur.party.size; pslot++)
 		{
 			ppkm = &(sav->cur.party.pokemon[pslot]);
-			pkm = &(ppkm->pkm_data);
+			pkm = reinterpret_cast<pokemon_obj*>(ppkm->pkm_data);
 			decryptpkm(ppkm);
 			fixpkm(pkm);
 			calcchecksum(pkm);
