@@ -222,41 +222,33 @@ void encryptpkm_it(pokemon_obj & pkm)
 }
 void encryptpkm(party_pkm& pkm)
 {
-	pokemon_obj * pkmp = new pokemon_obj();
-	pkmp = reinterpret_cast<pokemon_obj*>(&pkm);
-	shufflepkm(pkmp);
-	pkmcrypt(pkmp);
+	shufflepkm(&pkm);
+	pkmcrypt(&pkm);
 	pkmcrypt(pkm.party_data,pkm.pid);
 	pkm.ispartydatadecrypted = 0;
 	pkm.isboxdatadecrypted = 0;
 }
 void decryptpkm(party_pkm& pkm)
 {
-	pokemon_obj * pkmp = new pokemon_obj();
-	pkmp = reinterpret_cast<pokemon_obj*>(&pkm);
-	pkmcrypt(pkmp);
+	pkmcrypt(&pkm);
 	pkmcrypt(pkm.party_data,pkm.pid);
-	unshufflepkm(pkmp);
+	unshufflepkm(&pkm);
 	pkm.ispartydatadecrypted = 1;
 	pkm.isboxdatadecrypted = 1;
 }
 void encryptpkm(party_pkm* pkm)
 {
-	pokemon_obj * pkmp = new pokemon_obj();
-	pkmp = reinterpret_cast<pokemon_obj*>(pkm);
-	shufflepkm(pkmp);
-	pkmcrypt(pkmp);
+	shufflepkm(pkm);
+	pkmcrypt(pkm);
 	pkmcrypt(pkm->party_data,pkm->pid);
 	pkm->ispartydatadecrypted = 0;
 	pkm->isboxdatadecrypted = 0;
 }
 void decryptpkm(party_pkm* pkm)
 {
-	pokemon_obj * pkmp = new pokemon_obj();
-	pkmp = reinterpret_cast<pokemon_obj*>(pkm);
-	pkmcrypt(pkmp);
+	pkmcrypt(pkm);
 	pkmcrypt(pkm->party_data,pkm->pid);
-	unshufflepkm(pkmp);
+	unshufflepkm(pkm);
 	pkm->ispartydatadecrypted = 1;
 	pkm->isboxdatadecrypted = 1;
 }
@@ -730,14 +722,14 @@ void swap_pkm(party_pkm *a, pokemon_obj *b)
 {
 	memset(&(a->party_data),0,sizeof(party_field));
 	pokemon_obj * pkmpa = new pokemon_obj();
-	pkmpa = reinterpret_cast<pokemon_obj*>(a);
+	pkmpa = a;
 	std::swap(*pkmpa,*b);
 }
 void swap_pkm(pokemon_obj *a, party_pkm *b)
 {
 	memset(&(b->party_data),0,sizeof(party_field));
 	pokemon_obj * pkmpb = new pokemon_obj();
-	pkmpb = reinterpret_cast<pokemon_obj*>(b);
+	pkmpb = b;
 	std::swap(*pkmpb,*a);
 }
 void swap_pkm(party_pkm &a, party_pkm &b)
@@ -752,14 +744,14 @@ void swap_pkm(party_pkm &a, pokemon_obj &b)
 {
 	memset(&(a.party_data),0,sizeof(party_field));
 	pokemon_obj * pkmpa = new pokemon_obj();
-	pkmpa = reinterpret_cast<pokemon_obj*>(&a);
+	pkmpa = &a;
 	std::swap(*pkmpa,b);
 }
 void swap_pkm(pokemon_obj &a, party_pkm &b)
 {
 	memset(&(b.party_data),0,sizeof(party_field));
 	pokemon_obj * pkmpb = new pokemon_obj();
-	pkmpb = reinterpret_cast<pokemon_obj*>(&b);
+	pkmpb = &b;
 	std::swap(*pkmpb,a);
 }
 void put_pkm(box_obj *box, const int slot, pokemon_obj *pkm, const bool isencrypted)
@@ -818,9 +810,7 @@ void depositpkm(bw2savblock_obj * block, const int party_slot, box_obj * box, co
 {
 	party_pkm ppkm = block->party.pokemon[party_slot];
 	remove_pkm(block,party_slot);
-	pokemon_obj * pkmp = new pokemon_obj();
-	pkmp = reinterpret_cast<pokemon_obj*>(&ppkm);
-	put_pkm(box,box_slot,pkmp,!(ppkm.isboxdatadecrypted));
+	put_pkm(box,box_slot,&ppkm,!(ppkm.isboxdatadecrypted));
 }
 pokemon_obj * getpcstorageavailableslot(bw2sav_obj * sav, int & box, int & slot, int startbox)
 {
