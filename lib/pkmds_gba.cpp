@@ -469,7 +469,7 @@ int convertgbaspecies(GBASpecies::gbaspecies in)
 {
 	for(int i = 0; i < 386; i++)
 	{
-		if(int(in) = gbatods[i][0])
+		if(int(in) == gbatods[i][0])
 		{
 			return gbatods[i][1];
 		}
@@ -868,7 +868,7 @@ GBASpecies::gbaspecies convertgbaspecies(int in)
 {
 	for(int i = 0; i < 386; i++)
 	{
-		if(in = int(dstogba[i][0]))
+		if(in == int(dstogba[i][0]))
 		{
 			return GBASpecies::gbaspecies(dstogba[i][1]);
 		}
