@@ -941,7 +941,7 @@ uint32 : 32;
 };
 struct party_pkx { // Size: 
 	pokemonx_obj pkx_data;
-	partyx_field partyx_data;
+	partyx_field party_data;
 	party_pkx()
 	{
 		memset(this,0,sizeof(party_pkx));
