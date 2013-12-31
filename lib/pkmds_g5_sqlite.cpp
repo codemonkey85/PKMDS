@@ -477,7 +477,7 @@ int lookuppkmevolvedspecies(int speciesid)
 }
 void pctoparty(party_pkm *ppkm, const pokemon_obj *pkm)
 {
-	ppkm->pkm_data = *pkm;
+	memcpy(ppkm,pkm,sizeof(pokemon_obj));
 	ppkm->party_data.maxhp = getpkmstat(pkm,Stat_IDs::hp);
 	ppkm->party_data.hp = ppkm->party_data.maxhp;
 	ppkm->party_data.attack = getpkmstat(pkm,Stat_IDs::attack);
@@ -489,7 +489,7 @@ void pctoparty(party_pkm *ppkm, const pokemon_obj *pkm)
 }
 void pctoparty(party_pkm &ppkm, const pokemon_obj *pkm)
 {
-	ppkm.pkm_data = *pkm;
+	memcpy(&ppkm,pkm,sizeof(pokemon_obj));
 	ppkm.party_data.maxhp = getpkmstat(pkm,Stat_IDs::hp);
 	ppkm.party_data.hp = ppkm.party_data.maxhp;
 	ppkm.party_data.attack = getpkmstat(pkm,Stat_IDs::attack);
@@ -501,7 +501,7 @@ void pctoparty(party_pkm &ppkm, const pokemon_obj *pkm)
 }
 void pctoparty(party_pkm *ppkm, const pokemon_obj &pkm)
 {
-	ppkm->pkm_data = pkm;
+	memcpy(ppkm,&pkm,sizeof(pokemon_obj));
 	ppkm->party_data.maxhp = getpkmstat(pkm,Stat_IDs::hp);
 	ppkm->party_data.hp = ppkm->party_data.maxhp;
 	ppkm->party_data.attack = getpkmstat(pkm,Stat_IDs::attack);
@@ -513,7 +513,7 @@ void pctoparty(party_pkm *ppkm, const pokemon_obj &pkm)
 }
 void pctoparty(party_pkm &ppkm, const pokemon_obj &pkm)
 {
-	ppkm.pkm_data = pkm;
+	memcpy(&ppkm,&pkm,sizeof(pokemon_obj));
 	ppkm.party_data.maxhp = getpkmstat(pkm,Stat_IDs::hp);
 	ppkm.party_data.hp = ppkm.party_data.maxhp;
 	ppkm.party_data.attack = getpkmstat(pkm,Stat_IDs::attack);

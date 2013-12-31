@@ -27,7 +27,7 @@ void deleteHMs(const char * filename)
 	for(int slot = 0; slot < sav->cur.party.size; slot++)
 	{
 		ppkm = &(sav->cur.party.pokemon[slot]);
-		pkm = &(ppkm->pkm_data);
+		pkm = reinterpret_cast<pokemon_obj*>(ppkm->pkm_data);
 		decryptpkm(ppkm);
 		if(pkm->species != Species::NOTHING)
 		{
