@@ -1,5 +1,19 @@
 #include "../include/pkmds/pkm_report.h"
+party_pkm * ppkm;
+pokemon_obj * pkm;
+sqlite3 *db_;
+sqlite3_stmt *stmt_;
+std::string TableName;
+vector<std::string> POSValues;
+vector<std::string> positions;
+int frmCurBoxNum;
+bw2savblock_obj * cursavblock;
+int frmCurSlotNum;
 using namespace std;
+void setsavblock(bw2savblock_obj * cursavblock_)
+{
+	cursavblock = cursavblock_;
+}
 void createtable()
 {
 	vector<std::string> ColumnNames;
@@ -254,8 +268,8 @@ void createtable()
 	}
 	ss1 << "\"" << ColumnNames[ColumnNames.size()-1] << "\"" << " " << ColumnTypes[ColumnNames.size()-1];
 	ss1 << ")";
-	sqlite3_prepare_v2(db,ss1.str().c_str(),-1,&stmt,0);
-	sqlite3_step(stmt);
+	int TEST = sqlite3_prepare_v2(db_,ss1.str().c_str(),-1,&stmt_,0);
+	sqlite3_step(stmt_);
 	stringstream ss2;
 	ss2 << "insert into " << TableName << "(";
 	for(int i = 0; i < ColumnNames.size()-1; i++)
@@ -378,8 +392,8 @@ void createtable()
 	ss2 << "\"" << DiamondValues[p] << "\", ";
 	ss2 << "\"" << POSValues[p] << "\"";
 	ss2 << ");";
-	sqlite3_prepare_v2(db,ss2.str().c_str(),-1,&stmt,0);
-	sqlite3_step(stmt);
+	sqlite3_prepare_v2(db_,ss2.str().c_str(),-1,&stmt_,0);
+	sqlite3_step(stmt_);
 	//for(int i = 0; i < ColumnNames.size(); i++)
 	//{
 	//	if(ColumnNames[i] != "Position")
@@ -389,8 +403,7 @@ void createtable()
 	//	}
 	//}
 }
-
-void dosearch(vector<std::string> columns, string where, string order, int limit)
+void dosearch(vector<std::string> columns, string where_, string order, int limit)
 {
 	std::ostringstream query;
 	query << "SELECT ";
@@ -400,9 +413,9 @@ void dosearch(vector<std::string> columns, string where, string order, int limit
 	}
 	query << "\"" << columns[columns.size()-1] << "\", \"Position";
 	query << "\" FROM " << TableName;
-	if(where != "")
+	if(where_ != "")
 	{
-		query << " WHERE " << where;
+		query << " WHERE " << where_;
 	}
 	if(order != "")
 	{
@@ -413,19 +426,19 @@ void dosearch(vector<std::string> columns, string where, string order, int limit
 		query << " LIMIT " << limit;
 	}
 	vector<vector<string> > results;
-	if(sqlite3_prepare_v2(db, query.str().c_str(), -1, &stmt, 0) == SQLITE_OK)
+	if(sqlite3_prepare_v2(db_, query.str().c_str(), -1, &stmt_, 0) == SQLITE_OK)
 	{
-		int cols = sqlite3_column_count(stmt);
+		int cols = sqlite3_column_count(stmt_);
 		int result = 0;
 		while(true)
 		{
-			result = sqlite3_step(stmt);
+			result = sqlite3_step(stmt_);
 			if(result == SQLITE_ROW)
 			{
 				vector<string> values;
 				for(int col = 0; col < cols; col++)
 				{
-					values.push_back((char*)sqlite3_column_text(stmt, col));
+					values.push_back((char*)sqlite3_column_text(stmt_, col));
 				}
 				results.push_back(values);
 			}
@@ -434,7 +447,7 @@ void dosearch(vector<std::string> columns, string where, string order, int limit
 				break;
 			}
 		}
-		sqlite3_finalize(stmt);
+		sqlite3_finalize(stmt_);
 	}
 	//QVector<QString> vect;
 	std::vector<string> vect;
@@ -454,6 +467,7 @@ void dosearch(vector<std::string> columns, string where, string order, int limit
 		for(int i = 0; i < columns.size(); i++)
 		{
 			//ui->tblPKM->setItem(ui->tblPKM->rowCount()-1,i,new QTableWidgetItem(tr(QString::fromStdString(row.at(i)).toLatin1())));
+			cout << row.at(i).c_str();
 		}
 		c++;
 	}
