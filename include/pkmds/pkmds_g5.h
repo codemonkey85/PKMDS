@@ -3272,7 +3272,6 @@ byte : 8;
 	}
 };
 struct party_pkm : pokemon_obj { // Size: 0xDC
-	//pokemon_obj pkm_data;
 	party_field party_data;
 	party_pkm()
 	{

@@ -48,7 +48,7 @@ bool MouseEventEater::eventFilter(QObject *obj, QEvent *event)
                     }
                     break;
                 case 'P':
-                    apkm = &(frmParty->pokemon[slot].pkm_data);
+                    apkm = &(frmParty->pokemon[slot]);
                     ispartypkm_ = true;
                     todisplay = true;
                     break;

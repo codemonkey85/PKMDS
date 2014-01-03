@@ -230,11 +230,6 @@ void pkmviewer::setPKM(pokemon_obj * pkm_, int box, bool isPartyPKM)
     }
     ui->sbCurrentSlot->setValue(frmCurSlotNum);
 }
-void pkmviewer::setPKM(party_pkm * ppkm_, int box, bool isPartyPKM)
-{
-    ppkm = ppkm_;
-    setPKM(&(ppkm->pkm_data),box, isPartyPKM);
-}
 void pkmviewer::displayPKM()
 {
     redisplayok = false;

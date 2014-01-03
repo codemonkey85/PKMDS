@@ -169,7 +169,7 @@ void frmBoxes::on_actionLoad_SAV_triggered()
         for(uint32 pslot = 0; pslot < cursavblock->party.size; pslot++)
         {
             decryptpkm(&(cursavblock->party.pokemon[pslot]));
-            pix = getpkmicon(cursavblock->party.pokemon[pslot].pkm_data);
+            pix = getpkmicon(cursavblock->party.pokemon[pslot]);
             partyscene = new QGraphicsScene();
             partyscene->addPixmap(pix);
             partygraphics[pslot]->setScene(partyscene);
@@ -383,9 +383,8 @@ void frmBoxes::on_actionDelete_HMs_triggered()
     for(int pslot = 0; pslot < sav->cur.party.size; pslot++)
     {
         ppkm_ = &(sav->cur.party.pokemon[pslot]);
-        pkm_ = &(ppkm_->pkm_data);
-        deletehms(pkm_);
-        calcchecksum(pkm_);
+        deletehms(ppkm_);
+        calcchecksum(ppkm_);
     }
     for(int box = 0; box < 24; box++)
     {
