@@ -184,11 +184,15 @@ void frmBoxes::on_actionLoad_SAV_triggered()
         }
         for(int boxnum = 0; boxnum < 24; boxnum++)
         {
-            ui->cbBoxes->setItemText(boxnum,QString::fromStdWString(getwstring(cursavblock->boxnames[boxnum])));
+//            ui->cbBoxes->setItemText(boxnum,QString::fromStdString(std::string(cursavblock->boxnames[boxnum])));
+
+            std::wstring testing = getwstring((char*)(cursavblock->boxnames[boxnum]), 20);
+ui->cbBoxes->setItemText(boxnum,QString::fromStdWString(testing));
+
+//            ui->cbBoxes->setItemText(boxnum,QString::fromStdWString(getwstring(cursavblock->boxnames[boxnum])));
             for(int boxslot = 0; boxslot < 30; boxslot++)
             {
                 decryptpkm(&(cursavblock->boxes[boxnum].pokemon[boxslot]));
-                //                decryptpkm(&(baksavblock->boxes[boxnum].pokemon[boxslot]));
             }
         }
         SavDecrypted = true;
@@ -324,7 +328,6 @@ void frmBoxes::on_actionSave_changes_triggered()
     }
     ret = msgBox.exec();
 }
-
 void frmBoxes::refreshboxgrid(int box)
 {
     QImage grid = QImage(60,50,QImage::Format_RGB32);
@@ -357,7 +360,6 @@ void frmBoxes::refreshboxgrid(int box)
         gridscene->addPixmap(gridpix);
     }
 }
-
 void frmBoxes::refreshboxgrids()
 {
     for(int box = 0; box < 24; box++)
@@ -370,12 +372,10 @@ void frmBoxes::on_actionSearch_triggered()
     report = new frmReport();
     report->show();
 }
-
 void frmBoxes::on_pbBoxSlot01_customContextMenuRequested(const QPoint &pos)
 {
     //        pContextMenu->show();
 }
-
 void frmBoxes::on_actionDelete_HMs_triggered()
 {
     party_pkm * ppkm_ = new party_pkm();
@@ -396,7 +396,6 @@ void frmBoxes::on_actionDelete_HMs_triggered()
         }
     }
 }
-
 void frmBoxes::on_actionView_PKM_File_triggered()
 {
     QString PKMFileName = QFileDialog::getOpenFileName(this,tr("Load a PKM file"),tr(""),tr("PKM Files (*.pkm)"));

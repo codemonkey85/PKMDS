@@ -17,7 +17,7 @@ public:
     QGraphicsView * ribbonpix[80];
 #if (defined __linux__) || (defined __APPLE__)
     void setPKM(pokemon_obj * pkm_, int box, bool isPartyPKM);
-    void displayPKM();
+    void displayPKM(/*bool rename = true*/);
     void updatemarks();
     void updatestats();
     void updatestatcolors();
@@ -32,7 +32,7 @@ public:
     void updateribbons();
 #else
     void pkmviewer::setPKM(pokemon_obj * pkm_, int box, bool isPartyPKM);
-    void pkmviewer::displayPKM();
+    void pkmviewer::displayPKM(/*bool rename = true*/);
     void pkmviewer::updatemarks();
     void pkmviewer::updatestats();
     void pkmviewer::updatestatcolors();
