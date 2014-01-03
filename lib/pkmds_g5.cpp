@@ -1062,25 +1062,25 @@ std::wstring getsavtrainername(const bw2savblock_obj * block)
     return getwstring(block->trainername);
 #endif
 }
-//std::wstring getwstring(std::wstring in)
-//{
-//    std::wstring out = in;
-//    if(out.find((wchar_t)0xffff))
-//    {
-//        out = out.substr(0,out.find((wchar_t)0xffff));
-//    }
-//    return out;
-//}
-//std::wstring getwstring(std::string in)
-//{
-//    std::string out = in;
-//    if(out.find((char)0xffff))
-//    {
-//        out = out.substr(0,out.find((char)0xffff));
-//    }
-//    std::wstring retval(out.begin(), out.end());
-//    return retval;
-//}
+std::wstring getwstring(std::wstring in)
+{
+    std::wstring out = in;
+    if(out.find((wchar_t)0xffff))
+    {
+        out = out.substr(0,out.find((wchar_t)0xffff));
+    }
+    return out;
+}
+std::wstring getwstring(std::string in)
+{
+    std::string out = in;
+    if(out.find((char)0xffff))
+    {
+        out = out.substr(0,out.find((char)0xffff));
+    }
+    std::wstring retval(out.begin(), out.end());
+    return retval;
+}
 std::wstring getwstring(char* in, int len)
 {
     unsigned char arr[24]; //Large enough for longest text value stored in game
