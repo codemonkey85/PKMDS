@@ -230,7 +230,7 @@ void pkmviewer::setPKM(pokemon_obj * pkm_, int box, bool isPartyPKM)
     }
     ui->sbCurrentSlot->setValue(frmCurSlotNum);
 }
-void pkmviewer::displayPKM()
+void pkmviewer::displayPKM(/*bool rename*/)
 {
     redisplayok = false;
     int index = 0;
@@ -276,15 +276,18 @@ void pkmviewer::displayPKM()
     }
     ui->lblTNL->setText(QString::number(getpkmexptonext(temppkm)));
     ui->txtNickname->setText(QString::fromStdWString(getpkmnickname(temppkm)));
-    QColor otcolor = Qt::blue;
-    if(temppkm->metlevel_otgender.otgender == Genders::female)
-    {
-        otcolor = Qt::red;
-    }
-    QPalette OTpalette = ui->txtOTName->palette();
-    OTpalette.setColor(ui->txtOTName->foregroundRole(), otcolor);
-    ui->txtOTName->setPalette(OTpalette);
-    ui->txtOTName->setText(QString::fromStdWString(getpkmotname(temppkm)));
+//    if(rename)
+//    {
+        QColor otcolor = Qt::blue;
+        if(temppkm->metlevel_otgender.otgender == Genders::female)
+        {
+            otcolor = Qt::red;
+        }
+        QPalette OTpalette = ui->txtOTName->palette();
+        OTpalette.setColor(ui->txtOTName->foregroundRole(), otcolor);
+        ui->txtOTName->setPalette(OTpalette);
+        ui->txtOTName->setText(QString::fromStdWString(getpkmotname(temppkm)));
+//    }
     ui->cbNicknamed->setChecked(temppkm->ivs.isnicknamed);
     QPixmap * itempix = new QPixmap();
     QGraphicsScene * itemscene = new QGraphicsScene();
@@ -687,11 +690,10 @@ void pkmviewer::on_cbPKMItem_currentIndexChanged(int index)
 {
     if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
-        //        temppkm->item = (Items::items)index;
         temppkm->item = (Items::items)(ui->cbPKMItem->itemData(index).toInt());
         if(redisplayok)
         {
-            pkmviewer::displayPKM();
+            pkmviewer::displayPKM(/*false*/);
         }
     }
 }
@@ -726,7 +728,7 @@ void pkmviewer::on_btnSaveChanges_clicked()
     }
     if(redisplayok)
     {
-        pkmviewer::displayPKM();
+        pkmviewer::displayPKM(/*false*/);
     }
 }
 void pkmviewer::on_btnExportPKMFile_clicked()
@@ -758,7 +760,7 @@ void pkmviewer::on_cbPKMSpecies_currentIndexChanged(int index)
             {
                 ui->sbSpecies->setValue(index+1);
             }
-            pkmviewer::displayPKM();
+            pkmviewer::displayPKM(/*false*/);
         }
     }
 }
@@ -786,7 +788,7 @@ void pkmviewer::on_txtNickname_textChanged(const QString &arg1)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
             for(int i = 0; i < arg1.length(); i++)
             {
-                temppkm->nickname[i] = arg1[i].toLatin1();
+                temppkm->nickname[2*i] = arg1[i].unicode();//.toAscii();//.toLatin1();
             }
 #else
             arg1.toWCharArray(temppkm->nickname);
@@ -812,7 +814,7 @@ void pkmviewer::on_sbEXP_valueChanged(int arg1)
             ui->pbTNL->setValue(arg1);
             ui->lblTNL->setText(QString::number(getpkmexptonext((int)temppkm->species,arg1)));
             levelchangeok = false;
-            pkmviewer::displayPKM();
+            pkmviewer::displayPKM(/*false*/);
         }
         levelchangeok = true;
     }
@@ -826,7 +828,7 @@ void pkmviewer::on_rbOTMale_toggled(bool checked)
             temppkm->metlevel_otgender.otgender = Genders::male;
             if(redisplayok)
             {
-                pkmviewer::displayPKM();
+                pkmviewer::displayPKM(/*false*/);
             }
         }
     }
@@ -840,7 +842,7 @@ void pkmviewer::on_rbOTFemale_toggled(bool checked)
             temppkm->metlevel_otgender.otgender = Genders::female;
             if(redisplayok)
             {
-                pkmviewer::displayPKM();
+                pkmviewer::displayPKM(/*false*/);
             }
         }
     }
@@ -854,21 +856,27 @@ void pkmviewer::on_cbNicknamed_toggled(bool checked)
 }
 void pkmviewer::on_txtOTName_textChanged(const QString &arg1)
 {
+    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    {
+        if(redisplayok)
+        {
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
-    for(int i = 0; i < arg1.length(); i++)
-    {
-        temppkm->otname[i] = arg1[i].toLatin1();
-    }
+            for(int i = 0; i < arg1.length(); i++)
+            {
+                temppkm->otname[2*i] = arg1[i].unicode();//.toAscii();//.toLatin1();
+            }
 #else
-    arg1.toWCharArray(temppkm->otname);
+            arg1.toWCharArray(temppkm->otname);
 #endif
 #endif
-    byte * btpnt = new byte;
-    btpnt = reinterpret_cast<byte*>(&(temppkm->otname));
-    memset(btpnt+(ui->txtOTName->text().length()*2),0xff,2);
-    btpnt += 14;
-    memset(btpnt,0xff,2);
+            byte * btpnt = new byte;
+            btpnt = reinterpret_cast<byte*>(&(temppkm->otname));
+            memset(btpnt+(ui->txtOTName->text().length()*2),0xff,2);
+            btpnt += 14;
+            memset(btpnt,0xff,2);
+        }
+    }
 }
 void pkmviewer::on_sbTID_valueChanged(int arg1)
 {
@@ -1184,7 +1192,7 @@ void pkmviewer::on_cbForm_currentIndexChanged(int index)
     if(redisplayok)
     {
         temppkm->forms.form = (byte)index;
-        displayPKM();
+        displayPKM(/*false*/);
     }
 }
 void pkmviewer::on_chkMetAsEgg_toggled(bool checked)

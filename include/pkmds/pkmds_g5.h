@@ -4134,8 +4134,8 @@ DllExport time_t * advstrttime(const bw2savblock_obj *block);
 //std::string &advstrttimestring(const bw2savblock_obj *block);
 std::wstring DllExport getsavtrainername(const bw2savblock_obj & block);
 std::wstring DllExport getsavtrainername(const bw2savblock_obj * block);
-std::wstring DllExport getwstring(std::wstring in);
-std::wstring DllExport getwstring(std::string in);
+//std::wstring DllExport getwstring(std::wstring in);
+//std::wstring DllExport getwstring(std::string in);
 std::wstring DllExport getwstring(char* in, int len); //Linux needs this
 std::string DllExport getpkrsstatus(const pokemon_obj * pkm);
 std::array<bool, 80> DllExport getribbonswitches(const pokemon_obj * pkm);
