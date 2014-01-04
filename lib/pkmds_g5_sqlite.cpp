@@ -9,6 +9,16 @@ sqlite3 *database;
 sqlite3_stmt *statement;
 void opendb(const char db_file[])
 {
+//#if (defined __APPLE__)
+//    CFURLRef appUrlRef = CFBundleCopyBundleURL(CFBundleGetMainBundle());
+//    CFStringRef macPath = CFURLCopyFileSystemPath(appUrlRef,
+//                                           kCFURLPOSIXPathStyle);
+//    const char *pathPtr = CFStringGetCStringPtr(macPath,
+//                                           CFStringGetSystemEncoding());
+//    qDebug("Path = %s", pathPtr);
+//    CFRelease(appUrlRef);
+//    CFRelease(macPath);
+//#endif
 	sqlite3_open(db_file, &database);
 }
 void closedb()
