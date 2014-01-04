@@ -1,12 +1,22 @@
 #pragma once
 // Set theDB to be the full path of the SQLITE database (provided by Veekun)
 #if (defined __linux__) || (defined __APPLE__) || (defined __CYGWIN__)
+#if (defined __APPLE__)
 #ifdef QT_DEBUG
 static const char theDB[] = "../../SQLite Databases/veekun-pokedex.sqlite";
 static const char theimgDB[] = "../../SQLite Databases/images.sqlite";
 #else
 static const char theDB[] = "veekun-pokedex.sqlite";
 static const char theimgDB[] = "images.sqlite";
+#endif
+#else
+#ifdef QT_DEBUG
+static const char theDB[] = "../../SQLite Databases/veekun-pokedex.sqlite";
+static const char theimgDB[] = "../../SQLite Databases/images.sqlite";
+#else
+static const char theDB[] = "veekun-pokedex.sqlite";
+static const char theimgDB[] = "images.sqlite";
+#endif
 #endif
 #else
 #ifdef QT_DEBUG
@@ -19,6 +29,7 @@ static const char theimgDB[] = "images.sqlite";
 #endif
 #ifdef PKMDS_CMAKE_USED
 #include <pkmds/pkmds_g5.h>
+//#include <../../Visual_Studio/vs_sqlite.h>
 #include <sqlite3.h>
 #else
 #include "pkmds_g5.h"
