@@ -2611,8 +2611,8 @@ namespace Forms
 		enum kyurem : byte
 		{
 			normal,
-			black,
-			white
+			white,
+			black
 		};
 	}
 	namespace Keldeo
