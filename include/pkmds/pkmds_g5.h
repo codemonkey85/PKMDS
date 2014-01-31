@@ -3740,12 +3740,12 @@ public:
 	std::array<box_obj,24> boxes; // size: 0x18000
 	bag_obj bag; // size: 0xA00
 	party_obj party; // size: 0x534
-	byte unknown3[0xCA]; //
+	byte unknown3[0xCC]; //
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
 	char trainername[0x10]; // size: 0x10
 #else
-	wchar_t trainername[0x08]; // size: 0x10
+	wchar_t trainername[0x10]; // size: 0x10
 #endif
 #endif
 	uint16 tid;
