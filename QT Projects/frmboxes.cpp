@@ -2,6 +2,7 @@
 #include "ui_frmboxes.h"
 #include "pkmviewer.h"
 #include "frmreport.h"
+#include "otinfo.h"
 #include <QFileDialog>
 #include <QMessageBox>
 frmBoxes::frmBoxes(QWidget *parent) :
@@ -184,12 +185,12 @@ void frmBoxes::on_actionLoad_SAV_triggered()
         }
         for(int boxnum = 0; boxnum < 24; boxnum++)
         {
-//            ui->cbBoxes->setItemText(boxnum,QString::fromStdString(std::string(cursavblock->boxnames[boxnum])));
+            //            ui->cbBoxes->setItemText(boxnum,QString::fromStdString(std::string(cursavblock->boxnames[boxnum])));
 
             std::wstring testing = getwstring((char*)(cursavblock->boxnames[boxnum]), 20);
-ui->cbBoxes->setItemText(boxnum,QString::fromStdWString(testing));
+            ui->cbBoxes->setItemText(boxnum,QString::fromStdWString(testing));
 
-//            ui->cbBoxes->setItemText(boxnum,QString::fromStdWString(getwstring(cursavblock->boxnames[boxnum])));
+            //            ui->cbBoxes->setItemText(boxnum,QString::fromStdWString(getwstring(cursavblock->boxnames[boxnum])));
             for(int boxslot = 0; boxslot < 30; boxslot++)
             {
                 decryptpkm(&(cursavblock->boxes[boxnum].pokemon[boxslot]));
@@ -291,7 +292,7 @@ void frmBoxes::on_actionSave_changes_triggered()
     // You can simply use QMessageBox::<ButtonType> as the result code
     if(ret == QMessageBox::Save) // 2048 (or 0x800) = Save, 4194304 (or 0x400000) = Cancel
     {
-        if((sav > 0) && (cursavblock->adventurestarted != 0))
+        if((sav > 0)/* && (cursavblock->adventurestarted != 0)*/)
         {
             bw2sav_obj * savout = new bw2sav_obj;
             *savout = *sav;
@@ -314,6 +315,13 @@ void frmBoxes::on_actionSave_changes_triggered()
             fixsavchecksum(savout, isbw2);
             write(SaveFileName.toStdString().c_str(),savout);
             msgBox.setText("The file has been saved.");
+            msgBox.setInformativeText("");
+            msgBox.setStandardButtons(QMessageBox::Ok);
+            msgBox.setDefaultButton(QMessageBox::Ok);
+        }
+        else
+        {
+            msgBox.setText("The file will not be saved.");
             msgBox.setInformativeText("");
             msgBox.setStandardButtons(QMessageBox::Ok);
             msgBox.setDefaultButton(QMessageBox::Ok);
@@ -407,5 +415,15 @@ void frmBoxes::on_actionView_PKM_File_triggered()
         pview->setPKM(pkm,frmCurBoxNum, false);
         pview->displayPKM();
         pview->show();
+    }
+}
+void frmBoxes::on_actionOT_Info_triggered()
+{
+    if(SavDecrypted)
+    {
+        OTInfo * oti = new OTInfo(this);
+        oti->setSAV(sav);
+        oti->displayOTInfo();
+        oti->show();
     }
 }
