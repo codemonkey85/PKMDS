@@ -27,7 +27,8 @@ SOURCES += \
     ../../lib/pkmds_g5_sqlite.cpp \
     ../../lib/pkmds_g5.cpp \
     ../../lib/pkmds_sql.cpp \
-    ../frmreport.cpp
+    ../frmreport.cpp \
+    ../otinfo.cpp
 
 HEADERS  += \
     ../qt_sqlite.h \
@@ -43,9 +44,11 @@ HEADERS  += \
     ../../include/pkmds/stdafx.h \
     ../../include/pkmds/pkmds_g5.h \
     ../../include/pkmds/pkmds_sql.h \
-    ../frmreport.h
+    ../frmreport.h \
+    ../otinfo.h
 
 FORMS    += \
     ../pkmviewer.ui \
     ../frmboxes.ui \
-    ../frmreport.ui
+    ../frmreport.ui \
+    ../otinfo.ui

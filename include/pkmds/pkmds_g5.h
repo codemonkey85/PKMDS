@@ -3740,22 +3740,29 @@ public:
 	std::array<box_obj,24> boxes; // size: 0x18000
 	bag_obj bag; // size: 0xA00
 	party_obj party; // size: 0x534
-	byte unknown3[0xCC]; //
+    byte unknown3[0xC8]; //
+    uint32 unknown4;
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
-	char trainername[0x10]; // size: 0x10
+	char trainername[0x08]; // size: 0x08
 #else
-	wchar_t trainername[0x10]; // size: 0x10
+	wchar_t trainername[0x08]; // size: 0x08
 #endif
 #endif
 	uint16 tid;
 	uint16 sid;
-	byte unknown4[0x32EC];
-	std::array<badge_obj,8> badges; // size: 0x20
-	byte unknown5[0x1210];
-	uint32 adventurestarted;
+    byte unknown5[0x09];
+	Genders::genders trainergender;
+    byte unknown6[0xEA];
+	byte unknown7[0xCAF4];
+    //byte unknown4[0x3204];
+//	std::array<badge_obj,8> badges; // size: 0x20
+    //byte unknown9[0x20];
+	//byte unknown5[0x1210];
+//	uint32 adventurestarted;
+    //uint32 unknown10;
 	//    byte unknown6[0x226C8];
-	byte unknown6[0x86C8];
+	//byte unknown6[0x86C8];
 	// Gym badge dates are stored starting 1C704 - 4 bytes - year, month, day, 0
 	bw2savblock_obj()
 	{

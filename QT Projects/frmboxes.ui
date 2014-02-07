@@ -1234,8 +1234,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>82</width>
-       <height>1908</height>
+       <width>81</width>
+       <height>1812</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -2281,7 +2281,7 @@
      <x>0</x>
      <y>0</y>
      <width>331</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -2303,6 +2303,7 @@
      <string>Edit</string>
     </property>
     <addaction name="actionDelete_HMs"/>
+    <addaction name="actionOT_Info"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -2331,6 +2332,11 @@
   <action name="actionView_PKM_File">
    <property name="text">
     <string>View .PKM File</string>
+   </property>
+  </action>
+  <action name="actionOT_Info">
+   <property name="text">
+    <string>OT Info</string>
    </property>
   </action>
  </widget>

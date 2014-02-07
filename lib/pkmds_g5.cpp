@@ -1003,13 +1003,13 @@ std::wstring getboxname(const bw2savblock_obj &block,int boxnum)
 time_t * advstrttime(const bw2savblock_obj &block)
 {
     time_t * ret = new time_t;
-    *ret = block.adventurestarted + 946684800;
+//    *ret = block.adventurestarted + 946684800;
     return ret;
 }
 time_t * advstrttime(const bw2savblock_obj *block)
 {
     time_t * ret = new time_t;
-    *ret = block->adventurestarted + 946684800;
+//    *ret = block->adventurestarted + 946684800;
     return ret;
 }
 std::string advstrttimestring(const bw2savblock_obj &block)

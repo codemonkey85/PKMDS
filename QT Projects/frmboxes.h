@@ -33,6 +33,8 @@ private slots:
 
     void on_actionView_PKM_File_triggered();
 
+    void on_actionOT_Info_triggered();
+
 private:
     Ui::frmBoxes *ui;
 };
