@@ -1178,13 +1178,13 @@ string lookuplocname(const int locid, const int gen, const int langid)
 		return getastring(lookuplocnamesql(locid,gen,langid));
 	}
 }
-string getpkmformname(const pokemon_obj &pkm, const int langid)
+string getpkmformname(const pokemon_obj &pkm, const int generation, const int langid)
 {
-	return getastring(getpkmformnamesql(pkm,langid));
+	return getastring(getpkmformnamesql(pkm,generation,langid));
 }
-string getpkmformname(const pokemon_obj *pkm, const int langid)
+string getpkmformname(const pokemon_obj *pkm, const int generation, const int langid)
 {
-	return getastring(getpkmformnamesql(pkm,langid));
+	return getastring(getpkmformnamesql(pkm,generation,langid));
 }
 string getpkmformname(const int speciesid, const int formid, const int generation, const int langid)
 {
