@@ -245,7 +245,7 @@ string lookupabilitynamesql(const int abilityid, const int langid)
 }
 string getpkmformnamesql(const pokemon_obj &pkm, const int generation, const int langid)
 {
-	return getpkmformnamesql(int(pkm.species),int(pkm.forms.form),generation,langid)
+	return getpkmformnamesql(int(pkm.species),int(pkm.forms.form),generation,langid);
 }
 string lookuplocnamesql(const int locid, const int gen, const int langid)
 {
@@ -792,7 +792,7 @@ string getsetlevelsql(pokemon_obj *pkm, int level)
 }
 string getpkmformnamesql(const pokemon_obj *pkm, const int generation, const int langid)
 {
-	return getpkmformnamesql(int(pkm->species),int(pkm->forms.form),generation,langid)
+	return getpkmformnamesql(int(pkm->species),int(pkm->forms.form),generation,langid);
 }
 string getpkmformnamesql(const int speciesid, const int formid, const int generation, const int langid)
 {
