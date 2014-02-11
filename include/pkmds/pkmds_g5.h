@@ -2631,6 +2631,17 @@ namespace Forms
 			pirouette
 		};
 	}
+	namespace Genesect
+	{
+		enum genesect : byte
+		{
+			normal,
+			douse,
+			shock,
+			burn,
+			chill
+		};
+	}
 }
 uint32 DllExport getpkmcolorhex(int pkmcolor);
 int DllExport balltoitem(int ball);
