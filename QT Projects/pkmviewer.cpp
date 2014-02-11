@@ -691,6 +691,37 @@ void pkmviewer::on_cbPKMItem_currentIndexChanged(int index)
     if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
         temppkm->item = (Items::items)(ui->cbPKMItem->itemData(index).toInt());
+		if(temppkm->species == Species::giratina)
+		{
+			if(Items::items(index) == Items::griseousorb)
+			{
+				temppkm->forms.form = int(Forms::Giratina::origin);
+			}
+			else
+			{
+				temppkm->forms.form = 0;
+			}
+		}
+		if(temppkm->species == Species::genesect)
+		{
+			switch(index)
+			{
+				case int(Items::burndrive)
+					//temppkm->forms.form = 1;
+					break;
+				case int(Items::dousedrive)
+					//temppkm->forms.form = 2;
+					break;
+				case int(Items::shockdrive)
+					//temppkm->forms.form = 3;
+					break;
+				case int(Items::chilldrive)
+					//temppkm->forms.form = 4;
+					break;
+				default:
+				//temppkm->forms.form = 0;
+			}
+		}
         if(redisplayok)
         {
             pkmviewer::displayPKM(/*false*/);
