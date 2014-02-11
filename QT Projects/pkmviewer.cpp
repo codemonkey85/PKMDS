@@ -707,16 +707,16 @@ void pkmviewer::on_cbPKMItem_currentIndexChanged(int index)
 			switch(Items::items(index))
 			{
 				case Items::burndrive
-					//temppkm->forms.form = 1;
+					//temppkm->forms.form = int(Forms::Genesect::burn);
 					break;
 				case Items::dousedrive
-					//temppkm->forms.form = 2;
+					//temppkm->forms.form = int(Forms::Genesect::douse);
 					break;
 				case Items::shockdrive
-					//temppkm->forms.form = 3;
+					//temppkm->forms.form = int(Forms::Genesect::shock);
 					break;
 				case Items::chilldrive
-					//temppkm->forms.form = 4;
+					//temppkm->forms.form = int(Forms::Genesect::chill);
 					break;
 				default:
 				//temppkm->forms.form = 0;
