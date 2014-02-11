@@ -704,18 +704,18 @@ void pkmviewer::on_cbPKMItem_currentIndexChanged(int index)
 		}
 		if(temppkm->species == Species::genesect)
 		{
-			switch(index)
+			switch(Items::items(index))
 			{
-				case int(Items::burndrive)
+				case Items::burndrive
 					//temppkm->forms.form = 1;
 					break;
-				case int(Items::dousedrive)
+				case Items::dousedrive
 					//temppkm->forms.form = 2;
 					break;
-				case int(Items::shockdrive)
+				case Items::shockdrive
 					//temppkm->forms.form = 3;
 					break;
-				case int(Items::chilldrive)
+				case Items::chilldrive
 					//temppkm->forms.form = 4;
 					break;
 				default:
