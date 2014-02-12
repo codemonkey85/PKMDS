@@ -1125,7 +1125,7 @@ Types::types getarceustype(int form)
         Types::psychic,
         Types::ice,
         Types::dragon,
-        Types::dark,
+        Types::dark
     };
     return arceustypes[form];
 }

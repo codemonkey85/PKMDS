@@ -276,18 +276,18 @@ void pkmviewer::displayPKM(/*bool rename*/)
     }
     ui->lblTNL->setText(QString::number(getpkmexptonext(temppkm)));
     ui->txtNickname->setText(QString::fromStdWString(getpkmnickname(temppkm)));
-//    if(rename)
-//    {
-        QColor otcolor = Qt::blue;
-        if(temppkm->metlevel_otgender.otgender == Genders::female)
-        {
-            otcolor = Qt::red;
-        }
-        QPalette OTpalette = ui->txtOTName->palette();
-        OTpalette.setColor(ui->txtOTName->foregroundRole(), otcolor);
-        ui->txtOTName->setPalette(OTpalette);
-        ui->txtOTName->setText(QString::fromStdWString(getpkmotname(temppkm)));
-//    }
+    //    if(rename)
+    //    {
+    QColor otcolor = Qt::blue;
+    if(temppkm->metlevel_otgender.otgender == Genders::female)
+    {
+        otcolor = Qt::red;
+    }
+    QPalette OTpalette = ui->txtOTName->palette();
+    OTpalette.setColor(ui->txtOTName->foregroundRole(), otcolor);
+    ui->txtOTName->setPalette(OTpalette);
+    ui->txtOTName->setText(QString::fromStdWString(getpkmotname(temppkm)));
+    //    }
     ui->cbNicknamed->setChecked(temppkm->ivs.isnicknamed);
     QPixmap * itempix = new QPixmap();
     QGraphicsScene * itemscene = new QGraphicsScene();
@@ -691,39 +691,98 @@ void pkmviewer::on_cbPKMItem_currentIndexChanged(int index)
     if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
         temppkm->item = (Items::items)(ui->cbPKMItem->itemData(index).toInt());
-		if(temppkm->species == Species::giratina)
-		{
-			if(Items::items(index) == Items::griseousorb)
-			{
-				temppkm->forms.form = int(Forms::Giratina::origin);
-			}
-			else
-			{
-				temppkm->forms.form = 0;
-			}
-		}
-		if(temppkm->species == Species::genesect)
-		{
-			switch(Items::items(index))
-			{
-				case Items::burndrive
-					//temppkm->forms.form = int(Forms::Genesect::burn);
-					break;
-				case Items::dousedrive
-					//temppkm->forms.form = int(Forms::Genesect::douse);
-					break;
-				case Items::shockdrive
-					//temppkm->forms.form = int(Forms::Genesect::shock);
-					break;
-				case Items::chilldrive
-					//temppkm->forms.form = int(Forms::Genesect::chill);
-					break;
-				default:
-				//temppkm->forms.form = 0;
-			}
-		}
         if(redisplayok)
         {
+            switch(temppkm->species)
+            {
+            case Species::giratina:
+                if((Items::items)(ui->cbPKMItem->itemData(index).toInt()) == Items::griseousorb)
+                {
+                    temppkm->forms.form = int(Forms::Giratina::origin);
+                }
+                else
+                {
+                    temppkm->forms.form = 0;
+                }
+                break;
+            case Species::genesect:
+                switch((Items::items)(ui->cbPKMItem->itemData(index).toInt()))
+                {
+                case Items::burndrive:
+                    temppkm->forms.form = int(Forms::Genesect::burn);
+                    break;
+                case Items::dousedrive:
+                    temppkm->forms.form = int(Forms::Genesect::douse);
+                    break;
+                case Items::shockdrive:
+                    temppkm->forms.form = int(Forms::Genesect::shock);
+                    break;
+                case Items::chilldrive:
+                    temppkm->forms.form = int(Forms::Genesect::chill);
+                    break;
+                default:
+                    temppkm->forms.form = 0;
+                }
+                break;
+            case Species::arceus:
+                switch((Items::items)(ui->cbPKMItem->itemData(index).toInt()))
+                {
+                case Items::dracoplate:
+                    temppkm->forms.form = Forms::Arceus::draco;
+                    break;
+                case Items::dreadplate:
+                    temppkm->forms.form = Forms::Arceus::dread;
+                    break;
+                case Items::earthplate:
+                    temppkm->forms.form = Forms::Arceus::earth;
+                    break;
+                case Items::fistplate:
+                    temppkm->forms.form = Forms::Arceus::fist;
+                    break;
+                case Items::flameplate:
+                    temppkm->forms.form = Forms::Arceus::flame;
+                    break;
+                case Items::icicleplate:
+                    temppkm->forms.form = Forms::Arceus::icicle;
+                    break;
+                case Items::insectplate:
+                    temppkm->forms.form = Forms::Arceus::insect;
+                    break;
+                case Items::ironplate:
+                    temppkm->forms.form = Forms::Arceus::iron;
+                    break;
+                case Items::meadowplate:
+                    temppkm->forms.form = Forms::Arceus::meadow;
+                    break;
+                case Items::mindplate:
+                    temppkm->forms.form = Forms::Arceus::mind;
+                    break;
+                case Items::skyplate:
+                    temppkm->forms.form = Forms::Arceus::sky;
+                    break;
+                case Items::splashplate:
+                    temppkm->forms.form = Forms::Arceus::splash;
+                    break;
+                case Items::spookyplate:
+                    temppkm->forms.form = Forms::Arceus::spooky;
+                    break;
+                case Items::stoneplate:
+                    temppkm->forms.form = Forms::Arceus::stone;
+                    break;
+                case Items::toxicplate:
+                    temppkm->forms.form = Forms::Arceus::toxic;
+                    break;
+                case Items::zapplate:
+                    temppkm->forms.form = Forms::Arceus::zap;
+                    break;
+                default:
+                    temppkm->forms.form = 0;
+                    break;
+                }
+                break;
+            default:
+                break;
+            }
             pkmviewer::displayPKM(/*false*/);
         }
     }
