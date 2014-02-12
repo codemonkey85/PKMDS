@@ -728,52 +728,52 @@ void pkmviewer::on_cbPKMItem_currentIndexChanged(int index)
                 switch((Items::items)(ui->cbPKMItem->itemData(index).toInt()))
                 {
                 case Items::dracoplate:
-                    temppkm->forms.form = Forms::Arceus::draco;
+                    temppkm->forms.form = int(Forms::Arceus::draco);
                     break;
                 case Items::dreadplate:
-                    temppkm->forms.form = Forms::Arceus::dread;
+                    temppkm->forms.form = int(Forms::Arceus::dread);
                     break;
                 case Items::earthplate:
-                    temppkm->forms.form = Forms::Arceus::earth;
+                    temppkm->forms.form = int(Forms::Arceus::earth);
                     break;
                 case Items::fistplate:
-                    temppkm->forms.form = Forms::Arceus::fist;
+                    temppkm->forms.form = int(Forms::Arceus::fist);
                     break;
                 case Items::flameplate:
-                    temppkm->forms.form = Forms::Arceus::flame;
+                    temppkm->forms.form = int(Forms::Arceus::flame);
                     break;
                 case Items::icicleplate:
-                    temppkm->forms.form = Forms::Arceus::icicle;
+                    temppkm->forms.form = int(Forms::Arceus::icicle);
                     break;
                 case Items::insectplate:
-                    temppkm->forms.form = Forms::Arceus::insect;
+                    temppkm->forms.form = int(Forms::Arceus::insect);
                     break;
                 case Items::ironplate:
-                    temppkm->forms.form = Forms::Arceus::iron;
+                    temppkm->forms.form = int(Forms::Arceus::iron);
                     break;
                 case Items::meadowplate:
-                    temppkm->forms.form = Forms::Arceus::meadow;
+                    temppkm->forms.form = int(Forms::Arceus::meadow);
                     break;
                 case Items::mindplate:
-                    temppkm->forms.form = Forms::Arceus::mind;
+                    temppkm->forms.form = int(Forms::Arceus::mind);
                     break;
                 case Items::skyplate:
-                    temppkm->forms.form = Forms::Arceus::sky;
+                    temppkm->forms.form = int(Forms::Arceus::sky);
                     break;
                 case Items::splashplate:
-                    temppkm->forms.form = Forms::Arceus::splash;
+                    temppkm->forms.form = int(Forms::Arceus::splash);
                     break;
                 case Items::spookyplate:
-                    temppkm->forms.form = Forms::Arceus::spooky;
+                    temppkm->forms.form = int(Forms::Arceus::spooky);
                     break;
                 case Items::stoneplate:
-                    temppkm->forms.form = Forms::Arceus::stone;
+                    temppkm->forms.form = int(Forms::Arceus::stone);
                     break;
                 case Items::toxicplate:
-                    temppkm->forms.form = Forms::Arceus::toxic;
+                    temppkm->forms.form = int(Forms::Arceus::toxic);
                     break;
                 case Items::zapplate:
-                    temppkm->forms.form = Forms::Arceus::zap;
+                    temppkm->forms.form = int(Forms::Arceus::zap);
                     break;
                 default:
                     temppkm->forms.form = 0;
