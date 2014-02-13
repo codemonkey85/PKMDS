@@ -1290,8 +1290,9 @@ void pkmviewer::on_cbForm_currentIndexChanged(int index)
     if(redisplayok)
     {
         temppkm->forms.form = (byte)index;
-        if(temppkm->species == Species::giratina)
+        switch(temppkm->species)
         {
+        case Species::giratina:
             if(!(temppkm->dwability.hasdwability))
             {
                 if(temppkm->forms.form == Forms::Giratina::origin)
@@ -1303,6 +1304,19 @@ void pkmviewer::on_cbForm_currentIndexChanged(int index)
                     temppkm->ability = Abilities::pressure;
                 }
             }
+            break;
+        case Species::shaymin:
+            if(temppkm->forms.form == Forms::Shaymin::sky)
+            {
+                temppkm->ability = Abilities::serenegrace;
+            }
+            else
+            {
+                temppkm->ability = Abilities::naturalcure;
+            }
+            break;
+        default:
+            break;
         }
         displayPKM(/*false*/);
     }
