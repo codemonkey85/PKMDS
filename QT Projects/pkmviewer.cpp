@@ -699,10 +699,18 @@ void pkmviewer::on_cbPKMItem_currentIndexChanged(int index)
                 if((Items::items)(ui->cbPKMItem->itemData(index).toInt()) == Items::griseousorb)
                 {
                     temppkm->forms.form = int(Forms::Giratina::origin);
+                    if(!(temppkm->dwability.hasdwability))
+                    {
+                        temppkm->ability = Abilities::levitate;
+                    }
                 }
                 else
                 {
                     temppkm->forms.form = 0;
+                    if(!(temppkm->dwability.hasdwability))
+                    {
+                        temppkm->ability = Abilities::pressure;
+                    }
                 }
                 break;
             case Species::genesect:
@@ -1282,6 +1290,20 @@ void pkmviewer::on_cbForm_currentIndexChanged(int index)
     if(redisplayok)
     {
         temppkm->forms.form = (byte)index;
+        if(temppkm->species == Species::giratina)
+        {
+            if(!(temppkm->dwability.hasdwability))
+            {
+                if(temppkm->forms.form == Forms::Giratina::origin)
+                {
+                    temppkm->ability = Abilities::levitate;
+                }
+                else
+                {
+                    temppkm->ability = Abilities::pressure;
+                }
+            }
+        }
         displayPKM(/*false*/);
     }
 }
