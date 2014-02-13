@@ -1295,7 +1295,7 @@ void pkmviewer::on_cbForm_currentIndexChanged(int index)
         case Species::giratina:
             if(!(temppkm->dwability.hasdwability))
             {
-                if(temppkm->forms.form == Forms::Giratina::origin)
+                if(temppkm->forms.form == int(Forms::Giratina::origin))
                 {
                     temppkm->ability = Abilities::levitate;
                 }
@@ -1306,13 +1306,80 @@ void pkmviewer::on_cbForm_currentIndexChanged(int index)
             }
             break;
         case Species::shaymin:
-            if(temppkm->forms.form == Forms::Shaymin::sky)
+            if(temppkm->forms.form == int(Forms::Shaymin::sky))
             {
                 temppkm->ability = Abilities::serenegrace;
             }
             else
             {
                 temppkm->ability = Abilities::naturalcure;
+            }
+            break;
+        case Species::tornadus:
+            if(temppkm->forms.form == int(Forms::Tornadus_Thundurus_Landorus::therian))
+            {
+                temppkm->ability = Abilities::regenerator;
+            }
+            else
+            {
+                if(temppkm->dwability.hasdwability)
+                {
+                    temppkm->ability = Abilities::defiant;
+                }
+                else
+                {
+                    temppkm->ability = Abilities::prankster;
+                }
+            }
+            break;
+        case Species::thundurus:
+            if(temppkm->forms.form == int(Forms::Tornadus_Thundurus_Landorus::therian))
+            {
+                temppkm->ability = Abilities::voltabsorb;
+            }
+            else
+            {
+                if(temppkm->dwability.hasdwability)
+                {
+                    temppkm->ability = Abilities::defiant;
+                }
+                else
+                {
+                    temppkm->ability = Abilities::prankster;
+                }
+            }
+            break;
+        case Species::landorus:
+            if(temppkm->forms.form == int(Forms::Tornadus_Thundurus_Landorus::therian))
+            {
+                temppkm->ability = Abilities::intimidate;
+            }
+            else
+            {
+                if(temppkm->dwability.hasdwability)
+                {
+                    temppkm->ability = Abilities::sheerforce;
+                }
+                else
+                {
+                    temppkm->ability = Abilities::sandforce;
+                }
+            }
+            break;
+        case Species::kyurem:
+            switch(temppkm->forms.form)
+            {
+            case int(Forms::Kyurem::normal):
+                temppkm->ability = Abilities::pressure;
+                break;
+            case int(Forms::Kyurem::black):
+                temppkm->ability = Abilities::teravolt;
+                break;
+            case int(Forms::Kyurem::white):
+                temppkm->ability = Abilities::turboblaze;
+                break;
+            default:
+                break;
             }
             break;
         default:
