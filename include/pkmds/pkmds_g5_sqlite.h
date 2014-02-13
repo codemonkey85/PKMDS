@@ -2,6 +2,7 @@
 // Set theDB to be the full path of the SQLITE database (provided by Veekun)
 #if (defined __linux__) || (defined __APPLE__) || (defined __CYGWIN__)
 #if (defined __APPLE__)
+// Mac OS
 #if (!defined QT_NO_DEBUG)
 static const char theDB[] = "../../SQLite Databases/veekun-pokedex.sqlite";
 static const char theimgDB[] = "../../SQLite Databases/images.sqlite";
@@ -10,6 +11,7 @@ static const char theDB[] = "veekun-pokedex.sqlite";
 static const char theimgDB[] = "images.sqlite";
 #endif
 #else
+// Linux (Ubuntu)
 #if (!defined QT_NO_DEBUG)
 static const char theDB[] = "../../../Dropbox/PKMDS Databases/veekun-pokedex.sqlite";
 static const char theimgDB[] = "../../../Dropbox/PKMDS Databases/images.sqlite";
@@ -19,9 +21,10 @@ static const char theimgDB[] = "images.sqlite";
 #endif
 #endif
 #else
+// Windows
 #if (!defined QT_NO_DEBUG)
-static const char theDB[] = "..\\..\\SQLite Databases\\veekun-pokedex.sqlite";
-static const char theimgDB[] = "..\\..\\SQLite Databases\\images.sqlite";
+static const char theDB[] = "..\\..\\..\\..\\..\\Dropbox\\PKMDS Databases\\veekun-pokedex.sqlite";
+static const char theimgDB[] = "..\\..\\..\\..\\..\\Dropbox\\PKMDS Databases\\images.sqlite";
 #else
 static const char theDB[] = "veekun-pokedex.sqlite";
 static const char theimgDB[] = "images.sqlite";
