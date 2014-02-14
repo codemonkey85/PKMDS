@@ -9,7 +9,7 @@ class frmBoxes : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit frmBoxes(const char * apppath, QWidget *parent = 0);
+    explicit frmBoxes(const char * apppath = "", QWidget *parent = 0);
     MouseEventEater *mouseEventEater;
     QGraphicsView * partygraphics[6];
     QPixmap pix;
@@ -28,7 +28,7 @@ private slots:
     void on_actionSearch_triggered();
 
     void on_pbBoxSlot01_customContextMenuRequested(const QPoint &pos);
-//void on_actionDeletePKM(QGraphicsView * gView);
+    //void on_actionDeletePKM(QGraphicsView * gView);
     void on_actionDelete_HMs_triggered();
 
     void on_actionView_PKM_File_triggered();
