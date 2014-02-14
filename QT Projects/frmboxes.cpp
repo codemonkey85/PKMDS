@@ -5,12 +5,25 @@
 #include "otinfo.h"
 #include <QFileDialog>
 #include <QMessageBox>
-frmBoxes::frmBoxes(QWidget *parent) :
+const char * appath;
+frmBoxes::frmBoxes(const char *apppath, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::frmBoxes)
 {
-    opendb();
-    openimgdb();
+    appath = apppath;
+
+    QString apppathq = QString(appath);
+    QStringList allparts = apppathq.split("/");
+    QStringList rootdir = QStringList();//[allparts.length() - 4];
+    for(int i = 0; i < allparts.length()-4; i++)
+    {
+        rootdir.append(allparts[i]);
+    }
+    QString wholepath = rootdir.join("/") + "/";
+    std::string dbpath = wholepath.toStdString() + "veekun-pokedex.sqlite";
+    std::string imgdbpath = wholepath.toStdString() + "images.sqlite";
+    opendb(dbpath.c_str());
+    openimgdb(imgdbpath.c_str());
     ui->setupUi(this);
     ui->saBoxes->setVisible(false);
     ui->saBoxes->setEnabled(false);
