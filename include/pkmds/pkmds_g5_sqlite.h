@@ -4,11 +4,11 @@
 #if (defined __APPLE__)
 // Mac OS
 #if (!defined QT_NO_DEBUG)
-static const char theDB[] = "../../SQLite Databases/veekun-pokedex.sqlite";
-static const char theimgDB[] = "../../SQLite Databases/images.sqlite";
+static const char theDB[] = "../../../../../../Dropbox/PKMDS Databases/veekun-pokedex.sqlite";
+static const char theimgDB[] = "../../../../../../Dropbox/PKMDS Databases/images.sqlite";
 #else
-static const char theDB[] = "veekun-pokedex.sqlite";
-static const char theimgDB[] = "images.sqlite";
+static const char theDB[] = "../../veekun-pokedex.sqlite";
+static const char theimgDB[] = "../../images.sqlite";
 #endif
 #else
 // Linux (Ubuntu)

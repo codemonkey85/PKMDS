@@ -9,7 +9,7 @@ class frmBoxes : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit frmBoxes(QWidget *parent = 0);
+    explicit frmBoxes(const char * apppath, QWidget *parent = 0);
     MouseEventEater *mouseEventEater;
     QGraphicsView * partygraphics[6];
     QPixmap pix;
