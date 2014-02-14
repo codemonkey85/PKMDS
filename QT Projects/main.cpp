@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 #if (defined __APPLE__)
     frmBoxes w(apppath);
 #else
-    frmboxes w();
+    frmBoxes w;
 #endif
     w.show();
     return a.exec();
