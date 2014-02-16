@@ -698,8 +698,10 @@ void pkmviewer::egg_display(bool isegg)
         {
             ui->lblTameness->setText("Tameness");
         }
-        //        ui->dtMetDate->setEnabled(!isegg);
-        //        ui->cbMetLocation->setEnabled(!isegg);
+        ui->dtMetDate->setEnabled(!isegg);
+        ui->cbMetLocation->setEnabled(!isegg);
+        ui->dtEggDate->setEnabled(isegg | ui->chkMetAsEgg->isChecked());
+        ui->cbEggLocation->setEnabled(isegg | ui->chkMetAsEgg->isChecked());
         ui->lblEggSteps->setVisible(isegg);
         ui->txtSteps->setVisible(isegg);
         ui->txtNickname->setEnabled(!isegg);
@@ -740,6 +742,7 @@ void pkmviewer::egg_display(bool isegg)
         ui->chkNicknamed->setEnabled(!isegg);
         ui->cbBall->setEnabled(!isegg);
         ui->chkFateful->setEnabled(!isegg);
+        ui->chkNsPKM->setEnabled(!isegg);
         //        if(isegg)
         //        {
         //            ui->chkMetAsEgg->setChecked(false);
@@ -1576,7 +1579,6 @@ void pkmviewer::on_chkIsEgg_toggled(bool checked)
         egg_display(checked);
     }
 }
-
 void pkmviewer::on_sbTameness_valueChanged(int arg1)
 {
     if(redisplayok)
