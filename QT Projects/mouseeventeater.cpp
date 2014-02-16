@@ -36,18 +36,19 @@ bool MouseEventEater::eventFilter(QObject *obj, QEvent *event)
             switch(mouseEvent->button())
             {
             case Qt::LeftButton:
-                theSlot = obj;
                 switch(theObjName.toStdString()[2])
                 {
                 case 'B':
                     if(theObjName.mid(2,5) == "BoxSl")
                     {
+                        theSlot = obj;
                         apkm = &(frmCurBox->pokemon[slot]);
                         ispartypkm_ = false;
                         todisplay = true;
                     }
                     break;
                 case 'P':
+                    theSlot = obj;
                     apkm = &(frmParty->pokemon[slot]);
                     ispartypkm_ = true;
                     todisplay = true;
@@ -117,11 +118,11 @@ bool MouseEventEater::eventFilter(QObject *obj, QEvent *event)
                 menu->addAction(new QAction("Delete",static_cast<QWidget*>(this->parent())));
                 //    connect(mouseEventEater, SIGNAL(send_rightButtonClicked(const QPoint&)),
                 //                this, SLOT(rightButtonClicked(const QPoint&)));
-//                connect(menu,SIGNAL(triggered()),static_cast<QWidget*>(this->parent()),
-//                        SLOT(MouseEventEater::test(apkm)));
+                //                connect(menu,SIGNAL(triggered()),static_cast<QWidget*>(this->parent()),
+                //                        SLOT(MouseEventEater::test(apkm)));
                 connect(static_cast<QWidget*>(this->parent()),
                         SIGNAL ( customContextMenuRequested(QPoint) ),
-                                static_cast<QWidget*>(this->parent()),
+                        static_cast<QWidget*>(this->parent()),
                         SLOT ( test(apkm) ) );
                 menu->exec(QCursor::pos());
             }
@@ -144,8 +145,8 @@ bool MouseEventEater::eventFilter(QObject *obj, QEvent *event)
 }
 void MouseEventEater::test(void * apkm)
 {
-//    pokemon_obj * thepkm = new pokemon_obj;
-//    thepkm = reinterpret_cast<pokemon_obj*>(apkm);
-//    static_cast<QWidget*>(static_cast<QWidget*>(this->parent())->parent())->setWindowTitle("TEST");
+    //    pokemon_obj * thepkm = new pokemon_obj;
+    //    thepkm = reinterpret_cast<pokemon_obj*>(apkm);
+    //    static_cast<QWidget*>(static_cast<QWidget*>(this->parent())->parent())->setWindowTitle("TEST");
     delete this;
 }
