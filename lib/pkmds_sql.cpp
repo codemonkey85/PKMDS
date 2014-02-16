@@ -378,6 +378,16 @@ string getmoveppsql(const Moves::moves moveid)
 }
 void getspritesql(ostringstream& o, const pokemon_obj & pkm, int generation)
 {
+    if(bool(pkm.ivs.isegg))
+    {
+        o << "SELECT image FROM front_male_normal_sprites WHERE identifier = 'egg";
+        if(pkm.species == Species::manaphy)
+        {
+            o << "-manaphy";
+        }
+        o << "'";
+        return;
+    }
 	o
 		<< "SELECT pokemon_forms.form_identifier "
 		<< "FROM   pokemon_forms "
@@ -449,8 +459,18 @@ void getspritesql(ostringstream& o, const pokemon_obj & pkm, int generation)
 }
 void getspritesql(ostringstream& o, const pokemon_obj * pkm, int generation)
 {
-	o
-		<< "SELECT pokemon_forms.form_identifier "
+    if(bool(pkm->ivs.isegg))
+    {
+        o << "SELECT image FROM front_male_normal_sprites WHERE identifier = 'egg";
+        if(pkm->species == Species::manaphy)
+        {
+            o << "-manaphy";
+        }
+        o << "'";
+        return;
+    }
+    o
+        << "SELECT pokemon_forms.form_identifier "
 		<< "FROM   pokemon_forms "
 		<< "       INNER JOIN pokemon_form_generations "
 		<< "               ON pokemon_forms.id = pokemon_form_generations.pokemon_form_id "
