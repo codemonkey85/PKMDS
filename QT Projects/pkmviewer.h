@@ -30,6 +30,7 @@ public:
     void updatepkrs();
     void updatehidpwr();
     void updateribbons();
+    void egg_display(bool isegg);
 #else
     void pkmviewer::setPKM(pokemon_obj * pkm_, int box, bool isPartyPKM);
     void pkmviewer::displayPKM(/*bool rename = true*/);
@@ -45,6 +46,7 @@ public:
     void pkmviewer::updatepkrs();
     void pkmviewer::updatehidpwr();
     void pkmviewer::updateribbons();
+    void pkmviewer::egg_display(bool isegg);
 #endif
     explicit pkmviewer(QWidget *parent = 0);
     ~pkmviewer();
@@ -160,6 +162,10 @@ private slots:
     void on_sbPKRSStrain_valueChanged(int arg1);
 
     void on_sbPKRSDays_valueChanged(int arg1);
+
+    void on_chkIsEgg_toggled(bool checked);
+
+    void on_sbTameness_valueChanged(int arg1);
 
 private:
     Ui::pkmviewer *ui;
