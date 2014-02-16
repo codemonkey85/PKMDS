@@ -288,7 +288,7 @@ void pkmviewer::displayPKM(/*bool rename*/)
     ui->txtOTName->setPalette(OTpalette);
     ui->txtOTName->setText(QString::fromStdWString(getpkmotname(temppkm)));
     //    }
-    ui->cbNicknamed->setChecked(temppkm->ivs.isnicknamed);
+    ui->chkNicknamed->setChecked(temppkm->ivs.isnicknamed);
     QPixmap * itempix = new QPixmap();
     QGraphicsScene * itemscene = new QGraphicsScene();
     *itempix = getitemimage(temppkm->item);
@@ -359,9 +359,6 @@ void pkmviewer::displayPKM(/*bool rename*/)
     ui->chkNsPKM->setChecked(temppkm->dwability.n_pkm);
     ui->chkFateful->setChecked(temppkm->forms.fencounter);
     ui->sbMetLevel->setValue((int)temppkm->metlevel_otgender.metlevel);
-    ui->chkMetAsEgg->setChecked(pkmmetasegg(temppkm));
-    ui->cbEggLocation->setEnabled(ui->chkMetAsEgg->isChecked());
-    ui->dtEggDate->setEnabled(ui->chkMetAsEgg->isChecked());
     index = ui->cbHometown->findData((int)temppkm->hometown);
     if ( index != -1 ) { // -1 for not found
         ui->cbHometown->setCurrentIndex(index);
@@ -408,7 +405,12 @@ void pkmviewer::displayPKM(/*bool rename*/)
     }
     ui->cbForm->setEnabled(ui->cbForm->count() > 0);
     ui->cbForm->setCurrentIndex((int)temppkm->forms.form);
+    ui->sbTameness->setValue(int(temppkm->tameness));
     updateribbons();
+    ui->chkMetAsEgg->setChecked(pkmmetasegg(temppkm));
+    ui->cbEggLocation->setEnabled(ui->chkMetAsEgg->isChecked());
+    ui->dtEggDate->setEnabled(ui->chkMetAsEgg->isChecked());
+    ui->chkIsEgg->setChecked(bool(temppkm->ivs.isegg));
     redisplayok = true;
     updatepkrs();
     updategenderpic();
@@ -421,6 +423,7 @@ void pkmviewer::displayPKM(/*bool rename*/)
     updatemoveimages();
     updatemoveinfo();
     updatehidpwr();
+    egg_display(bool(temppkm->ivs.isegg));
 }
 void pkmviewer::updatestats()
 {
@@ -682,6 +685,77 @@ void pkmviewer::updateribbons()
     }
     ui->sbRibbonCount->setValue(ribcount);
 }
+void pkmviewer::egg_display(bool isegg)
+{
+    if(redisplayok)
+    {
+        if(isegg)
+        {
+            ui->lblTameness->setText("Hatch cycles");
+            ui->txtSteps->setText(QString::number(int(temppkm->tameness) * 255));
+        }
+        else
+        {
+            ui->lblTameness->setText("Tameness");
+        }
+        //        ui->dtMetDate->setEnabled(!isegg);
+        //        ui->cbMetLocation->setEnabled(!isegg);
+        ui->lblEggSteps->setVisible(isegg);
+        ui->txtSteps->setVisible(isegg);
+        ui->txtNickname->setEnabled(!isegg);
+        ui->sbTID->setEnabled(!isegg);
+        ui->sbSID->setEnabled(!isegg);
+        ui->rbOTFemale->setEnabled(!isegg);
+        ui->rbOTMale->setEnabled(!isegg);
+        ui->sbEXP->setEnabled(!isegg);
+        ui->sbLevel->setEnabled(!isegg);
+        ui->cbPKMItem->setEnabled(!isegg);
+        ui->sbHPEV->setEnabled(!isegg);
+        ui->sbHP->setEnabled(!isegg);
+        ui->sbAtkEV->setEnabled(!isegg);
+        ui->sbAtk->setEnabled(!isegg);
+        ui->sbDefEV->setEnabled(!isegg);
+        ui->sbDef->setEnabled(!isegg);
+        ui->sbSpAtkEV->setEnabled(!isegg);
+        ui->sbSpAtk->setEnabled(!isegg);
+        ui->sbSpDefEV->setEnabled(!isegg);
+        ui->sbSpDef->setEnabled(!isegg);
+        ui->sbSpeedEV->setEnabled(!isegg);
+        ui->sbSpeed->setEnabled(!isegg);
+        ui->sbMove1PP->setEnabled(!isegg);
+        ui->sbMove1PPUps->setEnabled(!isegg);
+        ui->sbMove1TotalPP->setEnabled(!isegg);
+        ui->sbMove2PP->setEnabled(!isegg);
+        ui->sbMove2PPUps->setEnabled(!isegg);
+        ui->sbMove2TotalPP->setEnabled(!isegg);
+        ui->sbMove3PP->setEnabled(!isegg);
+        ui->sbMove3PPUps->setEnabled(!isegg);
+        ui->sbMove3TotalPP->setEnabled(!isegg);
+        ui->sbMove4PP->setEnabled(!isegg);
+        ui->sbMove4PPUps->setEnabled(!isegg);
+        ui->sbMove4TotalPP->setEnabled(!isegg);
+        ui->sbMetLevel->setEnabled(!isegg);
+        ui->chkMetAsEgg->setEnabled(!isegg);
+        ui->txtOTName->setEnabled(!isegg);
+        ui->chkNicknamed->setEnabled(!isegg);
+        ui->cbBall->setEnabled(!isegg);
+        ui->chkFateful->setEnabled(!isegg);
+        //        if(isegg)
+        //        {
+        //            ui->chkMetAsEgg->setChecked(false);
+        //        }
+        //        else
+        //        {
+        //
+        //        }
+        //ui->chkMetAsEgg->setChecked(isegg);
+        QPixmap * spritepixmap = new QPixmap();
+        QGraphicsScene * spritescene = new QGraphicsScene();
+        *spritepixmap = getpkmsprite(temppkm);
+        spritescene->addPixmap(*spritepixmap);
+        ui->pbSprite->setScene(spritescene);
+    }
+}
 pkmviewer::~pkmviewer()
 {
     delete ui;
@@ -881,7 +955,7 @@ void pkmviewer::on_txtNickname_textChanged(const QString &arg1)
     {
         if(redisplayok)
         {
-            ui->cbNicknamed->setChecked(true);
+            ui->chkNicknamed->setChecked(true);
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
             for(int i = 0; i < arg1.length(); i++)
@@ -1492,5 +1566,25 @@ void pkmviewer::on_sbPKRSDays_valueChanged(int arg1)
     {
         temppkm->pkrs.days = arg1;
         updatepkrs();
+    }
+}
+void pkmviewer::on_chkIsEgg_toggled(bool checked)
+{
+    if(redisplayok)
+    {
+        temppkm->ivs.isegg = uint32(checked);
+        egg_display(checked);
+    }
+}
+
+void pkmviewer::on_sbTameness_valueChanged(int arg1)
+{
+    if(redisplayok)
+    {
+        temppkm->tameness = byte(arg1);
+        if(bool(temppkm->ivs.isegg))
+        {
+            ui->txtSteps->setText(QString::number(int(temppkm->tameness) * 255));
+        }
     }
 }
