@@ -1,6 +1,8 @@
-#include <QFileDialog>
+﻿#include <QFileDialog>
 #include "pkmviewer.h"
 #include "ui_pkmviewer.h"
+#include "frmboxes.h"
+extern frmBoxes * boxViewer;
 pkmviewer::pkmviewer(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::pkmviewer)
@@ -900,6 +902,7 @@ void pkmviewer::on_btnSaveChanges_clicked()
         QGraphicsView * theView = new QGraphicsView;
         theView = (QGraphicsView*)theSlot;
         theView->setScene(iconscene);
+        boxViewer->refreshboxgrids();
     }
     if(redisplayok)
     {

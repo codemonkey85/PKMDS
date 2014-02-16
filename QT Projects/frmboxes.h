@@ -24,17 +24,12 @@ private slots:
     void on_cbBoxes_currentIndexChanged(int index);
     void on_sbBoxIncrem_valueChanged(int value);
     void on_actionSave_changes_triggered();
-
     void on_actionSearch_triggered();
-
     void on_pbBoxSlot01_customContextMenuRequested(const QPoint &pos);
     //void on_actionDeletePKM(QGraphicsView * gView);
     void on_actionDelete_HMs_triggered();
-
     void on_actionView_PKM_File_triggered();
-
     void on_actionOT_Info_triggered();
-
 private:
     Ui::frmBoxes *ui;
 };

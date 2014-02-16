@@ -237,6 +237,7 @@ void frmBoxes::on_actionLoad_SAV_triggered()
 void frmBoxes::changebox(int index)
 {
     int box = index;
+    refreshboxgrid(frmCurBoxNum);
     frmCurBoxNum = index;
     frmCurBox = &(cursavblock->boxes[box]);
 

@@ -99,6 +99,7 @@ bool MouseEventEater::eventFilter(QObject *obj, QEvent *event)
                     pview->setPKM(apkm,frmCurBoxNum, ispartypkm_);
                     pview->displayPKM();
                     pview->show();
+                    boxViewer->refreshboxgrids();
                 }
                 break;
             default:
