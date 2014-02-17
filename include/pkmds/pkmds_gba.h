@@ -398,51 +398,128 @@ namespace GBASpecies
 		deoxys=410
 	};
 }
-struct gbapokemongrowth
+struct ppbonuses_struct
+{
+	byte move1 : 2;
+	byte move2 : 2;
+	byte move3 : 2;
+	byte move4 : 2;
+	ppbonuses_struct()
+	{
+		memset(this,0,sizeof(ppbonuses_struct));
+	};
+};
+struct origins_struct
+{
+	byte metlevel : 7;
+byte : 1;
+	byte game : 3;
+	byte ball : 4;
+	byte trainergender : 1;
+	origins_struct()
+	{
+		memset(this,0,sizeof(origins_struct));
+	};
+};
+struct ivs_struct 
+{
+public:
+	uint32 hp : 5;
+	uint32 attack : 5;
+	uint32 defense : 5;
+	uint32 speed : 5;
+	uint32 spatk : 5;
+	uint32 spdef : 5;
+	uint32 isegg : 1;
+	uint32 ability_flag : 1;
+	ivs_struct()
+	{
+		memset(this,0,sizeof(ivs_struct));
+	}
+};
+struct growth_block
 {
 	GBASpecies::gbaspecies species;
 	uint16 item;
 	uint32 exp;
-	byte ppup;
-	byte tameness;
-	uint16 unknown;
+	ppbonuses_struct ppbonuses;
+	byte friendship;
+uint16 : 16;
+	growth_block()
+	{
+		memset(this,0,sizeof(growth_block));
+	};
 };
-struct gbapokemonattacks
+struct moves_block
 {
 	uint16 moves[4];
-	byte pp[4];
+	byte movepp[4];
+	moves_block()
+	{
+		memset(this,0,sizeof(moves_block));
+	};
 };
-struct gbapokemoneffort
+struct evscondition_block
 {
 	byte evs[6];
 	byte contest[6];
+	evscondition_block()
+	{
+		memset(this,0,sizeof(evscondition_block));
+	};
 };
-struct gbapokemonmisc
+struct misc_block
 {
-	byte pokerus;
-	byte locationcaught;
-	uint16 originsinfo;
-	uint32 ivs;
-	uint16 ribbons;
+	byte pkrs;
+	byte metloc;
+	origins_struct origins;
+	ivs_struct ivs;
+	uint32 ribbons;
+	misc_block()
+	{
+		memset(this,0,sizeof(misc_block));
+	};
 };
-struct gbapokemonsubstruct
+struct pkmdata : growth_block, moves_block, evscondition_block, misc_block
 {
-	gbapokemongrowth growth;
-	gbapokemonattacks attacks;
-	gbapokemoneffort effort;
-	gbapokemonmisc misc;
+	pkmdata()
+	{
+		memset(this,0,sizeof(pkmdata));
+	};
 };
-struct gbapokemon
+struct pokemon_gen3
 {
 	uint32 pid;
-	uint32 trainerid;
+	uint16 tid;
+	uint16 sid;
 	byte nickname[10];
-	uint16 language;
+	uint16 lang;
 	byte otname[7];
-	byte markings;
+	byte mark;
 	uint16 checksum;
-	uint16 unknown;
-	gbapokemonsubstruct encrypted;
+uint16 : 16;
+	pkmdata data;
+	pokemon_gen3()
+	{
+		memset(this,0,sizeof(pokemon_gen3));
+	};
+};
+struct pokemon_gen3_party : pokemon_gen3
+{
+	uint32 status;
+	byte level;
+	byte pkrs_remaining;
+	uint16 curhp;
+	uint16 totalhp;
+	uint16 atk;
+	uint16 def;
+	uint16 speed;
+	uint16 spatk;
+	uint16 spdef;
+	pokemon_gen3_party()
+	{
+		memset(this,0,sizeof(pokemon_gen3_party));
+	};
 };
 struct gbasavefooter
 {
@@ -465,7 +542,7 @@ struct gbasavehalf
 struct gbasavehalf_unscrambled
 {
 	uint32 curbox;
-	gbapokemon pcstorage[14][30];
+	pokemon_gen3 pcstorage[14][30];
 	byte boxnames[126];
 	byte boxwallpapers[14];
 };
@@ -478,9 +555,9 @@ struct gbasavefile
 void DllExport sortsaveblocks(gbasavehalf * savehalf);
 bool DllExport compareblocks(gbasaveblock a, gbasaveblock b);
 void DllExport sortblocks(std::array<gbasaveblock,14> & theblocks);
-void DllExport decryptgbapkm(gbapokemon * pkm);
-void DllExport calcchecksum(gbapokemon * pkm);
-void DllExport shufflegbapkm(gbapokemon * pkm, bool un);
+void DllExport decryptgbapkm(pokemon_gen3 * pkm);
+void DllExport calcchecksum(pokemon_gen3 * pkm);
+void DllExport shufflegbapkm(pokemon_gen3 * pkm, bool un);
 void DllExport sortsavefile(gbasavefile * sav);
 void DllExport read(const char* file_name, gbasavefile *data);
 DllExport int convertgbaspecies(GBASpecies::gbaspecies in);
