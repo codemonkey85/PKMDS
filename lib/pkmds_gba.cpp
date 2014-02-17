@@ -28,7 +28,7 @@ void sortblocks(std::array<gbasaveblock,14> & theblocks)
 {
 	std::sort(theblocks.begin(),theblocks.end(),compareblocks);
 }
-void decryptgbapkm(gbapokemon * pkm)
+void decryptgbapkm(pokemon_gen3 * pkm)
 {
 	uint32 key = (pkm->trainerid  ^ pkm->pid);
 	uint32 * pkmpnt = new uint32;
@@ -46,7 +46,7 @@ const byte t_shuffle[24][4] = {
 	{2,3,0,1}, {2,3,1,0}, {3,0,1,2}, {3,0,2,1},
 	{3,1,0,2}, {3,1,2,0}, {3,2,0,1}, {3,2,1,0}
 };
-void shufflegbapkm(gbapokemon * pkm, bool un)
+void shufflegbapkm(pokemon_gen3 * pkm, bool un)
 {
 	byte * pkmpnt = new byte();
 	pkmpnt = reinterpret_cast<byte*>(&(pkm->encrypted));
@@ -66,7 +66,7 @@ void shufflegbapkm(gbapokemon * pkm, bool un)
 	}
 	memcpy(pkmpnt, &temp, 48);
 }
-void calcchecksum(gbapokemon * pkm)
+void calcchecksum(pokemon_gen3 * pkm)
 {
 	uint32 sum = 0;
 	uint16 * word = new uint16();
