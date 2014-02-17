@@ -4,8 +4,6 @@
 #else
 #define DllExport __attribute__((visibility("default")))
 #endif
-//#if (defined __APPLE__)
-//#endif
 #include <string>
 #include <fstream>
 #include <iostream>
