@@ -11,7 +11,7 @@ Collaboration document: http://goo.gl/iCTKme
 
 Created by Michael Bond (aka Codemonkey85)
 
-https://plus.google.com/116414067936940758871/
+https://plus.google.com/+MichaelBond
 *********************************************************************
 
 The database files required by portions of this library can be downloaded from Dropbox: https://www.dropbox.com/sh/2etuv926vyey5ou/jeAXk1qDXc
