@@ -560,5 +560,6 @@ void DllExport calcchecksum(pokemon_gen3 * pkm);
 void DllExport shufflegbapkm(pokemon_gen3 * pkm, bool un);
 void DllExport sortsavefile(gbasavefile * sav);
 void DllExport read(const char* file_name, gbasavefile *data);
+void DllExport read(const char* file_name, pokemon_gen3 *data);
 DllExport int convertgbaspecies(GBASpecies::gbaspecies in);
 DllExport GBASpecies::gbaspecies convertgbaspecies(int in);
