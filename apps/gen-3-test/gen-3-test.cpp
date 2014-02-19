@@ -10,7 +10,7 @@ void dostuff(pokemon_gen3 * pkm, int box, int slot);
 int main(int argc, char* argv[])
 {
 	string savefile;
-	//const char * pkmfile = "C:\\Users\\michaelbond\\Dropbox\\ShinyJirachiWSHMKR.3gpkm";
+	const char * pkmfile = "C:\\Users\\michaelbond\\Dropbox\\Saves\\Squirtle_FireRed_ENCRYPTED.bin";
 	savefile = "C:\\Users\\michaelbond\\Dropbox\\Saves\\Pokemon - Fire Red GBA_MODIFIED.sav";
 	gbasavefilepacked* savin = new gbasavefilepacked();
 	gbasavefile* sav = new gbasavefile();
@@ -51,6 +51,11 @@ int main(int argc, char* argv[])
 
 	opendb("C:\\Users\\michaelbond\\Dropbox\\PKMDS Databases\\veekun-pokedex.sqlite");
 
+	read(pkmfile,pkm);
+	decryptgbapkm(pkm);
+	shufflegbapkm(pkm,true);
+	dostuff(pkm,0,0);
+
 	for(int box = 0; box < 14; box++)
 	{
 		for(int slot = 0; slot < 30; slot++)
@@ -62,7 +67,10 @@ int main(int argc, char* argv[])
 
 			if(pkm->data.species != GBASpecies::NOTHING)
 			{
-				dostuff(pkm, box+1, slot+1);
+				if(pkm->data.species == GBASpecies::squirtle)
+				{
+					dostuff(pkm, box+1, slot+1);
+				}
 			}
 		}
 	}
@@ -79,6 +87,19 @@ void dostuff(pokemon_gen3 * pkm, int box, int slot)
 	//cout << sizeof(pokemon_gen3) << "\n";
 	//if(pkm->data.species == GBASpecies::rattata)
 	//{
-		cout << "Box " << box << ", Slot " << slot << ": " << lookuppkmname(convertgbaspecies(pkm->data.species)) << "\n";
+	uint32 * inttest = new uint32();
+	inttest = reinterpret_cast<uint32*>(&(pkm->pid));
+	cout << "PID: " << std::hex << inttest[0] << "\n";
+	inttest = reinterpret_cast<uint32*>(&(pkm->tid));
+	cout << "TID/SID: " << std::hex << inttest[0] << "\n";
+	inttest = reinterpret_cast<uint32*>(&(pkm->data.ivs));
+	cout << "IVs: " << std::hex << inttest[0] << "\n";
+
+
+	inttest = reinterpret_cast<uint32*>(&(pkm->data));
+	cout << "Data struct: " << std::hex << inttest[0] << "\n";
+
+
+	cout << "Box " << box << ", Slot " << slot << ": " << lookuppkmname(convertgbaspecies(pkm->data.species)) << "\n";
 	//}
 }

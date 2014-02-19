@@ -125,7 +125,8 @@ void buildgbasave(gbasavefilepacked * savin, gbasavefile * savout)
 //}
 void decryptgbapkm(pokemon_gen3 * pkm)
 {
-	uint32 key = (pkm->tid  ^ pkm->pid);
+	uint32 * TID = reinterpret_cast<uint32*>(&(pkm->tid));
+	uint32 key = ((*TID)  ^ pkm->pid);
 	uint32 * pkmpnt = new uint32;
 	pkmpnt = reinterpret_cast<uint32*>(&(pkm->data));
 	for(int i = 0; i < 12; i++)
@@ -161,6 +162,35 @@ void shufflegbapkm(pokemon_gen3 * pkm, bool un)
 	}
 	memcpy(pkmpnt, &temp, 48);
 }
+
+/*
+
+void shuffle(pokemon_obj * pkm, bool un)
+{
+    byte * raw = reinterpret_cast<byte*>(pkm);
+    byte temp[128];
+    byte mode = (((((uint32*) raw)[0] >> 0xD) & 0x1F) % 24);
+
+    if (un)
+    {
+        memcpy(&(temp[t_shuffle[mode][0] * 32]), &raw[8 + 0 * 32], 32);
+        memcpy(&(temp[t_shuffle[mode][1] * 32]), &raw[8 + 1 * 32], 32);
+        memcpy(&(temp[t_shuffle[mode][2] * 32]), &raw[8 + 2 * 32], 32);
+        memcpy(&(temp[t_shuffle[mode][3] * 32]), &raw[8 + 3 * 32], 32);
+    }
+    else
+    {
+        memcpy(&(temp[0 * 32]), &raw[8 + t_shuffle[mode][0] * 32], 32);
+        memcpy(&(temp[1 * 32]), &raw[8 + t_shuffle[mode][1] * 32], 32);
+        memcpy(&(temp[2 * 32]), &raw[8 + t_shuffle[mode][2] * 32], 32);
+        memcpy(&(temp[3 * 32]), &raw[8 + t_shuffle[mode][3] * 32], 32);
+    }
+    memcpy(&raw[8], &temp, 128);
+}
+
+
+*/
+
 void calcchecksum(pokemon_gen3 * pkm)
 {
 	uint32 sum = 0;
