@@ -72,7 +72,7 @@ void pkmcrypt(pokemonx_obj* pkx)
 	pkmprng prng;
 	prng.mseed = pkx->key; // pkx->checksum;
 	uint16 * words = reinterpret_cast<uint16*>(pkx);
-	for(int i = 4; i < 112; i++)
+	for(int i = 0x04; i < 0x74; i++)
 	{
 		words[i] = (words[i]) ^ (prng.nextnum() >> 0x10);
 	}
@@ -95,7 +95,7 @@ void calcchecksum(pokemonx_obj* pkx) // Calculates and assigns the checksum for 
 {
 	uint32 chk = 0;
 	uint16* p = (uint16*)pkx;
-	for (uint16* i = p + 0x04; i < p + 0x73; i++)
+	for (uint16* i = p + 0x04; i < p + 0x74; i++)
 	{
 		chk += *i;
 	}
