@@ -3,10 +3,44 @@
 #else
 #include "../../PKMDS/include/pkmds/pkmds_gba.h"
 #endif
-void read(const char* file_name, gbasavefile *data)
+
+int blocksizes[] = {
+	3884, // Trainer info
+	3968, // Team / items
+	3968, // Unknown
+	3968, // Unknown
+	3848, // Rival info
+	3968, // PC buffer A
+	3968, // PC buffer B
+	3968, // PC buffer C
+	3968, // PC buffer D
+	3968, // PC buffer E
+	3968, // PC buffer F
+	3968, // PC buffer G
+	3968, // PC buffer H
+	2000, // PC buffer I
+};
+int blocklocations[] = {
+	0, // Trainer info
+	3884, // Team / items
+	7852, // Unknown
+	11820, // Unknown
+	15788, // Rival info
+	19636, // PC buffer A
+	23604, // PC buffer B
+	27572, // PC buffer C
+	31540, // PC buffer D
+	35508, // PC buffer E
+	39476, // PC buffer F
+	43444, // PC buffer G
+	47412, // PC buffer H
+	51380, // PC buffer I
+};
+
+void read(const char* file_name, gbasavefilepacked *data)
 {
 	std::ifstream *in = new std::ifstream(file_name,std::ios::binary);
-	in->read(reinterpret_cast<char*>(data), sizeof(gbasavefile));
+	in->read(reinterpret_cast<char*>(data), sizeof(gbasavefilepacked));
 	in->close();
 	delete in;
 	in = 0;
@@ -19,23 +53,82 @@ void read(const char* file_name, pokemon_gen3 *data)
 	delete in;
 	in = 0;
 }
-void sortsavefile(gbasavefile * sav)
+
+
+void buildgbasave(gbasavefilepacked * savin, gbasavefile * savout)
 {
-	sortsaveblocks(&(sav->savefilea));
-	sortsaveblocks(&(sav->savefileb));
+	//byte * rawdata = new byte();
+	gbasaveblockpacked * block = new gbasaveblockpacked();
+	byte * rawdata = reinterpret_cast<byte*>(savout);
+	int cursave = 0;
+
+	for(int i = 0; i < 16; i++)
+	{
+		block = reinterpret_cast<gbasaveblockpacked*>(&(savin->savea.blocks));
+		if(block->footer.validation == 0x08012025)
+		{
+			if(block->footer.saveindex > cursave)
+			{
+				cursave = block->footer.saveindex;
+			}
+		}
+	}
+	for(int i = 0; i < 16; i++)
+	{
+		block = reinterpret_cast<gbasaveblockpacked*>(&(savin->saveb.blocks));
+		if(block->footer.validation == 0x08012025)
+		{
+			if(block->footer.saveindex > cursave)
+			{
+				cursave = block->footer.saveindex;
+			}
+		}
+	}
+
+	for(int i = 0; i < 16; i++)
+	{
+		block = reinterpret_cast<gbasaveblockpacked*>(&(savin->savea.blocks));
+		if(block->footer.validation == 0x08012025)
+		{
+			if(block->footer.saveindex == cursave)
+			{
+				memcpy(&(rawdata[blocklocations[block->footer.sectionid]]),&(block->data), blocksizes[block->footer.sectionid]);
+			}
+		}
+	}
+	for(int i = 0; i < 16; i++)
+	{
+		block = reinterpret_cast<gbasaveblockpacked*>(&(savin->saveb.blocks));
+		if(block->footer.validation == 0x08012025)
+		{
+			if(block->footer.saveindex == cursave)
+			{
+				memcpy(&(rawdata[blocklocations[block->footer.sectionid]]),&(block->data), blocksizes[block->footer.sectionid]);
+			}
+		}
+	}
+
+	//memcpy(savout,rawdata,sizeof(gbasavefile));
 }
-void sortsaveblocks(gbasavehalf * savehalf)
-{
-	sortblocks(savehalf->blocks);
-}
-bool compareblocks(gbasaveblock a, gbasaveblock b)
-{
-	return a.footer.blockid < b.footer.blockid;
-}
-void sortblocks(std::array<gbasaveblock,14> & theblocks)
-{
-	std::sort(theblocks.begin(),theblocks.end(),compareblocks);
-}
+
+
+//void sortsavefile(gbasavefile * sav)
+//{
+//	sortsaveblocks(&(sav->savefilea));
+//	sortsaveblocks(&(sav->savefileb));
+//}
+//void sortsaveblocks(gbasavehalf * savehalf)
+//{
+//	sortblocks(savehalf->blocks);
+//}
+//bool compareblocks(gbasaveblock a, gbasaveblock b)
+//{
+//	return a.footer.sectionid < b.footer.sectionid;
+//}
+//void sortblocks(std::array<gbasaveblock,14> & theblocks)
+//{
+//	std::sort(theblocks.begin(),theblocks.end(),compareblocks);
+//}
 void decryptgbapkm(pokemon_gen3 * pkm)
 {
 	uint32 key = (pkm->tid  ^ pkm->pid);
