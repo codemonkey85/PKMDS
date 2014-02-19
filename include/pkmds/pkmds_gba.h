@@ -523,23 +523,47 @@ struct pokemon_gen3_party : pokemon_gen3
 };
 struct gbasavefooter
 {
-	uint16 blockid;
+	byte sectionid;
+byte : 8;
 	uint16 checksum;
 	uint32 validation;
-	uint32 saveid;
+	uint32 saveindex;
 };
-struct gbasaveblock
+struct gbasaveblockpacked
 {
-	byte data[0xf80];
-	byte unknown[0x74];
+	byte data[4084];
+	//byte padding[116];
 	gbasavefooter footer;
 };
-struct gbasavehalf
+struct gbasavehalfpacked
 {
-	//gbasaveblock blocks[14];
-	std::array<gbasaveblock,14> blocks;
+	std::array<gbasaveblockpacked,16> blocks;
 };
-struct gbasavehalf_unscrambled
+struct gbasavefilepacked
+{
+	gbasavehalfpacked savea;
+	gbasavehalfpacked saveb;
+	//byte unknown[16384];
+};
+
+//struct gbasaveblockpacked
+//{
+//	byte data[3968];
+//	byte padding[116];
+//	gbasavefooter footer;
+//};
+//struct gbasavehalfpacked
+//{
+//	std::array<gbasaveblockpacked,14> blocks;
+//};
+//struct gbasavefilepacked
+//{
+//	gbasavehalfpacked savea;
+//	gbasavehalfpacked saveb;
+//	byte unknown[16384];
+//};
+
+struct gbapcstorage
 {
 	uint32 curbox;
 	pokemon_gen3 pcstorage[14][30];
@@ -548,18 +572,46 @@ struct gbasavehalf_unscrambled
 };
 struct gbasavefile
 {
-	gbasavehalf savefilea;
-	gbasavehalf savefileb;
-	byte unknown[0x4000];
+	byte data[19636];
+	gbapcstorage pcstorage;
 };
-void DllExport sortsaveblocks(gbasavehalf * savehalf);
-bool DllExport compareblocks(gbasaveblock a, gbasaveblock b);
-void DllExport sortblocks(std::array<gbasaveblock,14> & theblocks);
+
+void buildgbasave(gbasavefilepacked * savin, gbasavefile * savout);
+
+
+//struct gbasaveblock
+//{
+//	//byte data[0xf80];
+//	//byte unknown[0x74];
+//	byte data[0xf80];
+//	gbasavefooter footer;
+//};
+//struct gbasavehalf
+//{
+//	//gbasaveblock blocks[14];
+//	std::array<gbasaveblock,14> blocks;
+//};
+//struct gbasavehalf_unscrambled
+//{
+//	uint32 curbox;
+//	pokemon_gen3 pcstorage[14][30];
+//	byte boxnames[126];
+//	byte boxwallpapers[14];
+//};
+//struct gbasavefile
+//{
+//	gbasavehalf savefilea;
+//	gbasavehalf savefileb;
+//	byte unknown[0x4000];
+//};
+//void DllExport sortsaveblocks(gbasavehalf * savehalf);
+//bool DllExport compareblocks(gbasaveblock a, gbasaveblock b);
+//void DllExport sortblocks(std::array<gbasaveblock,14> & theblocks);
 void DllExport decryptgbapkm(pokemon_gen3 * pkm);
 void DllExport calcchecksum(pokemon_gen3 * pkm);
 void DllExport shufflegbapkm(pokemon_gen3 * pkm, bool un);
-void DllExport sortsavefile(gbasavefile * sav);
-void DllExport read(const char* file_name, gbasavefile *data);
+//void DllExport sortsavefile(gbasavefile * sav);
+void DllExport read(const char* file_name, gbasavefilepacked *data);
 void DllExport read(const char* file_name, pokemon_gen3 *data);
 DllExport int convertgbaspecies(GBASpecies::gbaspecies in);
 DllExport GBASpecies::gbaspecies convertgbaspecies(int in);
