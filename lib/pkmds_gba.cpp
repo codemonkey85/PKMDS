@@ -56,12 +56,13 @@ void read(const char* file_name, pokemon_gen3 *data)
 
 void buildgbasave(gbasavefilepacked * savin, gbasavefile * savout)
 {
+	int icount = 0;
 	gbasaveblockpacked * block = new gbasaveblockpacked();
 	byte * rawdata = reinterpret_cast<byte*>(savout);
 	int cursave = 0;
 	for(int i = 0; i < 16; i++)
 	{
-		block = reinterpret_cast<gbasaveblockpacked*>(&(savin->savea.blocks));
+		block = reinterpret_cast<gbasaveblockpacked*>(&(savin->savea.blocks[i]));
 		if(block->footer.validation == 0x08012025)
 		{
 			if(block->footer.saveindex > cursave)
@@ -72,7 +73,7 @@ void buildgbasave(gbasavefilepacked * savin, gbasavefile * savout)
 	}
 	for(int i = 0; i < 16; i++)
 	{
-		block = reinterpret_cast<gbasaveblockpacked*>(&(savin->saveb.blocks));
+		block = reinterpret_cast<gbasaveblockpacked*>(&(savin->saveb.blocks[i]));
 		if(block->footer.validation == 0x08012025)
 		{
 			if(block->footer.saveindex > cursave)
@@ -83,26 +84,30 @@ void buildgbasave(gbasavefilepacked * savin, gbasavefile * savout)
 	}
 	for(int i = 0; i < 16; i++)
 	{
-		block = reinterpret_cast<gbasaveblockpacked*>(&(savin->savea.blocks));
+		block = reinterpret_cast<gbasaveblockpacked*>(&(savin->savea.blocks[i]));
 		if(block->footer.validation == 0x08012025)
 		{
 			if(block->footer.saveindex == cursave)
 			{
 				memcpy(&(rawdata[blocklocations[block->footer.sectionid]]),&(block->data), blocksizes[block->footer.sectionid]);
+				icount++;
 			}
 		}
 	}
+	icount = 0;
 	for(int i = 0; i < 16; i++)
 	{
-		block = reinterpret_cast<gbasaveblockpacked*>(&(savin->saveb.blocks));
+		block = reinterpret_cast<gbasaveblockpacked*>(&(savin->saveb.blocks[i]));
 		if(block->footer.validation == 0x08012025)
 		{
 			if(block->footer.saveindex == cursave)
 			{
 				memcpy(&(rawdata[blocklocations[block->footer.sectionid]]),&(block->data), blocksizes[block->footer.sectionid]);
+				icount++;
 			}
 		}
 	}
+	icount = 0;
 }
 
 
@@ -167,25 +172,25 @@ void shufflegbapkm(pokemon_gen3 * pkm, bool un)
 
 void shuffle(pokemon_obj * pkm, bool un)
 {
-    byte * raw = reinterpret_cast<byte*>(pkm);
-    byte temp[128];
-    byte mode = (((((uint32*) raw)[0] >> 0xD) & 0x1F) % 24);
+byte * raw = reinterpret_cast<byte*>(pkm);
+byte temp[128];
+byte mode = (((((uint32*) raw)[0] >> 0xD) & 0x1F) % 24);
 
-    if (un)
-    {
-        memcpy(&(temp[t_shuffle[mode][0] * 32]), &raw[8 + 0 * 32], 32);
-        memcpy(&(temp[t_shuffle[mode][1] * 32]), &raw[8 + 1 * 32], 32);
-        memcpy(&(temp[t_shuffle[mode][2] * 32]), &raw[8 + 2 * 32], 32);
-        memcpy(&(temp[t_shuffle[mode][3] * 32]), &raw[8 + 3 * 32], 32);
-    }
-    else
-    {
-        memcpy(&(temp[0 * 32]), &raw[8 + t_shuffle[mode][0] * 32], 32);
-        memcpy(&(temp[1 * 32]), &raw[8 + t_shuffle[mode][1] * 32], 32);
-        memcpy(&(temp[2 * 32]), &raw[8 + t_shuffle[mode][2] * 32], 32);
-        memcpy(&(temp[3 * 32]), &raw[8 + t_shuffle[mode][3] * 32], 32);
-    }
-    memcpy(&raw[8], &temp, 128);
+if (un)
+{
+memcpy(&(temp[t_shuffle[mode][0] * 32]), &raw[8 + 0 * 32], 32);
+memcpy(&(temp[t_shuffle[mode][1] * 32]), &raw[8 + 1 * 32], 32);
+memcpy(&(temp[t_shuffle[mode][2] * 32]), &raw[8 + 2 * 32], 32);
+memcpy(&(temp[t_shuffle[mode][3] * 32]), &raw[8 + 3 * 32], 32);
+}
+else
+{
+memcpy(&(temp[0 * 32]), &raw[8 + t_shuffle[mode][0] * 32], 32);
+memcpy(&(temp[1 * 32]), &raw[8 + t_shuffle[mode][1] * 32], 32);
+memcpy(&(temp[2 * 32]), &raw[8 + t_shuffle[mode][2] * 32], 32);
+memcpy(&(temp[3 * 32]), &raw[8 + t_shuffle[mode][3] * 32], 32);
+}
+memcpy(&raw[8], &temp, 128);
 }
 
 
