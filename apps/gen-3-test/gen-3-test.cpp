@@ -39,12 +39,17 @@ int main(int argc, char* argv[])
 	////sortsavefile(sav);
 	////unscrambled = reinterpret_cast<gbasavehalf_unscrambled*>(&(sav->savefilea.blocks[5]));
 
-	//cout << "Size of gbasavefooter: " << std::dec << sizeof(gbasavefooter) << " (0x" << std::hex << sizeof(gbasavefooter) << ")\n"; // << " (should be )\n";
-	//cout << "Size of gbasaveblockpacked: " << std::dec << sizeof(gbasaveblockpacked) << " (0x" << std::hex << sizeof(gbasaveblockpacked) << ")\n"; // << " (should be )\n";
-	//cout << "Size of gbasavehalfpacked: " << std::dec << sizeof(gbasavehalfpacked) << " (0x" << std::hex << sizeof(gbasavehalfpacked) << ")\n"; // << " (should be )\n";
-	//cout << "Size of gbasavefilepacked: " << std::dec << sizeof(gbasavefilepacked) << " (0x" << std::hex << sizeof(gbasavefilepacked) << ")\n"; // << " (should be )\n";
-	//cout << "Size of gbapcstorage: " << std::dec << sizeof(gbapcstorage) << " (0x" << std::hex << sizeof(gbapcstorage) << ")\n"; // << " (should be )\n";
-	//cout << "Size of gbasavefile: " << std::dec << sizeof(gbasavefile) << " (0x" << std::hex << sizeof(gbasavefile) << ")\n"; // << " (should be )\n";
+	cout << "Size of ppbonuses_struct: " << std::dec << sizeof(ppbonuses_struct) << " (0x" << std::hex << sizeof(ppbonuses_struct) << ")\n"; // << " (should be )\n";
+	cout << "Size of origins_struct: " << std::dec << sizeof(origins_struct) << " (0x" << std::hex << sizeof(origins_struct) << ")\n"; // << " (should be )\n";
+	cout << "Size of ivs_struct: " << std::dec << sizeof(ivs_struct) << " (0x" << std::hex << sizeof(ivs_struct) << ")\n"; // << " (should be )\n";
+	cout << "Size of growth_block: " << std::dec << sizeof(growth_block) << " (0x" << std::hex << sizeof(growth_block) << ")\n"; // << " (should be )\n";
+	cout << "Size of moves_block: " << std::dec << sizeof(moves_block) << " (0x" << std::hex << sizeof(moves_block) << ")\n"; // << " (should be )\n";
+	cout << "Size of evscondition_block: " << std::dec << sizeof(evscondition_block) << " (0x" << std::hex << sizeof(evscondition_block) << ")\n"; // << " (should be )\n";
+	cout << "Size of misc_block: " << std::dec << sizeof(misc_block) << " (0x" << std::hex << sizeof(misc_block) << ")\n"; // << " (should be )\n";
+	cout << "Size of pkmdata: " << std::dec << sizeof(pkmdata) << " (0x" << std::hex << sizeof(pkmdata) << ")\n"; // << " (should be )\n";
+	cout << "Size of pokemon_gen3: " << std::dec << sizeof(pokemon_gen3) << " (0x" << std::hex << sizeof(pokemon_gen3) << ")\n"; // << " (should be )\n";
+
+	opendb("C:\\Users\\michaelbond\\Dropbox\\PKMDS Databases\\veekun-pokedex.sqlite");
 
 	for(int box = 0; box < 14; box++)
 	{
@@ -61,6 +66,10 @@ int main(int argc, char* argv[])
 			}
 		}
 	}
+
+	closedb();
+
+	cout << "\nEND\n";
 	string test;
 	cin >> test;
 	return 0;
@@ -68,8 +77,8 @@ int main(int argc, char* argv[])
 void dostuff(pokemon_gen3 * pkm, int box, int slot)
 {
 	//cout << sizeof(pokemon_gen3) << "\n";
-	if(pkm->data.species == GBASpecies::rattata)
-	{
-		cout << "Box " << box << ", Slot " << slot << ": " << int(pkm->data.species) << "\n";
-	}
+	//if(pkm->data.species == GBASpecies::rattata)
+	//{
+		cout << "Box " << box << ", Slot " << slot << ": " << lookuppkmname(convertgbaspecies(pkm->data.species)) << "\n";
+	//}
 }

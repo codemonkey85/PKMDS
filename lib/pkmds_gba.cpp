@@ -21,9 +21,9 @@ int blocksizes[] = {
 	2000, // PC buffer I
 };
 int blocklocations[] = {
-	0, // Trainer info
-	3884, // Team / items
-	7852, // Unknown
+	0,     // Trainer info
+	3884,  // Team / items
+	7852,  // Unknown
 	11820, // Unknown
 	15788, // Rival info
 	19636, // PC buffer A
@@ -54,14 +54,11 @@ void read(const char* file_name, pokemon_gen3 *data)
 	in = 0;
 }
 
-
 void buildgbasave(gbasavefilepacked * savin, gbasavefile * savout)
 {
-	//byte * rawdata = new byte();
 	gbasaveblockpacked * block = new gbasaveblockpacked();
 	byte * rawdata = reinterpret_cast<byte*>(savout);
 	int cursave = 0;
-
 	for(int i = 0; i < 16; i++)
 	{
 		block = reinterpret_cast<gbasaveblockpacked*>(&(savin->savea.blocks));
@@ -84,7 +81,6 @@ void buildgbasave(gbasavefilepacked * savin, gbasavefile * savout)
 			}
 		}
 	}
-
 	for(int i = 0; i < 16; i++)
 	{
 		block = reinterpret_cast<gbasaveblockpacked*>(&(savin->savea.blocks));
@@ -107,8 +103,6 @@ void buildgbasave(gbasavefilepacked * savin, gbasavefile * savout)
 			}
 		}
 	}
-
-	//memcpy(savout,rawdata,sizeof(gbasavefile));
 }
 
 
