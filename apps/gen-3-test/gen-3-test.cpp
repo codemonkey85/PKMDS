@@ -11,13 +11,19 @@ void dostuff(pokemon_gen3 * gbapkm);
 int main(int argc, char* argv[])
 {
 	string savefile;
+	//savefile = "C:\\Users\\Michael Bond\\Dropbox\\Saves\\pokemon_emerald_version - Copy2.sav";
 	savefile = "C:\\Users\\Michael Bond\\Dropbox\\Saves\\Pokemon - Fire Red GBA_MODIFIED.sav";
+	const char * pkmfile = "C:\\Users\\Michael Bond\\Dropbox\\Saves\\Gengar_heart.3gpkm";
 	gbasavefilepacked* savin = new gbasavefilepacked();
 	gbasavefile* sav = new gbasavefile();
 	pokemon_gen3* pkm = new pokemon_gen3();
 	read(savefile.c_str(),savin);
 	buildgbasave(savin,sav);
 	opendb("C:\\Users\\Michael Bond\\Dropbox\\PKMDS Databases\\veekun-pokedex.sqlite");
+
+	//read(pkmfile,pkm);
+	//dostuff(pkm);
+
 	for(int box = 0; box < 14; box++)
 	{
 		for(int slot = 0; slot < 30; slot++)
@@ -27,7 +33,14 @@ int main(int argc, char* argv[])
 			shufflegbapkm(pkm,true);
 			if(pkm->data.species != GBASpecies::NOTHING)
 			{
+				//if(pkm->data.species == GBASpecies::squirtle)
+				//{
+				//uint32 * ribbons = reinterpret_cast<uint32*>(&(pkm->data.ribbons));
+				//if(*ribbons != 0)
+				//{
 				dostuff(pkm);
+				//}
+				//}
 			}
 		}
 	}
@@ -123,56 +136,201 @@ void dostuff(pokemon_gen3 * gbapkm)
 	pkm->species = Species::pkmspecies(convertgbaspecies(gbapkm->data.species));
 	pkm->tameness = gbapkm->data.friendship;
 	pkm->tid = gbapkm->tid;
+	switch(gbapkm->data.ribbons.beauty)
+	{
+	case 4:
+		pkm->hribbon1.beauty_ribbon_master = true;
+		pkm->hribbon1.beauty_ribbon_hyper = true;
+		pkm->hribbon1.beauty_ribbon_super = true;
+		pkm->hribbon1.beauty_ribbon = true;
+		break;
+	case 3:
+		pkm->hribbon1.beauty_ribbon_hyper = true;
+		pkm->hribbon1.beauty_ribbon_super = true;
+		pkm->hribbon1.beauty_ribbon = true;
+		break;
+	case 2:
+		pkm->hribbon1.beauty_ribbon_super = true;
+		pkm->hribbon1.beauty_ribbon = true;
+		break;
+	case 1:
+		pkm->hribbon1.beauty_ribbon = true;
+		break;
+	}
+	switch(gbapkm->data.ribbons.cool)
+	{
+	case 4:
+		pkm->hribbon1.cool_ribbon_master = true;
+		pkm->hribbon1.cool_ribbon_hyper = true;
+		pkm->hribbon1.cool_ribbon_super = true;
+		pkm->hribbon1.cool_ribbon = true;
+		break;
+	case 3:
+		pkm->hribbon1.cool_ribbon_hyper = true;
+		pkm->hribbon1.cool_ribbon_super = true;
+		pkm->hribbon1.cool_ribbon = true;
+		break;
+	case 2:
+		pkm->hribbon1.cool_ribbon_super = true;
+		pkm->hribbon1.cool_ribbon = true;
+		break;
+	case 1:
+		pkm->hribbon1.cool_ribbon = true;
+		break;
+	}
+	switch(gbapkm->data.ribbons.cute)
+	{
+	case 4:
+		pkm->hribbon1.cute_ribbon_master = true;
+		pkm->hribbon1.cute_ribbon_hyper = true;
+		pkm->hribbon1.cute_ribbon_super = true;
+		pkm->hribbon1.cute_ribbon = true;
+		break;
+	case 3:
+		pkm->hribbon1.cute_ribbon_hyper = true;
+		pkm->hribbon1.cute_ribbon_super = true;
+		pkm->hribbon1.cute_ribbon = true;
+		break;
+	case 2:
+		pkm->hribbon1.cute_ribbon_super = true;
+		pkm->hribbon1.cute_ribbon = true;
+		break;
+	case 1:
+		pkm->hribbon1.cute_ribbon = true;
+		break;
+	}
+	switch(gbapkm->data.ribbons.smart)
+	{
+	case 4:
+		pkm->hribbon1.smart_ribbon_master = true;
+		pkm->hribbon1.smart_ribbon_hyper = true;
+		pkm->hribbon1.smart_ribbon_super = true;
+		pkm->hribbon1.smart_ribbon = true;
+		break;
+	case 3:
+		pkm->hribbon1.smart_ribbon_hyper = true;
+		pkm->hribbon1.smart_ribbon_super = true;
+		pkm->hribbon1.smart_ribbon = true;
+		break;
+	case 2:
+		pkm->hribbon1.smart_ribbon_super = true;
+		pkm->hribbon1.smart_ribbon = true;
+		break;
+	case 1:
+		pkm->hribbon1.smart_ribbon = true;
+		break;
+	}
+	switch(gbapkm->data.ribbons.tough)
+	{
+	case 4:
+		pkm->hribbon2.tough_ribbon_master = true;
+		pkm->hribbon2.tough_ribbon_hyper = true;
+		pkm->hribbon2.tough_ribbon_super = true;
+		pkm->hribbon2.tough_ribbon = true;
+		break;
+	case 3:
+		pkm->hribbon2.tough_ribbon_hyper = true;
+		pkm->hribbon2.tough_ribbon_super = true;
+		pkm->hribbon2.tough_ribbon = true;
+		break;
+	case 2:
+		pkm->hribbon2.tough_ribbon_super = true;
+		pkm->hribbon2.tough_ribbon = true;
+		break;
+	case 1:
+		pkm->hribbon2.tough_ribbon = true;
+		break;
+	}
+	pkm->hribbon2.artist_ribbon = bool(gbapkm->data.ribbons.artist);
+	pkm->hribbon2.champion_ribbon = bool(gbapkm->data.ribbons.champion);
+	pkm->hribbon2.effort_ribbon = bool(gbapkm->data.ribbons.effort);
+	pkm->hribbon2.national_ribbon = bool(gbapkm->data.ribbons.national);
+	pkm->forms.fencounter = gbapkm->data.ribbons.fencounter;
+	Genders::genders gender = calcpkmgender(pkm);
+	pkm->forms.female = (gender == Genders::female);
+	pkm->forms.genderless = (gender == Genders::genderless);
+	pkm->markings.circle = bool(gbapkm->mark.circle);
+	pkm->markings.square = bool(gbapkm->mark.square);
+	pkm->markings.heart = bool(gbapkm->mark.heart);
+	pkm->markings.triangle = bool(gbapkm->mark.triangle);
 	for(int i = 0; i < 4; i++)
 	{
 		pkm->pp[i] = gbapkm->data.movepp[i];
 		//pkm->moves[0] = 
 	}
-	//pkm->forms.female = 
-	// 3gpkm[0x4F] >> 7 retrieves the true/false of FE flag
-	//pkm->forms.fencounter = 
-	//pkm->forms.genderless = 
-	//pkm->hometown = 
+	switch(gbapkm->data.origins.game)
+	{
+	case GBAGames::colosseum_bonus_disc:
+		pkm->hometown = Hometowns::colosseum_bonus;
+		break;
+	case GBAGames::colosseum_xd:
+		pkm->hometown = Hometowns::colosseum;
+		break;
+	case GBAGames::emerald:
+		pkm->hometown = Hometowns::emerald;
+		break;
+	case GBAGames::firered:
+		pkm->hometown = Hometowns::firered;
+		break;
+	case GBAGames::leafgreen:
+		pkm->hometown = Hometowns::leafgreen;
+		break;
+	case GBAGames::ruby:
+		pkm->hometown = Hometowns::ruby;
+		break;
+	case GBAGames::sapphire:
+		pkm->hometown = Hometowns::sapphire;
+		break;
+	}
+	switch(gbapkm->data.origins.ball)
+	{
+	case GBABalls::diveball:
+		pkm->ball = Balls::diveball;
+		break;
+	case GBABalls::greatball:
+		pkm->ball = Balls::greatball;
+		break;
+	case GBABalls::luxuryball:
+		pkm->ball = Balls::luxuryball;
+		break;
+	case GBABalls::masterball:
+		pkm->ball = Balls::masterball;
+		break;
+	case GBABalls::nestball:
+		pkm->ball = Balls::nestball;
+		break;
+	case GBABalls::netball:
+		pkm->ball = Balls::netball;
+		break;
+	case GBABalls::pokeball:
+		pkm->ball = Balls::pokeball;
+		break;
+	case GBABalls::premierball:
+		pkm->ball = Balls::premierball;
+		break;
+	case GBABalls::repeatball:
+		pkm->ball = Balls::repeatball;
+		break;
+	case GBABalls::safariball:
+		pkm->ball = Balls::safariball;
+		break;
+	case GBABalls::timerball:
+		pkm->ball = Balls::timerball;
+		break;
+	case GBABalls::ultraball:
+		pkm->ball = Balls::ultraball;
+		break;
+	}
+	time_t t = time(0);
+	struct tm * now = localtime( & t );
+	pkm->metdate.day = now->tm_mday;
+	pkm->metdate.month = now->tm_mon + 1;
+	pkm->metdate.year = now->tm_year -100;
+	pkm->pkrs.days = gbapkm->data.pkrs.days;
+	pkm->pkrs.strain = gbapkm->data.pkrs.strain;
 	//pkm->item = 
-	//pkm->metdate.day = 
-	//pkm->metdate.month = 
-	//pkm->metdate.year = 
 	//pkm->nickname = 
 	//pkm->otname = 
 	//pkm->ivs.isnicknamed = 
-	//pkm->pkrs.days = 
-	//pkm->markings.circle = 
-	//pkm->ball = 
-	/*
-	Other
-
-	Ribbons aren't really documented anywhere else so I'd probably better cover them here.
-
-	In the 'Misc' data block of each pokemon, there is a single Word value that stores the ribbons attached to that pokemon. It's a bit odd as there are significantly more that 32 ribbons so I'll try to break it down here.
-
-	Contest Ribbons
-	The first 15 bits tell us what contest ribbons the pokemon holds, but it's not a case of it being 1 bit per ribbon. Instead, what he have is 3 bits per ribbon, each showing a value representing the number of ranks that pokemon has achieved per contest type:
-
-	0 - 2 -> Cool Rank
-	3 - 5 -> Beauty Rank
-	6 - 7 -> Cute Rank
-	9 -11 -> Smart Rank
-	12-14 -> Tough Rank
-	Each value gives us from 0 - 4, 0 being no rank, 4 being master rank. When a pokemon is any rank higher than 1, they will have all the ribbons for earlier ranks as well.
-
-	Other Ribbons
-	The next few bits give specific ribbons:
-
-	Bit 15 -> Champion Ribbon
-	Bit 18 -> Artist Ribbon
-	Bit 19 -> Effort Ribbon
-	Bit 24 -> Cleared All Difficulties Ribbon (Purified on Colusseum)
-	*/
-	//pkm->hribbon1.beauty_ribbon = 
-	//pkm->hribbon2.artist_ribbon = 
-	//pkm->sribbon1.ability_ribbon = 
-	//pkm->sribbon2.blue_ribbon = 
-	//pkm->sribbon3.beauty_ribbon = 
-	//pkm->sribbon4.tough_ribbon = 
 	cout << lookuppkmname(pkm);
 }
