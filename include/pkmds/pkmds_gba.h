@@ -398,6 +398,78 @@ namespace GBASpecies
 		deoxys=410
 	};
 }
+namespace GBAGames
+{
+	enum gbagames : uint16
+	{
+		colosseum_bonus_disc,
+		sapphire,
+		ruby,
+		emerald,
+		firered,
+		leafgreen,
+		colosseum_xd=15
+	};
+}
+namespace GBABalls
+{
+	enum gbaballs : uint16
+	{
+		masterball=1,
+		ultraball,
+		greatball,
+		pokeball,
+		safariball,
+		netball,
+		diveball,
+		nestball,
+		repeatball,
+		timerball,
+		luxuryball,
+		premierball
+	};
+}
+struct gbapkrs
+{
+	byte days : 4;
+	byte strain : 4;
+	gbapkrs()
+	{
+		memset(this,0,sizeof(gbapkrs));
+	};
+};
+struct gbaribbons
+{
+	uint32 cool : 3;
+	uint32 beauty : 3;
+	uint32 cute : 3;
+	uint32 smart : 3;
+	uint32 tough : 3;
+	uint32 champion : 1;
+uint32 : 2;
+	uint32 artist : 1;
+	uint32 effort : 1;
+uint32 : 4;
+	uint32 national : 1;
+uint32 : 6;
+	uint32 fencounter : 1;
+	gbaribbons()
+	{
+		memset(this,0,sizeof(gbaribbons));
+	};
+};
+struct gbamarks
+{
+	byte circle : 1;
+	byte square : 1;
+	byte triangle : 1;
+	byte heart : 1;
+byte : 4;
+	gbamarks()
+	{
+		memset(this,0,sizeof(gbamarks));
+	};
+};
 struct ppbonuses_struct
 {
 	byte move1 : 2;
@@ -410,36 +482,35 @@ struct ppbonuses_struct
 	};
 };
 struct gbaevsfield {
-    byte hp; // HP EVs
-    byte attack; // Attack EVs
-    byte defense; // Defense EVs
-    byte speed; // Speed EVs
-    byte spatk; // Special Attack EVs
-    byte spdef; // Special Defnse EVs
-    gbaevsfield()
-    {
-        memset(this,0,sizeof(gbaevsfield));
-    }
+	byte hp; // HP EVs
+	byte attack; // Attack EVs
+	byte defense; // Defense EVs
+	byte speed; // Speed EVs
+	byte spatk; // Special Attack EVs
+	byte spdef; // Special Defnse EVs
+	gbaevsfield()
+	{
+		memset(this,0,sizeof(gbaevsfield));
+	}
 };
 struct gbacontestfield {
-    byte cool; // Cool
-    byte beauty; // Beauty; used for Feebas evolution (to Milotic)
-    byte cute; // Cute
-    byte smart; // Smart
-    byte tough; // Tough
-    byte sheen; // Sheen
-    gbacontestfield()
-    {
-        memset(this,0,sizeof(gbacontestfield));
-    }
+	byte cool; // Cool
+	byte beauty; // Beauty; used for Feebas evolution (to Milotic)
+	byte cute; // Cute
+	byte smart; // Smart
+	byte tough; // Tough
+	byte sheen; // Sheen
+	gbacontestfield()
+	{
+		memset(this,0,sizeof(gbacontestfield));
+	}
 };
 struct origins_struct
 {
-	byte metlevel : 7;
-byte : 1;
-	byte game : 3;
-	byte ball : 4;
-	byte trainergender : 1;
+	uint16 metlevel : 7;
+	GBAGames::gbagames game : 4;
+	GBABalls::gbaballs ball : 4;
+	uint16 trainergender : 1;
 	origins_struct()
 	{
 		memset(this,0,sizeof(origins_struct));
@@ -494,11 +565,11 @@ struct evscondition_block
 };
 struct misc_block
 {
-	byte pkrs;
+	gbapkrs pkrs;
 	byte metloc;
 	origins_struct origins;
 	ivs_struct ivs;
-	uint32 ribbons;
+	gbaribbons ribbons;
 	misc_block()
 	{
 		memset(this,0,sizeof(misc_block));
@@ -519,7 +590,7 @@ struct pokemon_gen3
 	byte nickname[10];
 	uint16 lang;
 	byte otname[7];
-	byte mark;
+	gbamarks mark;
 	uint16 checksum;
 uint16 : 16;
 	pkmdata data;
