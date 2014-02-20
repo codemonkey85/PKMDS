@@ -409,6 +409,30 @@ struct ppbonuses_struct
 		memset(this,0,sizeof(ppbonuses_struct));
 	};
 };
+struct gbaevsfield {
+    byte hp; // HP EVs
+    byte attack; // Attack EVs
+    byte defense; // Defense EVs
+    byte speed; // Speed EVs
+    byte spatk; // Special Attack EVs
+    byte spdef; // Special Defnse EVs
+    gbaevsfield()
+    {
+        memset(this,0,sizeof(gbaevsfield));
+    }
+};
+struct gbacontestfield {
+    byte cool; // Cool
+    byte beauty; // Beauty; used for Feebas evolution (to Milotic)
+    byte cute; // Cute
+    byte smart; // Smart
+    byte tough; // Tough
+    byte sheen; // Sheen
+    gbacontestfield()
+    {
+        memset(this,0,sizeof(gbacontestfield));
+    }
+};
 struct origins_struct
 {
 	byte metlevel : 7;
@@ -461,8 +485,8 @@ struct moves_block
 };
 struct evscondition_block
 {
-	byte evs[6];
-	byte contest[6];
+	gbaevsfield evs;
+	gbacontestfield contest;
 	evscondition_block()
 	{
 		memset(this,0,sizeof(evscondition_block));
