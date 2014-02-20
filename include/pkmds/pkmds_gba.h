@@ -1,9 +1,20 @@
 ﻿#pragma once
+//#ifdef PKMDS_CMAKE_USED
+//#include <pkmds/stdafx.h>
+//#else
+//#include "stdafx.h"
+//#endif
+
 #ifdef PKMDS_CMAKE_USED
-#include <pkmds/stdafx.h>
+#include <pkmds/pkmds_sql.h>
+#include <pkmds/pkmds_gba.h>
 #else
-#include "stdafx.h"
+#include "..\\..\\include\\pkmds\\pkmds_sql.h"
+#include "..\\..\\include\\pkmds\\pkmds_gba.h"
 #endif
+#include <string>
+#include <locale>
+
 #include <vector>
 namespace GBASpecies
 {
@@ -709,4 +720,7 @@ void DllExport shufflegbapkm(pokemon_gen3 * pkm, bool un);
 void DllExport read(const char* file_name, gbasavefilepacked *data);
 void DllExport read(const char* file_name, pokemon_gen3 *data);
 DllExport int convertgbaspecies(GBASpecies::gbaspecies in);
+DllExport int convertgbaitems(uint16 in);
 DllExport GBASpecies::gbaspecies convertgbaspecies(int in);
+DllExport byte convertgbatext(byte in);
+void DllExport convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm);
