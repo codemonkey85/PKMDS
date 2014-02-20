@@ -1,7 +1,6 @@
 #ifdef PKMDS_CMAKE_USED
 #include <pkmds/pkmds_gba.h>
 #else
-//#include "..\\..\\include\\pkmds\\pkmds_sql.h"
 #include "..\\..\\include\\pkmds\\pkmds_gba.h"
 #endif
 using namespace std;
