@@ -1433,7 +1433,7 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 	pkm->ivs.speed = gbapkm->data.ivs.speed;
 	pkm->ivs.isegg = gbapkm->data.ivs.isegg;
 	pkm->met = Locations::poketransfer;
-	pkm->metlevel_otgender.metlevel = gbapkm->data.origins.metlevel;
+	pkm->metlevel_otgender.metlevel = getpkmlevel(pkm);
 	pkm->metlevel_otgender.otgender = Genders::genders(int(gbapkm->data.origins.trainergender));
 	pkm->nature = Natures::natures(gbapkm->pid % 25);
 	pkm->pid = gbapkm->pid;
