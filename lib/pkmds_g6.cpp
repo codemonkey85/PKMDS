@@ -110,6 +110,14 @@ void read(const char* file_name, pokemonx_obj *data) // Reads the given file and
 	delete in;
 	in = 0;
 }
+void read(const char* file_name, xysavefile *data) // Reads the given file and assigns the data to the given save file object.
+{
+	std::ifstream *in = new std::ifstream(file_name,std::ios::binary);
+	in->read(reinterpret_cast<char*>(data), sizeof(xysavefile));
+	in->close();
+	delete in;
+	in = 0;
+}
 #ifdef _MSC_VER
 void read(const wchar_t * file_name, pokemonx_obj *data) // Reads the given file and assigns the data to the given save file object.
 {

@@ -947,6 +947,14 @@ struct party_pkx { // Size:
 		memset(this,0,sizeof(party_pkx));
 	}
 };
+struct xysavefile
+{
+	byte data1[0x27A00];
+	pokemonx_obj pcstorage_sav1[31][30];
+	byte data2[0x4A530];
+	pokemonx_obj pcstorage_sav2[31][30];
+	byte data3[0x24B30];
+};
 void DllExport pkmcrypt(partyx_field* pkx, uint32 pid);
 void DllExport encryptpkm(party_pkx* pkx);
 void DllExport decryptpkm(party_pkx* pkx);
@@ -958,6 +966,7 @@ void DllExport encryptpkm(pokemonx_obj* pkx);
 void DllExport decryptpkm(pokemonx_obj* pkx);
 void DllExport calcchecksum(pokemonx_obj* pkx);
 void DllExport read(const char* file_name, pokemonx_obj *data);
+void DllExport read(const char* file_name, xysavefile *data);
 #ifdef _MSC_VER
 void DllExport read(const wchar_t * file_name, pokemonx_obj *data);
 #endif
