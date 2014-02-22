@@ -91,7 +91,7 @@ void decryptpkm(pokemonx_obj* pkx)
 	pkx->ispartydatadecrypted = 1;
 	pkx->isboxdatadecrypted = 1;
 }
-void calcchecksum(pokemonx_obj* pkx) // Calculates and assigns the checksum for the given Pokemon object.
+int getchecksum(pokemonx_obj* pkx) // Calculates the checksum for the given Pokemon object.
 {
 	uint32 chk = 0;
 	uint16* p = (uint16*)pkx;
@@ -100,7 +100,11 @@ void calcchecksum(pokemonx_obj* pkx) // Calculates and assigns the checksum for 
 		chk += *i;
 	}
 	chk = chk & 0xffff;
-	pkx->checksum = chk;
+return chk;
+}
+void calcchecksum(pokemonx_obj* pkx) // Calculates and assigns the checksum for the given Pokemon object.
+{
+	pkx->checksum = getchecksum(pkx);
 }
 void read(const char* file_name, pokemonx_obj *data) // Reads the given file and assigns the data to the given save file object.
 {
