@@ -812,6 +812,42 @@ namespace Forms
 		};
 	}
 }
+
+struct kalosribbonsfield
+{
+	uint32 kaloschamp : 1;
+	uint32 champion : 1;
+	uint32 sinnohchamp : 1;
+	uint32 kalosribbon4 : 1;
+	uint32 kalosribbon5 : 1;
+	uint32 skillfulbattler : 1;
+	uint32 kalosribbon7 : 1;
+	uint32 effort : 1;
+	uint32 alert : 1;
+	uint32 shock : 1;
+	uint32 downcast : 1;
+	uint32 careless : 1;
+	uint32 relax : 1;
+	uint32 snooze : 1;
+	uint32 smile : 1;
+	uint32 gorgeous : 1;
+	uint32 royal : 1;
+	uint32 gorgeousroyal : 1;
+	uint32 artist : 1;
+	uint32 footprint : 1;
+	uint32 record : 1;
+	uint32 legend : 1;
+	uint32 country : 1;
+	uint32 national : 1;
+	uint32 earth : 1;
+	uint32 world : 1;
+	uint32 classic : 1;
+	uint32 premier : 1;
+	uint32 event_ : 1;
+	uint32 birthday : 1;
+	uint32 special : 1;
+	uint32 festival : 1;
+} ;
 // http://projectpokemon.org/wiki/Pokemon_X/Y_3DS_Structure
 //Unencrypted Data
 struct pkxunencryptblock { // The unencrypted block of the Pokemon data, featuring such important things as the PID and checksum.
@@ -840,11 +876,15 @@ uint16 : 16;
 	formsfield forms;
 	evsfield evs;
 uint32 : 32;
-	byte unknown[3];
+uint16 : 16;
+	markingsfield marks;
 	pokerus pkrs;
 uint32 : 32;
-	uint32 kalosribbons;
-	byte unknown2[12];
+	kalosribbonsfield kalosribbons;
+uint32 : 32;
+	byte contestribbons;
+	byte battleribbons;
+	byte unknown2[6];
 	pkxblocka()
 	{
 		memset(this,0,sizeof(pkxblocka));
@@ -878,7 +918,7 @@ struct pkxblockc { //
 	wchar_t otname_to[12];
 #endif
 #endif
-	byte unknown[32];
+	byte history[32];
 	pkxblockc()
 	{
 		memset(this,0,sizeof(pkxblockc));
@@ -892,7 +932,9 @@ struct pkxblockd { //
 	wchar_t otname[12];
 #endif
 #endif
-	byte unknown[9]; // Unknown / unused
+uint16 : 16;
+	byte tameness;
+	byte unknown[6]; // Unknown / unused
 	datefield eggdate;
 	datefield metdate;
 byte : 8; // Unknown / unused
@@ -902,10 +944,10 @@ byte : 8; // Unknown / unused
 	metlevelfield metlevel_otgender;
 byte : 8; // Unknown / unused
 	Hometowns::hometowns hometown;
-	Countries::countries country;
+	byte country;
 	byte regionid;
 	byte regionid3ds;
-	byte otlang;
+	Countries::countries otlang;
 uint32 : 32; // Unknown / unused
 	pkxblockd()
 	{
@@ -975,3 +1017,4 @@ void DllExport write(const char* file_name, pokemonx_obj* data);
 void DllExport write(const wchar_t * file_name, pokemonx_obj* data);
 #endif
 bool DllExport getpkmshiny(const pokemonx_obj *pkx);
+int DllExport getchecksum(pokemonx_obj* pkx);
