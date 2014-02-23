@@ -1360,6 +1360,14 @@ byte convertgbatext(byte in)
 	}
 	return '\0';
 }
+void DllExport write(const char* file_name, pokemon_gen3* data)
+{
+	std::ofstream *out = new std::ofstream(file_name,std::ios::binary);
+	out->write(reinterpret_cast<char*>(data), sizeof(pokemon_gen3));
+	out->close();
+	delete out;
+	out = 0;
+}
 void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 {
 	std::ostringstream o;
@@ -1373,8 +1381,8 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 	int ability = getanint(o);
 	if(ability == 0)
 	{
-		o.str("");
 		o.clear();
+		o.str("");
 		o 
 			<< "SELECT abilities.id FROM abilities INNER JOIN ability_names ON abilities.id =  "
 			<< "ability_names.ability_id INNER JOIN pokemon_abilities ON abilities.id =  "
@@ -1433,6 +1441,7 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 	pkm->ivs.speed = gbapkm->data.ivs.speed;
 	pkm->ivs.isegg = gbapkm->data.ivs.isegg;
 	pkm->met = Locations::poketransfer;
+	pkm->species = Species::pkmspecies(convertgbaspecies(gbapkm->data.species));
 	pkm->metlevel_otgender.metlevel = getpkmlevel(pkm);
 	pkm->metlevel_otgender.otgender = Genders::genders(int(gbapkm->data.origins.trainergender));
 	pkm->nature = Natures::natures(gbapkm->pid % 25);
@@ -1442,7 +1451,6 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 	pkm->ppup[2] = gbapkm->data.ppbonuses.move3;
 	pkm->ppup[3] = gbapkm->data.ppbonuses.move4;
 	pkm->sid = gbapkm->sid;
-	pkm->species = Species::pkmspecies(convertgbaspecies(gbapkm->data.species));
 	pkm->tameness = gbapkm->data.friendship;
 	pkm->tid = gbapkm->tid;
 	switch(gbapkm->data.ribbons.beauty)
@@ -1631,7 +1639,12 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 		break;
 	}
 	time_t t = time(0);
-	struct tm * now = localtime( & t );
+	struct tm * now = new tm();
+#if (defined __linux__) || (defined __APPLE__)
+	now = localtime( & t );
+#else
+	localtime_s(now, &t);
+#endif
 	pkm->metdate.day = now->tm_mday;
 	pkm->metdate.month = now->tm_mon + 1;
 	pkm->metdate.year = now->tm_year -100;
@@ -1640,16 +1653,30 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 	pkm->item = Items::items(convertgbaitems(gbapkm->data.item));
 	std::string nickname = "";
 	std::string otname = "";
-	for(int i = 0; i < 10; i++)
+	bool cont = true;
+	for(int i = 0; i < NICKLENGTH; i++)
 	{
-		nickname += convertgbatext(gbapkm->nickname[i]);
+		if(gbapkm->nickname[i] == '\0')
+		{
+			cont = false;
+		}
+		if(cont)
+		{
+			nickname += convertgbatext(gbapkm->nickname[i]);
+		}
 	}
-	cout << "\n";
-	for(int i = 0; i < 7; i++)
+	cont = true;
+	for(int i = 0; i < OTLENGTH; i++)
 	{
-		otname += convertgbatext(gbapkm->otname[i]);
+		if(gbapkm->otname[i] == '\0')
+		{
+			cont = false;
+		}
+		if(cont)
+		{
+			otname += convertgbatext(gbapkm->otname[i]);
+		}
 	}
-	cout << "\n";
 	string speciesname = lookuppkmname(pkm);
 	std::locale loc;
 	for(int i = 0; i < speciesname.length(); i++)
@@ -1659,13 +1686,15 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 			pkm->ivs.isnicknamed = true;
 		}
 	}
-	for(int i = 0; i < nickname.length(); i++)
-	{
-		pkm->nickname[i] = nickname[i];
-	}
-	for(int i = 0; i < otname.length(); i++)
-	{
-		pkm->otname[i] = otname[i];
-	}
+	wstring nick = wstring(nickname.begin(),nickname.end());
+	wstring otn = wstring(otname.begin(),otname.end());
+	wchar_t * nickw = const_cast<wchar_t*>(nick.c_str());
+	wchar_t * otw = const_cast<wchar_t*>(otn.c_str());
+	setpkmnickname(pkm,L"",NICKLENGTH);
+	setpkmotname(pkm,L"",OTLENGTH);
+	std::size_t nicklength_ = nickname.find('\0');
+	std::size_t otlength_ = otname.find('\0');
+	setpkmnickname(pkm,nickw,nicklength_);
+	setpkmotname(pkm,otw,otlength_);
 	calcchecksum(pkm);
 }
