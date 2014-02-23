@@ -3223,9 +3223,9 @@ public:
 
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
-    char nickname[22];
+    char nickname[(NICKLENGTH * 2)+2];
 #else
-    wchar_t nickname[11];
+    wchar_t nickname[NICKLENGTH+1];
 #endif
 #endif
 
@@ -3246,9 +3246,9 @@ public:
 
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
-    char otname[16];
+    char otname[(OTLENGTH * 2)+2];
 #else
-    wchar_t otname[8];
+    wchar_t otname[OTLENGTH+1];
 #endif
 #endif
 

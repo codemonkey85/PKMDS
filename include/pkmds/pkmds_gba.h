@@ -724,3 +724,4 @@ DllExport int convertgbaitems(uint16 in);
 DllExport GBASpecies::gbaspecies convertgbaspecies(int in);
 DllExport byte convertgbatext(byte in);
 void DllExport convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm);
+void DllExport write(const char* file_name, pokemon_gen3* data);
