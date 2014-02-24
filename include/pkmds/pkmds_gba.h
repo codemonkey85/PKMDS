@@ -7,10 +7,8 @@
 
 #ifdef PKMDS_CMAKE_USED
 #include <pkmds/pkmds_sql.h>
-#include <pkmds/pkmds_gba.h>
 #else
-#include "..\\..\\include\\pkmds\\pkmds_sql.h"
-#include "..\\..\\include\\pkmds\\pkmds_gba.h"
+#include "pkmds_sql.h"
 #endif
 #include <string>
 #include <locale>

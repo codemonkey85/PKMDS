@@ -53,19 +53,19 @@ void pkmcrypt(partyx_field* pkx, uint32 key)
 }
 void encryptpkm(party_pkx* pkx)
 {
-	shufflepkm(&(pkx->pkx_data));
-	pkmcrypt(&(pkx->pkx_data));
-	pkmcrypt(&(pkx->party_data),pkx->pkx_data.key);
-	pkx->pkx_data.ispartydatadecrypted = 0;
-	pkx->pkx_data.isboxdatadecrypted = 0;
+    shufflepkm(pkx);
+    pkmcrypt(pkx);
+    pkmcrypt(&(pkx->party_data),pkx->key);
+    pkx->ispartydatadecrypted = 0;
+    pkx->isboxdatadecrypted = 0;
 }
 void decryptpkm(party_pkx* pkx)
 {
-	pkmcrypt(&(pkx->pkx_data));
-	pkmcrypt(&(pkx->party_data),pkx->pkx_data.key);
-	unshufflepkm(&(pkx->pkx_data));
-	pkx->pkx_data.ispartydatadecrypted = 1;
-	pkx->pkx_data.isboxdatadecrypted = 1;
+    pkmcrypt(pkx);
+    pkmcrypt(&(pkx->party_data),pkx->key);
+    unshufflepkm(pkx);
+    pkx->ispartydatadecrypted = 1;
+    pkx->isboxdatadecrypted = 1;
 }
 void pkmcrypt(pokemonx_obj* pkx)
 {
