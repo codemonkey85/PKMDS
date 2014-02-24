@@ -1,3 +1,4 @@
+/*
 #include "../include/pkmds/pkm_report.h"
 party_pkm * ppkm;
 pokemon_obj * pkm;
@@ -7,12 +8,12 @@ std::string TableName;
 vector<std::string> POSValues;
 vector<std::string> positions;
 int frmCurBoxNum;
-bw2savblock_obj * cursavblock;
+bw2savblock_obj * cursavblock_t;
 int frmCurSlotNum;
 using namespace std;
 void setsavblock(bw2savblock_obj * cursavblock_)
 {
-	cursavblock = cursavblock_;
+    cursavblock_t = cursavblock_;
 }
 void createtable()
 {
@@ -183,7 +184,7 @@ void createtable()
 	{
 		for(int slot = 0; slot < 30; slot++)
 		{
-			pkm = &(cursavblock->boxes[box].pokemon[slot]);
+            pkm = &(cursavblock_t->boxes[box].pokemon[slot]);
 			if(!((bool)(pkm->isboxdatadecrypted)))
 			{
 				decryptpkm(pkm);
@@ -472,3 +473,4 @@ void dosearch(vector<std::string> columns, string where_, string order, int limi
 		c++;
 	}
 }
+*/
