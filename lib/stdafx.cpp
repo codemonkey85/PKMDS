@@ -31,3 +31,28 @@ byte getbit(uint32 & input, byte n)
 {
 	return ((input) >> n) & 1;
 }
+
+void setbit(byte & input, byte n, byte val)
+{
+	
+}
+void setbit(uint16 & input, byte n, byte val)
+{
+	
+}
+void setbit(uint32 & input, byte n, byte val)
+{
+	
+}
+void togglebit(byte & input, byte n)
+{
+	
+}
+void togglebit(uint16 & input, byte n)
+{
+	
+}
+void togglebit(uint32 & input, byte n)
+{
+	
+}
