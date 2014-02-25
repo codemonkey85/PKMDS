@@ -28,6 +28,10 @@ static const int GENERATION = 5;
 static const int BUFF_SIZE = 955;
 static const int NICKLENGTH = 10;
 static const int OTLENGTH = 7;
+/*
+static const int NICKLENGTH_G6 = 11;
+static const int OTLENGTH_G6 = 11;
+*/
 std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems);
 std::vector<std::string> split(const std::string &s, char delim);
 byte getbit(byte & input, byte n);
