@@ -2218,6 +2218,88 @@ sailfossil=711,
 fairygem=715,
     }
 }
+namespace Regions_3DS
+{
+    enum regions : byte
+    {
+      japan,
+      usa,
+      europe,
+      cn=4,
+      korea,
+      tw
+    };
+}
+namespace Locations_g6
+{
+    enum locations : uint16
+    {
+        vanivilletown=0x0006,
+route1=0x0008,
+aquacordetown=0x000A,
+route2=0x000C,
+santaluneforest=0x000E,
+route3=0x0010,
+santalunecity=0x0012,
+route4=0x0014,
+lumiosecity=0x0016,
+lysandrelabs=0x001A,
+route5=0x001C,
+camphriertown=0x001E,
+route6=0x0022,
+parfumpalace=0x0024,
+route7=0x0026,
+cyllagecity=0x0028,
+route8=0x002A,
+ambrettetown=0x002C,
+route9=0x002E,
+battlechateau=0x0030,
+route10=0x0032,
+geosengetown=0x0034,
+route11=0x0036,
+reflectioncave=0x0038,
+shalourcity=0x003A,
+towerofmastery=0x003C,
+route12=0x003E,
+courmarinecity=0x0040,
+route13=0x0042,
+route14=0x0044,
+laverrecity=0x0046,
+pokeballfactory=0x0048,
+route15=0x004A,
+dendemilletown=0x004C,
+route16=0x004E,
+frostcavern=0x0052,
+route17=0x0054,
+anistarcity=0x0056,
+route18=0x0058,
+couriwaytown=0x005A,
+route19=0x005C,
+snowbellecity=0x005E,
+route20=0x0060,
+pokémonvillage=0x0062,
+route21=0x0064,
+route22=0x0066,
+victoryroad=0x0068,
+pokemonleague=0x006A,
+kiloudecity=0x006C,
+battlemaison=0x006E,
+azurebay=0x0070,
+glitteringcave=0x0084,
+connectingcave=0x0086,
+kalospowerplant=0x0088,
+teamflaresecrethq=0x008A,
+terminuscave=0x008C,
+losthotel=0x008E,
+champerofemptiness=0x0090,
+seaspiritsden=0x0092,
+friendsafari=0x0094,
+unknowndungeon=0x00A8,
+linktrade=0x7531,
+present=0x9C70,
+daycarecouple=0xEA62
+    };
+}
 namespace MegaEvolutions
 {
     /*
@@ -2427,7 +2509,7 @@ struct pkxblockb { //
 #endif
 #endif
     uint16 : 16;
-    Moves::moves moves[4];
+    Moves_g6::moves moves[4];
     byte pp[4];
     byte ppups[4];
     Moves_g6::moves eggmoves[4];
@@ -2466,15 +2548,15 @@ struct pkxblockd { //
     datefield eggdate;
     datefield metdate;
     byte : 8; // Unknown / unused
-    Locations::locations eggmet;
-    Locations::locations met;
+    Locations_g6::locations eggmet;
+    Locations_g6::locations met;
     Balls::balls ball;
     metlevelfield metlevel_otgender;
     byte : 8; // Unknown / unused
     Hometowns::hometowns hometown;
     byte country;
     byte regionid;
-    byte regionid3ds;
+    Regions_3DS:regions regionid3ds;
     Countries::countries otlang;
     uint32 : 32; // Unknown / unused
     pkxblockd()
