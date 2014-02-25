@@ -34,25 +34,46 @@ byte getbit(uint32 & input, byte n)
 
 void setbit(byte & input, byte n, byte val)
 {
-	
+	if(val == 0)
+	{
+		input &= ~(1 << n);
+	}
+	else
+	{
+		input |= 1 << n;
+	}
 }
 void setbit(uint16 & input, byte n, byte val)
 {
-	
+	if(val == 0)
+	{
+		input &= ~(1 << n);
+	}
+	else
+	{
+		input |= 1 << n;
+	}
 }
 void setbit(uint32 & input, byte n, byte val)
 {
-	
+	if(val == 0)
+	{
+		input &= ~(1 << n);
+	}
+	else
+	{
+		input |= 1 << n;
+	}
 }
 void togglebit(byte & input, byte n)
 {
-	
+	input ^= 1 << n;
 }
 void togglebit(uint16 & input, byte n)
 {
-	
+	input ^= 1 << n;
 }
 void togglebit(uint32 & input, byte n)
 {
-	
+	input ^= 1 << n;
 }
