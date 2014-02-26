@@ -2277,7 +2277,7 @@ enum locations : uint16
     route19=0x005C,
     snowbellecity=0x005E,
     route20=0x0060,
-    pokémonvillage=0x0062,
+    pokemonvillage=0x0062,
     route21=0x0064,
     route22=0x0066,
     victoryroad=0x0068,
