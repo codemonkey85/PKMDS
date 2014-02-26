@@ -8,6 +8,8 @@ pkmviewer::pkmviewer(QWidget *parent) :
     ui(new Ui::pkmviewer)
 {
     ui->setupUi(this);
+    ui->txtNickname->setMaxLength(NICKLENGTH);
+    ui->txtOTName->setMaxLength(OTLENGTH);
     mouseEventEater = new MouseEventEater(this);
     ui->sbCurrentSlot->setEnabled(false);
     ui->sbCurrentSlot->setVisible(false);
@@ -962,6 +964,7 @@ void pkmviewer::on_txtNickname_textChanged(const QString &arg1)
         if(redisplayok)
         {
             ui->chkNicknamed->setChecked(true);
+            temppkm->ivs.isnicknamed = 1;
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
             for(int i = 0; i < arg1.length(); i++)
@@ -972,11 +975,17 @@ void pkmviewer::on_txtNickname_textChanged(const QString &arg1)
             arg1.toWCharArray(temppkm->nickname);
 #endif
 #endif
-            byte * btpnt = new byte;
-            btpnt = reinterpret_cast<byte*>(&(temppkm->nickname));
-            memset(btpnt+(ui->txtNickname->text().length()*2),0xff,2);
-            btpnt += 20;
-            memset(btpnt,0xff,2);
+            if(ui->txtNickname->text().length() < NICKLENGTH)
+            {
+                            byte * btpnt = new byte;
+                            btpnt = reinterpret_cast<byte*>(&(temppkm->nickname));
+                            memset(btpnt+(ui->txtNickname->text().length()*2),0xff,2);
+                            btpnt += (NICKLENGTH*2)-2;
+                            memset(btpnt,0xff,2);
+//                memset(&(temppkm->nickname[ui->txtNickname->text().length()]), 0xffff, 2);
+//                memset(&(temppkm->nickname[NICKLENGTH]), 0xffff, 2);
+
+            }
         }
     }
 }
@@ -1029,7 +1038,7 @@ void pkmviewer::on_cbNicknamed_toggled(bool checked)
 {
     if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
-        temppkm->ivs.isnicknamed = checked;
+        temppkm->ivs.isnicknamed = int(checked);
     }
 }
 void pkmviewer::on_txtOTName_textChanged(const QString &arg1)
@@ -1048,11 +1057,17 @@ void pkmviewer::on_txtOTName_textChanged(const QString &arg1)
             arg1.toWCharArray(temppkm->otname);
 #endif
 #endif
-            byte * btpnt = new byte;
-            btpnt = reinterpret_cast<byte*>(&(temppkm->otname));
-            memset(btpnt+(ui->txtOTName->text().length()*2),0xff,2);
-            btpnt += 14;
-            memset(btpnt,0xff,2);
+            if(ui->txtOTName->text().length() < OTLENGTH)
+            {
+                            byte * btpnt = new byte;
+                            btpnt = reinterpret_cast<byte*>(&(temppkm->otname));
+                            memset(btpnt+(ui->txtOTName->text().length()*2),0xff,2);
+                            btpnt += (OTLENGTH*2)-2;
+                            memset(btpnt,0xff,2);
+//                memset(&(temppkm->otname[ui->txtOTName->text().length()]), 0xffff, 2);
+//                memset(&(temppkm->otname[OTLENGTH]), 0xffff, 2);
+
+            }
         }
     }
 }
