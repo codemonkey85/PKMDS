@@ -110,7 +110,7 @@ string getpkmexpatlevelsql(const int id, const int level)
 		<< "ORDER  BY experience.experience";
 	return o.str();
 }
-string getpkmexpatlevelsql(const Species::pkmspecies id, const int level)
+string getpkmexpatlevelsql(const Species::species id, const int level)
 {
 	ostringstream o;
 	o << ""
@@ -865,7 +865,7 @@ string getmachinemovenamesql(const Items::items itemid, const int generation, co
 		<< "AND (move_names.local_language_id = " << langid << ")";
 	return o.str();
 }
-string getpokemoncolorstringsql(const Species::pkmspecies speciesid)
+string getpokemoncolorstringsql(const Species::species speciesid)
 {
 	ostringstream o;
 	o << ""
@@ -876,7 +876,7 @@ string getpokemoncolorstringsql(const Species::pkmspecies speciesid)
 		<< "WHERE  pokemon_species.id = " << (int)speciesid;
 	return o.str();
 }
-string getpokemoncolorsql(const Species::pkmspecies speciesid)
+string getpokemoncolorsql(const Species::species speciesid)
 {
 	ostringstream o;
 	o << ""

@@ -62,7 +62,7 @@ byte : 8;
 public:
 	Items::items item;
 	Moves::moves moves[4];
-	Species::pkmspecies species;
+	Species::species species;
 private:
 byte : 8;
 public:
