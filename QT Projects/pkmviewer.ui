@@ -658,7 +658,7 @@ Changes</string>
       </rect>
      </property>
      <property name="maxLength">
-      <number>10</number>
+      <number>0</number>
      </property>
     </widget>
     <widget class="QLabel" name="lblNickname">
@@ -709,7 +709,7 @@ Changes</string>
        </rect>
       </property>
       <property name="maxLength">
-       <number>7</number>
+       <number>0</number>
       </property>
      </widget>
      <widget class="QLabel" name="lblOTName">

@@ -3239,9 +3239,9 @@ public:
 
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
-    char nickname[(NICKLENGTH * 2)+2];
+    char nickname[(NICKLENGTH * 2)/*+2*/];
 #else
-    wchar_t nickname[NICKLENGTH+1];
+    wchar_t nickname[NICKLENGTH/*+1*/];
 #endif
 #endif
 
@@ -3262,9 +3262,9 @@ public:
 
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
-    char otname[(OTLENGTH * 2)+2];
+    char otname[(OTLENGTH * 2)/*+2*/];
 #else
-    wchar_t otname[OTLENGTH+1];
+    wchar_t otname[OTLENGTH/*+1*/];
 #endif
 #endif
 
@@ -3789,7 +3789,7 @@ public:
     wchar_t boxnames[24][20]; // size: 0x3C0
 #endif
 #endif
-    std::array<Wallpapers::wallpapers,0x18> boxwallpapers;
+    std::array<Wallpapers::wallpapers,24> boxwallpapers; // size: 0x18
     byte unknown1[6];
     uint16 block1checksum;
     byte unknown2[0x1c]; //
@@ -3800,9 +3800,9 @@ public:
     uint32 unknown4;
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
-    char trainername[(OTLENGTH*2)+2]; // size: 0x08
+    char trainername[(OTLENGTH*2)/*+2*/]; // size: 0x08
 #else
-    wchar_t trainername[OTLENGTH+1]; // size: 0x08
+    wchar_t trainername[OTLENGTH/*+1*/]; // size: 0x08
 #endif
 #endif
     uint16 tid;

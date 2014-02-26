@@ -51,7 +51,7 @@
      </rect>
     </property>
     <property name="maxLength">
-     <number>7</number>
+     <number>0</number>
     </property>
    </widget>
    <widget class="QLabel" name="lblOTName">

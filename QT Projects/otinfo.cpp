@@ -8,6 +8,7 @@ OTInfo::OTInfo(QWidget *parent) :
     ui(new Ui::OTInfo)
 {
     ui->setupUi(this);
+    ui->txtOTName->setMaxLength(OTLENGTH);
 }
 OTInfo::~OTInfo()
 {
