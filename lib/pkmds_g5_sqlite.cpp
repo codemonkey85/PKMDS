@@ -214,7 +214,7 @@ uint32 getpkmexpatlevel(const int id, const int level)
 {
 	return getanint(getpkmexpatlevelsql(id,level));
 }
-uint32 getpkmexpatlevel(const Species::pkmspecies id, const int level)
+uint32 getpkmexpatlevel(const Species::species id, const int level)
 {
 	return getanint(getpkmexpatlevelsql(id,level));
 }
@@ -406,7 +406,7 @@ bool compareivbyorder(const ivtest &a, const ivtest &b)
 }
 int lookuppkmtype(const int species, const int form, const int slot, const int generation)
 {
-	switch((Species::pkmspecies)species)
+	switch((Species::species)species)
 	{
 	case Species::arceus:
 		if(slot == 2)
@@ -679,7 +679,7 @@ int getmovetotalpp(const pokemon_obj * pkm, const int movenum)
 	multiplier = (multiplier + 100) / 100;
 	return (int)(curpp * multiplier);
 }
-int getpkmgenderrate(Species::pkmspecies speciesid)
+int getpkmgenderrate(Species::species speciesid)
 {
 	ostringstream o;
 	o << ""
@@ -1194,15 +1194,15 @@ string getmachinetypename(const Items::items itemid, const int generation, const
 {
 	return getastring(getmachinetypesql(itemid,generation,version_group));
 }
-string getpokemoncolorstring(const Species::pkmspecies speciesid)
+string getpokemoncolorstring(const Species::species speciesid)
 {
 	return getastring(getpokemoncolorsql(speciesid));
 }
-int getpokemoncolor(const Species::pkmspecies speciesid)
+int getpokemoncolor(const Species::species speciesid)
 {
 	return getanint(getpokemoncolorsql(speciesid));
 }
-uint32 getpkmcolor(const Species::pkmspecies species)
+uint32 getpkmcolor(const Species::species species)
 {
 	uint32 pkmcolor = getpkmcolorhex(getpokemoncolor(species));
 	if(pkmcolor == 0)

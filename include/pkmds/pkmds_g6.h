@@ -2487,7 +2487,7 @@ struct pkxblocka { //
     evsfield evs;
     uint32 : 32;
     uint16 : 16;
-    markingsfield marks;
+    markingsfield markings;
     pokerus pkrs;
     uint32 : 32;
     kalosribbonsfield kalosribbons;
@@ -2511,7 +2511,7 @@ struct pkxblockb { //
     uint16 : 16;
     Moves_g6::moves moves[4];
     byte pp[4];
-    byte ppups[4];
+    byte ppup[4];
     Moves_g6::moves eggmoves[4];
     uint16 : 16;
     ivsfield ivs;

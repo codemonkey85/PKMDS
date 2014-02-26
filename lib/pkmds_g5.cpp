@@ -823,7 +823,7 @@ pokemon_obj * getpcstorageavailableslot(bw2sav_obj * sav, int & box, int & slot,
 	box = -1;
 	slot = -1;
 	pokemon_obj * pkm = new pokemon_obj();
-	Species::pkmspecies speciestest = Species::NOTHING;
+    Species::species speciestest = Species::NOTHING;
 	int boxcount = 0;
 	for(int boxc = startbox; boxcount < 24; boxc++)
 	{

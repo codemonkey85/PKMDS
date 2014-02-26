@@ -8,7 +8,8 @@
 // Enums
 namespace Species
 {
-enum pkmspecies : uint16 {
+enum species : uint16
+{
     NOTHING,
     bulbasaur,
     ivysaur,
@@ -663,7 +664,8 @@ enum pkmspecies : uint16 {
 }
 namespace Items
 {
-enum items : uint16 {
+enum items : uint16
+{
     NOTHING =  0x0000,
     masterball =  0x0001,
     ultraball =  0x0002,
@@ -1288,7 +1290,8 @@ enum items : uint16 {
 }
 namespace Hometowns
 {
-enum hometowns : byte {
+enum hometowns : byte
+{
     colosseum_bonus,
     sapphire,
     ruby,
@@ -1311,7 +1314,8 @@ enum hometowns : byte {
 }
 namespace Stat_IDs
 {
-enum stat_ids : byte {
+enum stat_ids : byte
+{
     hp = 1,
     attack,
     defense,
@@ -1322,7 +1326,8 @@ enum stat_ids : byte {
 }
 namespace Stats
 {
-enum stats : byte {
+enum stats : byte
+{
     hp,
     attack,
     defense,
@@ -1333,7 +1338,8 @@ enum stats : byte {
 }
 namespace ContestStat_IDs
 {
-enum conteststat_ids : byte {
+enum conteststat_ids : byte
+{
     cool = 1,
     beauty,
     cute,
@@ -1344,7 +1350,8 @@ enum conteststat_ids : byte {
 }
 namespace ContestStats
 {
-enum conteststats : byte {
+enum conteststats : byte
+{
     cool,
     beauty,
     cute,
@@ -1355,7 +1362,8 @@ enum conteststats : byte {
 }
 namespace Moves
 {
-enum moves : uint16 {
+enum moves : uint16
+{
     NOTHING,
     pound,
     karatechop,
@@ -1920,7 +1928,8 @@ enum moves : uint16 {
 }
 namespace Genders
 {
-enum genders : byte {
+enum genders : byte
+{
     male,
     female,
     genderless
@@ -1928,7 +1937,8 @@ enum genders : byte {
 }
 namespace Natures
 {
-enum natures : byte {
+enum natures : byte
+{
     hardy,
     lonely,
     brave,
@@ -1958,7 +1968,8 @@ enum natures : byte {
 }
 namespace Abilities
 {
-enum abilities : byte {
+enum abilities : byte
+{
     NOTHING,
     stench,
     drizzle,
@@ -2128,7 +2139,8 @@ enum abilities : byte {
 }
 namespace Countries
 {
-enum countries : byte {
+enum countries : byte
+{
     japanese = 1,
     english,
     french,
@@ -2140,7 +2152,8 @@ enum countries : byte {
 }
 namespace Locations
 {
-enum locations : uint16 {
+enum locations : uint16
+{
     NOTHING,
     unovamysteryzone,
     unovafarawayplace,
@@ -2302,7 +2315,8 @@ enum locations : uint16 {
 }
 namespace Encounters
 {
-enum encounters : byte {
+enum encounters : byte
+{
     palpark_egg_hatched_specialevent,
     tallgrass=0x2,
     dialga_palkia_ingameevent=0x4,
@@ -2315,7 +2329,8 @@ enum encounters : byte {
 }
 namespace Balls
 {
-enum balls : byte {
+enum balls : byte
+{
     pokeball_,
     masterball,
     ultraball,
@@ -2346,7 +2361,8 @@ enum balls : byte {
 }
 namespace Types
 {
-enum types : byte {
+enum types : byte
+{
     normal,
     fighting,
     flying,
@@ -3178,7 +3194,7 @@ public:
 //Block A
 struct pkmblocka { //
 public:
-    Species::pkmspecies species; // National Pokedex ID
+    Species::species species; // National Pokedex ID
     Items::items item; // Held item index
     uint16 tid; // Trainer ID
     uint16 sid; // Secret ID
@@ -3267,7 +3283,13 @@ public:
         memset(this,0,sizeof(pkmblockd));
     }
 };
-struct pokemon_obj : pkmunencryptblock,pkmblocka,pkmblockb,pkmblockc,pkmblockd { // The Pokemon object, containing 136 bytes of data (as stored in the PC storage system)
+struct pokemon_obj : // The Pokemon object, containing 136 bytes of data (as stored in the PC storage system)
+        pkmunencryptblock,
+        pkmblocka,
+        pkmblockb,
+        pkmblockc,
+        pkmblockd
+{
     pokemon_obj()
     {
         memset(this,0,sizeof(pokemon_obj));
@@ -3496,7 +3518,7 @@ public:
     byte : 8;
     Items::items item;
     Moves::moves moves[4];
-    Species::pkmspecies species;
+    Species::species species;
     byte : 8;
     byte language_flag;
     wchar_t nickname[11];
@@ -3778,9 +3800,9 @@ public:
     uint32 unknown4;
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
-    char trainername[0x08]; // size: 0x08
+    char trainername[(OTLENGTH*2)+2]; // size: 0x08
 #else
-    wchar_t trainername[0x08]; // size: 0x08
+    wchar_t trainername[OTLENGTH+1]; // size: 0x08
 #endif
 #endif
     uint16 tid;
@@ -3789,15 +3811,6 @@ public:
     Genders::genders trainergender;
     byte unknown6[0xEA];
     byte unknown7[0xCAF4];
-    //byte unknown4[0x3204];
-    //	std::array<badge_obj,8> badges; // size: 0x20
-    //byte unknown9[0x20];
-    //byte unknown5[0x1210];
-    //	uint32 adventurestarted;
-    //uint32 unknown10;
-    //    byte unknown6[0x226C8];
-    //byte unknown6[0x86C8];
-    // Gym badge dates are stored starting 1C704 - 4 bytes - year, month, day, 0
     bw2savblock_obj()
     {
         memset(this,0,sizeof(bw2savblock_obj));

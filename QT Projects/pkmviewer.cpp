@@ -931,7 +931,7 @@ void pkmviewer::on_cbPKMSpecies_currentIndexChanged(int index)
     {
         if(redisplayok)
         {
-            temppkm->species = (Species::pkmspecies)(index+1);
+            temppkm->species = (Species::species)(index+1);
             setpkmgender(temppkm,(int)calcpkmgender(temppkm));
             updategenderpic();
             if((index+1) != ui->sbSpecies->value())
@@ -1226,6 +1226,13 @@ void pkmviewer::on_cbMove1_currentIndexChanged(int index)
     if(redisplayok)
     {
         temppkm->moves[0] = (Moves::moves)(index + 1);
+        if(temppkm->species == Species::keldeo)
+        {
+            if(temppkm->moves[0] == Moves::secretsword)
+            {
+                temppkm->forms.form = byte(Forms::Keldeo::resolute);
+            }
+        }
         updatemoveflavor();
         updatemovepp();
         updatemoveimages();
@@ -1237,6 +1244,13 @@ void pkmviewer::on_cbMove2_currentIndexChanged(int index)
     if(redisplayok)
     {
         temppkm->moves[1] = (Moves::moves)index;
+        if(temppkm->species == Species::keldeo)
+        {
+            if(temppkm->moves[1] == Moves::secretsword)
+            {
+                temppkm->forms.form = byte(Forms::Keldeo::resolute);
+            }
+        }
         updatemoveflavor();
         updatemovepp();
         updatemoveimages();
@@ -1248,6 +1262,13 @@ void pkmviewer::on_cbMove3_currentIndexChanged(int index)
     if(redisplayok)
     {
         temppkm->moves[2] = (Moves::moves)index;
+        if(temppkm->species == Species::keldeo)
+        {
+            if(temppkm->moves[2] == Moves::secretsword)
+            {
+                temppkm->forms.form = byte(Forms::Keldeo::resolute);
+            }
+        }
         updatemoveflavor();
         updatemovepp();
         updatemoveimages();
@@ -1259,6 +1280,13 @@ void pkmviewer::on_cbMove4_currentIndexChanged(int index)
     if(redisplayok)
     {
         temppkm->moves[3] = (Moves::moves)index;
+        if(temppkm->species == Species::keldeo)
+        {
+            if(temppkm->moves[3] == Moves::secretsword)
+            {
+                temppkm->forms.form = byte(Forms::Keldeo::resolute);
+            }
+        }
         updatemoveflavor();
         updatemovepp();
         updatemoveimages();
