@@ -2369,7 +2369,7 @@ enum flabebe_floette_florges : byte
     orange_flower,
     blue_flower,
     white_flower,
-    eternal_flower // NZ's Floette
+    eternal_flower // AZ's Floette
 };
 }
 namespace Furfrou
