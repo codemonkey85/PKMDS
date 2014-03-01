@@ -1331,7 +1331,7 @@ GBASpecies::gbaspecies convertgbaspecies(int in)
 	return GBASpecies::NOTHING;
 }
 
-byte gbatounicode[240][2] = 
+int gbatounicode[240][2] =
 {
 	{0x00,'\0'},{0x01,'あ'},{0x02,'い'},{0x03,'う'},{0x04,'え'},{0x05,'お'},{0x06,'か'},{0x07,'き'},{0x08,'く'},{0x09,'け'},{0x0A,'こ'},{0x0B,'さ'},{0x0C,'し'},{0x0D,'す'},{0x0E,'せ'},{0x0F,'そ'},
 	{0x10,'た'},{0x11,'ち'},{0x12,'つ'},{0x13,'て'},{0x14,'と'},{0x15,'な'},{0x16,'に'},{0x17,'ぬ'},{0x18,'ね'},{0x19,'の'},{0x1A,'は'},{0x1B,'ひ'},{0x1C,'ふ'},{0x1D,'へ'},{0x1E,'ほ'},{0x1F,'ま'},
@@ -1349,7 +1349,7 @@ byte gbatounicode[240][2] =
 	{0xD0,'V'},{0xD1,'W'},{0xD2,'X'},{0xD3,'Y'},{0xD4,'Z'},{0xD5,'a'},{0xD6,'b'},{0xD7,'c'},{0xD8,'d'},{0xD9,'e'},{0xDA,'f'},{0xDB,'g'},{0xDC,'h'},{0xDD,'i'},{0xDE,'j'},{0xDF,'k'},
 	{0xE0,'l'},{0xE1,'m'},{0xE2,'n'},{0xE3,'o'},{0xE4,'p'},{0xE5,'q'},{0xE6,'r'},{0xE7,'s'},{0xE8,'t'},{0xE9,'u'},{0xEA,'v'},{0xEB,'w'},{0xEC,'x'},{0xED,'y'},{0xEE,'z'},{0xEF,'\0'},
 };
-byte convertgbatext(byte in)
+int convertgbatext(int in)
 {
 	for(int i = 0; i < 240; i++)
 	{
@@ -1662,7 +1662,7 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 		}
 		if(cont)
 		{
-			nickname += convertgbatext(gbapkm->nickname[i]);
+            nickname += static_cast<char>(convertgbatext(gbapkm->nickname[i]));
 		}
 	}
 	cont = true;
@@ -1674,7 +1674,7 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 		}
 		if(cont)
 		{
-			otname += convertgbatext(gbapkm->otname[i]);
+            otname += static_cast<char>(convertgbatext(gbapkm->otname[i]));
 		}
 	}
 	string speciesname = lookuppkmname(pkm);

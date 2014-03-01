@@ -720,6 +720,6 @@ void DllExport read(const char* file_name, pokemon_gen3 *data);
 DllExport int convertgbaspecies(GBASpecies::gbaspecies in);
 DllExport int convertgbaitems(uint16 in);
 DllExport GBASpecies::gbaspecies convertgbaspecies(int in);
-DllExport byte convertgbatext(byte in);
+DllExport int convertgbatext(int in);
 void DllExport convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm);
 void DllExport write(const char* file_name, pokemon_gen3* data);
