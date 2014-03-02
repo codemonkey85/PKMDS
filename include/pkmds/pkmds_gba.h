@@ -946,22 +946,36 @@ byte : 8;
 	uint16 checksum;
 	uint32 validation;
 	uint32 saveindex;
+	gbasavefooter()
+	{
+		memset(this,0,sizeof(gbasavefooter));
+	};
 };
 struct gbasaveblockpacked
 {
-	byte data[4084];
-	//byte padding[116];
+	byte data[FF4];
 	gbasavefooter footer;
+	gbasaveblockpacked()
+	{
+		memset(this,0,sizeof(gbasaveblockpacked));
+	};
 };
 struct gbasavehalfpacked
 {
 	std::array<gbasaveblockpacked,16> blocks;
+	gbasavehalfpacked()
+	{
+		memset(this,0,sizeof(gbasavehalfpacked));
+	};
 };
 struct gbasavefilepacked
 {
 	gbasavehalfpacked savea;
 	gbasavehalfpacked saveb;
-	//byte unknown[16384];
+	gbasavefilepacked()
+	{
+		memset(this,0,sizeof(gbasavefilepacked));
+	};
 };
 
 //struct gbasaveblockpacked
@@ -987,11 +1001,19 @@ struct gbapcstorage
 	pokemon_gen3 pcstorage[14][30];
 	byte boxnames[126];
 	byte boxwallpapers[14];
+	gbapcstorage()
+	{
+		memset(this,0,sizeof(gbapcstorage));
+	};
 };
 struct gbasavefile
 {
 	byte data[19636];
 	gbapcstorage pcstorage;
+	gbasavefile()
+	{
+		memset(this,0,sizeof(gbasavefile));
+	};
 };
 
 void buildgbasave(gbasavefilepacked * savin, gbasavefile * savout);
@@ -1038,4 +1060,4 @@ DllExport int convertgbatext(int in);
 void DllExport convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm);
 void DllExport write(const char* file_name, pokemon_gen3* data);
 void DllExport write(const char* file_name, gbasavefilepacked* data);
-void DllExport write(const char* file_name, gbasavefile* savin, uint32 saveindex);
+void DllExport write(const char* file_name, gbasavefile* savin, gbasavefilepacked* prevsav);
