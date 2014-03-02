@@ -2605,9 +2605,11 @@ struct xybox
 };
 struct xysavehalf // size 0x69000
 {
-    byte unknown1[0x27A00];
+    //byte unknown1[0x27A00];
+    byte unknown1[0x25A00];
     xybox boxes[31];
-    byte unknown2[0xCB30];
+//    byte unknown2[0xCB30];
+    byte unknown2[0xEB30];
 };
 struct xysavefile
 {
