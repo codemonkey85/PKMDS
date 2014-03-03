@@ -953,7 +953,7 @@ byte : 8;
 };
 struct gbasaveblockpacked
 {
-	byte data[FF4];
+	byte data[0xFF4];
 	gbasavefooter footer;
 	gbasaveblockpacked()
 	{
