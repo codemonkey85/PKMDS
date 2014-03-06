@@ -2539,7 +2539,18 @@ struct pkxblockc { //
     wchar_t otname_to[12];
 #endif
 #endif
-    byte history[30];
+    uint16 : 16;
+    uint16 : 16; // 00/01 flags
+    byte history1[10];
+    uint16 : 16;
+    uint16 : 16;
+    byte previous_tameness;
+    byte : 8;
+    uint16 : 16;
+    uint16 current_feeling;
+    uint16 history2;
+    uint16 : 16;
+    uint16 : 16;
     byte fullness;
     byte enjoyment;
     pkxblockc()
