@@ -2457,6 +2457,14 @@ struct kalosribbonsfield
     uint32 birthday : 1;
     uint32 special : 1;
     uint32 festival : 1;
+    byte wishing : 1;
+    byte battle_champion : 1;
+    byte regional_champion : 1;
+    byte national_champion : 1;
+    byte world_champion : 1;
+    byte kalosribbon38 : 1;
+    byte kalosribbon39 : 1;
+    byte kalosribbon40 : 1;
 } ;
 // http://projectpokemon.org/wiki/Pokemon_X/Y_3DS_Structure
 //Unencrypted Data
@@ -2485,13 +2493,13 @@ struct pkxblocka { //
     Natures::natures nature;
     formsfield forms;
     evsfield evs;
-    uint32 : 32;
-    uint16 : 16;
+    contestfield contest;
     markingsfield markings;
     pokerus pkrs;
-    uint32 : 32;
+    uint32 : 32; // (Secret) Super Training Gold Medal Flags
     kalosribbonsfield kalosribbons;
-    uint32 : 32;
+    uint16 : 16;
+    byte : 8;
     byte contestribbons;
     byte battleribbons;
     byte unknown2[6];
@@ -2513,7 +2521,10 @@ struct pkxblockb { //
     byte pp[4];
     byte ppup[4];
     Moves_g6::moves eggmoves[4];
-    uint16 : 16;
+    byte : 8; // "Secret" Super Training Flag
+              // 00 = missions unavailable
+              // 01 = missions available
+    byte : 8;
     ivsfield ivs;
     pkxblockb()
     {
@@ -2528,7 +2539,9 @@ struct pkxblockc { //
     wchar_t otname_to[12];
 #endif
 #endif
-    byte history[32];
+    byte history[30];
+    byte fullness;
+    byte enjoyment;
     pkxblockc()
     {
         memset(this,0,sizeof(pkxblockc));
@@ -2544,7 +2557,8 @@ struct pkxblockd { //
 #endif
     uint16 : 16;
     byte tameness;
-    byte unknown[6]; // Unknown / unused
+    byte affection;
+    byte unknown[5]; // Unknown / unused
     datefield eggdate;
     datefield metdate;
     byte : 8; // Unknown / unused
@@ -2552,7 +2566,7 @@ struct pkxblockd { //
     Locations_g6::locations met;
     Balls::balls ball;
     metlevelfield metlevel_otgender;
-    byte : 8; // Unknown / unused
+    Encounters::encounters encounter;
     Hometowns::hometowns hometown;
     byte country;
     byte regionid;
