@@ -3075,24 +3075,45 @@ public:
         memset(this,0,sizeof(sinnohrib1));
     }
 };
-struct sinnohrib2 { // 16 bits
-public:
+// Sinnoh Ribbon set 2 - changed to Unova Ribbon set in Gen V
+//struct sinnohrib2 { // 16 bits
+//public:
+//    bool gorgeous_royal_ribbon : 1; //
+//    bool footprint_ribbon : 1; //
+//    bool record_ribbon : 1; //
+//    bool history_ribbon : 1; //
+//    bool legend_ribbon : 1; //
+//    bool red_ribbon : 1; //
+//    bool green_ribbon : 1; //
+//    bool blue_ribbon : 1; //
+//    bool festival_ribbon : 1; //
+//    bool carnival_ribbon : 1; //
+//    bool classic_ribbon : 1; //
+//    bool premier_ribbon : 1; //
+//    byte : 4; // Padding to 16 bits
+//    sinnohrib2()
+//    {
+//        memset(this,0,sizeof(sinnohrib2));
+//    }
+//};
+struct unovarib
+{
     bool gorgeous_royal_ribbon : 1; //
     bool footprint_ribbon : 1; //
     bool record_ribbon : 1; //
-    bool history_ribbon : 1; //
+    bool event_ribbon : 1; // New to Unova
     bool legend_ribbon : 1; //
-    bool red_ribbon : 1; //
-    bool green_ribbon : 1; //
-    bool blue_ribbon : 1; //
-    bool festival_ribbon : 1; //
-    bool carnival_ribbon : 1; //
+    bool world_champion_ribbon : 1; // New to Unova
+    bool birthday_ribbon : 1; // New to Unova
+    bool special_ribbon : 1; // New to Unova
+    bool souvenir_ribbon : 1; // New to Unova
+    bool wishing_ribbon : 1; // New to Unova
     bool classic_ribbon : 1; //
     bool premier_ribbon : 1; //
     byte : 4; // Padding to 16 bits
-    sinnohrib2()
+    unovarib()
     {
-        memset(this,0,sizeof(sinnohrib2));
+        memset(this,0,sizeof(unovarib));
     }
 };
 struct hoennrib1{ // 16 bits
@@ -3176,7 +3197,7 @@ public:
         memset(this,0,sizeof(sinnohrib4));
     }
 };
-struct pkmribbons : sinnohrib1,sinnohrib2,hoennrib1,hoennrib2,sinnohrib3,sinnohrib4 {};
+struct pkmribbons : sinnohrib1,/*sinnohrib2*/unovarib,hoennrib1,hoennrib2,sinnohrib3,sinnohrib4 {};
 //Unencrypted Data
 struct pkmunencryptblock { // The unencrypted block of the Pokemon data, featuring such important things as the PID and checksum.
 public:
@@ -3206,7 +3227,7 @@ public:
     evsfield evs;
     contestfield contest;
     sinnohrib1 sribbon1; // Sinnoh Ribbons 1
-    sinnohrib2 sribbon2; // Sinnoh Ribbons 2
+    /*sinnohrib2*/unovarib sribbon2; // Unova ribbons (formerly Sinnoh Ribbons 2)
     pkmblocka()
     {
         memset(this,0,sizeof(pkmblocka));
@@ -3875,13 +3896,19 @@ static const std::string ribbon_identifiers[RIBBONS_MAX_NUM] = {
     "gorgeous-royal-ribbon",
     "footprint-ribbon",
     "record-ribbon",
-    "history-ribbon",
+    //    "history-ribbon",
+    "event-ribbon",
     "legend-ribbon",
-    "red-ribbon",
-    "green-ribbon",
-    "blue-ribbon",
-    "festival-ribbon",
-    "carnival-ribbon",
+    //    "red-ribbon",
+    //    "green-ribbon",
+    //    "blue-ribbon",
+    //    "festival-ribbon",
+    //    "carnival-ribbon",
+    "world-champion-ribbon",
+    "birthday-ribbon",
+    "special-ribbon",
+    "souvenir-ribbon",
+    "wishing-ribbon",
     "classic-ribbon",
     "premier-ribbon",
     "cool-ribbon",
@@ -3957,13 +3984,19 @@ static const std::string ribbon_names[RIBBONS_MAX_NUM] = {
     "Gorgeous Royal Ribbon",
     "Footprint Ribbon",
     "Record Ribbon",
-    "History Ribbon",
+    //    "History Ribbon",
+    "Event Ribbon",
     "Legend Ribbon",
-    "Red Ribbon",
-    "Green Ribbon",
-    "Blue Ribbon",
-    "Festival Ribbon",
-    "Carnival Ribbon",
+    //    "Red Ribbon",
+    //    "Green Ribbon",
+    //    "Blue Ribbon",
+    //    "Festival Ribbon",
+    //    "Carnival Ribbon",
+    "World Champion Ribbon",
+    "Birthday Ribbon",
+    "Special Ribbon",
+    "Souvenir Ribbon",
+    "Wishing Ribbon",
     "Classic Ribbon",
     "Premier Ribbon",
     "Cool Ribbon",
