@@ -52,8 +52,11 @@ void OTInfo::displayOTInfo()
     QPalette OTpalette = ui->txtOTName->palette();
     OTpalette.setColor(ui->txtOTName->foregroundRole(), otcolor);
     ui->txtOTName->setPalette(OTpalette);
+#if (defined __linux__) || (defined __APPLE__)
+    ui->txtOTName->setText(QString::fromStdWString(getwstring((char*)tempotinfosav->cur.trainername, OTLENGTH*2)));
+#else
     ui->txtOTName->setText(QString::fromStdWString(getwstring(tempotinfosav->cur.trainername)));
-
+#endif
     otinforedisplayok = true;
 }
 void OTInfo::on_txtOTName_textChanged(const QString &arg1)
@@ -70,11 +73,14 @@ void OTInfo::on_txtOTName_textChanged(const QString &arg1)
         arg1.toWCharArray(tempotinfosav->cur.trainername);
 #endif
 #endif
-        byte * btpnt = new byte;
-        btpnt = reinterpret_cast<byte*>(&(tempotinfosav->cur.trainername));
-        memset(btpnt+(ui->txtOTName->text().length()*2),0xff,2);
-        btpnt += 14;
-        memset(btpnt,0xff,2);
+        if(ui->txtOTName->text().length() < OTLENGTH)
+        {
+            byte * btpnt = new byte;
+            btpnt = reinterpret_cast<byte*>(&(tempotinfosav->cur.trainername));
+            memset(btpnt+(ui->txtOTName->text().length()*2),0xff,2);
+            btpnt += (OTLENGTH*2)-2;
+            memset(btpnt,0xff,2);
+        }
     }
 }
 
