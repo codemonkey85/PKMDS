@@ -50,7 +50,8 @@ HEADERS  += \
     ../../include/pkmds/pkmds_sql.h \
     ../../include/pkmds/pkmds_vector.h \
     ../../include/pkmds/pokeprng.h \
-    ../../include/pkmds/wondercard.h
+    ../../include/pkmds/wondercard.h \
+    ../../include/pkmds/pack.h
 
 FORMS    += \
     ../pkmviewer.ui \
