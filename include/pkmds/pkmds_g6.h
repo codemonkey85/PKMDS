@@ -2428,8 +2428,8 @@ struct kalosribbonsfield
     uint32 kaloschamp : 1;
     uint32 champion : 1;
     uint32 sinnohchamp : 1;
-    uint32 kalosribbon4 : 1;
-    uint32 kalosribbon5 : 1;
+    uint32 bestfriends : 1;
+    uint32 training : 1;
     uint32 skillfulbattler : 1;
     uint32 kalosribbon7 : 1;
     uint32 effort : 1;
@@ -2465,7 +2465,49 @@ struct kalosribbonsfield
     byte kalosribbon38 : 1;
     byte kalosribbon39 : 1;
     byte kalosribbon40 : 1;
-} ;
+    kalosribbonsfield()
+    {
+        memset(this,0,sizeof(kalosribbonsfield));
+    }
+};
+struct supertrainingflags
+{
+    uint32 : 2;
+    uint32 spatk1 : 1;
+    uint32 hp1 : 1;
+    uint32 atk1 : 1;
+    uint32 spdef1 : 1;
+    uint32 speed1 : 1;
+    uint32 def1 : 1;
+    uint32 spatk2 : 1;
+    uint32 hp2 : 1;
+    uint32 atk2 : 1;
+    uint32 spdef2 : 1;
+    uint32 speed2 : 1;
+    uint32 def2 : 1;
+    uint32 spatk3 : 1;
+    uint32 hp3 : 1;
+    uint32 atk3 : 1;
+    uint32 spdef3 : 1;
+    uint32 speed3 : 1;
+    uint32 def3 : 1;
+    uint32 secret1_1 : 1;
+    uint32 secret1_2 : 1;
+    uint32 secret1_3 : 1;
+    uint32 secret1_4 : 1;
+    uint32 secret1_5 : 1;
+    uint32 secret1_6 : 1;
+    uint32 secret2_1 : 1;
+    uint32 secret2_2 : 1;
+    uint32 secret2_3 : 1;
+    uint32 secret2_4 : 1;
+    uint32 secret2_5 : 1;
+    uint32 secret2_6 : 1;
+    supertrainingflags()
+    {
+        memset(this,0,sizeof(supertrainingflags));
+    }
+};
 // http://projectpokemon.org/wiki/Pokemon_X/Y_3DS_Structure
 //Unencrypted Data
 struct pkxunencryptblock { // The unencrypted block of the Pokemon data, featuring such important things as the PID and checksum.
@@ -2488,7 +2530,7 @@ struct pkxblocka { //
     uint32 exp;
     Abilities_g6::abilities ability;
     byte abilitynum;
-    uint16 : 16;
+    uint16 : 16; // unknown
     uint32 pid;
     Natures::natures nature;
     formsfield forms;
@@ -2496,13 +2538,13 @@ struct pkxblocka { //
     contestfield contest;
     markingsfield markings;
     pokerus pkrs;
-    uint32 : 32; // (Secret) Super Training Gold Medal Flags
+    supertrainingflags supertraining;
     kalosribbonsfield kalosribbons;
-    uint16 : 16;
-    byte : 8;
+    uint16 : 16; // unused
+    byte : 8; // unused
     byte contestribbons;
     byte battleribbons;
-    byte unknown2[6];
+    byte unknown2[6]; // unused
     pkxblocka()
     {
         memset(this,0,sizeof(pkxblocka));
@@ -2516,15 +2558,13 @@ struct pkxblockb { //
     wchar_t nickname[12];
 #endif
 #endif
-    uint16 : 16;
+    uint16 : 16; // unused
     Moves_g6::moves moves[4];
     byte pp[4];
     byte ppup[4];
     Moves_g6::moves eggmoves[4];
-    byte : 8; // "Secret" Super Training Flag
-              // 00 = missions unavailable
-              // 01 = missions available
-    byte : 8;
+    bool secretsupertraining : 8;
+    byte : 8; // unused
     ivsfield ivs;
     pkxblockb()
     {
@@ -2539,18 +2579,24 @@ struct pkxblockc { //
     wchar_t otname_to[12];
 #endif
 #endif
-    uint16 : 16;
+    uint16 : 16; // unused
     uint16 : 16; // 00/01 flags
-    byte history1[10];
-    uint16 : 16;
-    uint16 : 16;
+    uint16 geolocation_1;
+    uint16 geolocation_2;
+    uint16 geolocation_3;
+    uint16 geolocation_4;
+    uint16 geolocation_5;
+    uint16 : 16; // unused
+    uint16 : 16; // unused
     byte previous_tameness;
-    byte : 8;
-    uint16 : 16;
-    uint16 current_feeling;
-    uint16 history2;
-    uint16 : 16;
-    uint16 : 16;
+    byte previous_affection;
+    byte : 8; // previous text bank
+    byte : 8; // previous text line
+    byte previous_feeling;
+    byte : 8; // unused
+    uint16 : 16; // previous memory text var
+    uint16 : 16; // unused
+    uint16 : 16; // unused
     byte fullness;
     byte enjoyment;
     pkxblockc()
@@ -2566,10 +2612,13 @@ struct pkxblockd { //
     wchar_t otname[12];
 #endif
 #endif
-    uint16 : 16;
+    uint16 : 16; // unused
     byte tameness;
     byte affection;
-    byte unknown[5]; // Unknown / unused
+    byte : 8; // memory text bank
+    byte : 8; // memory text line
+    uint16 : 16; // memory text var
+    byte : 8; // feeling
     datefield eggdate;
     datefield metdate;
     byte : 8; // Unknown / unused
@@ -2583,7 +2632,7 @@ struct pkxblockd { //
     byte regionid;
     Regions_3DS::regions regionid3ds;
     Countries::countries otlang;
-    uint32 : 32; // Unknown / unused
+    uint32 : 32; // unused
     pkxblockd()
     {
         memset(this,0,sizeof(pkxblockd));
@@ -2633,7 +2682,7 @@ struct xysavehalf // size 0x69000
     //byte unknown1[0x27A00];
     byte unknown1[0x25A00];
     xybox boxes[31];
-//    byte unknown2[0xCB30];
+    //    byte unknown2[0xCB30];
     byte unknown2[0xEB30];
 };
 struct xysavefile
