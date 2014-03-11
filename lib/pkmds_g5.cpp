@@ -1175,7 +1175,7 @@ std::array<bool, 80> getribbonswitches(const pokemon_obj * pkm)
     for(int bit = 0; bit < 12; bit++)
     {
         uint16 rib;
-        memcpy(&rib,&(pkm->sribbon2),2);
+        memcpy(&rib,&(pkm->uribbon),2);
         switches[ribnum] = (getbit(rib,bit) == 1);
         ribnum++;
         //		switches.push_back(getbit(rib,bit) == 1);
@@ -1229,7 +1229,7 @@ std::vector<std::string> getobtainedribbons(const pokemon_obj * pkm)
     for(int bit = 0; bit < 12; bit++)
     {
         uint16 rib;
-        memcpy(&rib,&(pkm->sribbon2),2);
+        memcpy(&rib,&(pkm->uribbon),2);
         if(getbit(rib,bit) == 1)
         {
             ribbonnames.push_back(ribbon_names[bit + 16]);
