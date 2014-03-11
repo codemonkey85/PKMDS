@@ -908,8 +908,15 @@ struct pkmdata : growth_block, moves_block, evscondition_block, misc_block
 struct pokemon_gen3
 {
 	uint32 pid;
-	uint16 tid;
-	uint16 sid;
+	union
+	{
+		uint32 id;
+		struct
+		{
+			uint16 tid;
+			uint16 sid;
+		};
+	};
 	byte nickname[10];
 	uint16 lang;
 	byte otname[7];
