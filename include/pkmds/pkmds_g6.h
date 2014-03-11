@@ -6,7 +6,7 @@
 #endif
 namespace Species_g6
 {
-	enum pkxspecies : uint16
+	enum species : uint16
 	{
 		NOTHING,
 		bulbasaur,
@@ -2423,7 +2423,153 @@ namespace Forms
 		};
 	}
 }
-struct kalosribbonsfield
+struct formsfield_g6 { // Bitfield for determining the Pokemon's form, fateful encounter, and gender.
+	union
+	{
+		struct
+		{
+			bool fencounter : 1; // Fateful encounter flag.
+			bool female : 1; // Flag to determine if this Pokemon is female.
+			bool genderless : 1; // Flag to determine if this Pokemon is genderless.
+			byte form : 5; // Index number of this Pokemon's form.
+		};
+		struct
+		{
+byte : 3;
+			Forms::Arceus::arceus arceus_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Basculin::basculin basculin_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Burmy_Wormadam::burmy_wormadam burmy_wormadam_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Castform::castform castform_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Cherrim::cherrim cherrim_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Darmanitan::darmanitan darmanitan_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Deerling_Sawsbuck::deerling_sawsbuck deerling_sawsbuck_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Deoxys::deoxys deoxys_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Genesect::genesect genesect_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Giratina::giratina giratina_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Keldeo::keldeo keldeo_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Kyurem::kyurem kyurem_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Meloetta::meloetta meloetta_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Pichu::pichu pichu_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Rotom::rotom rotom_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Shaymin::shaymin shaymin_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Shellos_Gastrodon::shellos_gastrodon shellos_gastrodon_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Tornadus_Thundurus_Landorus::tornadus_thundurus_landorus tornadus_thundurus_landorus_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Unown::unown unown_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Aegislash::aegislash aegislash_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Flabebe_Floette_Florges::flabebe_floette_florges flabebe_floette_florges_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Furfrou::furfrou furfrou_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Meowstic::meowstic meowstic_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Pumpkaboo_Gourgeist::pumpkaboo_gourgeist pumpkaboo_gourgeist_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Vivillon::vivillon vivillon_form : 5;
+		};
+		struct
+		{
+byte : 3;
+			Forms::Xerneas::xerneas xerneas_form : 5;
+		};
+	};
+	formsfield_g6()
+	{
+		memset(this,0,sizeof(formsfield_g6));
+	}
+};
+struct kalosribbonsfield // 32 bits
 {
 	bool kaloschamp : 1;
 	bool champion : 1;
@@ -2465,12 +2611,8 @@ struct kalosribbonsfield
 	bool kalosribbon38 : 1;
 	bool kalosribbon39 : 1;
 	bool kalosribbon40 : 1;
-	kalosribbonsfield()
-	{
-		memset(this,0,sizeof(kalosribbonsfield));
-	}
 };
-struct supertrainingflags
+struct supertrainingflags // 32 bits
 {
 	bool : 2;
 	bool spatk1 : 1;
@@ -2503,10 +2645,6 @@ struct supertrainingflags
 	bool secret2_4 : 1;
 	bool secret2_5 : 1;
 	bool secret2_6 : 1;
-	supertrainingflags()
-	{
-		memset(this,0,sizeof(supertrainingflags));
-	}
 };
 // http://projectpokemon.org/wiki/Pokemon_X/Y_3DS_Structure
 //Unencrypted Data
@@ -2525,28 +2663,80 @@ byte : 8;
 };
 #include PACK_H
 struct pkxblocka { //
-	Species_g6::pkxspecies species;
-	Items_g6::items item;
-	uint16 tid;
-	uint16 sid;
+	union
+	{
+		Species_g6::species species; // National Pokedex ID
+		uint16 species_int;
+	};
+	union
+	{
+		Items_g6::items item; // Held item index
+		uint16 item_int;
+	};
+	union
+	{
+		uint32 id; // Trainer ID and Secret ID as one unsigned 32-bit integer
+		struct
+		{
+			uint16 tid; // Trainer ID
+			uint16 sid; // Secret ID
+		};
+	};
 	uint32 exp;
-	Abilities_g6::abilities ability;
+	union
+	{
+		Abilities_g6::abilities ability; // Ability index
+		byte ability_int;
+	};
 	byte abilitynum;
 uint16 : 16; // unknown
 	uint32 pid;
-	Natures::natures nature;
-	formsfield forms;
-	evsfield evs;
-	contestfield contest;
-	markingsfield markings;
-	pokerus pkrs;
-	supertrainingflags supertraining;
-	kalosribbonsfield kalosribbons;
+	union
+	{
+		Natures::natures nature; // Nature index
+		byte nature_int;
+	};
+	formsfield_g6 forms;
+	union
+	{
+		evsfield evs;
+		std::array<byte,6> ev_ints;
+	};
+	union
+	{
+		contestfield contest;
+		std::array<byte,6> contest_ints;
+	};
+	union
+	{
+		markingsfield markings; // Markings
+		byte markings_int;
+	};
+	union
+	{
+		pokerus pkrs; // PokeRus
+		byte pkrs_int;
+	};
+	union
+	{
+		supertrainingflags supertraining;
+		uint32 supertraining_int;
+	};
+	union
+	{
+		kalosribbonsfield kalosribbons;
+		uint32 kalosribbons_int;
+	};
 uint16 : 16; // unused
 byte : 8; // unused
 	byte contestribbons;
 	byte battleribbons;
-	byte unknown2[6]; // unused
+byte : 8; // unused
+byte : 8; // unused
+byte : 8; // unused
+byte : 8; // unused
+byte : 8; // unused
+byte : 8; // unused
 	pkxblocka()
 	{
 		memset(this,0,sizeof(pkxblocka));
@@ -2561,10 +2751,18 @@ struct pkxblockb { //
 #endif
 #endif
 uint16 : 16; // unused
-	std::array<Moves_g6::moves,4> moves;
+	union
+	{
+		std::array<Moves_g6::moves,4> moves;
+		std::array<uint16,4> move_ints;
+	};
 	std::array<byte,4> pp; // Current PP array
 	std::array<byte,4> ppup; // PP Ups used array
-	std::array<Moves_g6::moves,4> eggmoves;
+	union
+	{
+		std::array<Moves_g6::moves,4> eggmoves;
+		std::array<uint16,4> eggmove_ints;
+	};
 	bool secretsupertraining : 8;
 byte : 8; // unused
 	ivsfield ivs;
@@ -2583,11 +2781,7 @@ struct pkxblockc { //
 #endif
 uint16 : 16; // unused
 uint16 : 16; // 00/01 flags
-	uint16 geolocation_1;
-	uint16 geolocation_2;
-	uint16 geolocation_3;
-	uint16 geolocation_4;
-	uint16 geolocation_5;
+	std::array<uint16,5> geolocations;
 uint16 : 16; // unused
 uint16 : 16; // unused
 	byte previous_tameness;
@@ -2624,42 +2818,87 @@ byte : 8; // feeling
 	datefield eggdate;
 	datefield metdate;
 byte : 8; // Unknown / unused
-	Locations_g6::locations eggmet;
-	Locations_g6::locations met;
-	Balls::balls ball;
+	union
+	{
+		Locations_g6::locations eggmet; // Egg met location
+		uint16 eggmet_int;
+	};
+	union
+	{
+		Locations_g6::locations met; // Met location
+		uint16 met_int;
+	};
+	union
+	{
+		Balls::balls ball; // Ball captured with and kept in
+		byte ball_int;
+	};
 	metlevelfield metlevel_otgender;
-	Encounters::encounters encounter;
-	Hometowns::hometowns hometown;
-	byte country;
+	union
+	{
+		Encounters::encounters encounter; // Encounter type (unused since Gen V?)
+		byte encounter_int;
+	};
+	union
+	{
+		Hometowns::hometowns hometown; // Original game
+		byte hometown_int;
+	};
+	byte country_id;
 	byte regionid;
-	Regions_3DS::regions regionid3ds;
-	Countries::countries otlang;
+	union
+	{
+		Regions_3DS::regions regionid3ds;
+		byte region3ds_int;
+	};
+	union
+	{
+		Countries::countries country; // Country / language of origin
+		byte country_int;
+	};
 uint32 : 32; // unused
 	pkxblockd()
 	{
 		memset(this,0,sizeof(pkxblockd));
 	}
 };
-struct pokemonx_obj : pkxunencryptblock,pkxblocka,pkxblockb,pkxblockc,pkxblockd { // The Pokemon object, containing 232 bytes of data (as stored in the PC storage system)
+struct pokemonx_obj : // The Pokemon object, containing 232 bytes of data (as stored in the PC storage system)
+	pkxunencryptblock,
+	pkxblocka,
+	pkxblockb,
+	pkxblockc,
+	pkxblockd
+{
 	pokemonx_obj()
 	{
 		memset(this,0,sizeof(pokemonx_obj));
 	}
 };
 struct partyx_field { // Size: 
-	status_field status;
+	union
+	{
+		status_field status;
+		byte status_int;
+	};
 byte : 8;
 uint16 : 16;
 	byte level;
 uint16 : 16;
 byte : 8;
 	uint16 hp;
-	uint16 maxhp;
-	uint16 attack;
-	uint16 defense;
-	uint16 speed;
-	uint16 spatk;
-	uint16 spdef;
+	union
+	{
+		struct
+		{
+			uint16 maxhp;
+			uint16 attack;
+			uint16 defense;
+			uint16 speed;
+			uint16 spatk;
+			uint16 spdef;
+		};
+		std::array<uint16,6> stats;
+	};
 uint16 : 16;
 uint32 : 32;
 	partyx_field()
