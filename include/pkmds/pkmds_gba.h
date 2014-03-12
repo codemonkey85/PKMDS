@@ -405,6 +405,367 @@ namespace GBASpecies
 		deoxys=410
 	};
 }
+namespace GBAMoves
+{
+	enum gbamoves : uint16
+	{
+		NOTHING,
+		pound,
+		karatechop,
+		doubleslap,
+		cometpunch,
+		megapunch,
+		payday,
+		firepunch,
+		icepunch,
+		thunderpunch,
+		scratch,
+		vicegrip,
+		guillotine,
+		razorwind,
+		swordsdance,
+		cut,
+		gust,
+		wingattack,
+		whirlwind,
+		fly,
+		bind,
+		slam,
+		vinewhip,
+		stomp,
+		doublekick,
+		megakick,
+		jumpkick,
+		rollingkick,
+		sandattack,
+		headbutt,
+		hornattack,
+		furyattack,
+		horndrill,
+		tackle,
+		bodyslam,
+		wrap,
+		takedown,
+		thrash,
+		doubleedge,
+		tailwhip,
+		poisonsting,
+		twineedle,
+		pinmissile,
+		leer,
+		bite,
+		growl,
+		roar,
+		sing,
+		supersonic,
+		sonicboom,
+		disable,
+		acid,
+		ember,
+		flamethrower,
+		mist,
+		watergun,
+		hydropump,
+		surf,
+		icebeam,
+		blizzard,
+		psybeam,
+		bubblebeam,
+		aurorabeam,
+		hyperbeam,
+		peck,
+		drillpeck,
+		submission,
+		lowkick,
+		counter,
+		seismictoss,
+		strength,
+		absorb,
+		megadrain,
+		leechseed,
+		growth,
+		razorleaf,
+		solarbeam,
+		poisonpowder,
+		stunspore,
+		sleeppowder,
+		petaldance,
+		stringshot,
+		dragonrage,
+		firespin,
+		thundershock,
+		thunderbolt,
+		thunderwave,
+		thunder,
+		rockthrow,
+		earthquake,
+		fissure,
+		dig,
+		toxic,
+		confusion,
+		psychic,
+		hypnosis,
+		meditate,
+		agility,
+		quickattack,
+		rage,
+		teleport,
+		nightshade,
+		mimic,
+		screech,
+		doubleteam,
+		recover,
+		harden,
+		minimize,
+		smokescreen,
+		confuseray,
+		withdraw,
+		defensecurl,
+		barrier,
+		lightscreen,
+		haze,
+		reflect,
+		focusenergy,
+		bide,
+		metronome,
+		mirrormove,
+		selfdestruct,
+		eggbomb,
+		lick,
+		smog,
+		sludge,
+		boneclub,
+		fireblast,
+		waterfall,
+		clamp,
+		swift,
+		skullbash,
+		spikecannon,
+		constrict,
+		amnesia,
+		kinesis,
+		softboiled,
+		hijumpkick,
+		glare,
+		dreameater,
+		poisongas,
+		barrage,
+		leechlife,
+		lovelykiss,
+		skyattack,
+		transform,
+		bubble,
+		dizzypunch,
+		spore,
+		flash,
+		psywave,
+		splash,
+		acidarmor,
+		crabhammer,
+		explosion,
+		furyswipes,
+		bonemerang,
+		rest,
+		rockslide,
+		hyperfang,
+		sharpen,
+		conversion,
+		triattack,
+		superfang,
+		slash,
+		substitute,
+		struggle,
+		sketch,
+		triplekick,
+		thief,
+		spiderweb,
+		mindreader,
+		nightmare,
+		flamewheel,
+		snore,
+		curse,
+		flail,
+		conversion2,
+		aeroblast,
+		cottonspore,
+		reversal,
+		spite,
+		powdersnow,
+		protect,
+		machpunch,
+		scaryface,
+		faintattack,
+		sweetkiss,
+		bellydrum,
+		sludgebomb,
+		mudslap,
+		octazooka,
+		spikes,
+		zapcannon,
+		foresight,
+		destinybond,
+		perishsong,
+		icywind,
+		detect,
+		bonerush,
+		lockon,
+		outrage,
+		sandstorm,
+		gigadrain,
+		endure,
+		charm,
+		rollout,
+		falseswipe,
+		swagger,
+		milkdrink,
+		spark,
+		furycutter,
+		steelwing,
+		meanlook,
+		attract,
+		sleeptalk,
+		healbell,
+		return_,
+		present,
+		frustration,
+		safeguard,
+		painsplit,
+		sacredfire,
+		magnitude,
+		dynamicpunch,
+		megahorn,
+		dragonbreath,
+		batonpass,
+		encore,
+		pursuit,
+		rapidspin,
+		sweetscent,
+		irontail,
+		metalclaw,
+		vitalthrow,
+		morningsun,
+		synthesis,
+		moonlight,
+		hiddenpower,
+		crosschop,
+		twister,
+		raindance,
+		sunnyday,
+		crunch,
+		mirrorcoat,
+		psychup,
+		extremespeed,
+		ancientpower,
+		shadowball,
+		futuresight,
+		rocksmash,
+		whirlpool,
+		beatup,
+		fakeout,
+		uproar,
+		stockpile,
+		spitup,
+		swallow,
+		heatwave,
+		hail,
+		torment,
+		flatter,
+		willowisp,
+		memento,
+		facade,
+		focuspunch,
+		smellingsalt,
+		followme,
+		naturepower,
+		charge,
+		taunt,
+		helpinghand,
+		trick,
+		roleplay,
+		wish,
+		assist,
+		ingrain,
+		superpower,
+		magiccoat,
+		recycle,
+		revenge,
+		brickbreak,
+		yawn,
+		knockoff,
+		endeavor,
+		eruption,
+		skillswap,
+		imprison,
+		refresh,
+		grudge,
+		snatch,
+		secretpower,
+		dive,
+		armthrust,
+		camouflage,
+		tailglow,
+		lusterpurge,
+		mistball,
+		featherdance,
+		teeterdance,
+		blazekick,
+		mudsport,
+		iceball,
+		needlearm,
+		slackoff,
+		hypervoice,
+		poisonfang,
+		crushclaw,
+		blastburn,
+		hydrocannon,
+		meteormash,
+		astonish,
+		weatherball,
+		aromatherapy,
+		faketears,
+		aircutter,
+		overheat,
+		odorsleuth,
+		rocktomb,
+		silverwind,
+		metalsound,
+		grasswhistle,
+		tickle,
+		cosmicpower,
+		waterspout,
+		signalbeam,
+		shadowpunch,
+		extrasensory,
+		skyuppercut,
+		sandtomb,
+		sheercold,
+		muddywater,
+		bulletseed,
+		aerialace,
+		iciclespear,
+		irondefense,
+		block,
+		howl,
+		dragonclaw,
+		frenzyplant,
+		bulkup,
+		bounce,
+		mudshot,
+		poisontail,
+		covet,
+		volttackle,
+		magicalleaf,
+		watersport,
+		calmmind,
+		leafblade,
+		dragondance,
+		rockblast,
+		shockwave,
+		waterpulse,
+		doomdesire,
+		psychoboost
+	};
+}
 namespace GBAGames
 {
 	enum gbagames : uint16
@@ -752,33 +1113,47 @@ namespace GBAItems
 		oldseamap=0x0178,
 	};
 }
-struct gbapkrs
+namespace GBALang
 {
-	byte days : 4;
-	byte strain : 4;
-	gbapkrs()
+	enum gbalang : uint16
 	{
-		memset(this,0,sizeof(gbapkrs));
+		japanese=0x0201,
+		english=0x0202,
+		french=0x0203,
+		italian=0x0204,
+		german=0x0205,
+		korean=0x0206,
+		spanish=0x0207,
 	};
-};
+}
 struct gbaribbons
 {
-	uint32 cool : 3;
-	uint32 beauty : 3;
-	uint32 cute : 3;
-	uint32 smart : 3;
-	uint32 tough : 3;
-	uint32 champion : 1;
-uint32 : 2;
-	uint32 artist : 1;
-	uint32 effort : 1;
-uint32 : 4;
-	uint32 national : 1;
-uint32 : 6;
-	uint32 fencounter : 1;
-	gbaribbons()
+	union
 	{
-		memset(this,0,sizeof(gbaribbons));
+		struct
+		{
+			uint16 cool : 3;
+			uint16 beauty : 3;
+			uint16 cute : 3;
+			uint16 smart : 3;
+			uint16 tough : 3;
+			uint16 /*champion*/ : 1;
+			bool : 2;
+			bool artist : 1;
+			bool effort : 1;
+			bool : 4;
+			bool national : 1;
+			bool : 6;
+			bool fencounter : 1;
+		};
+		struct
+		{
+			bool : 8;
+			bool : 7;
+			bool champion : 1;
+			bool : 8;
+			bool : 8;
+		};
 	};
 };
 struct gbamarks
@@ -788,10 +1163,6 @@ struct gbamarks
 	byte triangle : 1;
 	byte heart : 1;
 byte : 4;
-	gbamarks()
-	{
-		memset(this,0,sizeof(gbamarks));
-	};
 };
 struct ppbonuses_struct
 {
@@ -804,62 +1175,41 @@ struct ppbonuses_struct
 		memset(this,0,sizeof(ppbonuses_struct));
 	};
 };
-struct gbaevsfield {
-	byte hp; // HP EVs
-	byte attack; // Attack EVs
-	byte defense; // Defense EVs
-	byte speed; // Speed EVs
-	byte spatk; // Special Attack EVs
-	byte spdef; // Special Defnse EVs
-	gbaevsfield()
-	{
-		memset(this,0,sizeof(gbaevsfield));
-	}
-};
-struct gbacontestfield {
-	byte cool; // Cool
-	byte beauty; // Beauty; used for Feebas evolution (to Milotic)
-	byte cute; // Cute
-	byte smart; // Smart
-	byte tough; // Tough
-	byte sheen; // Sheen
-	gbacontestfield()
-	{
-		memset(this,0,sizeof(gbacontestfield));
-	}
-};
 struct origins_struct
 {
-	uint16 metlevel : 7;
-	GBAGames::gbagames game : 4;
-	GBABalls::gbaballs ball : 4;
-	uint16 trainergender : 1;
-	origins_struct()
+	union
 	{
-		memset(this,0,sizeof(origins_struct));
+		struct
+		{
+			uint16 metlevel : 7;
+			GBAGames::gbagames game : 4;
+			GBABalls::gbaballs ball : 4;
+uint16 : 1;
+		};
+		struct
+		{
+byte : 8;
+byte : 7;
+#if (defined __linux__) || (defined __APPLE__) || (defined __CYGWIN__)
+			byte trainergender: 1; //To stop GCC from throwing a warning
+#else
+			Genders::genders trainergender : 1;
+#endif
+		};
 	};
-};
-struct ivs_struct 
-{
-public:
-	uint32 hp : 5;
-	uint32 attack : 5;
-	uint32 defense : 5;
-	uint32 speed : 5;
-	uint32 spatk : 5;
-	uint32 spdef : 5;
-    uint32 : 2;
-//	uint32 isegg : 1;
-//	uint32 ability_flag : 1;
-	ivs_struct()
-	{
-		memset(this,0,sizeof(ivs_struct));
-	}
 };
 struct growth_block
 {
-	GBASpecies::gbaspecies species;
-	GBAItems::gbaitems item;
+	union
+	{
+		GBASpecies::gbaspecies species;
+		uint16 species_int;
+	};
+		union
+		{
+			GBAItems::gbaitems item;
+			uint16 item_int;
+		};
 	uint32 exp;
 	ppbonuses_struct ppbonuses;
 	byte friendship;
@@ -871,8 +1221,12 @@ uint16 : 16;
 };
 struct moves_block
 {
-	uint16 moves[4];
-	byte movepp[4];
+	union
+	{
+		std::array<GBAMoves::gbamoves,4> moves;
+		std::array<uint16,4> move_ints;
+	};
+	std::array<byte,4> movepp;
 	moves_block()
 	{
 		memset(this,0,sizeof(moves_block));
@@ -880,8 +1234,16 @@ struct moves_block
 };
 struct evscondition_block
 {
-	gbaevsfield evs;
-	gbacontestfield contest;
+	union
+	{
+		evsfield evs;
+		std::array<byte,6> ev_ints;
+	};
+	union
+	{
+		contestfield contest;
+		std::array<byte,6> contest_ints;
+	};
 	evscondition_block()
 	{
 		memset(this,0,sizeof(evscondition_block));
@@ -889,22 +1251,24 @@ struct evscondition_block
 };
 struct misc_block
 {
-	gbapkrs pkrs;
+	pokerus pkrs;
 	byte metloc;
 	origins_struct origins;
-    union
-    {
-        ivs_struct ivs; // Individual Values
-        struct
-        {
-            uint32 : 30;
-            bool isegg : 1;
-            bool ability_flag : 1;
-        };
-    };
-//	ivs_struct ivs;
-    //	uint32 isegg : 1;
-    //	uint32 ability_flag : 1;
+	union
+	{
+		ivsfield ivs; // Individual Values
+		struct
+		{
+uint16 : 16;
+byte : 8;
+byte : 6;
+			bool isegg : 1;
+			byte ability_flag : 1;
+		};
+	};
+	//	ivs_struct ivs;
+	//	uint32 isegg : 1;
+	//	uint32 ability_flag : 1;
 	gbaribbons ribbons;
 	misc_block()
 	{
@@ -920,7 +1284,11 @@ struct pkmdata : growth_block, moves_block, evscondition_block, misc_block
 };
 struct pokemon_gen3
 {
-	uint32 pid;
+	union
+	{
+		uint32 pid; // The Pokemon's personality value (PID).
+		spindaspots_struct spinda_spots;
+	};
 	union
 	{
 		uint32 id;
@@ -931,9 +1299,17 @@ struct pokemon_gen3
 		};
 	};
 	byte nickname[10];
-	uint16 lang;
+	union
+	{
+		GBALang::gbalang lang;
+		uint16 lang_int;
+	};
 	byte otname[7];
-	gbamarks mark;
+	union
+	{
+		gbamarks markings;
+		byte markings_int;
+	};
 	uint16 checksum;
 uint16 : 16;
 	pkmdata data;
@@ -997,7 +1373,6 @@ struct gbasavefilepacked
 		memset(this,0,sizeof(gbasavefilepacked));
 	};
 };
-
 //struct gbasaveblockpacked
 //{
 //	byte data[3968];

@@ -1641,10 +1641,10 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 	Genders::genders gender = calcpkmgender(pkm);
     pkm->female = (gender == Genders::female);
     pkm->genderless = (gender == Genders::genderless);
-	pkm->markings.circle = bool(gbapkm->mark.circle);
-	pkm->markings.square = bool(gbapkm->mark.square);
-	pkm->markings.heart = bool(gbapkm->mark.heart);
-	pkm->markings.triangle = bool(gbapkm->mark.triangle);
+	pkm->markings.circle = bool(gbapkm->markings.circle);
+	pkm->markings.square = bool(gbapkm->markings.square);
+	pkm->markings.heart = bool(gbapkm->markings.heart);
+	pkm->markings.triangle = bool(gbapkm->markings.triangle);
 	for(int i = 0; i < 4; i++)
 	{
 		pkm->pp[i] = gbapkm->data.movepp[i];
