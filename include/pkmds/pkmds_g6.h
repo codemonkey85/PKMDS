@@ -2646,7 +2646,6 @@ struct supertrainingflags // 32 bits
     bool secret2_5 : 1;
     bool secret2_6 : 1;
 };
-// http://projectpokemon.org/wiki/Pokemon_X/Y_3DS_Structure
 //Unencrypted Data
 struct pkxunencryptblock { // The unencrypted block of the Pokemon data, featuring such important things as the PID and checksum.
     uint32 key; // Used for encryption / decryption.
@@ -2769,7 +2768,18 @@ struct pkxblockb { //
     };
     bool secretsupertraining : 8;
     byte : 8; // unused
-    ivsfield ivs;
+	union
+	{
+		ivsfield ivs; // Individual Values
+		struct
+		{
+uint16 : 16;
+byte : 8;
+byte : 6;
+			bool isegg : 1;
+			bool isnicknamed : 1;
+		};
+	};
     pkxblockb()
     {
         memset(this,0,sizeof(pkxblockb));
