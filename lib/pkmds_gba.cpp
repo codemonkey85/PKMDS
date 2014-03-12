@@ -1452,7 +1452,7 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 		<< "pokemon_abilities.ability_id INNER JOIN pokemon ON pokemon_abilities.pokemon_id "
 		<< " = pokemon.id WHERE ( ability_names.local_language_id = 9 ) AND ( pokemon.species_id "
 		<< " = " << int(gbapkm->data.species) << " ) AND ( abilities.generation_id = 3 ) AND ( pokemon_abilities.slot "
-		<< " = " << int(gbapkm->data.ivs.ability_flag) << " + 1 ) ";
+        << " = " << int(gbapkm->data.ability_flag) << " + 1 ) ";
 	int ability = getanint(o);
 	if(ability == 0)
 	{
@@ -1514,11 +1514,11 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 	pkm->ivs.spatk = gbapkm->data.ivs.spatk;
 	pkm->ivs.spdef = gbapkm->data.ivs.spdef;
 	pkm->ivs.speed = gbapkm->data.ivs.speed;
-	pkm->ivs.isegg = gbapkm->data.ivs.isegg;
+    pkm->isegg = gbapkm->data.isegg;
 	pkm->met = Locations::poketransfer;
 	pkm->species = Species::species(convertgbaspecies(gbapkm->data.species));
-	pkm->metlevel_otgender.metlevel = getpkmlevel(pkm);
-	pkm->metlevel_otgender.otgender = Genders::genders(int(gbapkm->data.origins.trainergender));
+    pkm->metlevel = getpkmlevel(pkm);
+    pkm->otgender = Genders::genders(int(gbapkm->data.origins.trainergender));
 	pkm->nature = Natures::natures(gbapkm->pid % 25);
 	pkm->pid = gbapkm->pid;
 	pkm->ppup[0] = gbapkm->data.ppbonuses.move1;
@@ -1637,10 +1637,10 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 	pkm->hribbon2.champion_ribbon = bool(gbapkm->data.ribbons.champion);
 	pkm->hribbon2.effort_ribbon = bool(gbapkm->data.ribbons.effort);
 	pkm->hribbon2.national_ribbon = bool(gbapkm->data.ribbons.national);
-	pkm->forms.fencounter = gbapkm->data.ribbons.fencounter;
+    pkm->fencounter = gbapkm->data.ribbons.fencounter;
 	Genders::genders gender = calcpkmgender(pkm);
-	pkm->forms.female = (gender == Genders::female);
-	pkm->forms.genderless = (gender == Genders::genderless);
+    pkm->female = (gender == Genders::female);
+    pkm->genderless = (gender == Genders::genderless);
 	pkm->markings.circle = bool(gbapkm->mark.circle);
 	pkm->markings.square = bool(gbapkm->mark.square);
 	pkm->markings.heart = bool(gbapkm->mark.heart);
@@ -1758,7 +1758,7 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 	{
 		if(nickname[i] != std::toupper(speciesname[i],loc))
 		{
-			pkm->ivs.isnicknamed = true;
+            pkm->isnicknamed = true;
 		}
 	}
 	wstring nick = wstring(nickname.begin(),nickname.end());

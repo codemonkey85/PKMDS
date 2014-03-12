@@ -239,7 +239,7 @@ void pkmviewer::displayPKM(/*bool rename*/)
     redisplayok = false;
     int index = 0;
     this->setWindowTitle(QString::fromStdWString(getpkmnickname(temppkm)));
-    switch(temppkm->metlevel_otgender.otgender)
+    switch(temppkm->otgender)
     {
     case Genders::male:
         ui->rbOTMale->setChecked(true);
@@ -283,7 +283,7 @@ void pkmviewer::displayPKM(/*bool rename*/)
     //    if(rename)
     //    {
     QColor otcolor = Qt::blue;
-    if(temppkm->metlevel_otgender.otgender == Genders::female)
+    if(temppkm->otgender == Genders::female)
     {
         otcolor = Qt::red;
     }
@@ -292,7 +292,7 @@ void pkmviewer::displayPKM(/*bool rename*/)
     ui->txtOTName->setPalette(OTpalette);
     ui->txtOTName->setText(QString::fromStdWString(getpkmotname(temppkm)));
     //    }
-    ui->chkNicknamed->setChecked(temppkm->ivs.isnicknamed);
+    ui->chkNicknamed->setChecked(temppkm->isnicknamed);
     QPixmap * itempix = new QPixmap();
     QGraphicsScene * itemscene = new QGraphicsScene();
     *itempix = getitemimage(temppkm->item);
@@ -360,9 +360,9 @@ void pkmviewer::displayPKM(/*bool rename*/)
         base = 16;
     }
     ui->txtPID->setText(QString::number(temppkm->pid,base).toUpper());
-    ui->chkNsPKM->setChecked(temppkm->dwability.n_pkm);
-    ui->chkFateful->setChecked(temppkm->forms.fencounter);
-    ui->sbMetLevel->setValue((int)temppkm->metlevel_otgender.metlevel);
+    ui->chkNsPKM->setChecked(temppkm->n_pkm);
+    ui->chkFateful->setChecked(temppkm->fencounter);
+    ui->sbMetLevel->setValue((int)temppkm->metlevel);
     index = ui->cbHometown->findData((int)temppkm->hometown);
     if ( index != -1 ) { // -1 for not found
         ui->cbHometown->setCurrentIndex(index);
@@ -414,7 +414,7 @@ void pkmviewer::displayPKM(/*bool rename*/)
     ui->chkMetAsEgg->setChecked(pkmmetasegg(temppkm));
     ui->cbEggLocation->setEnabled(ui->chkMetAsEgg->isChecked());
     ui->dtEggDate->setEnabled(ui->chkMetAsEgg->isChecked());
-    ui->chkIsEgg->setChecked(bool(temppkm->ivs.isegg));
+    ui->chkIsEgg->setChecked(bool(temppkm->isegg));
     redisplayok = true;
     updatepkrs();
     updategenderpic();
@@ -427,7 +427,7 @@ void pkmviewer::displayPKM(/*bool rename*/)
     updatemoveimages();
     updatemoveinfo();
     updatehidpwr();
-    egg_display(bool(temppkm->ivs.isegg));
+    egg_display(bool(temppkm->isegg));
 }
 void pkmviewer::updatestats()
 {
@@ -780,7 +780,7 @@ void pkmviewer::on_cbPKMItem_currentIndexChanged(int index)
                 if((Items::items)(ui->cbPKMItem->itemData(index).toInt()) == Items::griseousorb)
                 {
                     temppkm->forms.form = int(Forms::Giratina::origin);
-                    if(!(temppkm->dwability.hasdwability))
+                    if(!(temppkm->hasdwability))
                     {
                         temppkm->ability = Abilities::levitate;
                     }
@@ -788,7 +788,7 @@ void pkmviewer::on_cbPKMItem_currentIndexChanged(int index)
                 else
                 {
                     temppkm->forms.form = 0;
-                    if(!(temppkm->dwability.hasdwability))
+                    if(!(temppkm->hasdwability))
                     {
                         temppkm->ability = Abilities::pressure;
                     }
@@ -964,7 +964,7 @@ void pkmviewer::on_txtNickname_textChanged(const QString &arg1)
         if(redisplayok)
         {
             ui->chkNicknamed->setChecked(true);
-            temppkm->ivs.isnicknamed = 1;
+            temppkm->isnicknamed = 1;
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
             for(int i = 0; i < arg1.length(); i++)
@@ -1012,7 +1012,7 @@ void pkmviewer::on_rbOTMale_toggled(bool checked)
     {
         if(checked)
         {
-            temppkm->metlevel_otgender.otgender = Genders::male;
+            temppkm->otgender = Genders::male;
             if(redisplayok)
             {
                 pkmviewer::displayPKM(/*false*/);
@@ -1026,7 +1026,7 @@ void pkmviewer::on_rbOTFemale_toggled(bool checked)
     {
         if(checked)
         {
-            temppkm->metlevel_otgender.otgender = Genders::female;
+            temppkm->otgender = Genders::female;
             if(redisplayok)
             {
                 pkmviewer::displayPKM(/*false*/);
@@ -1038,7 +1038,7 @@ void pkmviewer::on_cbNicknamed_toggled(bool checked)
 {
     if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
-        temppkm->ivs.isnicknamed = int(checked);
+        temppkm->isnicknamed = int(checked);
     }
 }
 void pkmviewer::on_txtOTName_textChanged(const QString &arg1)
@@ -1416,7 +1416,7 @@ void pkmviewer::on_cbForm_currentIndexChanged(int index)
         switch(temppkm->species)
         {
         case Species::giratina:
-            if(!(temppkm->dwability.hasdwability))
+            if(!(temppkm->hasdwability))
             {
                 if(temppkm->forms.form == int(Forms::Giratina::origin))
                 {
@@ -1445,7 +1445,7 @@ void pkmviewer::on_cbForm_currentIndexChanged(int index)
             }
             else
             {
-                if(temppkm->dwability.hasdwability)
+                if(temppkm->hasdwability)
                 {
                     temppkm->ability = Abilities::defiant;
                 }
@@ -1462,7 +1462,7 @@ void pkmviewer::on_cbForm_currentIndexChanged(int index)
             }
             else
             {
-                if(temppkm->dwability.hasdwability)
+                if(temppkm->hasdwability)
                 {
                     temppkm->ability = Abilities::defiant;
                 }
@@ -1479,7 +1479,7 @@ void pkmviewer::on_cbForm_currentIndexChanged(int index)
             }
             else
             {
-                if(temppkm->dwability.hasdwability)
+                if(temppkm->hasdwability)
                 {
                     temppkm->ability = Abilities::sheerforce;
                 }
@@ -1530,21 +1530,21 @@ void pkmviewer::on_chkNsPKM_toggled(bool checked)
 {
     if(redisplayok)
     {
-        temppkm->dwability.n_pkm = checked;
+        temppkm->n_pkm = checked;
     }
 }
 void pkmviewer::on_chkFateful_toggled(bool checked)
 {
     if(redisplayok)
     {
-        temppkm->forms.fencounter = checked;
+        temppkm->fencounter = checked;
     }
 }
 void pkmviewer::on_sbMetLevel_valueChanged(int arg1)
 {
     if(redisplayok)
     {
-        temppkm->metlevel_otgender.metlevel = (byte)arg1;
+        temppkm->metlevel = (byte)arg1;
     }
 }
 void pkmviewer::on_cbMetLocation_currentIndexChanged(int index)
@@ -1621,7 +1621,7 @@ void pkmviewer::on_chkIsEgg_toggled(bool checked)
 {
     if(redisplayok)
     {
-        temppkm->ivs.isegg = uint32(checked);
+        temppkm->isegg = uint32(checked);
         egg_display(checked);
     }
 }
@@ -1630,7 +1630,7 @@ void pkmviewer::on_sbTameness_valueChanged(int arg1)
     if(redisplayok)
     {
         temppkm->tameness = byte(arg1);
-        if(bool(temppkm->ivs.isegg))
+        if(bool(temppkm->isegg))
         {
             ui->txtSteps->setText(QString::number(int(temppkm->tameness) * 255));
         }
