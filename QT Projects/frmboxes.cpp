@@ -13,6 +13,7 @@ frmBoxes::frmBoxes(const char *apppath, QWidget *parent) :
     ui(new Ui::frmBoxes)
 {
 #if (defined __APPLE__)
+    #if (defined QT_NO_DEBUG)
     appath = apppath;
     QString apppathq = QString(appath);
     QStringList allparts = apppathq.split("/");
@@ -26,6 +27,10 @@ frmBoxes::frmBoxes(const char *apppath, QWidget *parent) :
     std::string imgdbpath = wholepath.toStdString() + "images.sqlite";
     opendb(dbpath.c_str());
     openimgdb(imgdbpath.c_str());
+#else
+    opendb();
+    openimgdb();
+#endif
 #else
     opendb();
     openimgdb();

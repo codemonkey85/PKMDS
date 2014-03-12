@@ -167,6 +167,8 @@ private slots:
 
     void on_sbTameness_valueChanged(int arg1);
 
+    void on_chkNicknamed_toggled(bool checked);
+
 private:
     Ui::pkmviewer *ui;
 };
