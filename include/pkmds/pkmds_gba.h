@@ -848,8 +848,9 @@ public:
 	uint32 speed : 5;
 	uint32 spatk : 5;
 	uint32 spdef : 5;
-	uint32 isegg : 1;
-	uint32 ability_flag : 1;
+    uint32 : 2;
+//	uint32 isegg : 1;
+//	uint32 ability_flag : 1;
 	ivs_struct()
 	{
 		memset(this,0,sizeof(ivs_struct));
@@ -891,7 +892,19 @@ struct misc_block
 	gbapkrs pkrs;
 	byte metloc;
 	origins_struct origins;
-	ivs_struct ivs;
+    union
+    {
+        ivs_struct ivs; // Individual Values
+        struct
+        {
+            uint32 : 30;
+            bool isegg : 1;
+            bool ability_flag : 1;
+        };
+    };
+//	ivs_struct ivs;
+    //	uint32 isegg : 1;
+    //	uint32 ability_flag : 1;
 	gbaribbons ribbons;
 	misc_block()
 	{

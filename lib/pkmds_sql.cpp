@@ -378,7 +378,7 @@ string getmoveppsql(const Moves::moves moveid)
 }
 void getspritesql(ostringstream& o, const pokemon_obj & pkm, int generation)
 {
-    if(bool(pkm.ivs.isegg))
+    if(bool(pkm.isegg))
     {
         o << "SELECT image FROM front_male_normal_sprites WHERE identifier = 'egg";
         if(pkm.species == Species::manaphy)
@@ -459,7 +459,7 @@ void getspritesql(ostringstream& o, const pokemon_obj & pkm, int generation)
 }
 void getspritesql(ostringstream& o, const pokemon_obj * pkm, int generation)
 {
-    if(bool(pkm->ivs.isegg))
+    if(bool(pkm->isegg))
     {
         o << "SELECT image FROM front_male_normal_sprites WHERE identifier = 'egg";
         if(pkm->species == Species::manaphy)
@@ -541,7 +541,7 @@ void getspritesql(ostringstream& o, const pokemon_obj * pkm, int generation)
 void geticonsql(ostringstream& o, const pokemon_obj & pkm, int generation)
 {
 	string formid;
-	if(pkm.ivs.isegg)
+    if(pkm.isegg)
 	{
 		if(int(pkm.species) == int(Species::manaphy))
 		{
@@ -628,7 +628,7 @@ void geticonsql(ostringstream& o, const pokemon_obj & pkm, int generation)
 void geticonsql(ostringstream& o, const pokemon_obj * pkm, int generation)
 {
 	string formid;
-	if(pkm->ivs.isegg)
+    if(pkm->isegg)
 	{
 		if(int(pkm->species) == int(Species::manaphy))
 		{

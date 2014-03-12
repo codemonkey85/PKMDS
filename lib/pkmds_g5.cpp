@@ -633,14 +633,14 @@ void setpkmotname(pokemon_obj *pkm, wchar_t input[], int length)
 }
 Genders::genders getpkmgender(const pokemon_obj &pkm)
 {
-    if (pkm.forms.female){return Genders::female;};
-    if (pkm.forms.genderless){return Genders::genderless;};
+    if (pkm.female){return Genders::female;};
+    if (pkm.genderless){return Genders::genderless;};
     return Genders::male;
 }
 Genders::genders getpkmgender(const pokemon_obj *pkm)
 {
-    if (pkm->forms.female){return Genders::female;};
-    if (pkm->forms.genderless){return Genders::genderless;};
+    if (pkm->female){return Genders::female;};
+    if (pkm->genderless){return Genders::genderless;};
     return Genders::male;
 }
 void setpkmgender(pokemon_obj &pkm, int gender)
@@ -648,16 +648,16 @@ void setpkmgender(pokemon_obj &pkm, int gender)
     switch (gender)
     {
     case Genders::male:
-        pkm.forms.female = false;
-        pkm.forms.genderless = false;
+        pkm.female = false;
+        pkm.genderless = false;
         break;
     case Genders::female:
-        pkm.forms.female = true;
-        pkm.forms.genderless = false;
+        pkm.female = true;
+        pkm.genderless = false;
         break;
     case Genders::genderless:
-        pkm.forms.female = false;
-        pkm.forms.genderless = true;
+        pkm.female = false;
+        pkm.genderless = true;
         break;
     }
 }
@@ -677,16 +677,16 @@ void setpkmgender(pokemon_obj *pkm, int gender)
     switch (gender)
     {
     case Genders::male:
-        pkm->forms.female = false;
-        pkm->forms.genderless = false;
+        pkm->female = false;
+        pkm->genderless = false;
         break;
     case Genders::female:
-        pkm->forms.female = true;
-        pkm->forms.genderless = false;
+        pkm->female = true;
+        pkm->genderless = false;
         break;
     case Genders::genderless:
-        pkm->forms.female = false;
-        pkm->forms.genderless = true;
+        pkm->female = false;
+        pkm->genderless = true;
         break;
     }
 }
@@ -700,7 +700,7 @@ bool getpkmshiny(const pokemon_obj *pkm){
     return (E ^ F) < 8;
 }
 bool pkmmetasegg(const pokemon_obj *pkm){
-    return (((bool)(pkm->ivs.isegg)) | ((pkm->eggdate.year != 0) & (pkm->eggdate.month != 0) & (pkm->eggdate.day != 0)));
+    return (((bool)(pkm->isegg)) | ((pkm->eggdate.year != 0) & (pkm->eggdate.month != 0) & (pkm->eggdate.day != 0)));
 }
 void put_pkm(box_obj &box, const int slot, pokemon_obj &pkm, const bool isencrypted)
 {
@@ -909,7 +909,7 @@ std::string getgendername(const int gender)
 }
 std::string getpkmotgendername(const pokemon_obj &pkm)
 {
-    return getgendername(pkm.metlevel_otgender.otgender);
+    return getgendername(pkm.otgender);
 }
 int gethiddenpowerpower(const pokemon_obj &pkm)
 {
@@ -939,7 +939,7 @@ int gethiddenpowertype(const pokemon_obj &pkm)
 }
 std::string getpkmotgendername(const pokemon_obj *pkm)
 {
-    return getgendername(pkm->metlevel_otgender.otgender);
+    return getgendername(pkm->otgender);
 }
 int gethiddenpowerpower(const pokemon_obj *pkm)
 {
