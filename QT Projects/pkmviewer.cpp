@@ -236,6 +236,7 @@ void pkmviewer::setPKM(pokemon_obj * pkm_, int box, bool isPartyPKM)
 }
 void pkmviewer::displayPKM(/*bool rename*/)
 {
+//    temppkm->form = 0;
     redisplayok = false;
     int index = 0;
     this->setWindowTitle(QString::fromStdWString(getpkmnickname(temppkm)));
@@ -408,7 +409,7 @@ void pkmviewer::displayPKM(/*bool rename*/)
         }
     }
     ui->cbForm->setEnabled(ui->cbForm->count() > 0);
-    ui->cbForm->setCurrentIndex((int)temppkm->forms.form);
+    ui->cbForm->setCurrentIndex((int)temppkm->form_int);
     ui->sbTameness->setValue(int(temppkm->tameness));
     updateribbons();
     ui->chkMetAsEgg->setChecked(pkmmetasegg(temppkm));

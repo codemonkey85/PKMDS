@@ -2856,93 +2856,6 @@ ad- is species NOT nido F/M
 ae- get pkm type
 af- get pkm type
 b2- n's pokemon(?)
-
----------------------------------------------------------------------------------
-personal.narc personal field arguments
---------------------------------------
-
-0 - base hp
-1 - base atk
-2 - base def
-3 - base speed
-4 - base special atk
-5 - base special def
-6 - type 1
-7 - type 2
-8 - catch rate
-9 - stage?
-a - hp  ev
-b - atk ev
-c - def ev
-d - spd ev
-e - spa ev
-f - spd ev
-10 - item 1
-11 - item 2
-12 - item 3(for dark grass)
-13 -
-14 - gender rate
-15
-16
-17
-18
-19
-1a abil1
-1b abil2
-1c abil3
-1d
-1e
-1f
-20
-21
-22
-
-
--------------------------------------------------------------------------------
-
-egg data:
-
-2fe35c8 is the local array that holds all the egg data.  (u32 eggData[34])
-
-2fe35c8 - species
-2fe35cc - form
-
-2fe35d0 -
-2fe35d4 -
-2fe35d8 - happiness
-2fe35dc - iv1
-2fe35e0 - iv2
-2fe35e4 - iv3
-2fe35e8 - iv4
-2fe35ec - iv5
-2fe35f0 - iv6
-2fe35f4 - id set
-
-2fe35f8 - pid
-2fe3600 - move1
-2fe3604 - move2
-2fe3608 - move3
-2fe360c - move4
-
-2fe3610 - ability number
-2fe3614 -
-2fe3618 -
-
-2fe361c - inherit_iv1_parent1
-2fe3620 - inherit_iv2_parent1
-2fe3624 - inherit_iv3_parent1
-2fe3628 - inherit_iv4_parent1
-2fe362c - inherit_iv5_parent1
-2fe3630 - inherit_iv6_parent1
-
-2fe3634 - inherit_iv1_parent2
-2fe3638 - inherit_iv2_parent2
-2fe363c - inherit_iv3_parent2
-2fe3640 - inherit_iv4_parent2
-2fe3644 - inherit_iv5_parent2
-2fe3648 - inherit_iv6_parent2
-2fe364c -
-2fe3650
 */
 struct spot_coordinates
 {
@@ -2967,10 +2880,6 @@ struct spindaspots_struct
 	Spots were identified from Spinda's perspective.
 	So to an observer, Spinda's left would be their right.
 	*/
-	//TR
-	//TL
-	//BR
-	//BL
 	spot_coordinates tr;
 	spot_coordinates tl;
 	spot_coordinates br;
@@ -3028,11 +2937,11 @@ uint32 : 2;
 struct formsfield { // Bitfield for determining the Pokemon's form, fateful encounter, and gender.
 	union
 	{
-		struct
-		{
-byte : 3;
-			byte form : 5; // Index number of this Pokemon's form.
-		};
+//		struct
+//		{
+//byte : 3;
+//			byte form : 5; // Index number of this Pokemon's form.
+//		};
 		struct
 		{
 byte : 3;
@@ -3357,7 +3266,13 @@ byte : 6;
 	};
 	union
 	{
-		formsfield forms; // Forms, fateful encounter, gender
+        struct
+        {
+byte : 3;
+            byte form_int : 5; // Index number of this Pokemon's form.
+        };
+
+        formsfield form; // Forms, fateful encounter, gender
 		struct
 		{
 			bool fencounter : 1; // Fateful encounter flag.
