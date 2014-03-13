@@ -2693,7 +2693,7 @@ struct pokerus {
 /*
 fetchPKMDataIfValid fields
 
-0- pid
+	0- pid
 1- (sanity)party pkm part is decrypted (bit 0)
 2- (sanity)box pkm part is decrypted (bit 1)
 3- (sanity)is species egg (bit 2)
@@ -2866,17 +2866,17 @@ struct spindaspots_struct
 {
 	/*
 	P =Personality value
-	C =Coordinates
+		C =Coordinates
 	S =Which Spot
 
 	<------------
-	P: 0 x N N  N N  N N  N N
-	| |  | |  | |  | |
-	C:     y x  y x  y x  y x
-	\/   \/   \/   \/
-	S:      BL   BR   TL   TR
+P: 0 x N N  N N  N N  N N
+	   | |  | |  | |  | |
+C:     y x  y x  y x  y x
+		   \/   \/   \/   \/
+S:      BL   BR   TL   TR
 
-	Example is given in little-endian 32bits.
+			Example is given in little-endian 32bits.
 	Spots were identified from Spinda's perspective.
 	So to an observer, Spinda's left would be their right.
 	*/
@@ -2937,11 +2937,11 @@ uint32 : 2;
 struct formsfield { // Bitfield for determining the Pokemon's form, fateful encounter, and gender.
 	union
 	{
-//		struct
-//		{
-//byte : 3;
-//			byte form : 5; // Index number of this Pokemon's form.
-//		};
+		//		struct
+		//		{
+		//byte : 3;
+		//			byte form : 5; // Index number of this Pokemon's form.
+		//		};
 		struct
 		{
 byte : 3;
@@ -3152,241 +3152,217 @@ struct sinnohrib4 { // 8 bits
 byte : 4; // Padding to 8 bits
 };
 struct pkmribbons : sinnohrib1,/*sinnohrib2*/unovarib,hoennrib1,hoennrib2,sinnohrib3,sinnohrib4 {};
-//Unencrypted Data
-struct pkmunencryptblock { // The unencrypted block of the Pokemon data, featuring such important things as the PID and checksum.
+struct pokemon_obj
+{
 	union
 	{
-		uint32 pid; // The Pokemon's personality value (PID).
-		spindaspots_struct spinda_spots;
-	};
-	bool ispartydatadecrypted : 1;
-	bool isboxdatadecrypted : 1;
-	bool isspeciesegg : 1;
+		struct
+		{
+			//Unencrypted Data
+			union
+			{
+				uint32 pid; // The Pokemon's personality value (PID).
+				spindaspots_struct spinda_spots;
+			};
+			bool ispartydatadecrypted : 1;
+			bool isboxdatadecrypted : 1;
+			bool isspeciesegg : 1;
 byte : 5;
 byte : 8;
-	uint16 checksum; // The checksum for the Pokemon data; used to validate data and for encryption / decryption.
-	pkmunencryptblock()
-	{
-		memset(this,0,sizeof(pkmunencryptblock));
-	}
-};
-//Block A
-struct pkmblocka { //
-	union
-	{
-		Species::species species; // National Pokedex ID
-		uint16 species_int;
-	};
-	union
-	{
-		Items::items item; // Held item index
-		uint16 item_int;
-	};
-	union
-	{
-		uint32 id; // Trainer ID and Secret ID as one unsigned 32-bit integer
-		struct
-		{
-			uint16 tid; // Trainer ID
-			uint16 sid; // Secret ID
-		};
-	};
-	uint32 exp; // Accumulated experience points
-	byte tameness; // Tameness / happiness; used to determine egg hatch steps remaining; used in damage calculation for Return / Frustration; used for some evolutions
-	union
-	{
-		Abilities::abilities ability; // Ability index
-		byte ability_int;
-	};
-	union
-	{
-		markingsfield markings; // Markings
-		byte markings_int;
-	};
-	union
-	{
-		Countries::countries country; // Country / language of origin
-		byte country_int;
-	};
-	union
-	{
-		evsfield evs;
-		std::array<byte,6> ev_ints;
-	};
-	union
-	{
-		contestfield contest;
-		std::array<byte,6> contest_ints;
-	};
-	union
-	{
-		sinnohrib1 sribbon1; // Sinnoh Ribbons 1
-		uint16 sribbon1_int;
-	};
-	union
-	{
-		/*sinnohrib2*/unovarib uribbon; // Unova ribbons (formerly Sinnoh Ribbons 2)
-		uint16 uribbon_int;
-	};
-	pkmblocka()
-	{
-		memset(this,0,sizeof(pkmblocka));
-	}
-};
-//Block B
-struct pkmblockb { //
-	union
-	{
-		std::array<Moves::moves,4> moves;
-		std::array<uint16,4> move_ints;
-	};
-	std::array<byte,4> pp; // Current PP array
-	std::array<byte,4> ppup; // PP Ups used array
-	union
-	{
-		ivsfield ivs; // Individual Values
-		struct
-		{
+			uint16 checksum; // The checksum for the Pokemon data; used to validate data and for encryption / decryption.
+			// Block A
+			union
+			{
+				Species::species species; // National Pokedex ID
+				uint16 species_int;
+			};
+			union
+			{
+				Items::items item; // Held item index
+				uint16 item_int;
+			};
+			union
+			{
+				uint32 id; // Trainer ID and Secret ID as one unsigned 32-bit integer
+				struct
+				{
+					uint16 tid; // Trainer ID
+					uint16 sid; // Secret ID
+				};
+			};
+			uint32 exp; // Accumulated experience points
+			byte tameness; // Tameness / happiness; used to determine egg hatch steps remaining; used in damage calculation for Return / Frustration; used for some evolutions
+			union
+			{
+				Abilities::abilities ability; // Ability index
+				byte ability_int;
+			};
+			union
+			{
+				markingsfield markings; // Markings
+				byte markings_int;
+			};
+			union
+			{
+				Countries::countries country; // Country / language of origin
+				byte country_int;
+			};
+			union
+			{
+				evsfield evs;
+				std::array<byte,6> ev_ints;
+			};
+			union
+			{
+				contestfield contest;
+				std::array<byte,6> contest_ints;
+			};
+			union
+			{
+				sinnohrib1 sribbon1; // Sinnoh Ribbons 1
+				uint16 sribbon1_int;
+			};
+			union
+			{
+				/*sinnohrib2*/unovarib uribbon; // Unova ribbons (formerly Sinnoh Ribbons 2)
+				uint16 uribbon_int;
+			};
+			// Block B
+			union
+			{
+				std::array<Moves::moves,4> moves;
+				std::array<uint16,4> move_ints;
+			};
+			std::array<byte,4> pp; // Current PP array
+			std::array<byte,4> ppup; // PP Ups used array
+			union
+			{
+				ivsfield ivs; // Individual Values
+				struct
+				{
 uint16 : 16;
 byte : 8;
 byte : 6;
-			bool isegg : 1;
-			bool isnicknamed : 1;
-		};
-	};
-	union
-	{
-		hoennrib1 hribbon1; // Hoenn Ribbons 1
-		uint16 hribbon1_int;
-	};
-	union
-	{
-		hoennrib2 hribbon2; // Hoenn Ribbons 2
-		uint16 hribbon2_int;
-	};
-	union
-	{
-        struct
-        {
-byte : 3;
-            byte form_int : 5; // Index number of this Pokemon's form.
-        };
-
-        formsfield form; // Forms, fateful encounter, gender
-		struct
-		{
-			bool fencounter : 1; // Fateful encounter flag.
-			bool female : 1; // Flag to determine if this Pokemon is female.
-			bool genderless : 1; // Flag to determine if this Pokemon is genderless.
+					bool isegg : 1;
+					bool isnicknamed : 1;
+				};
+			};
+			union
+			{
+				hoennrib1 hribbon1; // Hoenn Ribbons 1
+				uint16 hribbon1_int;
+			};
+			union
+			{
+				hoennrib2 hribbon2; // Hoenn Ribbons 2
+				uint16 hribbon2_int;
+			};
+			union
+			{
+				formsfield form; // Forms, fateful encounter, gender
+				struct
+				{
+					bool fencounter : 1; // Fateful encounter flag.
+					bool female : 1; // Flag to determine if this Pokemon is female.
+					bool genderless : 1; // Flag to determine if this Pokemon is genderless.
 byte : 5;
-		};
-	};
-	union
-	{
-		Natures::natures nature; // Nature index
-		byte nature_int;
-	};
-	bool hasdwability : 1; // Dream World Ability flag
-	bool n_pkm : 1; // N's Pokemon Flag
+				};
+				struct
+				{
+byte : 3;
+					byte form_int : 5; // Index number of this Pokemon's form.
+				};
+			};
+			union
+			{
+				Natures::natures nature; // Nature index
+				byte nature_int;
+			};
+			bool hasdwability : 1; // Dream World Ability flag
+			bool n_pkm : 1; // N's Pokemon Flag
 byte : 6; //
 byte : 8; //
 uint16 : 16; //
 uint16 : 16; //
-	pkmblockb()
-	{
-		memset(this,0,sizeof(pkmblockb));
-	}
-};
-//Block C
-struct pkmblockc { //
+			//Block C
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
-	char nickname[(NICKLENGTH * 2)/*+2*/];
+			char nickname[(NICKLENGTH * 2)/*+2*/];
 #else
-	wchar_t nickname[NICKLENGTH/*+1*/];
+			wchar_t nickname[NICKLENGTH/*+1*/];
 #endif
 #endif
 byte : 8;
-	union
-	{
-		Hometowns::hometowns hometown; // Original game
-		byte hometown_int;
-	};
-	union
-	{
-		sinnohrib3 sribbon3; // Sinnoh Ribbons 3
-		uint16 sribbon3_int;
-	};
-	union
-	{
-		sinnohrib4 sribbon4; // Sinnoh Ribbons 4
-		byte sribbon4_int;
-	};
+			union
+			{
+				Hometowns::hometowns hometown; // Original game
+				byte hometown_int;
+			};
+			union
+			{
+				sinnohrib3 sribbon3; // Sinnoh Ribbons 3
+				uint16 sribbon3_int;
+			};
+			union
+			{
+				sinnohrib4 sribbon4; // Sinnoh Ribbons 4
+				byte sribbon4_int;
+			};
 byte : 8;
 uint32 : 32; //
-	pkmblockc()
-	{
-		memset(this,0,sizeof(pkmblockc));
-	}
-};
-//Block D
-struct pkmblockd { //
+			//Block D
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
-	char otname[(OTLENGTH * 2)/*+2*/];
+			char otname[(OTLENGTH * 2)/*+2*/];
 #else
-	wchar_t otname[OTLENGTH/*+1*/];
+			wchar_t otname[OTLENGTH/*+1*/];
 #endif
 #endif
-	datefield eggdate; // Egg met date; year, month, day
-	datefield metdate; // Met date; year, month, day
-	union
-	{
-		Locations::locations eggmet; // Egg met location
-		uint16 eggmet_int;
-	};
-	union
-	{
-		Locations::locations met; // Met location
-		uint16 met_int;
-	};
-	union
-	{
-		pokerus pkrs; // PokeRus
-		byte pkrs_int;
-	};
-	union
-	{
-		Balls::balls ball; // Ball captured with and kept in
-		byte ball_int;
-	};
-	byte metlevel : 7; // The level at which this Pokemon was first encountered.
+			datefield eggdate; // Egg met date; year, month, day
+			datefield metdate; // Met date; year, month, day
+			union
+			{
+				Locations::locations eggmet; // Egg met location
+				uint16 eggmet_int;
+			};
+			union
+			{
+				Locations::locations met; // Met location
+				uint16 met_int;
+			};
+			union
+			{
+				pokerus pkrs; // PokeRus
+				byte pkrs_int;
+			};
+			union
+			{
+				Balls::balls ball; // Ball captured with and kept in
+				byte ball_int;
+			};
+			byte metlevel : 7; // The level at which this Pokemon was first encountered.
 #if (defined __linux__) || (defined __APPLE__) || (defined __CYGWIN__)
-	byte otgender: 1; //To stop GCC from throwing a warning
+			byte otgender: 1; //To stop GCC from throwing a warning
 #else
-	Genders::genders otgender : 1; // Flag to determine if the original trainer was female.
+			Genders::genders otgender : 1; // Flag to determine if the original trainer was female.
 #endif
-	union
-	{
-		Encounters::encounters encounter; // Encounter type (unused since Gen V?)
-		byte encounter_int;
+			union
+			{
+				Encounters::encounters encounter; // Encounter type (unused since Gen V?)
+				byte encounter_int;
+			};
+byte : 8; //
+byte : 8; //
+		};
+		byte _raw_data_u8[136];
+		uint16 _raw_data_u16[68];
+		uint32 _raw_data_u32[34];
+		//char * _raw_data_p;
+	//	const char * _raw_data_cp;
 	};
-byte : 8; //
-byte : 8; //
-	pkmblockd()
-	{
-		memset(this,0,sizeof(pkmblockd));
-	}
-};
-struct pokemon_obj : // The Pokemon object, containing 136 bytes of data (as stored in the PC storage system)
-	pkmunencryptblock,
-	pkmblocka,
-	pkmblockb,
-	pkmblockc,
-	pkmblockd
-{
 	pokemon_obj()
 	{
+	//_raw_data_p = new char();
 		memset(this,0,sizeof(pokemon_obj));
 	}
 };
@@ -3423,13 +3399,15 @@ byte : 8;
 		std::array<uint16,6> stats;
 	};
 	byte unknown[0x40];
-	party_field()
-	{
-		memset(this,0,sizeof(party_field));
-	}
 };
 struct party_pkm : pokemon_obj { // Size: 0xDC
-	party_field party_data;
+	union
+	{
+		party_field party_data;
+		byte _raw_party_data_u8[84];
+		uint16 _raw_party_data_u16[42];
+		uint32 _raw_party_data_u32[21];
+	};
 	party_pkm()
 	{
 		memset(this,0,sizeof(party_pkm));
@@ -3623,7 +3601,7 @@ byte : 8;
 	byte level_flag;
 	byte egg_flag;
 	byte unused2[3];
-	/*
+		/*
 	0x00-0x01	 Trainer ID Number, Item Number, Power Type
 	0x02-0x03	 Secret ID Number
 	0x04	 Hometown
@@ -3715,7 +3693,7 @@ uint16 : 16;
 	byte card_type;
 	byte gift_status;
 	byte unused[23];
-	/*
+		/*
 	0x60-0xA9	 Card Title
 	0xAA-0xAB	Unknown
 	0xAC-0xAF	 Date Card Received
@@ -3724,7 +3702,7 @@ uint16 : 16;
 	0xB3	 Card Type [Color]
 	01 - Pokémon [Blue]
 	02 - (Key) Item [Pink]
-	03 - Power [Yellow]
+		03 - Power [Yellow]
 	0xB4	 Gift Status: Used / Unused
 	00 - Repeatable gift
 	01 - Unused
@@ -3744,7 +3722,7 @@ struct wondercard_obj : gift_data, card_data
 	}
 };
 /*
-The structure of a save file differs between sets of games:
+	The structure of a save file differs between sets of games:
 1. Diamond/Pearl
 2. Platinum
 3. HeartGold/SoulSilver

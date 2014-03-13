@@ -1205,11 +1205,11 @@ struct growth_block
 		GBASpecies::gbaspecies species;
 		uint16 species_int;
 	};
-		union
-		{
-			GBAItems::gbaitems item;
-			uint16 item_int;
-		};
+	union
+	{
+		GBAItems::gbaitems item;
+		uint16 item_int;
+	};
 	uint32 exp;
 	ppbonuses_struct ppbonuses;
 	byte friendship;
@@ -1286,33 +1286,42 @@ struct pokemon_gen3
 {
 	union
 	{
-		uint32 pid; // The Pokemon's personality value (PID).
-		spindaspots_struct spinda_spots;
-	};
-	union
-	{
-		uint32 id;
 		struct
 		{
-			uint16 tid;
-			uint16 sid;
-		};
-	};
-	byte nickname[10];
-	union
-	{
-		GBALang::gbalang lang;
-		uint16 lang_int;
-	};
-	byte otname[7];
-	union
-	{
-		gbamarks markings;
-		byte markings_int;
-	};
-	uint16 checksum;
+			union
+			{
+				uint32 pid; // The Pokemon's personality value (PID).
+				spindaspots_struct spinda_spots;
+			};
+			union
+			{
+				uint32 id;
+				struct
+				{
+					uint16 tid;
+					uint16 sid;
+				};
+			};
+			byte nickname[10];
+			union
+			{
+				GBALang::gbalang lang;
+				uint16 lang_int;
+			};
+			byte otname[7];
+			union
+			{
+				gbamarks markings;
+				byte markings_int;
+			};
+			uint16 checksum;
 uint16 : 16;
-	pkmdata data;
+			pkmdata data;
+		};
+		byte _raw_data_u8[80];
+		uint16 _raw_data_u16[40];
+		uint32 _raw_data_u32[20];
+	};
 	pokemon_gen3()
 	{
 		memset(this,0,sizeof(pokemon_gen3));
@@ -1320,16 +1329,25 @@ uint16 : 16;
 };
 struct pokemon_gen3_party : pokemon_gen3
 {
-	uint32 status;
-	byte level;
-	byte pkrs_remaining;
-	uint16 curhp;
-	uint16 totalhp;
-	uint16 atk;
-	uint16 def;
-	uint16 speed;
-	uint16 spatk;
-	uint16 spdef;
+	union
+	{
+		struct
+		{
+			uint32 status;
+			byte level;
+			byte pkrs_remaining;
+			uint16 curhp;
+			uint16 totalhp;
+			uint16 atk;
+			uint16 def;
+			uint16 speed;
+			uint16 spatk;
+			uint16 spdef;
+		};
+		byte _raw_party_data_u8[20];
+		uint16 _raw_party_data_u16[10];
+		uint32 _raw_party_data_u32[5];
+	};
 	pokemon_gen3_party()
 	{
 		memset(this,0,sizeof(pokemon_gen3_party));
