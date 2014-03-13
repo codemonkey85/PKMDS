@@ -2908,10 +2908,6 @@ struct datefield {
 	byte year;
 	byte month;
 	byte day;
-	datefield()
-	{
-		memset(this,0,sizeof(datefield));
-	}
 };
 //Markings
 struct markingsfield { // Bitfield for the "Markings" of a Pokemon.

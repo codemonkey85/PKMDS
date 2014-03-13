@@ -1451,8 +1451,8 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 		<< "ability_names.ability_id INNER JOIN pokemon_abilities ON abilities.id =  "
 		<< "pokemon_abilities.ability_id INNER JOIN pokemon ON pokemon_abilities.pokemon_id "
 		<< " = pokemon.id WHERE ( ability_names.local_language_id = 9 ) AND ( pokemon.species_id "
-		<< " = " << int(gbapkm->data.species) << " ) AND ( abilities.generation_id = 3 ) AND ( pokemon_abilities.slot "
-        << " = " << int(gbapkm->data.ability_flag) << " + 1 ) ";
+        << " = " << int(gbapkm->species) << " ) AND ( abilities.generation_id = 3 ) AND ( pokemon_abilities.slot "
+        << " = " << int(gbapkm->ability_flag) << " + 1 ) ";
 	int ability = getanint(o);
 	if(ability == 0)
 	{
@@ -1463,17 +1463,17 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 			<< "ability_names.ability_id INNER JOIN pokemon_abilities ON abilities.id =  "
 			<< "pokemon_abilities.ability_id INNER JOIN pokemon ON pokemon_abilities.pokemon_id "
 			<< " = pokemon.id WHERE ( ability_names.local_language_id = 9 ) AND ( pokemon.species_id "
-			<< " = " << int(gbapkm->data.species) << " ) AND ( abilities.generation_id = 3 ) AND ( pokemon_abilities.slot "
+            << " = " << int(gbapkm->species) << " ) AND ( abilities.generation_id = 3 ) AND ( pokemon_abilities.slot "
 			<< " = 1) ";
 		ability = getanint(o);
 	}
 	pkm->ability = Abilities::abilities(ability);
-	pkm->contest.beauty = gbapkm->data.contest.beauty;
-	pkm->contest.cool = gbapkm->data.contest.cool;
-	pkm->contest.cute = gbapkm->data.contest.cute;
-	pkm->contest.sheen = gbapkm->data.contest.sheen;
-	pkm->contest.smart = gbapkm->data.contest.smart;
-	pkm->contest.tough = gbapkm->data.contest.tough;
+    pkm->contest.beauty = gbapkm->contest.beauty;
+    pkm->contest.cool = gbapkm->contest.cool;
+    pkm->contest.cute = gbapkm->contest.cute;
+    pkm->contest.sheen = gbapkm->contest.sheen;
+    pkm->contest.smart = gbapkm->contest.smart;
+    pkm->contest.tough = gbapkm->contest.tough;
 	switch(gbapkm->lang)
 	{
 	case 0201:
@@ -1501,34 +1501,34 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 		pkm->country = Countries::english;
 	}
 	pkm->encounter = Encounters::palpark_egg_hatched_specialevent;
-	pkm->evs.attack = gbapkm->data.evs.attack;
-	pkm->evs.defense = gbapkm->data.evs.defense;
-	pkm->evs.hp = gbapkm->data.evs.hp;
-	pkm->evs.spatk = gbapkm->data.evs.spatk;
-	pkm->evs.spdef = gbapkm->data.evs.spdef;
-	pkm->evs.speed = gbapkm->data.evs.speed;
-	pkm->exp = gbapkm->data.exp;
-	pkm->ivs.attack = gbapkm->data.ivs.attack;
-	pkm->ivs.defense = gbapkm->data.ivs.defense;
-	pkm->ivs.hp = gbapkm->data.ivs.hp;
-	pkm->ivs.spatk = gbapkm->data.ivs.spatk;
-	pkm->ivs.spdef = gbapkm->data.ivs.spdef;
-	pkm->ivs.speed = gbapkm->data.ivs.speed;
-    pkm->isegg = gbapkm->data.isegg;
+    pkm->evs.attack = gbapkm->evs.attack;
+    pkm->evs.defense = gbapkm->evs.defense;
+    pkm->evs.hp = gbapkm->evs.hp;
+    pkm->evs.spatk = gbapkm->evs.spatk;
+    pkm->evs.spdef = gbapkm->evs.spdef;
+    pkm->evs.speed = gbapkm->evs.speed;
+    pkm->exp = gbapkm->exp;
+    pkm->ivs.attack = gbapkm->ivs.attack;
+    pkm->ivs.defense = gbapkm->ivs.defense;
+    pkm->ivs.hp = gbapkm->ivs.hp;
+    pkm->ivs.spatk = gbapkm->ivs.spatk;
+    pkm->ivs.spdef = gbapkm->ivs.spdef;
+    pkm->ivs.speed = gbapkm->ivs.speed;
+    pkm->isegg = gbapkm->isegg;
 	pkm->met = Locations::poketransfer;
-	pkm->species = Species::species(convertgbaspecies(gbapkm->data.species));
+    pkm->species = Species::species(convertgbaspecies(gbapkm->species));
     pkm->metlevel = getpkmlevel(pkm);
-    pkm->otgender = Genders::genders(int(gbapkm->data.origins.trainergender));
+    pkm->otgender = Genders::genders(int(gbapkm->trainergender));
 	pkm->nature = Natures::natures(gbapkm->pid % 25);
 	pkm->pid = gbapkm->pid;
-	pkm->ppup[0] = gbapkm->data.ppbonuses.move1;
-	pkm->ppup[1] = gbapkm->data.ppbonuses.move2;
-	pkm->ppup[2] = gbapkm->data.ppbonuses.move3;
-	pkm->ppup[3] = gbapkm->data.ppbonuses.move4;
+    pkm->ppup[0] = gbapkm->ppbonuses.move1;
+    pkm->ppup[1] = gbapkm->ppbonuses.move2;
+    pkm->ppup[2] = gbapkm->ppbonuses.move3;
+    pkm->ppup[3] = gbapkm->ppbonuses.move4;
 	pkm->sid = gbapkm->sid;
-	pkm->tameness = gbapkm->data.friendship;
+    pkm->tameness = gbapkm->friendship;
 	pkm->tid = gbapkm->tid;
-	switch(gbapkm->data.ribbons.beauty)
+    switch(gbapkm->ribbons.beauty)
 	{
 	case 4:
 		pkm->hribbon1.beauty_ribbon_master = true;
@@ -1549,7 +1549,7 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 		pkm->hribbon1.beauty_ribbon = true;
 		break;
 	}
-	switch(gbapkm->data.ribbons.cool)
+    switch(gbapkm->ribbons.cool)
 	{
 	case 4:
 		pkm->hribbon1.cool_ribbon_master = true;
@@ -1570,7 +1570,7 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 		pkm->hribbon1.cool_ribbon = true;
 		break;
 	}
-	switch(gbapkm->data.ribbons.cute)
+    switch(gbapkm->ribbons.cute)
 	{
 	case 4:
 		pkm->hribbon1.cute_ribbon_master = true;
@@ -1591,7 +1591,7 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 		pkm->hribbon1.cute_ribbon = true;
 		break;
 	}
-	switch(gbapkm->data.ribbons.smart)
+    switch(gbapkm->ribbons.smart)
 	{
 	case 4:
 		pkm->hribbon1.smart_ribbon_master = true;
@@ -1612,7 +1612,7 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 		pkm->hribbon1.smart_ribbon = true;
 		break;
 	}
-	switch(gbapkm->data.ribbons.tough)
+    switch(gbapkm->ribbons.tough)
 	{
 	case 4:
 		pkm->hribbon2.tough_ribbon_master = true;
@@ -1633,11 +1633,11 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 		pkm->hribbon2.tough_ribbon = true;
 		break;
 	}
-	pkm->hribbon2.artist_ribbon = bool(gbapkm->data.ribbons.artist);
-	pkm->hribbon2.champion_ribbon = bool(gbapkm->data.ribbons.champion);
-	pkm->hribbon2.effort_ribbon = bool(gbapkm->data.ribbons.effort);
-	pkm->hribbon2.national_ribbon = bool(gbapkm->data.ribbons.national);
-    pkm->fencounter = gbapkm->data.ribbons.fencounter;
+    pkm->hribbon2.artist_ribbon = bool(gbapkm->ribbons.artist);
+    pkm->hribbon2.champion_ribbon = bool(gbapkm->ribbons.champion);
+    pkm->hribbon2.effort_ribbon = bool(gbapkm->ribbons.effort);
+    pkm->hribbon2.national_ribbon = bool(gbapkm->ribbons.national);
+    pkm->fencounter = gbapkm->ribbons.fencounter;
 	Genders::genders gender = calcpkmgender(pkm);
     pkm->female = (gender == Genders::female);
     pkm->genderless = (gender == Genders::genderless);
@@ -1647,10 +1647,10 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 	pkm->markings.triangle = bool(gbapkm->markings.triangle);
 	for(int i = 0; i < 4; i++)
 	{
-		pkm->pp[i] = gbapkm->data.movepp[i];
-		pkm->moves[i] = Moves::moves(gbapkm->data.moves[i]);
+        pkm->pp[i] = gbapkm->movepp[i];
+        pkm->moves[i] = Moves::moves(gbapkm->moves[i]);
 	}
-	switch(gbapkm->data.origins.game)
+    switch(gbapkm->game)
 	{
 	case GBAGames::colosseum_bonus_disc:
 		pkm->hometown = Hometowns::colosseum_bonus;
@@ -1674,7 +1674,7 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 		pkm->hometown = Hometowns::sapphire;
 		break;
 	}
-	switch(gbapkm->data.origins.ball)
+    switch(gbapkm->ball)
 	{
 	case GBABalls::diveball:
 		pkm->ball = Balls::diveball;
@@ -1723,9 +1723,9 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 	pkm->metdate.day = now->tm_mday;
 	pkm->metdate.month = now->tm_mon + 1;
 	pkm->metdate.year = now->tm_year -100;
-	pkm->pkrs.days = gbapkm->data.pkrs.days;
-	pkm->pkrs.strain = gbapkm->data.pkrs.strain;
-	pkm->item = Items::items(convertgbaitems(gbapkm->data.item));
+    pkm->pkrs.days = gbapkm->pkrs.days;
+    pkm->pkrs.strain = gbapkm->pkrs.strain;
+    pkm->item = Items::items(convertgbaitems(gbapkm->item));
 	std::string nickname = "";
 	std::string otname = "";
 	bool cont = true;
