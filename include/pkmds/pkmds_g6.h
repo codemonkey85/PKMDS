@@ -2803,8 +2803,8 @@ uint16 : 16; // unused
 		Genders::genders not_ot_gender;
 		byte not_ot_gender_int;
 	};
-	bool visitedbank : 8;
-	std::array<uint16,5> geolocations;
+    bool not_ot : 8;
+    std::array<uint16,5> geolocations;
 uint16 : 16; // unused
 uint16 : 16; // unused
 	byte not_ot_tameness;
