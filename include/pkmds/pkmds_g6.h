@@ -2426,11 +2426,11 @@ namespace Forms
 struct formsfield_g6 { // Bitfield for determining the Pokemon's form, fateful encounter, and gender.
 	union
 	{
-		struct
-		{
-byte : 3;
-			byte form : 5; // Index number of this Pokemon's form.
-		};
+//		struct
+//		{
+//byte : 3;
+//			byte form : 5; // Index number of this Pokemon's form.
+//		};
 		struct
 		{
 byte : 3;
@@ -2701,6 +2701,11 @@ uint16 : 16; // unknown
 					bool female : 1; // Flag to determine if this Pokemon is female.
 					bool genderless : 1; // Flag to determine if this Pokemon is genderless.
 byte : 5;
+				};
+				struct
+				{
+					byte : 3;
+					byte form_int : 5;
 				};
 			};
 			union
