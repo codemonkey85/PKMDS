@@ -102,7 +102,7 @@ const byte t_shuffle[24][4] = {
 };
 void shuffle(pokemon_obj * pkm, bool un)
 {
-    byte * raw = reinterpret_cast<byte*>(pkm);
+    byte * raw = pkm->_raw_data_u8; // reinterpret_cast<byte*>(pkm);
     byte temp[128];
     byte mode = (((((uint32*) raw)[0] >> 0xD) & 0x1F) % 24);
 
@@ -124,7 +124,7 @@ void shuffle(pokemon_obj * pkm, bool un)
 }
 void shuffle(pokemon_obj & pkm, bool un)
 {
-    byte * raw = reinterpret_cast<byte*>(&pkm);
+    byte * raw = pkm._raw_data_u8; // reinterpret_cast<byte*>(&pkm);
     byte temp[128];
     byte mode = (((((uint32*) raw)[0] >> 0xD) & 0x1F) % 24);
 
@@ -164,7 +164,7 @@ void pkmcrypt(pokemon_obj& pkm)
 {
     pkmprng prng;
     prng.mseed = pkm.checksum;
-    uint16 * words = reinterpret_cast<uint16*>(&pkm);
+    uint16 * words = pkm._raw_data_u16; // reinterpret_cast<uint16*>(&pkm);
     for(int i = 4; i < 68; i++)
     {
         words[i] = (words[i]) ^ (prng.nextnum() >> 0x10);
@@ -256,7 +256,7 @@ void pkmcrypt(pokemon_obj* pkm)
 {
     pkmprng prng;
     prng.mseed = pkm->checksum;
-    uint16 * words = reinterpret_cast<uint16*>(pkm);
+    uint16 * words = pkm->_raw_data_u16; // reinterpret_cast<uint16*>(pkm);
     for(int i = 4; i < 68; i++)
     {
         words[i] = (words[i]) ^ (prng.nextnum() >> 0x10);
@@ -480,6 +480,7 @@ void write(const char* file_name, pokemon_obj& data) // Writes the given Pokemon
     data.isboxdatadecrypted = false;
     std::ofstream *out = new std::ofstream(file_name,std::ios::binary);
     out->write(reinterpret_cast<char*>(&data), sizeof(pokemon_obj));
+    //out->write(data._raw_data_p, sizeof(pokemon_obj));
     out->close();
     delete out;
     out = 0;
@@ -493,6 +494,7 @@ void write(const char* file_name, pokemon_obj* data) // Writes the given Pokemon
     data->isboxdatadecrypted = false;
     std::ofstream *out = new std::ofstream(file_name,std::ios::binary);
     out->write(reinterpret_cast<char*>(data), sizeof(pokemon_obj));
+    //out->write(data->_raw_data_p, sizeof(pokemon_obj));
     out->close();
     delete out;
     out = 0;
@@ -519,6 +521,7 @@ void read(const char* file_name, pokemon_obj& data) // Reads the given file and 
 {
     std::ifstream *in = new std::ifstream(file_name,std::ios::binary);
     in->read(reinterpret_cast<char*>(&data), sizeof(pokemon_obj));
+    //in->read(data._raw_data_p, sizeof(pokemon_obj));
     in->close();
     delete in;
     in = 0;
@@ -527,6 +530,7 @@ void read(const char* file_name, pokemon_obj *data) // Reads the given file and 
 {
     std::ifstream *in = new std::ifstream(file_name,std::ios::binary);
     in->read(reinterpret_cast<char*>(data), sizeof(pokemon_obj));
+    //in->read(data->_raw_data_p, sizeof(pokemon_obj));
     in->close();
     delete in;
     in = 0;
@@ -1310,7 +1314,7 @@ void deletemove(pokemon_obj * pkm, byte move)
         {
             if(pkm->moves[i] != Moves::sacredsword)
             {
-                pkm->forms.form = byte(Forms::Keldeo::ordinary);
+                pkm->form.keldeo_form = Forms::Keldeo::ordinary;
             }
         }
     }

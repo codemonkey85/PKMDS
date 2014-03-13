@@ -780,7 +780,7 @@ void pkmviewer::on_cbPKMItem_currentIndexChanged(int index)
             case Species::giratina:
                 if((Items::items)(ui->cbPKMItem->itemData(index).toInt()) == Items::griseousorb)
                 {
-                    temppkm->forms.form = int(Forms::Giratina::origin);
+                    temppkm->form.giratina_form = Forms::Giratina::origin;
                     if(!(temppkm->hasdwability))
                     {
                         temppkm->ability = Abilities::levitate;
@@ -788,7 +788,7 @@ void pkmviewer::on_cbPKMItem_currentIndexChanged(int index)
                 }
                 else
                 {
-                    temppkm->forms.form = 0;
+                    temppkm->form_int = 0;
                     if(!(temppkm->hasdwability))
                     {
                         temppkm->ability = Abilities::pressure;
@@ -799,74 +799,74 @@ void pkmviewer::on_cbPKMItem_currentIndexChanged(int index)
                 switch((Items::items)(ui->cbPKMItem->itemData(index).toInt()))
                 {
                 case Items::burndrive:
-                    temppkm->forms.form = int(Forms::Genesect::burn);
+                    temppkm->form.genesect_form = Forms::Genesect::burn;
                     break;
                 case Items::dousedrive:
-                    temppkm->forms.form = int(Forms::Genesect::douse);
+                    temppkm->form.genesect_form = Forms::Genesect::douse;
                     break;
                 case Items::shockdrive:
-                    temppkm->forms.form = int(Forms::Genesect::shock);
+                    temppkm->form.genesect_form = Forms::Genesect::shock;
                     break;
                 case Items::chilldrive:
-                    temppkm->forms.form = int(Forms::Genesect::chill);
+                    temppkm->form.genesect_form = Forms::Genesect::chill;
                     break;
                 default:
-                    temppkm->forms.form = 0;
+                    temppkm->form_int = 0;
                 }
                 break;
             case Species::arceus:
                 switch((Items::items)(ui->cbPKMItem->itemData(index).toInt()))
                 {
                 case Items::dracoplate:
-                    temppkm->forms.form = int(Forms::Arceus::draco);
+                    temppkm->form.arceus_form = Forms::Arceus::draco;
                     break;
                 case Items::dreadplate:
-                    temppkm->forms.form = int(Forms::Arceus::dread);
+                    temppkm->form.arceus_form = Forms::Arceus::dread;
                     break;
                 case Items::earthplate:
-                    temppkm->forms.form = int(Forms::Arceus::earth);
+                    temppkm->form.arceus_form = Forms::Arceus::earth;
                     break;
                 case Items::fistplate:
-                    temppkm->forms.form = int(Forms::Arceus::fist);
+                    temppkm->form.arceus_form = Forms::Arceus::fist;
                     break;
                 case Items::flameplate:
-                    temppkm->forms.form = int(Forms::Arceus::flame);
+                    temppkm->form.arceus_form = Forms::Arceus::flame;
                     break;
                 case Items::icicleplate:
-                    temppkm->forms.form = int(Forms::Arceus::icicle);
+                    temppkm->form.arceus_form = Forms::Arceus::icicle;
                     break;
                 case Items::insectplate:
-                    temppkm->forms.form = int(Forms::Arceus::insect);
+                    temppkm->form.arceus_form = Forms::Arceus::insect;
                     break;
                 case Items::ironplate:
-                    temppkm->forms.form = int(Forms::Arceus::iron);
+                    temppkm->form.arceus_form = Forms::Arceus::iron;
                     break;
                 case Items::meadowplate:
-                    temppkm->forms.form = int(Forms::Arceus::meadow);
+                    temppkm->form.arceus_form = Forms::Arceus::meadow;
                     break;
                 case Items::mindplate:
-                    temppkm->forms.form = int(Forms::Arceus::mind);
+                    temppkm->form.arceus_form = Forms::Arceus::mind;
                     break;
                 case Items::skyplate:
-                    temppkm->forms.form = int(Forms::Arceus::sky);
+                    temppkm->form.arceus_form = Forms::Arceus::sky;
                     break;
                 case Items::splashplate:
-                    temppkm->forms.form = int(Forms::Arceus::splash);
+                    temppkm->form.arceus_form = Forms::Arceus::splash;
                     break;
                 case Items::spookyplate:
-                    temppkm->forms.form = int(Forms::Arceus::spooky);
+                    temppkm->form.arceus_form = Forms::Arceus::spooky;
                     break;
                 case Items::stoneplate:
-                    temppkm->forms.form = int(Forms::Arceus::stone);
+                    temppkm->form.arceus_form = Forms::Arceus::stone;
                     break;
                 case Items::toxicplate:
-                    temppkm->forms.form = int(Forms::Arceus::toxic);
+                    temppkm->form.arceus_form = Forms::Arceus::toxic;
                     break;
                 case Items::zapplate:
-                    temppkm->forms.form = int(Forms::Arceus::zap);
+                    temppkm->form.arceus_form = Forms::Arceus::zap;
                     break;
                 default:
-                    temppkm->forms.form = 0;
+                    temppkm->form_int = 0;
                     break;
                 }
                 break;
@@ -893,7 +893,7 @@ void pkmviewer::on_btnSaveChanges_clicked()
     *pkm = *temppkm;
     if(getpkmformname(pkm) == "")
     {
-        pkm->forms.form = 0;
+        pkm->form_int = 0;
     }
     this->setWindowTitle(QString::fromStdWString(getpkmnickname(temppkm)));
     if((frmCurBoxNum == startbox) || ispartypkm)
@@ -918,7 +918,7 @@ void pkmviewer::on_btnExportPKMFile_clicked()
     *pkmout = *temppkm;
     if(getpkmformname(pkmout) == "")
     {
-        pkmout->forms.form = 0;
+        pkmout->form_int = 0;
     }
     std::string PKMFileName = "";
     PKMFileName = (QFileDialog::getSaveFileName(this,tr("Save a PKM file"),tr(""),tr("PKM Files (*.pkm)"))).toStdString();
@@ -1246,7 +1246,7 @@ void pkmviewer::on_cbMove1_currentIndexChanged(int index)
         {
             if(temppkm->moves[0] == Moves::secretsword)
             {
-                temppkm->forms.form = byte(Forms::Keldeo::resolute);
+                temppkm->form.keldeo_form = Forms::Keldeo::resolute;
             }
         }
         updatemoveflavor();
@@ -1264,7 +1264,7 @@ void pkmviewer::on_cbMove2_currentIndexChanged(int index)
         {
             if(temppkm->moves[1] == Moves::secretsword)
             {
-                temppkm->forms.form = byte(Forms::Keldeo::resolute);
+                temppkm->form.keldeo_form = Forms::Keldeo::resolute;
             }
         }
         updatemoveflavor();
@@ -1282,7 +1282,7 @@ void pkmviewer::on_cbMove3_currentIndexChanged(int index)
         {
             if(temppkm->moves[2] == Moves::secretsword)
             {
-                temppkm->forms.form = byte(Forms::Keldeo::resolute);
+                temppkm->form.keldeo_form = Forms::Keldeo::resolute;
             }
         }
         updatemoveflavor();
@@ -1300,7 +1300,7 @@ void pkmviewer::on_cbMove4_currentIndexChanged(int index)
         {
             if(temppkm->moves[3] == Moves::secretsword)
             {
-                temppkm->forms.form = byte(Forms::Keldeo::resolute);
+                temppkm->form.keldeo_form = Forms::Keldeo::resolute;
             }
         }
         updatemoveflavor();
@@ -1413,13 +1413,13 @@ void pkmviewer::on_cbForm_currentIndexChanged(int index)
 {
     if(redisplayok)
     {
-        temppkm->forms.form = (byte)index;
+        temppkm->form_int = (byte)index;
         switch(temppkm->species)
         {
         case Species::giratina:
             if(!(temppkm->hasdwability))
             {
-                if(temppkm->forms.form == int(Forms::Giratina::origin))
+                if(temppkm->form.giratina_form == Forms::Giratina::origin)
                 {
                     temppkm->ability = Abilities::levitate;
                 }
@@ -1430,7 +1430,7 @@ void pkmviewer::on_cbForm_currentIndexChanged(int index)
             }
             break;
         case Species::shaymin:
-            if(temppkm->forms.form == int(Forms::Shaymin::sky))
+            if(temppkm->form.shaymin_form == Forms::Shaymin::sky)
             {
                 temppkm->ability = Abilities::serenegrace;
             }
@@ -1440,7 +1440,7 @@ void pkmviewer::on_cbForm_currentIndexChanged(int index)
             }
             break;
         case Species::tornadus:
-            if(temppkm->forms.form == int(Forms::Tornadus_Thundurus_Landorus::therian))
+            if(temppkm->form.tornadus_thundurus_landorus_form == Forms::Tornadus_Thundurus_Landorus::therian)
             {
                 temppkm->ability = Abilities::regenerator;
             }
@@ -1457,7 +1457,7 @@ void pkmviewer::on_cbForm_currentIndexChanged(int index)
             }
             break;
         case Species::thundurus:
-            if(temppkm->forms.form == int(Forms::Tornadus_Thundurus_Landorus::therian))
+            if(temppkm->form.tornadus_thundurus_landorus_form == Forms::Tornadus_Thundurus_Landorus::therian)
             {
                 temppkm->ability = Abilities::voltabsorb;
             }
@@ -1474,7 +1474,7 @@ void pkmviewer::on_cbForm_currentIndexChanged(int index)
             }
             break;
         case Species::landorus:
-            if(temppkm->forms.form == int(Forms::Tornadus_Thundurus_Landorus::therian))
+            if(temppkm->form.tornadus_thundurus_landorus_form == Forms::Tornadus_Thundurus_Landorus::therian)
             {
                 temppkm->ability = Abilities::intimidate;
             }
@@ -1491,15 +1491,15 @@ void pkmviewer::on_cbForm_currentIndexChanged(int index)
             }
             break;
         case Species::kyurem:
-            switch(temppkm->forms.form)
+            switch(temppkm->form.kyurem_form)
             {
-            case int(Forms::Kyurem::normal):
+            case Forms::Kyurem::normal:
                 temppkm->ability = Abilities::pressure;
                 break;
-            case int(Forms::Kyurem::black):
+            case Forms::Kyurem::black:
                 temppkm->ability = Abilities::teravolt;
                 break;
-            case int(Forms::Kyurem::white):
+            case Forms::Kyurem::white:
                 temppkm->ability = Abilities::turboblaze;
                 break;
             default:

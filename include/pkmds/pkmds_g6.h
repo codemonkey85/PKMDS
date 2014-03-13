@@ -2640,263 +2640,237 @@ struct supertrainingflags // 32 bits
 	bool secret2_5 : 1;
 	bool secret2_6 : 1;
 };
-//Unencrypted Data
-struct pkxunencryptblock { // The unencrypted block of the Pokemon data, featuring such important things as the PID and checksum.
+struct pokemonx_obj // The Pokemon object, containing 232 bytes of data (as stored in the PC storage system)
+{
 	union
 	{
-		uint32 key; // Used for encryption / decryption.
-		spindaspots_struct spinda_spots;
-	};
-	bool ispartydatadecrypted : 1;
-	bool isboxdatadecrypted : 1;
-	bool isspeciesegg : 1;
+		struct
+		{
+			//Unencrypted Data
+			union
+			{
+				uint32 key; // Used for encryption / decryption.
+				spindaspots_struct spinda_spots;
+			};
+			bool ispartydatadecrypted : 1;
+			bool isboxdatadecrypted : 1;
+			bool isspeciesegg : 1;
 byte : 5;
 byte : 8;
-	uint16 checksum; // The checksum for the Pokemon data; used to validate data.
-	pkxunencryptblock()
-	{
-		memset(this,0,sizeof(pkxunencryptblock));
-	}
-};
+			uint16 checksum; // The checksum for the Pokemon data; used to validate data.
 #include PACK_H
-struct pkxblocka { //
-	union
-	{
-		Species_g6::species species; // National Pokedex ID
-		uint16 species_int;
-	};
-	union
-	{
-		Items_g6::items item; // Held item index
-		uint16 item_int;
-	};
-	union
-	{
-		uint32 id; // Trainer ID and Secret ID as one unsigned 32-bit integer
-		struct
-		{
-			uint16 tid; // Trainer ID
-			uint16 sid; // Secret ID
-		};
-	};
-	uint32 exp;
-	union
-	{
-		Abilities_g6::abilities ability; // Ability index
-		byte ability_int;
-	};
-	byte abilitynum;
+			union
+			{
+				Species_g6::species species; // National Pokedex ID
+				uint16 species_int;
+			};
+			union
+			{
+				Items_g6::items item; // Held item index
+				uint16 item_int;
+			};
+			union
+			{
+				uint32 id; // Trainer ID and Secret ID as one unsigned 32-bit integer
+				struct
+				{
+					uint16 tid; // Trainer ID
+					uint16 sid; // Secret ID
+				};
+			};
+			uint32 exp;
+			union
+			{
+				Abilities_g6::abilities ability; // Ability index
+				byte ability_int;
+			};
+			byte abilitynum;
 uint16 : 16; // unknown
-	uint32 pid; // The Pokemon's personality value (PID).
-	union
-	{
-		Natures::natures nature; // Nature index
-		byte nature_int;
-	};
-	union
-	{
-		formsfield_g6 forms; // Forms, fateful encounter, gender
-		struct
-		{
-			bool fencounter : 1; // Fateful encounter flag.
-			bool female : 1; // Flag to determine if this Pokemon is female.
-			bool genderless : 1; // Flag to determine if this Pokemon is genderless.
+			uint32 pid; // The Pokemon's personality value (PID).
+			union
+			{
+				Natures::natures nature; // Nature index
+				byte nature_int;
+			};
+			union
+			{
+				formsfield_g6 forms; // Forms, fateful encounter, gender
+				struct
+				{
+					bool fencounter : 1; // Fateful encounter flag.
+					bool female : 1; // Flag to determine if this Pokemon is female.
+					bool genderless : 1; // Flag to determine if this Pokemon is genderless.
 byte : 5;
-		};
-	};
-	union
-	{
-		evsfield evs;
-		std::array<byte,6> ev_ints;
-	};
-	union
-	{
-		contestfield contest;
-		std::array<byte,6> contest_ints;
-	};
-	union
-	{
-		markingsfield markings; // Markings
-		byte markings_int;
-	};
-	union
-	{
-		pokerus pkrs; // PokeRus
-		byte pkrs_int;
-	};
-	union
-	{
-		supertrainingflags supertraining;
-		uint32 supertraining_int;
-	};
-	union
-	{
-		kalosribbonsfield kalosribbons;
-		uint32 kalosribbons_int;
-	};
+				};
+			};
+			union
+			{
+				evsfield evs;
+				std::array<byte,6> ev_ints;
+			};
+			union
+			{
+				contestfield contest;
+				std::array<byte,6> contest_ints;
+			};
+			union
+			{
+				markingsfield markings; // Markings
+				byte markings_int;
+			};
+			union
+			{
+				pokerus pkrs; // PokeRus
+				byte pkrs_int;
+			};
+			union
+			{
+				supertrainingflags supertraining;
+				uint32 supertraining_int;
+			};
+			union
+			{
+				kalosribbonsfield kalosribbons;
+				uint32 kalosribbons_int;
+			};
 uint16 : 16; // unused
 byte : 8; // unused
-	byte contestribbons;
-	byte battleribbons;
+			byte contestribbons;
+			byte battleribbons;
 byte : 8; // unused
 byte : 8; // unused
 byte : 8; // unused
 byte : 8; // unused
 byte : 8; // unused
 byte : 8; // unused
-	pkxblocka()
-	{
-		memset(this,0,sizeof(pkxblocka));
-	}
-};
-struct pkxblockb { //
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
-	char nickname[24];
+			char nickname[24];
 #else
-	wchar_t nickname[12];
+			wchar_t nickname[12];
 #endif
 #endif
 uint16 : 16; // unused
-	union
-	{
-		std::array<Moves_g6::moves,4> moves;
-		std::array<uint16,4> move_ints;
-	};
-	std::array<byte,4> pp; // Current PP array
-	std::array<byte,4> ppup; // PP Ups used array
-	union
-	{
-		std::array<Moves_g6::moves,4> eggmoves;
-		std::array<uint16,4> eggmove_ints;
-	};
-	bool secretsupertraining : 8;
+			union
+			{
+				std::array<Moves_g6::moves,4> moves;
+				std::array<uint16,4> move_ints;
+			};
+			std::array<byte,4> pp; // Current PP array
+			std::array<byte,4> ppup; // PP Ups used array
+			union
+			{
+				std::array<Moves_g6::moves,4> eggmoves;
+				std::array<uint16,4> eggmove_ints;
+			};
+			bool secretsupertraining : 8;
 byte : 8; // unused
-	union
-	{
-		ivsfield ivs; // Individual Values
-		struct
-		{
+			union
+			{
+				ivsfield ivs; // Individual Values
+				struct
+				{
 uint16 : 16;
 byte : 8;
 byte : 6;
-			bool isegg : 1;
-			bool isnicknamed : 1;
-		};
-	};
-	pkxblockb()
-	{
-		memset(this,0,sizeof(pkxblockb));
-	}
-};
-struct pkxblockc { //
+					bool isegg : 1;
+					bool isnicknamed : 1;
+				};
+			};
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
-	char not_ot_name[24];
+			char not_ot_name[24];
 #else
-	wchar_t not_ot_name[12];
+			wchar_t not_ot_name[12];
 #endif
 #endif
 uint16 : 16; // unused
-	union
-	{
-		Genders::genders not_ot_gender;
-		byte not_ot_gender_int;
-	};
-    bool not_ot : 8;
-    std::array<uint16,5> geolocations;
+			union
+			{
+				Genders::genders not_ot_gender;
+				byte not_ot_gender_int;
+			};
+			bool not_ot : 8;
+			std::array<uint16,5> geolocations;
 uint16 : 16; // unused
 uint16 : 16; // unused
-	byte not_ot_tameness;
-	byte not_ot_affection;
+			byte not_ot_tameness;
+			byte not_ot_affection;
 byte : 8; // not ot text bank
 byte : 8; // not ot text line
-	byte not_ot_feeling;
+			byte not_ot_feeling;
 byte : 8; // unused
 uint16 : 16; // not ot memory text var
 uint16 : 16; // unused
 uint16 : 16; // unused
-	byte fullness;
-	byte enjoyment;
-	pkxblockc()
-	{
-		memset(this,0,sizeof(pkxblockc));
-	}
-};
-struct pkxblockd { // 
+			byte fullness;
+			byte enjoyment;
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
-	char otname[24];
+			char otname[24];
 #else
-	wchar_t otname[12];
+			wchar_t otname[12];
 #endif
 #endif
 uint16 : 16; // unused
-	byte ot_tameness;
-	byte ot_affection;
+			byte ot_tameness;
+			byte ot_affection;
 byte : 8; // ot memory text bank
 byte : 8; // ot memory text line
 uint16 : 16; // ot memory text var
 byte : 8; // ot feeling
-	datefield eggdate;
-	datefield metdate;
+			datefield eggdate;
+			datefield metdate;
 byte : 8; // Unknown / unused
-	union
-	{
-		Locations_g6::locations eggmet; // Egg met location
-		uint16 eggmet_int;
-	};
-	union
-	{
-		Locations_g6::locations met; // Met location
-		uint16 met_int;
-	};
-	union
-	{
-		Balls::balls ball; // Ball captured with and kept in
-		byte ball_int;
-	};
-	byte metlevel : 7; // The level at which this Pokemon was first encountered.
+			union
+			{
+				Locations_g6::locations eggmet; // Egg met location
+				uint16 eggmet_int;
+			};
+			union
+			{
+				Locations_g6::locations met; // Met location
+				uint16 met_int;
+			};
+			union
+			{
+				Balls::balls ball; // Ball captured with and kept in
+				byte ball_int;
+			};
+			byte metlevel : 7; // The level at which this Pokemon was first encountered.
 #if (defined __linux__) || (defined __APPLE__) || (defined __CYGWIN__)
-	byte otgender: 1; //To stop GCC from throwing a warning
+			byte otgender: 1; //To stop GCC from throwing a warning
 #else
-	Genders::genders otgender : 1; // Flag to determine if the original trainer was female.
+			Genders::genders otgender : 1; // Flag to determine if the original trainer was female.
 #endif
-	union
-	{
-		Encounters::encounters encounter; // Encounter type (unused since Gen V?)
-		byte encounter_int;
-	};
-	union
-	{
-		Hometowns::hometowns hometown; // Original game
-		byte hometown_int;
-	};
-	byte country_id;
-	byte regionid;
-	union
-	{
-		Regions_3DS::regions regionid3ds;
-		byte region3ds_int;
-	};
-	union
-	{
-		Countries::countries country; // Country / language of origin
-		byte country_int;
-	};
+			union
+			{
+				Encounters::encounters encounter; // Encounter type (unused since Gen V?)
+				byte encounter_int;
+			};
+			union
+			{
+				Hometowns::hometowns hometown; // Original game
+				byte hometown_int;
+			};
+			byte country_id;
+			byte regionid;
+			union
+			{
+				Regions_3DS::regions regionid3ds;
+				byte region3ds_int;
+			};
+			union
+			{
+				Countries::countries country; // Country / language of origin
+				byte country_int;
+			};
 uint32 : 32; // unused
-	pkxblockd()
-	{
-		memset(this,0,sizeof(pkxblockd));
-	}
-};
-struct pokemonx_obj : // The Pokemon object, containing 232 bytes of data (as stored in the PC storage system)
-	pkxunencryptblock,
-	pkxblocka,
-	pkxblockb,
-	pkxblockc,
-	pkxblockd
-{
+		};
+		byte _raw_data_u8[232];
+		uint16 _raw_data_u16[116];
+		uint32 _raw_data_u32[58];
+	};
 	pokemonx_obj()
 	{
 		memset(this,0,sizeof(pokemonx_obj));
@@ -2929,14 +2903,15 @@ byte : 8;
 	};
 uint16 : 16;
 uint32 : 32;
-	partyx_field()
-	{
-		memset(this,0,sizeof(partyx_field));
-	}
 };
 struct party_pkx : pokemonx_obj { // Size:
-	//    pokemonx_obj pkx_data;
-	partyx_field party_data;
+	union
+	{
+		partyx_field party_data;
+		byte _raw_party_data_u8[28];
+		uint16 _raw_party_data_u16[14];
+		uint32 _raw_party_data_u32[7];
+	};
 	party_pkx()
 	{
 		memset(this,0,sizeof(party_pkx));
