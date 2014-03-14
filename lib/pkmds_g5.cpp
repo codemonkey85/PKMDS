@@ -583,7 +583,7 @@ void setpkmnickname(pokemon_obj &pkm, wchar_t input[], int length)
     if(length < NICKLENGTH)
     {
         memset(&(pkm.nickname[length]), 0xffff, 2);
-        memset(&(pkm.nickname[NICKLENGTH]), 0xffff, 2);
+        memset(&(pkm.nickname[NICKLENGTH-1]), 0xffff, 2);
     }
 }
 void setpkmotname(pokemon_obj &pkm, wchar_t input[], int length)
@@ -594,7 +594,7 @@ void setpkmotname(pokemon_obj &pkm, wchar_t input[], int length)
     if(length < OTLENGTH)
     {
         memset(&(pkm.otname[length]), 0xffff, 2);
-        memset(&(pkm.otname[OTLENGTH]), 0xffff, 2);
+        memset(&(pkm.otname[OTLENGTH-1]), 0xffff, 2);
     }
 }
 std::wstring getpkmnickname(const pokemon_obj *pkm)
@@ -621,7 +621,7 @@ void setpkmnickname(pokemon_obj *pkm, wchar_t input[], int length)
     if(length < NICKLENGTH)
     {
         memset(&(pkm->nickname[length]), 0xffff, 2);
-        memset(&(pkm->nickname[NICKLENGTH]), 0xffff, 2);
+        memset(&(pkm->nickname[NICKLENGTH-1]), 0xffff, 2);
     }
 }
 void setpkmotname(pokemon_obj *pkm, wchar_t input[], int length)
@@ -632,7 +632,7 @@ void setpkmotname(pokemon_obj *pkm, wchar_t input[], int length)
     if(length < OTLENGTH)
     {
         memset(&(pkm->otname[length]), 0xffff, 2);
-        memset(&(pkm->otname[OTLENGTH]), 0xffff, 2);
+        memset(&(pkm->otname[OTLENGTH-1]), 0xffff, 2);
     }
 }
 Genders::genders getpkmgender(const pokemon_obj &pkm)
