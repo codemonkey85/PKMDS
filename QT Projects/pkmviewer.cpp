@@ -236,7 +236,7 @@ void pkmviewer::setPKM(pokemon_obj * pkm_, int box, bool isPartyPKM)
 }
 void pkmviewer::displayPKM(/*bool rename*/)
 {
-//    temppkm->form = 0;
+    //    temppkm->form = 0;
     redisplayok = false;
     int index = 0;
     this->setWindowTitle(QString::fromStdWString(getpkmnickname(temppkm)));
@@ -254,8 +254,8 @@ void pkmviewer::displayPKM(/*bool rename*/)
     }
     ui->sbTID->setValue(temppkm->tid);
     ui->sbSID->setValue(temppkm->sid);
-    ui->cbPKMSpecies->setCurrentIndex((int)(temppkm->species)-1);
-    ui->sbSpecies->setValue(temppkm->species);
+    ui->cbPKMSpecies->setCurrentIndex(temppkm->species_int-1);
+    ui->sbSpecies->setValue(temppkm->species_int);
     //    ui->cbPKMItem->setCurrentIndex((int)temppkm->item);
     index = ui->cbPKMItem->findData((int)temppkm->item);
     if ( index != -1 ) { // -1 for not found
@@ -415,7 +415,7 @@ void pkmviewer::displayPKM(/*bool rename*/)
     ui->chkMetAsEgg->setChecked(pkmmetasegg(temppkm));
     ui->cbEggLocation->setEnabled(ui->chkMetAsEgg->isChecked());
     ui->dtEggDate->setEnabled(ui->chkMetAsEgg->isChecked());
-    ui->chkIsEgg->setChecked(bool(temppkm->isegg));
+    ui->chkIsEgg->setChecked(temppkm->isegg);
     redisplayok = true;
     updatepkrs();
     updategenderpic();
@@ -428,7 +428,7 @@ void pkmviewer::displayPKM(/*bool rename*/)
     updatemoveimages();
     updatemoveinfo();
     updatehidpwr();
-    egg_display(bool(temppkm->isegg));
+    egg_display(temppkm->isegg);
 }
 void pkmviewer::updatestats()
 {
@@ -770,9 +770,9 @@ pkmviewer::~pkmviewer()
 }
 void pkmviewer::on_cbPKMItem_currentIndexChanged(int index)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
-        temppkm->item = (Items::items)(ui->cbPKMItem->itemData(index).toInt());
+        temppkm->item_int = ui->cbPKMItem->itemData(index).toInt();
         if(redisplayok)
         {
             switch(temppkm->species)
@@ -879,7 +879,7 @@ void pkmviewer::on_cbPKMItem_currentIndexChanged(int index)
 }
 void pkmviewer::on_sbLevel_valueChanged(int arg1)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
         if(levelchangeok)
         {
@@ -930,7 +930,7 @@ void pkmviewer::on_btnExportPKMFile_clicked()
 }
 void pkmviewer::on_cbPKMSpecies_currentIndexChanged(int index)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
         if(redisplayok)
         {
@@ -947,7 +947,7 @@ void pkmviewer::on_cbPKMSpecies_currentIndexChanged(int index)
 }
 void pkmviewer::on_sbSpecies_valueChanged(int arg1)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
         if(redisplayok)
         {
@@ -960,7 +960,7 @@ void pkmviewer::on_sbSpecies_valueChanged(int arg1)
 }
 void pkmviewer::on_txtNickname_textChanged(const QString &arg1)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
         if(redisplayok)
         {
@@ -992,7 +992,7 @@ void pkmviewer::on_txtNickname_textChanged(const QString &arg1)
 }
 void pkmviewer::on_sbEXP_valueChanged(int arg1)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
         if(redisplayok)
         {
@@ -1009,7 +1009,7 @@ void pkmviewer::on_sbEXP_valueChanged(int arg1)
 }
 void pkmviewer::on_rbOTMale_toggled(bool checked)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
         if(checked)
         {
@@ -1023,7 +1023,7 @@ void pkmviewer::on_rbOTMale_toggled(bool checked)
 }
 void pkmviewer::on_rbOTFemale_toggled(bool checked)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
         if(checked)
         {
@@ -1037,14 +1037,14 @@ void pkmviewer::on_rbOTFemale_toggled(bool checked)
 }
 void pkmviewer::on_cbNicknamed_toggled(bool checked)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
-        temppkm->isnicknamed = int(checked);
+        temppkm->isnicknamed = checked;
     }
 }
 void pkmviewer::on_txtOTName_textChanged(const QString &arg1)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
         if(redisplayok)
         {
@@ -1074,7 +1074,7 @@ void pkmviewer::on_txtOTName_textChanged(const QString &arg1)
 }
 void pkmviewer::on_sbTID_valueChanged(int arg1)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
         temppkm->tid = arg1;
         QPixmap shinypix;
@@ -1103,7 +1103,7 @@ void pkmviewer::on_sbTID_valueChanged(int arg1)
 }
 void pkmviewer::on_sbSID_valueChanged(int arg1)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
         temppkm->sid = arg1;
         QPixmap shinypix;// new QPixmap();
@@ -1523,7 +1523,7 @@ void pkmviewer::on_chkMetAsEgg_toggled(bool checked)
             temppkm->eggdate.year = byte(ui->dtEggDate->date().year()-2000);
             temppkm->eggdate.month = byte(ui->dtEggDate->date().month());
             temppkm->eggdate.day = byte(ui->dtEggDate->date().day());
-            temppkm->eggmet = (Locations::locations)(ui->cbEggLocation->itemData(ui->cbEggLocation->currentIndex()).toInt());
+            temppkm->eggmet_int = ui->cbEggLocation->itemData(ui->cbEggLocation->currentIndex()).toInt();
         }
     }
 }
@@ -1553,7 +1553,7 @@ void pkmviewer::on_cbMetLocation_currentIndexChanged(int index)
     if(redisplayok)
     {
         //temppkm->met = Locations::locations(index);
-        temppkm->met = (Locations::locations)(ui->cbMetLocation->itemData(index).toInt());
+        temppkm->met_int = ui->cbMetLocation->itemData(index).toInt();
     }
 }
 void pkmviewer::on_dtMetDate_dateChanged(const QDate &date)
@@ -1572,7 +1572,7 @@ void pkmviewer::on_cbEggLocation_currentIndexChanged(int index)
         if(ui->chkMetAsEgg->isChecked())
         {
             //temppkm->eggmet = Locations::locations(index);
-            temppkm->eggmet = (Locations::locations)(ui->cbEggLocation->itemData(index).toInt());
+            temppkm->eggmet_int = ui->cbEggLocation->itemData(index).toInt();
         }
     }
 }
@@ -1592,14 +1592,14 @@ void pkmviewer::on_cbHometown_currentIndexChanged(int index)
 {
     if(redisplayok)
     {
-        temppkm->hometown = (Hometowns::hometowns)(ui->cbHometown->itemData(index).toInt());
+        temppkm->hometown_int = ui->cbHometown->itemData(index).toInt();
     }
 }
 void pkmviewer::on_cbCountry_currentIndexChanged(int index)
 {
     if(redisplayok)
     {
-        temppkm->country = (Countries::countries)(ui->cbCountry->itemData(index).toInt());
+        temppkm->country_int = ui->cbCountry->itemData(index).toInt();
     }
 }
 void pkmviewer::on_sbPKRSStrain_valueChanged(int arg1)
@@ -1622,7 +1622,7 @@ void pkmviewer::on_chkIsEgg_toggled(bool checked)
 {
     if(redisplayok)
     {
-        temppkm->isegg = uint32(checked);
+        temppkm->isegg = checked;
         egg_display(checked);
     }
 }
@@ -1631,7 +1631,7 @@ void pkmviewer::on_sbTameness_valueChanged(int arg1)
     if(redisplayok)
     {
         temppkm->tameness = byte(arg1);
-        if(bool(temppkm->isegg))
+        if(temppkm->isegg)
         {
             ui->txtSteps->setText(QString::number(int(temppkm->tameness) * 255));
         }
