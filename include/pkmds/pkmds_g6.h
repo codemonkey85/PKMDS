@@ -2426,11 +2426,11 @@ namespace Forms
 struct formsfield_g6 { // Bitfield for determining the Pokemon's form, fateful encounter, and gender.
 	union
 	{
-//		struct
-//		{
-//byte : 3;
-//			byte form : 5; // Index number of this Pokemon's form.
-//		};
+		//		struct
+		//		{
+		//byte : 3;
+		//			byte form : 5; // Index number of this Pokemon's form.
+		//		};
 		struct
 		{
 byte : 3;
@@ -2647,10 +2647,29 @@ struct pokemonx_obj // The Pokemon object, containing 232 bytes of data (as stor
 		struct
 		{
 			//Unencrypted Data
-			union
+			union // PID2
 			{
 				uint32 key; // Used for encryption / decryption.
 				spindaspots_struct spinda_spots;
+				/*
+				8:27 PM <OmegaDonut> speaking of Spinda, I can confirm that gen 6 Spindas get their spots from the new PID2 rather than PID1
+				8:35 PM <%codemonkey85> You mean, the actual PID and not the encryption key?
+				8:35 PM <OmegaDonut> PID2 = encryption key, PID1 = old PID
+				8:36 PM <%codemonkey85> Ohh.
+				8:36 PM <%codemonkey85> Well then
+				8:37 PM <%codemonkey85> What does PID1 even do anymore? Well, shininess...
+				8:37 PM <%codemonkey85> That's really all it is, huh
+				8:37 PM <OmegaDonut> pretty much
+				8:37 PM <%codemonkey85> How about Wurmple evolution?
+				8:38 PM <OmegaDonut> Maybe, maybe not.
+				8:39 PM <%codemonkey85> Okay... Spinda union moved. Thanks for that
+				8:39 PM <OmegaDonut> I think in general all Spindas in gen 6 get their spots from PID2
+				8:40 PM <%codemonkey85> Well, Transported Pokemon have PID = PID2, right?
+				8:40 PM <OmegaDonut> it's just that when a Pokemon is moved from older gens with Transporter, PID1 is copied
+				8:40 PM <OmegaDonut> yeah that
+				8:40 PM <%codemonkey85> So yeah
+				8:40 PM <%codemonkey85> That makes sense
+				*/
 			};
 			bool ispartydatadecrypted : 1;
 			bool isboxdatadecrypted : 1;
@@ -2658,15 +2677,16 @@ struct pokemonx_obj // The Pokemon object, containing 232 bytes of data (as stor
 byte : 5;
 byte : 8;
 			uint16 checksum; // The checksum for the Pokemon data; used to validate data.
+			// Block A
 #include PACK_H
-			union
+			union // National Pokedex ID
 			{
-				Species_g6::species species; // National Pokedex ID
+				Species_g6::species species;
 				uint16 species_int;
 			};
-			union
+			union // Held item index
 			{
-				Items_g6::items item; // Held item index
+				Items_g6::items item;
 				uint16 item_int;
 			};
 			union
@@ -2679,22 +2699,22 @@ byte : 8;
 				};
 			};
 			uint32 exp;
-			union
+			union // Ability index
 			{
-				Abilities_g6::abilities ability; // Ability index
+				Abilities_g6::abilities ability;
 				byte ability_int;
 			};
 			byte abilitynum;
 uint16 : 16; // unknown
-			uint32 pid; // The Pokemon's personality value (PID).
-			union
+			uint32 pid; // PID1 // The Pokemon's personality value (PID).
+			union // Nature index
 			{
-				Natures::natures nature; // Nature index
+				Natures::natures nature;
 				byte nature_int;
 			};
 			union
 			{
-				formsfield_g6 forms; // Forms, fateful encounter, gender
+				formsfield_g6 forms; // Forms
 				struct
 				{
 					bool fencounter : 1; // Fateful encounter flag.
@@ -2704,7 +2724,7 @@ byte : 5;
 				};
 				struct
 				{
-					byte : 3;
+byte : 3;
 					byte form_int : 5;
 				};
 			};
@@ -2718,14 +2738,14 @@ byte : 5;
 				contestfield contest;
 				std::array<byte,6> contest_ints;
 			};
-			union
+			union // Markings
 			{
-				markingsfield markings; // Markings
+				markingsfield markings;
 				byte markings_int;
 			};
-			union
+			union // PokeRus
 			{
-				pokerus pkrs; // PokeRus
+				pokerus pkrs;
 				byte pkrs_int;
 			};
 			union
@@ -2748,6 +2768,7 @@ byte : 8; // unused
 byte : 8; // unused
 byte : 8; // unused
 byte : 8; // unused
+			// Block B
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
 			char nickname[24];
@@ -2782,6 +2803,7 @@ byte : 6;
 					bool isnicknamed : 1;
 				};
 			};
+			// Block C
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
 			char not_ot_name[24];
@@ -2801,15 +2823,16 @@ uint16 : 16; // unused
 uint16 : 16; // unused
 			byte not_ot_tameness;
 			byte not_ot_affection;
-byte : 8; // not ot text bank
-byte : 8; // not ot text line
+			byte not_ot_text_bank;
+			byte not_ot_text_line; // not ot text line
 			byte not_ot_feeling;
 byte : 8; // unused
-uint16 : 16; // not ot memory text var
+			uint16 not_ot_memory_text_var; // not ot memory text var
 uint16 : 16; // unused
 uint16 : 16; // unused
 			byte fullness;
 			byte enjoyment;
+			// Block D
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
 			char otname[24];
@@ -2820,26 +2843,26 @@ uint16 : 16; // unused
 uint16 : 16; // unused
 			byte ot_tameness;
 			byte ot_affection;
-byte : 8; // ot memory text bank
-byte : 8; // ot memory text line
-uint16 : 16; // ot memory text var
-byte : 8; // ot feeling
+			byte ot_memory_text_bank;
+			byte ot_memory_text_line;
+			uint16 ot_memory_text_var;
+			byte ot_feeling;
 			datefield eggdate;
 			datefield metdate;
 byte : 8; // Unknown / unused
-			union
+			union // Egg met location
 			{
-				Locations_g6::locations eggmet; // Egg met location
+				Locations_g6::locations eggmet;
 				uint16 eggmet_int;
 			};
-			union
+			union // Met / egg hatched location
 			{
-				Locations_g6::locations met; // Met location
+				Locations_g6::locations met;
 				uint16 met_int;
 			};
-			union
+			union // Ball captured with and kept in
 			{
-				Balls::balls ball; // Ball captured with and kept in
+				Balls::balls ball;
 				byte ball_int;
 			};
 			byte metlevel : 7; // The level at which this Pokemon was first encountered.
@@ -2848,14 +2871,14 @@ byte : 8; // Unknown / unused
 #else
 			Genders::genders otgender : 1; // Flag to determine if the original trainer was female.
 #endif
-			union
+			union // Encounter type (unused since Gen IV?)
 			{
-				Encounters::encounters encounter; // Encounter type (unused since Gen V?)
+				Encounters::encounters encounter;
 				byte encounter_int;
 			};
-			union
+			union // Original game
 			{
-				Hometowns::hometowns hometown; // Original game
+				Hometowns::hometowns hometown;
 				byte hometown_int;
 			};
 			byte country_id;
@@ -2865,9 +2888,9 @@ byte : 8; // Unknown / unused
 				Regions_3DS::regions regionid3ds;
 				byte region3ds_int;
 			};
-			union
+			union // Country / language of origin
 			{
-				Countries::countries country; // Country / language of origin
+				Countries::countries country;
 				byte country_int;
 			};
 uint32 : 32; // unused
