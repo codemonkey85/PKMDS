@@ -191,8 +191,7 @@ void buildgbasave(gbasavefilepacked * savin, gbasavefile * savout)
 void decryptgbapkm(pokemon_gen3 * pkm)
 {
 	uint32 key = (pkm->id ^ pkm->pid);
-	uint32 * pkmpnt = new uint32;
-	pkmpnt = reinterpret_cast<uint32*>(&(pkm->encrypted_data));
+    uint32 * pkmpnt = reinterpret_cast<uint32*>(&(pkm->encrypted_data));
 	for(int i = 0; i < 12; i++)
 	{
 		pkmpnt[i] = (pkmpnt[i] ^ key);
@@ -208,8 +207,7 @@ const byte t_shuffle[24][4] = {
 };
 void shufflegbapkm(pokemon_gen3 * pkm, bool un)
 {
-	byte * pkmpnt = new byte();
-	pkmpnt = reinterpret_cast<byte*>(&(pkm->encrypted_data));
+    byte * pkmpnt = reinterpret_cast<byte*>(&(pkm->encrypted_data));
 	byte temp[48];
 	//byte mode = (((((uint32*) pkmpnt)[0] >> 0xD) & 0x1F) % 24);
 	byte mode = pkm->pid % 24;
@@ -254,8 +252,7 @@ memcpy(&raw[8], &temp, 128);
 void calcchecksum(pokemon_gen3 * pkm)
 {
 	uint32 sum = 0;
-	uint16 * word = new uint16();
-	word = reinterpret_cast<uint16*>(&(pkm->encrypted_data));
+    uint16 * word = reinterpret_cast<uint16*>(&(pkm->encrypted_data));
 	for(int i = 0; i < 24; i++)
 	{
 		sum += word[i];
