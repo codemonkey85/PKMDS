@@ -115,7 +115,7 @@ string DllExport lookupmovename(const pokemon_obj *pkm, const int movenum, const
 string DllExport lookupmoveflavortext(const uint16 moveid, const int langid = LANG_ID, const int versiongroup = VERSION_GROUP);
 string DllExport lookupmoveflavortext(const pokemon_obj &pkm, const int movenum, const int langid = LANG_ID, const int versiongroup = VERSION_GROUP);
 string DllExport lookupmoveflavortext(const pokemon_obj *pkm, const int movenum, const int langid = LANG_ID, const int versiongroup = VERSION_GROUP);
-string DllExport lookupmovetypename(const uint16 moveid, const int langid = LANG_ID);
+string DllExport lookupmovetypename(const int moveid, const int langid = LANG_ID);
 string DllExport lookupmovetypename(const pokemon_obj &pkm, const int movenum, const int langid=LANG_ID);
 string DllExport lookupmovetypename(const pokemon_obj *pkm, const int movenum, const int langid=LANG_ID);
 string DllExport lookupmovedamagetypename(const uint16 moveid, const int langid = LANG_ID);

@@ -102,7 +102,7 @@ const byte t_shuffle[24][4] = {
 };
 void shuffle(pokemon_obj * pkm, bool un)
 {
-    byte * raw = reinterpret_cast<byte*>(pkm);
+    byte * raw = pkm->_raw_data_u8; // reinterpret_cast<byte*>(pkm);
     byte temp[128];
     byte mode = (((((uint32*) raw)[0] >> 0xD) & 0x1F) % 24);
 
@@ -124,7 +124,7 @@ void shuffle(pokemon_obj * pkm, bool un)
 }
 void shuffle(pokemon_obj & pkm, bool un)
 {
-    byte * raw = reinterpret_cast<byte*>(&pkm);
+    byte * raw = pkm._raw_data_u8; // reinterpret_cast<byte*>(&pkm);
     byte temp[128];
     byte mode = (((((uint32*) raw)[0] >> 0xD) & 0x1F) % 24);
 
@@ -164,7 +164,7 @@ void pkmcrypt(pokemon_obj& pkm)
 {
     pkmprng prng;
     prng.mseed = pkm.checksum;
-    uint16 * words = reinterpret_cast<uint16*>(&pkm);
+    uint16 * words = pkm._raw_data_u16; // reinterpret_cast<uint16*>(&pkm);
     for(int i = 4; i < 68; i++)
     {
         words[i] = (words[i]) ^ (prng.nextnum() >> 0x10);
@@ -194,15 +194,15 @@ void encryptpkm(pokemon_obj& pkm)
 {
     shufflepkm(pkm);
     pkmcrypt(pkm);
-    pkm.ispartydatadecrypted = 0;
-    pkm.isboxdatadecrypted = 0;
+    pkm.ispartydatadecrypted = false;
+    pkm.isboxdatadecrypted = false;
 }
 void decryptpkm(pokemon_obj& pkm)
 {
     pkmcrypt(pkm);
     unshufflepkm(pkm);
-    pkm.ispartydatadecrypted = 1;
-    pkm.isboxdatadecrypted = 1;
+    pkm.ispartydatadecrypted = true;
+    pkm.isboxdatadecrypted = true;
 }
 void decryptpartypkm_it(party_pkm & pkm)
 {
@@ -225,38 +225,38 @@ void encryptpkm(party_pkm& pkm)
     shufflepkm(&pkm);
     pkmcrypt(&pkm);
     pkmcrypt(pkm.party_data,pkm.pid);
-    pkm.ispartydatadecrypted = 0;
-    pkm.isboxdatadecrypted = 0;
+    pkm.ispartydatadecrypted = false;
+    pkm.isboxdatadecrypted = false;
 }
 void decryptpkm(party_pkm& pkm)
 {
     pkmcrypt(&pkm);
     pkmcrypt(pkm.party_data,pkm.pid);
     unshufflepkm(&pkm);
-    pkm.ispartydatadecrypted = 1;
-    pkm.isboxdatadecrypted = 1;
+    pkm.ispartydatadecrypted = true;
+    pkm.isboxdatadecrypted = true;
 }
 void encryptpkm(party_pkm* pkm)
 {
     shufflepkm(pkm);
     pkmcrypt(pkm);
     pkmcrypt(pkm->party_data,pkm->pid);
-    pkm->ispartydatadecrypted = 0;
-    pkm->isboxdatadecrypted = 0;
+    pkm->ispartydatadecrypted = false;
+    pkm->isboxdatadecrypted = false;
 }
 void decryptpkm(party_pkm* pkm)
 {
     pkmcrypt(pkm);
     pkmcrypt(pkm->party_data,pkm->pid);
     unshufflepkm(pkm);
-    pkm->ispartydatadecrypted = 1;
-    pkm->isboxdatadecrypted = 1;
+    pkm->ispartydatadecrypted = true;
+    pkm->isboxdatadecrypted = true;
 }
 void pkmcrypt(pokemon_obj* pkm)
 {
     pkmprng prng;
     prng.mseed = pkm->checksum;
-    uint16 * words = reinterpret_cast<uint16*>(pkm);
+    uint16 * words = pkm->_raw_data_u16; // reinterpret_cast<uint16*>(pkm);
     for(int i = 4; i < 68; i++)
     {
         words[i] = (words[i]) ^ (prng.nextnum() >> 0x10);
@@ -266,15 +266,15 @@ void encryptpkm(pokemon_obj* pkm)
 {
     shufflepkm(pkm);
     pkmcrypt(pkm);
-    pkm->ispartydatadecrypted = 0;
-    pkm->isboxdatadecrypted = 0;
+    pkm->ispartydatadecrypted = false;
+    pkm->isboxdatadecrypted = false;
 }
 void decryptpkm(pokemon_obj* pkm)
 {
     pkmcrypt(pkm);
     unshufflepkm(pkm);
-    pkm->ispartydatadecrypted = 1;
-    pkm->isboxdatadecrypted = 1;
+    pkm->ispartydatadecrypted = true;
+    pkm->isboxdatadecrypted = true;
 }
 uint16 getchecksum(bw2savblock_obj &block, const int start, const int length){
     byte* data = reinterpret_cast<byte*>(&block);
@@ -475,11 +475,12 @@ void fixsavchecksum(bw2sav_obj *sav, bool isbw2)
 }
 void write(const char* file_name, pokemon_obj& data) // Writes the given Pokemon data to the given file name.
 {
-    int encryptstatus[2] = {data.ispartydatadecrypted,data.isboxdatadecrypted};
-    data.ispartydatadecrypted = 0;
-    data.isboxdatadecrypted = 0;
+    bool encryptstatus[2] = {data.ispartydatadecrypted,data.isboxdatadecrypted};
+    data.ispartydatadecrypted = false;
+    data.isboxdatadecrypted = false;
     std::ofstream *out = new std::ofstream(file_name,std::ios::binary);
     out->write(reinterpret_cast<char*>(&data), sizeof(pokemon_obj));
+    //out->write(data._raw_data_p, sizeof(pokemon_obj));
     out->close();
     delete out;
     out = 0;
@@ -488,11 +489,12 @@ void write(const char* file_name, pokemon_obj& data) // Writes the given Pokemon
 }
 void write(const char* file_name, pokemon_obj* data) // Writes the given Pokemon data to the given file name.
 {
-    int encryptstatus[2] = {data->ispartydatadecrypted,data->isboxdatadecrypted};
-    data->ispartydatadecrypted = 0;
-    data->isboxdatadecrypted = 0;
+    bool encryptstatus[2] = {data->ispartydatadecrypted,data->isboxdatadecrypted};
+    data->ispartydatadecrypted = false;
+    data->isboxdatadecrypted = false;
     std::ofstream *out = new std::ofstream(file_name,std::ios::binary);
     out->write(reinterpret_cast<char*>(data), sizeof(pokemon_obj));
+    //out->write(data->_raw_data_p, sizeof(pokemon_obj));
     out->close();
     delete out;
     out = 0;
@@ -519,6 +521,7 @@ void read(const char* file_name, pokemon_obj& data) // Reads the given file and 
 {
     std::ifstream *in = new std::ifstream(file_name,std::ios::binary);
     in->read(reinterpret_cast<char*>(&data), sizeof(pokemon_obj));
+    //in->read(data._raw_data_p, sizeof(pokemon_obj));
     in->close();
     delete in;
     in = 0;
@@ -527,6 +530,7 @@ void read(const char* file_name, pokemon_obj *data) // Reads the given file and 
 {
     std::ifstream *in = new std::ifstream(file_name,std::ios::binary);
     in->read(reinterpret_cast<char*>(data), sizeof(pokemon_obj));
+    //in->read(data->_raw_data_p, sizeof(pokemon_obj));
     in->close();
     delete in;
     in = 0;
@@ -579,7 +583,7 @@ void setpkmnickname(pokemon_obj &pkm, wchar_t input[], int length)
     if(length < NICKLENGTH)
     {
         memset(&(pkm.nickname[length]), 0xffff, 2);
-        memset(&(pkm.nickname[NICKLENGTH]), 0xffff, 2);
+        memset(&(pkm.nickname[NICKLENGTH-1]), 0xffff, 2);
     }
 }
 void setpkmotname(pokemon_obj &pkm, wchar_t input[], int length)
@@ -590,7 +594,7 @@ void setpkmotname(pokemon_obj &pkm, wchar_t input[], int length)
     if(length < OTLENGTH)
     {
         memset(&(pkm.otname[length]), 0xffff, 2);
-        memset(&(pkm.otname[OTLENGTH]), 0xffff, 2);
+        memset(&(pkm.otname[OTLENGTH-1]), 0xffff, 2);
     }
 }
 std::wstring getpkmnickname(const pokemon_obj *pkm)
@@ -617,7 +621,7 @@ void setpkmnickname(pokemon_obj *pkm, wchar_t input[], int length)
     if(length < NICKLENGTH)
     {
         memset(&(pkm->nickname[length]), 0xffff, 2);
-        memset(&(pkm->nickname[NICKLENGTH]), 0xffff, 2);
+        memset(&(pkm->nickname[NICKLENGTH-1]), 0xffff, 2);
     }
 }
 void setpkmotname(pokemon_obj *pkm, wchar_t input[], int length)
@@ -628,19 +632,19 @@ void setpkmotname(pokemon_obj *pkm, wchar_t input[], int length)
     if(length < OTLENGTH)
     {
         memset(&(pkm->otname[length]), 0xffff, 2);
-        memset(&(pkm->otname[OTLENGTH]), 0xffff, 2);
+        memset(&(pkm->otname[OTLENGTH-1]), 0xffff, 2);
     }
 }
 Genders::genders getpkmgender(const pokemon_obj &pkm)
 {
-    if (pkm.forms.female){return Genders::female;};
-    if (pkm.forms.genderless){return Genders::genderless;};
+    if (pkm.female){return Genders::female;};
+    if (pkm.genderless){return Genders::genderless;};
     return Genders::male;
 }
 Genders::genders getpkmgender(const pokemon_obj *pkm)
 {
-    if (pkm->forms.female){return Genders::female;};
-    if (pkm->forms.genderless){return Genders::genderless;};
+    if (pkm->female){return Genders::female;};
+    if (pkm->genderless){return Genders::genderless;};
     return Genders::male;
 }
 void setpkmgender(pokemon_obj &pkm, int gender)
@@ -648,16 +652,16 @@ void setpkmgender(pokemon_obj &pkm, int gender)
     switch (gender)
     {
     case Genders::male:
-        pkm.forms.female = false;
-        pkm.forms.genderless = false;
+        pkm.female = false;
+        pkm.genderless = false;
         break;
     case Genders::female:
-        pkm.forms.female = true;
-        pkm.forms.genderless = false;
+        pkm.female = true;
+        pkm.genderless = false;
         break;
     case Genders::genderless:
-        pkm.forms.female = false;
-        pkm.forms.genderless = true;
+        pkm.female = false;
+        pkm.genderless = true;
         break;
     }
 }
@@ -677,16 +681,16 @@ void setpkmgender(pokemon_obj *pkm, int gender)
     switch (gender)
     {
     case Genders::male:
-        pkm->forms.female = false;
-        pkm->forms.genderless = false;
+        pkm->female = false;
+        pkm->genderless = false;
         break;
     case Genders::female:
-        pkm->forms.female = true;
-        pkm->forms.genderless = false;
+        pkm->female = true;
+        pkm->genderless = false;
         break;
     case Genders::genderless:
-        pkm->forms.female = false;
-        pkm->forms.genderless = true;
+        pkm->female = false;
+        pkm->genderless = true;
         break;
     }
 }
@@ -700,7 +704,7 @@ bool getpkmshiny(const pokemon_obj *pkm){
     return (E ^ F) < 8;
 }
 bool pkmmetasegg(const pokemon_obj *pkm){
-    return (((bool)(pkm->ivs.isegg)) | ((pkm->eggdate.year != 0) & (pkm->eggdate.month != 0) & (pkm->eggdate.day != 0)));
+    return (((bool)(pkm->isegg)) | ((pkm->eggdate.year != 0) & (pkm->eggdate.month != 0) & (pkm->eggdate.day != 0)));
 }
 void put_pkm(box_obj &box, const int slot, pokemon_obj &pkm, const bool isencrypted)
 {
@@ -846,7 +850,7 @@ pokemon_obj * getpcstorageavailableslot(bw2sav_obj * sav, int & box, int & slot,
         for(int slotc = 0; slotc < 30; slotc++)
         {
             pkm = &(sav->cur.boxes[boxc].pokemon[slotc]);
-            if(pkm->isboxdatadecrypted == 0)
+            if(pkm->isboxdatadecrypted == false)
             {
                 decryptpkm(pkm);
                 speciestest = pkm->species;
@@ -909,7 +913,7 @@ std::string getgendername(const int gender)
 }
 std::string getpkmotgendername(const pokemon_obj &pkm)
 {
-    return getgendername(pkm.metlevel_otgender.otgender);
+    return getgendername(pkm.otgender);
 }
 int gethiddenpowerpower(const pokemon_obj &pkm)
 {
@@ -939,7 +943,7 @@ int gethiddenpowertype(const pokemon_obj &pkm)
 }
 std::string getpkmotgendername(const pokemon_obj *pkm)
 {
-    return getgendername(pkm->metlevel_otgender.otgender);
+    return getgendername(pkm->otgender);
 }
 int gethiddenpowerpower(const pokemon_obj *pkm)
 {
@@ -1175,7 +1179,7 @@ std::array<bool, 80> getribbonswitches(const pokemon_obj * pkm)
     for(int bit = 0; bit < 12; bit++)
     {
         uint16 rib;
-        memcpy(&rib,&(pkm->sribbon2),2);
+        memcpy(&rib,&(pkm->uribbon),2);
         switches[ribnum] = (getbit(rib,bit) == 1);
         ribnum++;
         //		switches.push_back(getbit(rib,bit) == 1);
@@ -1229,7 +1233,7 @@ std::vector<std::string> getobtainedribbons(const pokemon_obj * pkm)
     for(int bit = 0; bit < 12; bit++)
     {
         uint16 rib;
-        memcpy(&rib,&(pkm->sribbon2),2);
+        memcpy(&rib,&(pkm->uribbon),2);
         if(getbit(rib,bit) == 1)
         {
             ribbonnames.push_back(ribbon_names[bit + 16]);
@@ -1310,7 +1314,7 @@ void deletemove(pokemon_obj * pkm, byte move)
         {
             if(pkm->moves[i] != Moves::sacredsword)
             {
-                pkm->forms.form = byte(Forms::Keldeo::ordinary);
+                pkm->form.keldeo_form = Forms::Keldeo::ordinary;
             }
         }
     }

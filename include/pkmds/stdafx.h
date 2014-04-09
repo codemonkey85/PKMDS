@@ -4,6 +4,11 @@
 #else
 #define DllExport __attribute__((visibility("default")))
 #endif
+#ifdef PKMDS_CMAKE_USED
+#define PACK_H <pkmds/pack.h>
+#else
+#define PACK_H "pack.h"
+#endif
 #include <string>
 #include <fstream>
 #include <iostream>

@@ -70,7 +70,7 @@ void write(const char* file_name, gbasavefile* savin, gbasavefilepacked* prevsav
 		-This new 16-bit value is the checksum.
 
 		Repacking the Save File
-		
+
 		To repack the file to save it to a slot, first split it into 14 blocks of 3,968 Bytes.
 
 		Add 116 Bytes of padding to each block, then add the 12 Byte footer structure as above,
@@ -190,10 +190,8 @@ void buildgbasave(gbasavefilepacked * savin, gbasavefile * savout)
 //}
 void decryptgbapkm(pokemon_gen3 * pkm)
 {
-	uint32 * TID = reinterpret_cast<uint32*>(&(pkm->tid));
-	uint32 key = ((*TID)  ^ pkm->pid);
-	uint32 * pkmpnt = new uint32;
-	pkmpnt = reinterpret_cast<uint32*>(&(pkm->data));
+	uint32 key = (pkm->id ^ pkm->pid);
+    uint32 * pkmpnt = reinterpret_cast<uint32*>(&(pkm->encrypted_data));
 	for(int i = 0; i < 12; i++)
 	{
 		pkmpnt[i] = (pkmpnt[i] ^ key);
@@ -209,8 +207,7 @@ const byte t_shuffle[24][4] = {
 };
 void shufflegbapkm(pokemon_gen3 * pkm, bool un)
 {
-	byte * pkmpnt = new byte();
-	pkmpnt = reinterpret_cast<byte*>(&(pkm->data));
+    byte * pkmpnt = reinterpret_cast<byte*>(&(pkm->encrypted_data));
 	byte temp[48];
 	//byte mode = (((((uint32*) pkmpnt)[0] >> 0xD) & 0x1F) % 24);
 	byte mode = pkm->pid % 24;
@@ -255,8 +252,7 @@ memcpy(&raw[8], &temp, 128);
 void calcchecksum(pokemon_gen3 * pkm)
 {
 	uint32 sum = 0;
-	uint16 * word = new uint16();
-	word = reinterpret_cast<uint16*>(&(pkm->data));
+    uint16 * word = reinterpret_cast<uint16*>(&(pkm->encrypted_data));
 	for(int i = 0; i < 24; i++)
 	{
 		sum += word[i];
@@ -1389,52 +1385,52 @@ GBASpecies::gbaspecies convertgbaspecies(int in)
 #if (defined __linux__) || (defined __APPLE__)
 int gbatounicode[240][2]
 {
-    {0x00,L'\0'},{0x01,L'あ'},{0x02,L'い'},{0x03,L'う'},{0x04,L'え'},{0x05,L'お'},{0x06,L'か'},{0x07,L'き'},{0x08,L'く'},{0x09,L'け'},{0x0A,L'こ'},{0x0B,L'さ'},{0x0C,L'し'},{0x0D,L'す'},{0x0E,L'せ'},{0x0F,L'そ'},
-    {0x10,L'た'},{0x11,L'ち'},{0x12,L'つ'},{0x13,L'て'},{0x14,L'と'},{0x15,L'な'},{0x16,L'に'},{0x17,L'ぬ'},{0x18,L'ね'},{0x19,L'の'},{0x1A,L'は'},{0x1B,L'ひ'},{0x1C,L'ふ'},{0x1D,L'へ'},{0x1E,L'ほ'},{0x1F,L'ま'},
-    {0x20,L'み'},{0x21,L'む'},{0x22,L'め'},{0x23,L'も'},{0x24,L'や'},{0x25,L'ゆ'},{0x26,L'よ'},{0x27,L'ら'},{0x28,L'り'},{0x29,L'る'},{0x2A,L'れ'},{0x2B,L'ろ'},{0x2C,L'わ'},{0x2D,L'を'},{0x2E,L'ん'},{0x2F,L'ぁ'},
-    {0x30,L'ぃ'},{0x31,L'ぅ'},{0x32,L'ぇ'},{0x33,L'ぉ'},{0x34,L'ゃ'},{0x35,L'ゅ'},{0x36,L'ょ'},{0x37,L'が'},{0x38,L'ぎ'},{0x39,L'ぐ'},{0x3A,L'げ'},{0x3B,L'ご'},{0x3C,L'ざ'},{0x3D,L'じ'},{0x3E,L'ず'},{0x3F,L'ぜ'},
-    {0x40,L'ぞ'},{0x41,L'だ'},{0x42,L'ぢ'},{0x43,L'づ'},{0x44,L'で'},{0x45,L'ど'},{0x46,L'ば'},{0x47,L'び'},{0x48,L'ぶ'},{0x49,L'べ'},{0x4A,L'ぼ'},{0x4B,L'ぱ'},{0x4C,L'ぴ'},{0x4D,L'ぷ'},{0x4E,L'ぺ'},{0x4F,L'ぽ'},
-    {0x50,L'\0'},{0x51,L'ア'},{0x52,L'イ'},{0x53,L'ウ'},{0x54,L'エ'},{0x55,L'オ'},{0x56,L'カ'},{0x57,L'キ'},{0x58,L'ク'},{0x59,L'ケ'},{0x5A,L'コ'},{0x5B,L'サ'},{0x5C,L'シ'},{0x5D,L'ス'},{0x5E,L'セ'},{0x5F,L'ソ'},
-    {0x60,L'タ'},{0x61,L'チ'},{0x62,L'ツ'},{0x63,L'テ'},{0x64,L'ト'},{0x65,L'ナ'},{0x66,L'ニ'},{0x67,L'ヌ'},{0x68,L'ネ'},{0x69,L'ノ'},{0x6A,L'ハ'},{0x6B,L'ヒ'},{0x6C,L'フ'},{0x6D,L'ヘ'},{0x6E,L'ホ'},{0x6F,L'マ'},
-    {0x70,L'ミ'},{0x71,L'ム'},{0x72,L'メ'},{0x73,L'モ'},{0x74,L'ヤ'},{0x75,L'ユ'},{0x76,L'ヨ'},{0x77,L'ラ'},{0x78,L'リ'},{0x79,L'ル'},{0x7A,L'レ'},{0x7B,L'ロ'},{0x7C,L'ワ'},{0x7D,L'ヲ'},{0x7E,L'ン'},{0x7F,L'ァ'},
-    {0x80,L'ィ'},{0x81,L'ゥ'},{0x82,L'ェ'},{0x83,L'ォ'},{0x84,L'ャ'},{0x85,L'ュ'},{0x86,L'ョ'},{0x87,L'ガ'},{0x88,L'ギ'},{0x89,L'グ'},{0x8A,L'ゲ'},{0x8B,L'ゴ'},{0x8C,L'ザ'},{0x8D,L'ジ'},{0x8E,L'ズ'},{0x8F,L'ゼ'},
-    {0x90,L'ゾ'},{0x91,L'ダ'},{0x92,L'ヂ'},{0x93,L'ヅ'},{0x94,L'デ'},{0x95,L'ド'},{0x96,L'バ'},{0x97,L'ビ'},{0x98,L'ブ'},{0x99,L'ベ'},{0x9A,L'ボ'},{0x9B,L'パ'},{0x9C,L'ピ'},{0x9D,L'プ'},{0x9E,L'ペ'},{0x9F,L'ポ'},
-    {0xA0,L'\0'},{0xA1,L'0'},{0xA2,L'1'},{0xA3,L'2'},{0xA4,L'3'},{0xA5,L'4'},{0xA6,L'5'},{0xA7,L'6'},{0xA8,L'7'},{0xA9,L'8'},{0xAA,L'9'},{0xAB,L'!'},{0xAC,L'?'},{0xAD,L'.'},{0xAE,L'-'},{0xAF,L'\0'},
-    {0xB0,L'…'},{0xB1,L'“'},{0xB2,L'”'},{0xB3,L'‘'},{0xB4,L'’'},{0xB5,L'♂'},{0xB6,L'♀'},{0xB7,L'\0'},{0xB8,L',L'},{0xB9,L'\0'},{0xBA,L'/'},{0xBB,L'A'},{0xBC,L'B'},{0xBD,L'C'},{0xBE,L'D'},{0xBF,L'E'},
-    {0xC0,L'F'},{0xC1,L'G'},{0xC2,L'H'},{0xC3,L'I'},{0xC4,L'J'},{0xC5,L'K'},{0xC6,L'L'},{0xC7,L'M'},{0xC8,L'N'},{0xC9,L'O'},{0xCA,L'P'},{0xCB,L'Q'},{0xCC,L'R'},{0xCD,L'S'},{0xCE,L'T'},{0xCF,L'U'},
-    {0xD0,L'V'},{0xD1,L'W'},{0xD2,L'X'},{0xD3,L'Y'},{0xD4,L'Z'},{0xD5,L'a'},{0xD6,L'b'},{0xD7,L'c'},{0xD8,L'd'},{0xD9,L'e'},{0xDA,L'f'},{0xDB,L'g'},{0xDC,L'h'},{0xDD,L'i'},{0xDE,L'j'},{0xDF,L'k'},
-    {0xE0,L'l'},{0xE1,L'm'},{0xE2,L'n'},{0xE3,L'o'},{0xE4,L'p'},{0xE5,L'q'},{0xE6,L'r'},{0xE7,L's'},{0xE8,L't'},{0xE9,L'u'},{0xEA,L'v'},{0xEB,L'w'},{0xEC,L'x'},{0xED,L'y'},{0xEE,L'z'},{0xEF,L'\0'},
+	{0x00,L'\0'},{0x01,L'あ'},{0x02,L'い'},{0x03,L'う'},{0x04,L'え'},{0x05,L'お'},{0x06,L'か'},{0x07,L'き'},{0x08,L'く'},{0x09,L'け'},{0x0A,L'こ'},{0x0B,L'さ'},{0x0C,L'し'},{0x0D,L'す'},{0x0E,L'せ'},{0x0F,L'そ'},
+	{0x10,L'た'},{0x11,L'ち'},{0x12,L'つ'},{0x13,L'て'},{0x14,L'と'},{0x15,L'な'},{0x16,L'に'},{0x17,L'ぬ'},{0x18,L'ね'},{0x19,L'の'},{0x1A,L'は'},{0x1B,L'ひ'},{0x1C,L'ふ'},{0x1D,L'へ'},{0x1E,L'ほ'},{0x1F,L'ま'},
+	{0x20,L'み'},{0x21,L'む'},{0x22,L'め'},{0x23,L'も'},{0x24,L'や'},{0x25,L'ゆ'},{0x26,L'よ'},{0x27,L'ら'},{0x28,L'り'},{0x29,L'る'},{0x2A,L'れ'},{0x2B,L'ろ'},{0x2C,L'わ'},{0x2D,L'を'},{0x2E,L'ん'},{0x2F,L'ぁ'},
+	{0x30,L'ぃ'},{0x31,L'ぅ'},{0x32,L'ぇ'},{0x33,L'ぉ'},{0x34,L'ゃ'},{0x35,L'ゅ'},{0x36,L'ょ'},{0x37,L'が'},{0x38,L'ぎ'},{0x39,L'ぐ'},{0x3A,L'げ'},{0x3B,L'ご'},{0x3C,L'ざ'},{0x3D,L'じ'},{0x3E,L'ず'},{0x3F,L'ぜ'},
+	{0x40,L'ぞ'},{0x41,L'だ'},{0x42,L'ぢ'},{0x43,L'づ'},{0x44,L'で'},{0x45,L'ど'},{0x46,L'ば'},{0x47,L'び'},{0x48,L'ぶ'},{0x49,L'べ'},{0x4A,L'ぼ'},{0x4B,L'ぱ'},{0x4C,L'ぴ'},{0x4D,L'ぷ'},{0x4E,L'ぺ'},{0x4F,L'ぽ'},
+	{0x50,L'\0'},{0x51,L'ア'},{0x52,L'イ'},{0x53,L'ウ'},{0x54,L'エ'},{0x55,L'オ'},{0x56,L'カ'},{0x57,L'キ'},{0x58,L'ク'},{0x59,L'ケ'},{0x5A,L'コ'},{0x5B,L'サ'},{0x5C,L'シ'},{0x5D,L'ス'},{0x5E,L'セ'},{0x5F,L'ソ'},
+	{0x60,L'タ'},{0x61,L'チ'},{0x62,L'ツ'},{0x63,L'テ'},{0x64,L'ト'},{0x65,L'ナ'},{0x66,L'ニ'},{0x67,L'ヌ'},{0x68,L'ネ'},{0x69,L'ノ'},{0x6A,L'ハ'},{0x6B,L'ヒ'},{0x6C,L'フ'},{0x6D,L'ヘ'},{0x6E,L'ホ'},{0x6F,L'マ'},
+	{0x70,L'ミ'},{0x71,L'ム'},{0x72,L'メ'},{0x73,L'モ'},{0x74,L'ヤ'},{0x75,L'ユ'},{0x76,L'ヨ'},{0x77,L'ラ'},{0x78,L'リ'},{0x79,L'ル'},{0x7A,L'レ'},{0x7B,L'ロ'},{0x7C,L'ワ'},{0x7D,L'ヲ'},{0x7E,L'ン'},{0x7F,L'ァ'},
+	{0x80,L'ィ'},{0x81,L'ゥ'},{0x82,L'ェ'},{0x83,L'ォ'},{0x84,L'ャ'},{0x85,L'ュ'},{0x86,L'ョ'},{0x87,L'ガ'},{0x88,L'ギ'},{0x89,L'グ'},{0x8A,L'ゲ'},{0x8B,L'ゴ'},{0x8C,L'ザ'},{0x8D,L'ジ'},{0x8E,L'ズ'},{0x8F,L'ゼ'},
+	{0x90,L'ゾ'},{0x91,L'ダ'},{0x92,L'ヂ'},{0x93,L'ヅ'},{0x94,L'デ'},{0x95,L'ド'},{0x96,L'バ'},{0x97,L'ビ'},{0x98,L'ブ'},{0x99,L'ベ'},{0x9A,L'ボ'},{0x9B,L'パ'},{0x9C,L'ピ'},{0x9D,L'プ'},{0x9E,L'ペ'},{0x9F,L'ポ'},
+	{0xA0,L'\0'},{0xA1,L'0'},{0xA2,L'1'},{0xA3,L'2'},{0xA4,L'3'},{0xA5,L'4'},{0xA6,L'5'},{0xA7,L'6'},{0xA8,L'7'},{0xA9,L'8'},{0xAA,L'9'},{0xAB,L'!'},{0xAC,L'?'},{0xAD,L'.'},{0xAE,L'-'},{0xAF,L'\0'},
+	{0xB0,L'…'},{0xB1,L'“'},{0xB2,L'”'},{0xB3,L'‘'},{0xB4,L'’'},{0xB5,L'♂'},{0xB6,L'♀'},{0xB7,L'\0'},{0xB8,L',L'},{0xB9,L'\0'},{0xBA,L'/'},{0xBB,L'A'},{0xBC,L'B'},{0xBD,L'C'},{0xBE,L'D'},{0xBF,L'E'},
+	{0xC0,L'F'},{0xC1,L'G'},{0xC2,L'H'},{0xC3,L'I'},{0xC4,L'J'},{0xC5,L'K'},{0xC6,L'L'},{0xC7,L'M'},{0xC8,L'N'},{0xC9,L'O'},{0xCA,L'P'},{0xCB,L'Q'},{0xCC,L'R'},{0xCD,L'S'},{0xCE,L'T'},{0xCF,L'U'},
+	{0xD0,L'V'},{0xD1,L'W'},{0xD2,L'X'},{0xD3,L'Y'},{0xD4,L'Z'},{0xD5,L'a'},{0xD6,L'b'},{0xD7,L'c'},{0xD8,L'd'},{0xD9,L'e'},{0xDA,L'f'},{0xDB,L'g'},{0xDC,L'h'},{0xDD,L'i'},{0xDE,L'j'},{0xDF,L'k'},
+	{0xE0,L'l'},{0xE1,L'm'},{0xE2,L'n'},{0xE3,L'o'},{0xE4,L'p'},{0xE5,L'q'},{0xE6,L'r'},{0xE7,L's'},{0xE8,L't'},{0xE9,L'u'},{0xEA,L'v'},{0xEB,L'w'},{0xEC,L'x'},{0xED,L'y'},{0xEE,L'z'},{0xEF,L'\0'},
 };
 #else
 int gbatounicode[240][2] =
 {
-    {0x00,'\0'},{0x01,'あ'},{0x02,'い'},{0x03,'う'},{0x04,'え'},{0x05,'お'},{0x06,'か'},{0x07,'き'},{0x08,'く'},{0x09,'け'},{0x0A,'こ'},{0x0B,'さ'},{0x0C,'し'},{0x0D,'す'},{0x0E,'せ'},{0x0F,'そ'},
-    {0x10,'た'},{0x11,'ち'},{0x12,'つ'},{0x13,'て'},{0x14,'と'},{0x15,'な'},{0x16,'に'},{0x17,'ぬ'},{0x18,'ね'},{0x19,'の'},{0x1A,'は'},{0x1B,'ひ'},{0x1C,'ふ'},{0x1D,'へ'},{0x1E,'ほ'},{0x1F,'ま'},
-    {0x20,'み'},{0x21,'む'},{0x22,'め'},{0x23,'も'},{0x24,'や'},{0x25,'ゆ'},{0x26,'よ'},{0x27,'ら'},{0x28,'り'},{0x29,'る'},{0x2A,'れ'},{0x2B,'ろ'},{0x2C,'わ'},{0x2D,'を'},{0x2E,'ん'},{0x2F,'ぁ'},
-    {0x30,'ぃ'},{0x31,'ぅ'},{0x32,'ぇ'},{0x33,'ぉ'},{0x34,'ゃ'},{0x35,'ゅ'},{0x36,'ょ'},{0x37,'が'},{0x38,'ぎ'},{0x39,'ぐ'},{0x3A,'げ'},{0x3B,'ご'},{0x3C,'ざ'},{0x3D,'じ'},{0x3E,'ず'},{0x3F,'ぜ'},
-    {0x40,'ぞ'},{0x41,'だ'},{0x42,'ぢ'},{0x43,'づ'},{0x44,'で'},{0x45,'ど'},{0x46,'ば'},{0x47,'び'},{0x48,'ぶ'},{0x49,'べ'},{0x4A,'ぼ'},{0x4B,'ぱ'},{0x4C,'ぴ'},{0x4D,'ぷ'},{0x4E,'ぺ'},{0x4F,'ぽ'},
-    {0x50,'\0'},{0x51,'ア'},{0x52,'イ'},{0x53,'ウ'},{0x54,'エ'},{0x55,'オ'},{0x56,'カ'},{0x57,'キ'},{0x58,'ク'},{0x59,'ケ'},{0x5A,'コ'},{0x5B,'サ'},{0x5C,'シ'},{0x5D,'ス'},{0x5E,'セ'},{0x5F,'ソ'},
-    {0x60,'タ'},{0x61,'チ'},{0x62,'ツ'},{0x63,'テ'},{0x64,'ト'},{0x65,'ナ'},{0x66,'ニ'},{0x67,'ヌ'},{0x68,'ネ'},{0x69,'ノ'},{0x6A,'ハ'},{0x6B,'ヒ'},{0x6C,'フ'},{0x6D,'ヘ'},{0x6E,'ホ'},{0x6F,'マ'},
-    {0x70,'ミ'},{0x71,'ム'},{0x72,'メ'},{0x73,'モ'},{0x74,'ヤ'},{0x75,'ユ'},{0x76,'ヨ'},{0x77,'ラ'},{0x78,'リ'},{0x79,'ル'},{0x7A,'レ'},{0x7B,'ロ'},{0x7C,'ワ'},{0x7D,'ヲ'},{0x7E,'ン'},{0x7F,'ァ'},
-    {0x80,'ィ'},{0x81,'ゥ'},{0x82,'ェ'},{0x83,'ォ'},{0x84,'ャ'},{0x85,'ュ'},{0x86,'ョ'},{0x87,'ガ'},{0x88,'ギ'},{0x89,'グ'},{0x8A,'ゲ'},{0x8B,'ゴ'},{0x8C,'ザ'},{0x8D,'ジ'},{0x8E,'ズ'},{0x8F,'ゼ'},
-    {0x90,'ゾ'},{0x91,'ダ'},{0x92,'ヂ'},{0x93,'ヅ'},{0x94,'デ'},{0x95,'ド'},{0x96,'バ'},{0x97,'ビ'},{0x98,'ブ'},{0x99,'ベ'},{0x9A,'ボ'},{0x9B,'パ'},{0x9C,'ピ'},{0x9D,'プ'},{0x9E,'ペ'},{0x9F,'ポ'},
-    {0xA0,'\0'},{0xA1,'0'},{0xA2,'1'},{0xA3,'2'},{0xA4,'3'},{0xA5,'4'},{0xA6,'5'},{0xA7,'6'},{0xA8,'7'},{0xA9,'8'},{0xAA,'9'},{0xAB,'!'},{0xAC,'?'},{0xAD,'.'},{0xAE,'-'},{0xAF,'\0'},
-    {0xB0,'…'},{0xB1,'“'},{0xB2,'”'},{0xB3,'‘'},{0xB4,'’'},{0xB5,'♂'},{0xB6,'♀'},{0xB7,'\0'},{0xB8,','},{0xB9,'\0'},{0xBA,'/'},{0xBB,'A'},{0xBC,'B'},{0xBD,'C'},{0xBE,'D'},{0xBF,'E'},
-    {0xC0,'F'},{0xC1,'G'},{0xC2,'H'},{0xC3,'I'},{0xC4,'J'},{0xC5,'K'},{0xC6,'L'},{0xC7,'M'},{0xC8,'N'},{0xC9,'O'},{0xCA,'P'},{0xCB,'Q'},{0xCC,'R'},{0xCD,'S'},{0xCE,'T'},{0xCF,'U'},
-    {0xD0,'V'},{0xD1,'W'},{0xD2,'X'},{0xD3,'Y'},{0xD4,'Z'},{0xD5,'a'},{0xD6,'b'},{0xD7,'c'},{0xD8,'d'},{0xD9,'e'},{0xDA,'f'},{0xDB,'g'},{0xDC,'h'},{0xDD,'i'},{0xDE,'j'},{0xDF,'k'},
-    {0xE0,'l'},{0xE1,'m'},{0xE2,'n'},{0xE3,'o'},{0xE4,'p'},{0xE5,'q'},{0xE6,'r'},{0xE7,'s'},{0xE8,'t'},{0xE9,'u'},{0xEA,'v'},{0xEB,'w'},{0xEC,'x'},{0xED,'y'},{0xEE,'z'},{0xEF,'\0'},
+	{0x00,'\0'},{0x01,'あ'},{0x02,'い'},{0x03,'う'},{0x04,'え'},{0x05,'お'},{0x06,'か'},{0x07,'き'},{0x08,'く'},{0x09,'け'},{0x0A,'こ'},{0x0B,'さ'},{0x0C,'し'},{0x0D,'す'},{0x0E,'せ'},{0x0F,'そ'},
+	{0x10,'た'},{0x11,'ち'},{0x12,'つ'},{0x13,'て'},{0x14,'と'},{0x15,'な'},{0x16,'に'},{0x17,'ぬ'},{0x18,'ね'},{0x19,'の'},{0x1A,'は'},{0x1B,'ひ'},{0x1C,'ふ'},{0x1D,'へ'},{0x1E,'ほ'},{0x1F,'ま'},
+	{0x20,'み'},{0x21,'む'},{0x22,'め'},{0x23,'も'},{0x24,'や'},{0x25,'ゆ'},{0x26,'よ'},{0x27,'ら'},{0x28,'り'},{0x29,'る'},{0x2A,'れ'},{0x2B,'ろ'},{0x2C,'わ'},{0x2D,'を'},{0x2E,'ん'},{0x2F,'ぁ'},
+	{0x30,'ぃ'},{0x31,'ぅ'},{0x32,'ぇ'},{0x33,'ぉ'},{0x34,'ゃ'},{0x35,'ゅ'},{0x36,'ょ'},{0x37,'が'},{0x38,'ぎ'},{0x39,'ぐ'},{0x3A,'げ'},{0x3B,'ご'},{0x3C,'ざ'},{0x3D,'じ'},{0x3E,'ず'},{0x3F,'ぜ'},
+	{0x40,'ぞ'},{0x41,'だ'},{0x42,'ぢ'},{0x43,'づ'},{0x44,'で'},{0x45,'ど'},{0x46,'ば'},{0x47,'び'},{0x48,'ぶ'},{0x49,'べ'},{0x4A,'ぼ'},{0x4B,'ぱ'},{0x4C,'ぴ'},{0x4D,'ぷ'},{0x4E,'ぺ'},{0x4F,'ぽ'},
+	{0x50,'\0'},{0x51,'ア'},{0x52,'イ'},{0x53,'ウ'},{0x54,'エ'},{0x55,'オ'},{0x56,'カ'},{0x57,'キ'},{0x58,'ク'},{0x59,'ケ'},{0x5A,'コ'},{0x5B,'サ'},{0x5C,'シ'},{0x5D,'ス'},{0x5E,'セ'},{0x5F,'ソ'},
+	{0x60,'タ'},{0x61,'チ'},{0x62,'ツ'},{0x63,'テ'},{0x64,'ト'},{0x65,'ナ'},{0x66,'ニ'},{0x67,'ヌ'},{0x68,'ネ'},{0x69,'ノ'},{0x6A,'ハ'},{0x6B,'ヒ'},{0x6C,'フ'},{0x6D,'ヘ'},{0x6E,'ホ'},{0x6F,'マ'},
+	{0x70,'ミ'},{0x71,'ム'},{0x72,'メ'},{0x73,'モ'},{0x74,'ヤ'},{0x75,'ユ'},{0x76,'ヨ'},{0x77,'ラ'},{0x78,'リ'},{0x79,'ル'},{0x7A,'レ'},{0x7B,'ロ'},{0x7C,'ワ'},{0x7D,'ヲ'},{0x7E,'ン'},{0x7F,'ァ'},
+	{0x80,'ィ'},{0x81,'ゥ'},{0x82,'ェ'},{0x83,'ォ'},{0x84,'ャ'},{0x85,'ュ'},{0x86,'ョ'},{0x87,'ガ'},{0x88,'ギ'},{0x89,'グ'},{0x8A,'ゲ'},{0x8B,'ゴ'},{0x8C,'ザ'},{0x8D,'ジ'},{0x8E,'ズ'},{0x8F,'ゼ'},
+	{0x90,'ゾ'},{0x91,'ダ'},{0x92,'ヂ'},{0x93,'ヅ'},{0x94,'デ'},{0x95,'ド'},{0x96,'バ'},{0x97,'ビ'},{0x98,'ブ'},{0x99,'ベ'},{0x9A,'ボ'},{0x9B,'パ'},{0x9C,'ピ'},{0x9D,'プ'},{0x9E,'ペ'},{0x9F,'ポ'},
+	{0xA0,'\0'},{0xA1,'0'},{0xA2,'1'},{0xA3,'2'},{0xA4,'3'},{0xA5,'4'},{0xA6,'5'},{0xA7,'6'},{0xA8,'7'},{0xA9,'8'},{0xAA,'9'},{0xAB,'!'},{0xAC,'?'},{0xAD,'.'},{0xAE,'-'},{0xAF,'\0'},
+	{0xB0,'…'},{0xB1,'“'},{0xB2,'”'},{0xB3,'‘'},{0xB4,'’'},{0xB5,'♂'},{0xB6,'♀'},{0xB7,'\0'},{0xB8,','},{0xB9,'\0'},{0xBA,'/'},{0xBB,'A'},{0xBC,'B'},{0xBD,'C'},{0xBE,'D'},{0xBF,'E'},
+	{0xC0,'F'},{0xC1,'G'},{0xC2,'H'},{0xC3,'I'},{0xC4,'J'},{0xC5,'K'},{0xC6,'L'},{0xC7,'M'},{0xC8,'N'},{0xC9,'O'},{0xCA,'P'},{0xCB,'Q'},{0xCC,'R'},{0xCD,'S'},{0xCE,'T'},{0xCF,'U'},
+	{0xD0,'V'},{0xD1,'W'},{0xD2,'X'},{0xD3,'Y'},{0xD4,'Z'},{0xD5,'a'},{0xD6,'b'},{0xD7,'c'},{0xD8,'d'},{0xD9,'e'},{0xDA,'f'},{0xDB,'g'},{0xDC,'h'},{0xDD,'i'},{0xDE,'j'},{0xDF,'k'},
+	{0xE0,'l'},{0xE1,'m'},{0xE2,'n'},{0xE3,'o'},{0xE4,'p'},{0xE5,'q'},{0xE6,'r'},{0xE7,'s'},{0xE8,'t'},{0xE9,'u'},{0xEA,'v'},{0xEB,'w'},{0xEC,'x'},{0xED,'y'},{0xEE,'z'},{0xEF,'\0'},
 };
 #endif
 int convertgbatext(int in)
 {
-    for(int i = 0; i < 240; i++)
-    {
-        if(in == int(gbatounicode[i][0]))
-        {
-            return int(gbatounicode[i][1]);
-        }
-    }
-    return '\0';
+	for(int i = 0; i < 240; i++)
+	{
+		if(in == int(gbatounicode[i][0]))
+		{
+			return int(gbatounicode[i][1]);
+		}
+	}
+	return '\0';
 }
 void write(const char* file_name, pokemon_gen3* data)
 {
@@ -1452,8 +1448,8 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 		<< "ability_names.ability_id INNER JOIN pokemon_abilities ON abilities.id =  "
 		<< "pokemon_abilities.ability_id INNER JOIN pokemon ON pokemon_abilities.pokemon_id "
 		<< " = pokemon.id WHERE ( ability_names.local_language_id = 9 ) AND ( pokemon.species_id "
-		<< " = " << int(gbapkm->data.species) << " ) AND ( abilities.generation_id = 3 ) AND ( pokemon_abilities.slot "
-		<< " = " << int(gbapkm->data.ivs.ability_flag) << " + 1 ) ";
+		<< " = " << int(gbapkm->species) << " ) AND ( abilities.generation_id = 3 ) AND ( pokemon_abilities.slot "
+		<< " = " << int(gbapkm->ability_flag) << " + 1 ) ";
 	int ability = getanint(o);
 	if(ability == 0)
 	{
@@ -1464,72 +1460,72 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 			<< "ability_names.ability_id INNER JOIN pokemon_abilities ON abilities.id =  "
 			<< "pokemon_abilities.ability_id INNER JOIN pokemon ON pokemon_abilities.pokemon_id "
 			<< " = pokemon.id WHERE ( ability_names.local_language_id = 9 ) AND ( pokemon.species_id "
-			<< " = " << int(gbapkm->data.species) << " ) AND ( abilities.generation_id = 3 ) AND ( pokemon_abilities.slot "
+			<< " = " << int(gbapkm->species) << " ) AND ( abilities.generation_id = 3 ) AND ( pokemon_abilities.slot "
 			<< " = 1) ";
 		ability = getanint(o);
 	}
 	pkm->ability = Abilities::abilities(ability);
-	pkm->contest.beauty = gbapkm->data.contest.beauty;
-	pkm->contest.cool = gbapkm->data.contest.cool;
-	pkm->contest.cute = gbapkm->data.contest.cute;
-	pkm->contest.sheen = gbapkm->data.contest.sheen;
-	pkm->contest.smart = gbapkm->data.contest.smart;
-	pkm->contest.tough = gbapkm->data.contest.tough;
+	pkm->contest.beauty = gbapkm->contest.beauty;
+	pkm->contest.cool = gbapkm->contest.cool;
+	pkm->contest.cute = gbapkm->contest.cute;
+	pkm->contest.sheen = gbapkm->contest.sheen;
+	pkm->contest.smart = gbapkm->contest.smart;
+	pkm->contest.tough = gbapkm->contest.tough;
 	switch(gbapkm->lang)
 	{
-	case 0201:
+	case GBALang::japanese:
 		pkm->country = Countries::japanese;
 		break;
-	case 0202:
+	case GBALang::english:
 		pkm->country = Countries::english;
 		break;
-	case 0203:
+	case GBALang::french:
 		pkm->country = Countries::french;
 		break;
-	case 0204:
+	case GBALang::italian:
 		pkm->country = Countries::italian;
 		break;
-	case 0205:
+	case GBALang::german:
 		pkm->country = Countries::german;
 		break;
-	case 0206:
+	case GBALang::korean:
 		pkm->country = Countries::southkorean;
 		break;
-	case 0207:
+	case GBALang::spanish:
 		pkm->country = Countries::spanish;
 		break;
 	default:
 		pkm->country = Countries::english;
 	}
 	pkm->encounter = Encounters::palpark_egg_hatched_specialevent;
-	pkm->evs.attack = gbapkm->data.evs.attack;
-	pkm->evs.defense = gbapkm->data.evs.defense;
-	pkm->evs.hp = gbapkm->data.evs.hp;
-	pkm->evs.spatk = gbapkm->data.evs.spatk;
-	pkm->evs.spdef = gbapkm->data.evs.spdef;
-	pkm->evs.speed = gbapkm->data.evs.speed;
-	pkm->exp = gbapkm->data.exp;
-	pkm->ivs.attack = gbapkm->data.ivs.attack;
-	pkm->ivs.defense = gbapkm->data.ivs.defense;
-	pkm->ivs.hp = gbapkm->data.ivs.hp;
-	pkm->ivs.spatk = gbapkm->data.ivs.spatk;
-	pkm->ivs.spdef = gbapkm->data.ivs.spdef;
-	pkm->ivs.speed = gbapkm->data.ivs.speed;
-	pkm->ivs.isegg = gbapkm->data.ivs.isegg;
+	pkm->evs.attack = gbapkm->evs.attack;
+	pkm->evs.defense = gbapkm->evs.defense;
+	pkm->evs.hp = gbapkm->evs.hp;
+	pkm->evs.spatk = gbapkm->evs.spatk;
+	pkm->evs.spdef = gbapkm->evs.spdef;
+	pkm->evs.speed = gbapkm->evs.speed;
+	pkm->exp = gbapkm->exp;
+	pkm->ivs.attack = gbapkm->ivs.attack;
+	pkm->ivs.defense = gbapkm->ivs.defense;
+	pkm->ivs.hp = gbapkm->ivs.hp;
+	pkm->ivs.spatk = gbapkm->ivs.spatk;
+	pkm->ivs.spdef = gbapkm->ivs.spdef;
+	pkm->ivs.speed = gbapkm->ivs.speed;
+	pkm->isegg = gbapkm->isegg;
 	pkm->met = Locations::poketransfer;
-	pkm->species = Species::species(convertgbaspecies(gbapkm->data.species));
-	pkm->metlevel_otgender.metlevel = getpkmlevel(pkm);
-	pkm->metlevel_otgender.otgender = Genders::genders(int(gbapkm->data.origins.trainergender));
-	pkm->nature = Natures::natures(gbapkm->pid % 25);
+	pkm->species = Species::species(convertgbaspecies(gbapkm->species));
+	pkm->metlevel = getpkmlevel(pkm);
+	pkm->otgender = gbapkm->trainergender;
+	pkm->nature_int = byte(gbapkm->pid % 25);
 	pkm->pid = gbapkm->pid;
-	pkm->ppup[0] = gbapkm->data.ppbonuses.move1;
-	pkm->ppup[1] = gbapkm->data.ppbonuses.move2;
-	pkm->ppup[2] = gbapkm->data.ppbonuses.move3;
-	pkm->ppup[3] = gbapkm->data.ppbonuses.move4;
+	pkm->ppup[0] = gbapkm->ppbonuses.move1;
+	pkm->ppup[1] = gbapkm->ppbonuses.move2;
+	pkm->ppup[2] = gbapkm->ppbonuses.move3;
+	pkm->ppup[3] = gbapkm->ppbonuses.move4;
 	pkm->sid = gbapkm->sid;
-	pkm->tameness = gbapkm->data.friendship;
+	pkm->tameness = gbapkm->friendship;
 	pkm->tid = gbapkm->tid;
-	switch(gbapkm->data.ribbons.beauty)
+	switch(gbapkm->ribbons.beauty)
 	{
 	case 4:
 		pkm->hribbon1.beauty_ribbon_master = true;
@@ -1550,7 +1546,7 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 		pkm->hribbon1.beauty_ribbon = true;
 		break;
 	}
-	switch(gbapkm->data.ribbons.cool)
+	switch(gbapkm->ribbons.cool)
 	{
 	case 4:
 		pkm->hribbon1.cool_ribbon_master = true;
@@ -1571,7 +1567,7 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 		pkm->hribbon1.cool_ribbon = true;
 		break;
 	}
-	switch(gbapkm->data.ribbons.cute)
+	switch(gbapkm->ribbons.cute)
 	{
 	case 4:
 		pkm->hribbon1.cute_ribbon_master = true;
@@ -1592,7 +1588,7 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 		pkm->hribbon1.cute_ribbon = true;
 		break;
 	}
-	switch(gbapkm->data.ribbons.smart)
+	switch(gbapkm->ribbons.smart)
 	{
 	case 4:
 		pkm->hribbon1.smart_ribbon_master = true;
@@ -1613,7 +1609,7 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 		pkm->hribbon1.smart_ribbon = true;
 		break;
 	}
-	switch(gbapkm->data.ribbons.tough)
+	switch(gbapkm->ribbons.tough)
 	{
 	case 4:
 		pkm->hribbon2.tough_ribbon_master = true;
@@ -1634,24 +1630,24 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 		pkm->hribbon2.tough_ribbon = true;
 		break;
 	}
-	pkm->hribbon2.artist_ribbon = bool(gbapkm->data.ribbons.artist);
-	pkm->hribbon2.champion_ribbon = bool(gbapkm->data.ribbons.champion);
-	pkm->hribbon2.effort_ribbon = bool(gbapkm->data.ribbons.effort);
-	pkm->hribbon2.national_ribbon = bool(gbapkm->data.ribbons.national);
-	pkm->forms.fencounter = gbapkm->data.ribbons.fencounter;
+	pkm->hribbon2.artist_ribbon = gbapkm->ribbons.artist;
+	pkm->hribbon2.champion_ribbon = gbapkm->ribbons.champion;
+	pkm->hribbon2.effort_ribbon = gbapkm->ribbons.effort;
+	pkm->hribbon2.national_ribbon = gbapkm->ribbons.national;
+	pkm->fencounter = gbapkm->ribbons.fencounter;
 	Genders::genders gender = calcpkmgender(pkm);
-	pkm->forms.female = (gender == Genders::female);
-	pkm->forms.genderless = (gender == Genders::genderless);
-	pkm->markings.circle = bool(gbapkm->mark.circle);
-	pkm->markings.square = bool(gbapkm->mark.square);
-	pkm->markings.heart = bool(gbapkm->mark.heart);
-	pkm->markings.triangle = bool(gbapkm->mark.triangle);
+	pkm->female = (gender == Genders::female);
+	pkm->genderless = (gender == Genders::genderless);
+	pkm->markings.circle = gbapkm->markings.circle;
+	pkm->markings.square = gbapkm->markings.square;
+	pkm->markings.heart = gbapkm->markings.heart;
+	pkm->markings.triangle = gbapkm->markings.triangle;
 	for(int i = 0; i < 4; i++)
 	{
-		pkm->pp[i] = gbapkm->data.movepp[i];
-		pkm->moves[i] = Moves::moves(gbapkm->data.moves[i]);
+		pkm->pp[i] = gbapkm->movepp[i];
+		pkm->moves[i] = Moves::moves(gbapkm->moves[i]);
 	}
-	switch(gbapkm->data.origins.game)
+	switch(gbapkm->game)
 	{
 	case GBAGames::colosseum_bonus_disc:
 		pkm->hometown = Hometowns::colosseum_bonus;
@@ -1674,8 +1670,11 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 	case GBAGames::sapphire:
 		pkm->hometown = Hometowns::sapphire;
 		break;
+	default:
+		int test = 0;
+		break;
 	}
-	switch(gbapkm->data.origins.ball)
+	switch(gbapkm->ball)
 	{
 	case GBABalls::diveball:
 		pkm->ball = Balls::diveball;
@@ -1724,9 +1723,9 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 	pkm->metdate.day = now->tm_mday;
 	pkm->metdate.month = now->tm_mon + 1;
 	pkm->metdate.year = now->tm_year -100;
-	pkm->pkrs.days = gbapkm->data.pkrs.days;
-	pkm->pkrs.strain = gbapkm->data.pkrs.strain;
-	pkm->item = Items::items(convertgbaitems(gbapkm->data.item));
+	pkm->pkrs.days = gbapkm->pkrs.days;
+	pkm->pkrs.strain = gbapkm->pkrs.strain;
+	pkm->item = Items::items(convertgbaitems(gbapkm->item));
 	std::string nickname = "";
 	std::string otname = "";
 	bool cont = true;
@@ -1759,7 +1758,7 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 	{
 		if(nickname[i] != std::toupper(speciesname[i],loc))
 		{
-			pkm->ivs.isnicknamed = true;
+			pkm->isnicknamed = true;
 		}
 	}
 	wstring nick = wstring(nickname.begin(),nickname.end());

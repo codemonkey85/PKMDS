@@ -236,10 +236,11 @@ void pkmviewer::setPKM(pokemon_obj * pkm_, int box, bool isPartyPKM)
 }
 void pkmviewer::displayPKM(/*bool rename*/)
 {
+    //    temppkm->form = 0;
     redisplayok = false;
     int index = 0;
     this->setWindowTitle(QString::fromStdWString(getpkmnickname(temppkm)));
-    switch(temppkm->metlevel_otgender.otgender)
+    switch(temppkm->otgender)
     {
     case Genders::male:
         ui->rbOTMale->setChecked(true);
@@ -253,8 +254,8 @@ void pkmviewer::displayPKM(/*bool rename*/)
     }
     ui->sbTID->setValue(temppkm->tid);
     ui->sbSID->setValue(temppkm->sid);
-    ui->cbPKMSpecies->setCurrentIndex((int)(temppkm->species)-1);
-    ui->sbSpecies->setValue(temppkm->species);
+    ui->cbPKMSpecies->setCurrentIndex(temppkm->species_int-1);
+    ui->sbSpecies->setValue(temppkm->species_int);
     //    ui->cbPKMItem->setCurrentIndex((int)temppkm->item);
     index = ui->cbPKMItem->findData((int)temppkm->item);
     if ( index != -1 ) { // -1 for not found
@@ -283,7 +284,7 @@ void pkmviewer::displayPKM(/*bool rename*/)
     //    if(rename)
     //    {
     QColor otcolor = Qt::blue;
-    if(temppkm->metlevel_otgender.otgender == Genders::female)
+    if(temppkm->otgender == Genders::female)
     {
         otcolor = Qt::red;
     }
@@ -292,7 +293,7 @@ void pkmviewer::displayPKM(/*bool rename*/)
     ui->txtOTName->setPalette(OTpalette);
     ui->txtOTName->setText(QString::fromStdWString(getpkmotname(temppkm)));
     //    }
-    ui->chkNicknamed->setChecked(temppkm->ivs.isnicknamed);
+    ui->chkNicknamed->setChecked(temppkm->isnicknamed);
     QPixmap * itempix = new QPixmap();
     QGraphicsScene * itemscene = new QGraphicsScene();
     *itempix = getitemimage(temppkm->item);
@@ -360,9 +361,9 @@ void pkmviewer::displayPKM(/*bool rename*/)
         base = 16;
     }
     ui->txtPID->setText(QString::number(temppkm->pid,base).toUpper());
-    ui->chkNsPKM->setChecked(temppkm->dwability.n_pkm);
-    ui->chkFateful->setChecked(temppkm->forms.fencounter);
-    ui->sbMetLevel->setValue((int)temppkm->metlevel_otgender.metlevel);
+    ui->chkNsPKM->setChecked(temppkm->n_pkm);
+    ui->chkFateful->setChecked(temppkm->fencounter);
+    ui->sbMetLevel->setValue((int)temppkm->metlevel);
     index = ui->cbHometown->findData((int)temppkm->hometown);
     if ( index != -1 ) { // -1 for not found
         ui->cbHometown->setCurrentIndex(index);
@@ -408,13 +409,13 @@ void pkmviewer::displayPKM(/*bool rename*/)
         }
     }
     ui->cbForm->setEnabled(ui->cbForm->count() > 0);
-    ui->cbForm->setCurrentIndex((int)temppkm->forms.form);
+    ui->cbForm->setCurrentIndex((int)temppkm->form_int);
     ui->sbTameness->setValue(int(temppkm->tameness));
     updateribbons();
     ui->chkMetAsEgg->setChecked(pkmmetasegg(temppkm));
     ui->cbEggLocation->setEnabled(ui->chkMetAsEgg->isChecked());
     ui->dtEggDate->setEnabled(ui->chkMetAsEgg->isChecked());
-    ui->chkIsEgg->setChecked(bool(temppkm->ivs.isegg));
+    ui->chkIsEgg->setChecked(temppkm->isegg);
     redisplayok = true;
     updatepkrs();
     updategenderpic();
@@ -427,7 +428,7 @@ void pkmviewer::displayPKM(/*bool rename*/)
     updatemoveimages();
     updatemoveinfo();
     updatehidpwr();
-    egg_display(bool(temppkm->ivs.isegg));
+    egg_display(temppkm->isegg);
 }
 void pkmviewer::updatestats()
 {
@@ -769,9 +770,9 @@ pkmviewer::~pkmviewer()
 }
 void pkmviewer::on_cbPKMItem_currentIndexChanged(int index)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
-        temppkm->item = (Items::items)(ui->cbPKMItem->itemData(index).toInt());
+        temppkm->item_int = ui->cbPKMItem->itemData(index).toInt();
         if(redisplayok)
         {
             switch(temppkm->species)
@@ -779,16 +780,16 @@ void pkmviewer::on_cbPKMItem_currentIndexChanged(int index)
             case Species::giratina:
                 if((Items::items)(ui->cbPKMItem->itemData(index).toInt()) == Items::griseousorb)
                 {
-                    temppkm->forms.form = int(Forms::Giratina::origin);
-                    if(!(temppkm->dwability.hasdwability))
+                    temppkm->form.giratina_form = Forms::Giratina::origin;
+                    if(!(temppkm->hasdwability))
                     {
                         temppkm->ability = Abilities::levitate;
                     }
                 }
                 else
                 {
-                    temppkm->forms.form = 0;
-                    if(!(temppkm->dwability.hasdwability))
+                    temppkm->form_int = 0;
+                    if(!(temppkm->hasdwability))
                     {
                         temppkm->ability = Abilities::pressure;
                     }
@@ -798,74 +799,74 @@ void pkmviewer::on_cbPKMItem_currentIndexChanged(int index)
                 switch((Items::items)(ui->cbPKMItem->itemData(index).toInt()))
                 {
                 case Items::burndrive:
-                    temppkm->forms.form = int(Forms::Genesect::burn);
+                    temppkm->form.genesect_form = Forms::Genesect::burn;
                     break;
                 case Items::dousedrive:
-                    temppkm->forms.form = int(Forms::Genesect::douse);
+                    temppkm->form.genesect_form = Forms::Genesect::douse;
                     break;
                 case Items::shockdrive:
-                    temppkm->forms.form = int(Forms::Genesect::shock);
+                    temppkm->form.genesect_form = Forms::Genesect::shock;
                     break;
                 case Items::chilldrive:
-                    temppkm->forms.form = int(Forms::Genesect::chill);
+                    temppkm->form.genesect_form = Forms::Genesect::chill;
                     break;
                 default:
-                    temppkm->forms.form = 0;
+                    temppkm->form_int = 0;
                 }
                 break;
             case Species::arceus:
                 switch((Items::items)(ui->cbPKMItem->itemData(index).toInt()))
                 {
                 case Items::dracoplate:
-                    temppkm->forms.form = int(Forms::Arceus::draco);
+                    temppkm->form.arceus_form = Forms::Arceus::draco;
                     break;
                 case Items::dreadplate:
-                    temppkm->forms.form = int(Forms::Arceus::dread);
+                    temppkm->form.arceus_form = Forms::Arceus::dread;
                     break;
                 case Items::earthplate:
-                    temppkm->forms.form = int(Forms::Arceus::earth);
+                    temppkm->form.arceus_form = Forms::Arceus::earth;
                     break;
                 case Items::fistplate:
-                    temppkm->forms.form = int(Forms::Arceus::fist);
+                    temppkm->form.arceus_form = Forms::Arceus::fist;
                     break;
                 case Items::flameplate:
-                    temppkm->forms.form = int(Forms::Arceus::flame);
+                    temppkm->form.arceus_form = Forms::Arceus::flame;
                     break;
                 case Items::icicleplate:
-                    temppkm->forms.form = int(Forms::Arceus::icicle);
+                    temppkm->form.arceus_form = Forms::Arceus::icicle;
                     break;
                 case Items::insectplate:
-                    temppkm->forms.form = int(Forms::Arceus::insect);
+                    temppkm->form.arceus_form = Forms::Arceus::insect;
                     break;
                 case Items::ironplate:
-                    temppkm->forms.form = int(Forms::Arceus::iron);
+                    temppkm->form.arceus_form = Forms::Arceus::iron;
                     break;
                 case Items::meadowplate:
-                    temppkm->forms.form = int(Forms::Arceus::meadow);
+                    temppkm->form.arceus_form = Forms::Arceus::meadow;
                     break;
                 case Items::mindplate:
-                    temppkm->forms.form = int(Forms::Arceus::mind);
+                    temppkm->form.arceus_form = Forms::Arceus::mind;
                     break;
                 case Items::skyplate:
-                    temppkm->forms.form = int(Forms::Arceus::sky);
+                    temppkm->form.arceus_form = Forms::Arceus::sky;
                     break;
                 case Items::splashplate:
-                    temppkm->forms.form = int(Forms::Arceus::splash);
+                    temppkm->form.arceus_form = Forms::Arceus::splash;
                     break;
                 case Items::spookyplate:
-                    temppkm->forms.form = int(Forms::Arceus::spooky);
+                    temppkm->form.arceus_form = Forms::Arceus::spooky;
                     break;
                 case Items::stoneplate:
-                    temppkm->forms.form = int(Forms::Arceus::stone);
+                    temppkm->form.arceus_form = Forms::Arceus::stone;
                     break;
                 case Items::toxicplate:
-                    temppkm->forms.form = int(Forms::Arceus::toxic);
+                    temppkm->form.arceus_form = Forms::Arceus::toxic;
                     break;
                 case Items::zapplate:
-                    temppkm->forms.form = int(Forms::Arceus::zap);
+                    temppkm->form.arceus_form = Forms::Arceus::zap;
                     break;
                 default:
-                    temppkm->forms.form = 0;
+                    temppkm->form_int = 0;
                     break;
                 }
                 break;
@@ -878,7 +879,7 @@ void pkmviewer::on_cbPKMItem_currentIndexChanged(int index)
 }
 void pkmviewer::on_sbLevel_valueChanged(int arg1)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
         if(levelchangeok)
         {
@@ -892,7 +893,7 @@ void pkmviewer::on_btnSaveChanges_clicked()
     *pkm = *temppkm;
     if(getpkmformname(pkm) == "")
     {
-        pkm->forms.form = 0;
+        pkm->form_int = 0;
     }
     this->setWindowTitle(QString::fromStdWString(getpkmnickname(temppkm)));
     if((frmCurBoxNum == startbox) || ispartypkm)
@@ -917,7 +918,7 @@ void pkmviewer::on_btnExportPKMFile_clicked()
     *pkmout = *temppkm;
     if(getpkmformname(pkmout) == "")
     {
-        pkmout->forms.form = 0;
+        pkmout->form_int = 0;
     }
     std::string PKMFileName = "";
     PKMFileName = (QFileDialog::getSaveFileName(this,tr("Save a PKM file"),tr(""),tr("PKM Files (*.pkm)"))).toStdString();
@@ -929,7 +930,7 @@ void pkmviewer::on_btnExportPKMFile_clicked()
 }
 void pkmviewer::on_cbPKMSpecies_currentIndexChanged(int index)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
         if(redisplayok)
         {
@@ -946,7 +947,7 @@ void pkmviewer::on_cbPKMSpecies_currentIndexChanged(int index)
 }
 void pkmviewer::on_sbSpecies_valueChanged(int arg1)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
         if(redisplayok)
         {
@@ -959,12 +960,12 @@ void pkmviewer::on_sbSpecies_valueChanged(int arg1)
 }
 void pkmviewer::on_txtNickname_textChanged(const QString &arg1)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
         if(redisplayok)
         {
             ui->chkNicknamed->setChecked(true);
-            temppkm->ivs.isnicknamed = 1;
+            temppkm->isnicknamed = 1;
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
             for(int i = 0; i < arg1.length(); i++)
@@ -977,13 +978,13 @@ void pkmviewer::on_txtNickname_textChanged(const QString &arg1)
 #endif
             if(ui->txtNickname->text().length() < NICKLENGTH)
             {
-                            byte * btpnt = new byte;
-                            btpnt = reinterpret_cast<byte*>(&(temppkm->nickname));
-                            memset(btpnt+(ui->txtNickname->text().length()*2),0xff,2);
-                            btpnt += (NICKLENGTH*2)-2;
-                            memset(btpnt,0xff,2);
-//                memset(&(temppkm->nickname[ui->txtNickname->text().length()]), 0xffff, 2);
-//                memset(&(temppkm->nickname[NICKLENGTH]), 0xffff, 2);
+                byte * btpnt = new byte;
+                btpnt = reinterpret_cast<byte*>(&(temppkm->nickname));
+                memset(btpnt+(ui->txtNickname->text().length()*2),0xff,2);
+                btpnt += (NICKLENGTH*2)-2;
+                memset(btpnt,0xff,2);
+                //                memset(&(temppkm->nickname[ui->txtNickname->text().length()]), 0xffff, 2);
+                //                memset(&(temppkm->nickname[NICKLENGTH]), 0xffff, 2);
 
             }
         }
@@ -991,7 +992,7 @@ void pkmviewer::on_txtNickname_textChanged(const QString &arg1)
 }
 void pkmviewer::on_sbEXP_valueChanged(int arg1)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
         if(redisplayok)
         {
@@ -1008,11 +1009,11 @@ void pkmviewer::on_sbEXP_valueChanged(int arg1)
 }
 void pkmviewer::on_rbOTMale_toggled(bool checked)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
         if(checked)
         {
-            temppkm->metlevel_otgender.otgender = Genders::male;
+            temppkm->otgender = Genders::male;
             if(redisplayok)
             {
                 pkmviewer::displayPKM(/*false*/);
@@ -1022,11 +1023,11 @@ void pkmviewer::on_rbOTMale_toggled(bool checked)
 }
 void pkmviewer::on_rbOTFemale_toggled(bool checked)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
         if(checked)
         {
-            temppkm->metlevel_otgender.otgender = Genders::female;
+            temppkm->otgender = Genders::female;
             if(redisplayok)
             {
                 pkmviewer::displayPKM(/*false*/);
@@ -1036,14 +1037,14 @@ void pkmviewer::on_rbOTFemale_toggled(bool checked)
 }
 void pkmviewer::on_cbNicknamed_toggled(bool checked)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
-        temppkm->ivs.isnicknamed = int(checked);
+        temppkm->isnicknamed = checked;
     }
 }
 void pkmviewer::on_txtOTName_textChanged(const QString &arg1)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
         if(redisplayok)
         {
@@ -1059,13 +1060,13 @@ void pkmviewer::on_txtOTName_textChanged(const QString &arg1)
 #endif
             if(ui->txtOTName->text().length() < OTLENGTH)
             {
-                            byte * btpnt = new byte;
-                            btpnt = reinterpret_cast<byte*>(&(temppkm->otname));
-                            memset(btpnt+(ui->txtOTName->text().length()*2),0xff,2);
-                            btpnt += (OTLENGTH*2)-2;
-                            memset(btpnt,0xff,2);
-//                memset(&(temppkm->otname[ui->txtOTName->text().length()]), 0xffff, 2);
-//                memset(&(temppkm->otname[OTLENGTH]), 0xffff, 2);
+                byte * btpnt = new byte;
+                btpnt = reinterpret_cast<byte*>(&(temppkm->otname));
+                memset(btpnt+(ui->txtOTName->text().length()*2),0xff,2);
+                btpnt += (OTLENGTH*2)-2;
+                memset(btpnt,0xff,2);
+                //                memset(&(temppkm->otname[ui->txtOTName->text().length()]), 0xffff, 2);
+                //                memset(&(temppkm->otname[OTLENGTH]), 0xffff, 2);
 
             }
         }
@@ -1073,7 +1074,7 @@ void pkmviewer::on_txtOTName_textChanged(const QString &arg1)
 }
 void pkmviewer::on_sbTID_valueChanged(int arg1)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
         temppkm->tid = arg1;
         QPixmap shinypix;
@@ -1102,7 +1103,7 @@ void pkmviewer::on_sbTID_valueChanged(int arg1)
 }
 void pkmviewer::on_sbSID_valueChanged(int arg1)
 {
-    if((temppkm->species > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
+    if((temppkm->species_int > 0) && ((temppkm->pid > 0) || (temppkm->checksum > 0)))
     {
         temppkm->sid = arg1;
         QPixmap shinypix;// new QPixmap();
@@ -1245,7 +1246,7 @@ void pkmviewer::on_cbMove1_currentIndexChanged(int index)
         {
             if(temppkm->moves[0] == Moves::secretsword)
             {
-                temppkm->forms.form = byte(Forms::Keldeo::resolute);
+                temppkm->form.keldeo_form = Forms::Keldeo::resolute;
             }
         }
         updatemoveflavor();
@@ -1263,7 +1264,7 @@ void pkmviewer::on_cbMove2_currentIndexChanged(int index)
         {
             if(temppkm->moves[1] == Moves::secretsword)
             {
-                temppkm->forms.form = byte(Forms::Keldeo::resolute);
+                temppkm->form.keldeo_form = Forms::Keldeo::resolute;
             }
         }
         updatemoveflavor();
@@ -1281,7 +1282,7 @@ void pkmviewer::on_cbMove3_currentIndexChanged(int index)
         {
             if(temppkm->moves[2] == Moves::secretsword)
             {
-                temppkm->forms.form = byte(Forms::Keldeo::resolute);
+                temppkm->form.keldeo_form = Forms::Keldeo::resolute;
             }
         }
         updatemoveflavor();
@@ -1299,7 +1300,7 @@ void pkmviewer::on_cbMove4_currentIndexChanged(int index)
         {
             if(temppkm->moves[3] == Moves::secretsword)
             {
-                temppkm->forms.form = byte(Forms::Keldeo::resolute);
+                temppkm->form.keldeo_form = Forms::Keldeo::resolute;
             }
         }
         updatemoveflavor();
@@ -1412,13 +1413,13 @@ void pkmviewer::on_cbForm_currentIndexChanged(int index)
 {
     if(redisplayok)
     {
-        temppkm->forms.form = (byte)index;
+        temppkm->form_int = (byte)index;
         switch(temppkm->species)
         {
         case Species::giratina:
-            if(!(temppkm->dwability.hasdwability))
+            if(!(temppkm->hasdwability))
             {
-                if(temppkm->forms.form == int(Forms::Giratina::origin))
+                if(temppkm->form.giratina_form == Forms::Giratina::origin)
                 {
                     temppkm->ability = Abilities::levitate;
                 }
@@ -1429,7 +1430,7 @@ void pkmviewer::on_cbForm_currentIndexChanged(int index)
             }
             break;
         case Species::shaymin:
-            if(temppkm->forms.form == int(Forms::Shaymin::sky))
+            if(temppkm->form.shaymin_form == Forms::Shaymin::sky)
             {
                 temppkm->ability = Abilities::serenegrace;
             }
@@ -1439,13 +1440,13 @@ void pkmviewer::on_cbForm_currentIndexChanged(int index)
             }
             break;
         case Species::tornadus:
-            if(temppkm->forms.form == int(Forms::Tornadus_Thundurus_Landorus::therian))
+            if(temppkm->form.tornadus_thundurus_landorus_form == Forms::Tornadus_Thundurus_Landorus::therian)
             {
                 temppkm->ability = Abilities::regenerator;
             }
             else
             {
-                if(temppkm->dwability.hasdwability)
+                if(temppkm->hasdwability)
                 {
                     temppkm->ability = Abilities::defiant;
                 }
@@ -1456,13 +1457,13 @@ void pkmviewer::on_cbForm_currentIndexChanged(int index)
             }
             break;
         case Species::thundurus:
-            if(temppkm->forms.form == int(Forms::Tornadus_Thundurus_Landorus::therian))
+            if(temppkm->form.tornadus_thundurus_landorus_form == Forms::Tornadus_Thundurus_Landorus::therian)
             {
                 temppkm->ability = Abilities::voltabsorb;
             }
             else
             {
-                if(temppkm->dwability.hasdwability)
+                if(temppkm->hasdwability)
                 {
                     temppkm->ability = Abilities::defiant;
                 }
@@ -1473,13 +1474,13 @@ void pkmviewer::on_cbForm_currentIndexChanged(int index)
             }
             break;
         case Species::landorus:
-            if(temppkm->forms.form == int(Forms::Tornadus_Thundurus_Landorus::therian))
+            if(temppkm->form.tornadus_thundurus_landorus_form == Forms::Tornadus_Thundurus_Landorus::therian)
             {
                 temppkm->ability = Abilities::intimidate;
             }
             else
             {
-                if(temppkm->dwability.hasdwability)
+                if(temppkm->hasdwability)
                 {
                     temppkm->ability = Abilities::sheerforce;
                 }
@@ -1490,15 +1491,15 @@ void pkmviewer::on_cbForm_currentIndexChanged(int index)
             }
             break;
         case Species::kyurem:
-            switch(temppkm->forms.form)
+            switch(temppkm->form.kyurem_form)
             {
-            case int(Forms::Kyurem::normal):
+            case Forms::Kyurem::normal:
                 temppkm->ability = Abilities::pressure;
                 break;
-            case int(Forms::Kyurem::black):
+            case Forms::Kyurem::black:
                 temppkm->ability = Abilities::teravolt;
                 break;
-            case int(Forms::Kyurem::white):
+            case Forms::Kyurem::white:
                 temppkm->ability = Abilities::turboblaze;
                 break;
             default:
@@ -1522,7 +1523,7 @@ void pkmviewer::on_chkMetAsEgg_toggled(bool checked)
             temppkm->eggdate.year = byte(ui->dtEggDate->date().year()-2000);
             temppkm->eggdate.month = byte(ui->dtEggDate->date().month());
             temppkm->eggdate.day = byte(ui->dtEggDate->date().day());
-            temppkm->eggmet = (Locations::locations)(ui->cbEggLocation->itemData(ui->cbEggLocation->currentIndex()).toInt());
+            temppkm->eggmet_int = ui->cbEggLocation->itemData(ui->cbEggLocation->currentIndex()).toInt();
         }
     }
 }
@@ -1530,21 +1531,21 @@ void pkmviewer::on_chkNsPKM_toggled(bool checked)
 {
     if(redisplayok)
     {
-        temppkm->dwability.n_pkm = checked;
+        temppkm->n_pkm = checked;
     }
 }
 void pkmviewer::on_chkFateful_toggled(bool checked)
 {
     if(redisplayok)
     {
-        temppkm->forms.fencounter = checked;
+        temppkm->fencounter = checked;
     }
 }
 void pkmviewer::on_sbMetLevel_valueChanged(int arg1)
 {
     if(redisplayok)
     {
-        temppkm->metlevel_otgender.metlevel = (byte)arg1;
+        temppkm->metlevel = (byte)arg1;
     }
 }
 void pkmviewer::on_cbMetLocation_currentIndexChanged(int index)
@@ -1552,7 +1553,7 @@ void pkmviewer::on_cbMetLocation_currentIndexChanged(int index)
     if(redisplayok)
     {
         //temppkm->met = Locations::locations(index);
-        temppkm->met = (Locations::locations)(ui->cbMetLocation->itemData(index).toInt());
+        temppkm->met_int = ui->cbMetLocation->itemData(index).toInt();
     }
 }
 void pkmviewer::on_dtMetDate_dateChanged(const QDate &date)
@@ -1571,7 +1572,7 @@ void pkmviewer::on_cbEggLocation_currentIndexChanged(int index)
         if(ui->chkMetAsEgg->isChecked())
         {
             //temppkm->eggmet = Locations::locations(index);
-            temppkm->eggmet = (Locations::locations)(ui->cbEggLocation->itemData(index).toInt());
+            temppkm->eggmet_int = ui->cbEggLocation->itemData(index).toInt();
         }
     }
 }
@@ -1591,14 +1592,14 @@ void pkmviewer::on_cbHometown_currentIndexChanged(int index)
 {
     if(redisplayok)
     {
-        temppkm->hometown = (Hometowns::hometowns)(ui->cbHometown->itemData(index).toInt());
+        temppkm->hometown_int = ui->cbHometown->itemData(index).toInt();
     }
 }
 void pkmviewer::on_cbCountry_currentIndexChanged(int index)
 {
     if(redisplayok)
     {
-        temppkm->country = (Countries::countries)(ui->cbCountry->itemData(index).toInt());
+        temppkm->country_int = ui->cbCountry->itemData(index).toInt();
     }
 }
 void pkmviewer::on_sbPKRSStrain_valueChanged(int arg1)
@@ -1621,7 +1622,7 @@ void pkmviewer::on_chkIsEgg_toggled(bool checked)
 {
     if(redisplayok)
     {
-        temppkm->ivs.isegg = uint32(checked);
+        temppkm->isegg = checked;
         egg_display(checked);
     }
 }
@@ -1630,9 +1631,17 @@ void pkmviewer::on_sbTameness_valueChanged(int arg1)
     if(redisplayok)
     {
         temppkm->tameness = byte(arg1);
-        if(bool(temppkm->ivs.isegg))
+        if(temppkm->isegg)
         {
             ui->txtSteps->setText(QString::number(int(temppkm->tameness) * 255));
         }
+    }
+}
+
+void pkmviewer::on_chkNicknamed_toggled(bool checked)
+{
+    if(redisplayok)
+    {
+        temppkm->isnicknamed = checked;
     }
 }

@@ -56,16 +56,16 @@ void encryptpkm(party_pkx* pkx)
     shufflepkm(pkx);
     pkmcrypt(pkx);
     pkmcrypt(&(pkx->party_data),pkx->key);
-    pkx->ispartydatadecrypted = 0;
-    pkx->isboxdatadecrypted = 0;
+    pkx->ispartydatadecrypted = false;
+    pkx->isboxdatadecrypted = false;
 }
 void decryptpkm(party_pkx* pkx)
 {
     pkmcrypt(pkx);
     pkmcrypt(&(pkx->party_data),pkx->key);
     unshufflepkm(pkx);
-    pkx->ispartydatadecrypted = 1;
-    pkx->isboxdatadecrypted = 1;
+    pkx->ispartydatadecrypted = true;
+    pkx->isboxdatadecrypted = true;
 }
 void pkmcrypt(pokemonx_obj* pkx)
 {
@@ -81,15 +81,15 @@ void encryptpkm(pokemonx_obj* pkx)
 {
     shufflepkm(pkx);
     pkmcrypt(pkx);
-    pkx->ispartydatadecrypted = 0;
-    pkx->isboxdatadecrypted = 0;
+    pkx->ispartydatadecrypted = false;
+    pkx->isboxdatadecrypted = false;
 }
 void decryptpkm(pokemonx_obj* pkx)
 {
     pkmcrypt(pkx);
     unshufflepkm(pkx);
-    pkx->ispartydatadecrypted = 1;
-    pkx->isboxdatadecrypted = 1;
+    pkx->ispartydatadecrypted = true;
+    pkx->isboxdatadecrypted = true;
 }
 int getchecksum(pokemonx_obj* pkx) // Calculates the checksum for the given Pokemon object.
 {
@@ -133,9 +133,9 @@ void read(const wchar_t * file_name, pokemonx_obj *data) // Reads the given file
 }
 void write(const wchar_t * file_name, pokemonx_obj* data) // Writes the given Pokemon data to the given file name.
 {
-    int encryptstatus[2] = {data->ispartydatadecrypted,data->isboxdatadecrypted};
-    data->ispartydatadecrypted = 0;
-    data->isboxdatadecrypted = 0;
+    bool encryptstatus[2] = {data->ispartydatadecrypted,data->isboxdatadecrypted};
+    data->ispartydatadecrypted = false;
+    data->isboxdatadecrypted = false;
     std::ofstream *out = new std::ofstream(file_name,std::ios::binary);
     out->write(reinterpret_cast<char*>(data), sizeof(pokemonx_obj));
     out->close();
@@ -147,9 +147,9 @@ void write(const wchar_t * file_name, pokemonx_obj* data) // Writes the given Po
 #endif /* _MSC_VER */
 void write(const char* file_name, pokemonx_obj* data) // Writes the given Pokemon data to the given file name.
 {
-    int encryptstatus[2] = {data->ispartydatadecrypted,data->isboxdatadecrypted};
-    data->ispartydatadecrypted = 0;
-    data->isboxdatadecrypted = 0;
+    bool encryptstatus[2] = {data->ispartydatadecrypted,data->isboxdatadecrypted};
+    data->ispartydatadecrypted = false;
+    data->isboxdatadecrypted = false;
     std::ofstream *out = new std::ofstream(file_name,std::ios::binary);
     out->write(reinterpret_cast<char*>(data), sizeof(pokemonx_obj));
     out->close();

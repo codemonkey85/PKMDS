@@ -7,7 +7,6 @@
 bool comparebyspeciesasc(const pokemon_obj &a, const pokemon_obj &b)
 {
 	return a.species < b.species;
-	//return a.blocka.species < b.blocka.species;
 }
 void sortbyspeciesasc(std::vector<pokemon_obj>& pkm)
 {
@@ -23,8 +22,7 @@ void sortbygenderasc(std::vector<pokemon_obj>& pkm)
 }
 bool comparebyformasc(const pokemon_obj &a, const pokemon_obj &b)
 {
-	//return a.blockb.forms.form < b.blockb.forms.form;
-	return a.forms.form < b.forms.form;
+	return a.form_int < b.form_int;
 }
 void sortbyformasc(std::vector<pokemon_obj>& pkm)
 {
@@ -151,7 +149,7 @@ bool comparebygenderascp(const pokemon_obj *a, const pokemon_obj *b)
 bool comparebyformascp(const pokemon_obj *a, const pokemon_obj *b)
 {
 	//return a->blockb.forms.form < b->blockb.forms.form;
-	return a->forms.form < b->forms.form;
+	return a->form_int < b->form_int;
 }
 //void sortbyformascp(std::vector<pokemon_obj>* pkm)
 //{

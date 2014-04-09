@@ -191,7 +191,7 @@ int getpkmlevel(const pokemon_obj &pkm)
 }
 int getpkmlevel(const pokemon_obj *pkm)
 {
-	return getpkmlevel(int(pkm->species),pkm->exp);
+	return getpkmlevel(pkm->species_int,pkm->exp);
 }
 int getpkmexptonext(const int id, const int exp)
 {
@@ -228,24 +228,24 @@ int getnatureincrease(const int natureid)
 }
 int getnatureincrease(const pokemon_obj &pkm)
 {
-	if(int(pkm.nature) == 0 && int(pkm.hometown) != int(Hometowns::black) && int(pkm.hometown) != int(Hometowns::white))
+	if(pkm.nature_int == 0 && pkm.hometown != Hometowns::black && pkm.hometown != Hometowns::white)
 	{
 		return getnatureincrease(pkm.pid % 25);
 	}
 	else
 	{
-		return getnatureincrease(int(pkm.nature));
+		return getnatureincrease(pkm.nature_int);
 	}
 }
 int getnatureincrease(const pokemon_obj *pkm)
 {
-	if(int(pkm->nature) == 0 && int(pkm->hometown) != int(Hometowns::black) && int(pkm->hometown) != int(Hometowns::white))
+	if(pkm->nature_int == 0 && pkm->hometown != Hometowns::black && pkm->hometown != Hometowns::white)
 	{
 		return getnatureincrease(pkm->pid % 25);
 	}
 	else
 	{
-		return getnatureincrease(int(pkm->nature));
+		return getnatureincrease(pkm->nature_int);
 	}
 }
 int getnaturedecrease(const int natureid)
@@ -254,24 +254,24 @@ int getnaturedecrease(const int natureid)
 }
 int getnaturedecrease(const pokemon_obj &pkm)
 {
-	if(int(pkm.nature) == 0 && int(pkm.hometown) != int(Hometowns::black) && int(pkm.hometown) != int(Hometowns::white))
+	if((pkm.nature_int == 0) && (pkm.hometown != Hometowns::black) && (pkm.hometown != Hometowns::white))
 	{
 		return getnaturedecrease(pkm.pid % 25);
 	}
 	else
 	{
-		return getnaturedecrease(int(pkm.nature));
+		return getnaturedecrease(pkm.nature_int);
 	}
 }
 int getnaturedecrease(const pokemon_obj *pkm)
 {
-	if(int(pkm->nature) == 0 && int(pkm->hometown) != int(Hometowns::black) && int(pkm->hometown) != int(Hometowns::white))
+	if((pkm->nature_int == 0) && (pkm->hometown != Hometowns::black) && (pkm->hometown != Hometowns::white))
 	{
 		return getnaturedecrease(pkm->pid % 25);
 	}
 	else
 	{
-		return getnaturedecrease(int(pkm->nature));
+		return getnaturedecrease(pkm->nature_int);
 	}
 }
 // TODO: Optimize stat calculation
@@ -451,7 +451,7 @@ int lookuppkmtype(const int species, const int form, const int slot, const int g
 }
 int lookuppkmtype(const pokemon_obj &pkm, const int slot, const int generation)
 {
-	return lookuppkmtype(pkm.species,pkm.forms.form,slot,generation);
+	return lookuppkmtype(pkm.species_int,pkm.form_int,slot,generation);
 }
 void setlevel(pokemon_obj &pkm, int level)
 {
@@ -459,19 +459,19 @@ void setlevel(pokemon_obj &pkm, int level)
 }
 int getpkmexptonext(const pokemon_obj *pkm)
 {
-	return getpkmexptonext(int(pkm->species), pkm->exp);
+	return getpkmexptonext(pkm->species_int, pkm->exp);
 }
 int getpkmexpatcur(const pokemon_obj *pkm)
 {
-	return getpkmexpatcur(int(pkm->species),pkm->exp);
+	return getpkmexpatcur(pkm->species_int,pkm->exp);
 }
 bool pkmhasgenddiff(const pokemon_obj *pkm)
 {
-	return pkmhasgenddiff(int(pkm->species));
+	return pkmhasgenddiff(pkm->species_int);
 }
 int lookuppkmcolorid(const pokemon_obj *pkm)
 {
-	return lookuppkmcolorid(int(pkm->species));
+	return lookuppkmcolorid(pkm->species_int);
 }
 void setlevel(pokemon_obj *pkm, int level)
 {
@@ -479,7 +479,7 @@ void setlevel(pokemon_obj *pkm, int level)
 }
 int lookuppkmtype(const pokemon_obj *pkm, const int slot, const int generation)
 {
-	return lookuppkmtype(int(pkm->species),pkm->forms.form,slot,generation);
+	return lookuppkmtype(pkm->species_int,pkm->form_int,slot,generation);
 }
 int lookuppkmevolvedspecies(int speciesid)
 {
@@ -807,6 +807,20 @@ string lookuptypename(const int type, const int langid)
 {
 	return getastring(lookuptypenamesql(type,langid));
 }
+
+string DllExport lookupmovetypename(const int moveid, const int langid)
+{
+	return lookuptypename(getmovetype(Moves::moves(moveid)),langid);
+}
+string DllExport lookupmovetypename(const pokemon_obj &pkm, const int movenum, const int langid)
+{
+	return lookuptypename(getmovetype(pkm.moves[movenum]),langid);
+}
+string DllExport lookupmovetypename(const pokemon_obj *pkm, const int movenum, const int langid)
+{
+	return lookuptypename(getmovetype(pkm->moves[movenum]),langid);
+}
+
 string lookupmoveflavortext(const uint16 moveid, const int langid, const int versiongroup)
 {
 	string ret = getastring(getmoveflavortextsql(moveid,langid,versiongroup));
@@ -1090,24 +1104,24 @@ string getnaturename(const int natureid, const int langid)
 }
 string getnaturename(const pokemon_obj &pkm, const int langid)
 {
-	if(int(pkm.nature) == 0 && int(pkm.hometown) != int(Hometowns::black) && int(pkm.hometown) != int(Hometowns::white))
+	if((pkm.nature_int == 0) && (pkm.hometown != Hometowns::black) && (pkm.hometown != Hometowns::white))
 	{
 		return getastring(getnaturenamesql(pkm.pid % 25,langid));
 	}
 	else
 	{
-		return getastring(getnaturenamesql(int(pkm.nature),langid));
+		return getastring(getnaturenamesql(pkm.nature_int,langid));
 	}
 }
 string getnaturename(const pokemon_obj *pkm, const int langid)
 {
-	if(int(pkm->nature) == 0 && int(pkm->hometown) != int(Hometowns::black) && int(pkm->hometown) != int(Hometowns::white))
+	if((pkm->nature == 0) && (pkm->hometown != Hometowns::black) && (pkm->hometown != Hometowns::white))
 	{
 		return getastring(getnaturenamesql(pkm->pid % 25,langid));
 	}
 	else
 	{
-		return getastring(getnaturenamesql(int(pkm->nature),langid));
+		return getastring(getnaturenamesql(pkm->nature_int,langid));
 	}
 }
 string lookupitemname(const int itemid, const int generation, const int langid)
@@ -1445,7 +1459,7 @@ void removeitem(bw2sav_obj * sav, pokemon_obj * pkm)
 			switch(pkm->species)
 			{
 			case Species::giratina:
-				pkm->forms.form = byte(Forms::Giratina::altered);
+				pkm->form.giratina_form = Forms::Giratina::altered;
 				break;
 			}
 		}
@@ -1542,7 +1556,7 @@ void giveitem(bw2sav_obj * sav, item_obj * item, pokemon_obj * pkm)
 	case Species::giratina:
 		if(item->id == Items::griseousorb)
 		{
-			pkm->forms.form = byte(Forms::Giratina::origin);
+			pkm->form.giratina_form = Forms::Giratina::origin;
 		}
 		break;
 	}
