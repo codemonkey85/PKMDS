@@ -807,6 +807,20 @@ string lookuptypename(const int type, const int langid)
 {
 	return getastring(lookuptypenamesql(type,langid));
 }
+
+string DllExport lookupmovetypename(const int moveid, const int langid)
+{
+	return lookuptypename(getmovetype(Moves::moves(moveid)),langid);
+}
+string DllExport lookupmovetypename(const pokemon_obj &pkm, const int movenum, const int langid)
+{
+	return lookuptypename(getmovetype(pkm.moves[movenum]),langid);
+}
+string DllExport lookupmovetypename(const pokemon_obj *pkm, const int movenum, const int langid)
+{
+	return lookuptypename(getmovetype(pkm->moves[movenum]),langid);
+}
+
 string lookupmoveflavortext(const uint16 moveid, const int langid, const int versiongroup)
 {
 	string ret = getastring(getmoveflavortextsql(moveid,langid,versiongroup));
