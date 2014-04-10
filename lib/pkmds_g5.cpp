@@ -635,6 +635,17 @@ void setpkmotname(pokemon_obj *pkm, wchar_t input[], int length)
         memset(&(pkm->otname[OTLENGTH-1]), 0xffff, 2);
     }
 }
+void setsavetrainername(bw2sav_obj *sav, wchar_t input[], int length)
+{
+    if(length > OTLENGTH){length = OTLENGTH;}
+    memset(&(sav->cur.trainername), '\0', OTLENGTH*2);
+    memcpy(&(sav->cur.trainername),input,length*2);
+    if(length < OTLENGTH)
+    {
+        memset(&(sav->cur.trainername[length]), 0xffff, 2);
+        memset(&(sav->cur.trainername[OTLENGTH-1]), 0xffff, 2);
+    }
+}
 Genders::genders getpkmgender(const pokemon_obj &pkm)
 {
     if (pkm.female){return Genders::female;};
