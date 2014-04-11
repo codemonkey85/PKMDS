@@ -4147,6 +4147,7 @@ uint16 DllExport getchecksum(bw2savblock_obj &block, const int start, const int 
 void DllExport calcboxchecksum(bw2savblock_obj &block, int boxindex, bool bw2);
 void DllExport calcpartychecksum(bw2savblock_obj &block, bool bw2); // ,bool bw2);
 void DllExport calcchecksum(bw2savblock_obj &block, int start, int length, int loc);
+void DllExport fixtrainerdatachecksum(bw2savblock_obj * block);
 uint16 DllExport getchkfromsav(bw2savblock_obj &block, bool bw2);
 uint16 DllExport getchecksum(bw2savblock_obj *block, const int start, const int length);
 void DllExport calcboxchecksum(bw2savblock_obj *block, int boxindex, bool bw2);
@@ -4258,7 +4259,7 @@ DllExport time_t * advstrttime(const bw2savblock_obj *block);
 //std::string &advstrttimestring(const bw2savblock_obj *block);
 std::wstring DllExport getsavtrainername(const bw2savblock_obj & block);
 std::wstring DllExport getsavtrainername(const bw2savblock_obj * block);
-std::wstring DllExport getwstring(std::wstring in);
+std::wstring DllExport getwstring(std::wstring in, int maxlength = 0);
 std::wstring DllExport getwstring(std::string in);
 std::wstring DllExport getwstring(char* in, int len); //Linux needs this
 std::string DllExport getpkrsstatus(const pokemon_obj * pkm);

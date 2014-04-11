@@ -32,8 +32,8 @@ frmBoxes::frmBoxes(const char *apppath, QWidget *parent) :
     openimgdb();
 #endif
 #else
-    opendb();
-    openimgdb();
+    opendb("F:\\Dropbox\\PKMDS Databases\\veekun-pokedex.sqlite");
+    openimgdb("F:\\Dropbox\\PKMDS Databases\\images.sqlite");
 #endif
     ui->setupUi(this);
     ui->saBoxes->setVisible(false);
