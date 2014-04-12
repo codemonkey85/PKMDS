@@ -276,6 +276,17 @@ void decryptpkm(pokemon_obj* pkm)
 	pkm->ispartydatadecrypted = true;
 	pkm->isboxdatadecrypted = true;
 }
+uint16 getchecksum(pokemon_obj * pkm)
+{
+	uint32 chk = 0;
+	uint16* p = (uint16*)pkm;
+	for (uint16* i = p + 0x04; i < p + 0x43; i++)
+	{
+		chk += *i;
+	}
+	chk = chk & 0xffff;
+	return uint16(chk);
+}
 uint16 getchecksum(bw2savblock_obj &block, const int start, const int length){
 	byte* data = reinterpret_cast<byte*>(&block);
 	int sum = 0xFFFF;
@@ -477,6 +488,10 @@ void fixtrainerdatachecksum(bw2savblock_obj * block)
 {
 	calcchecksum(block,0x19400,0xB0,0x194B2);
 }
+void fixbagchecksum(bw2savblock_obj * block)
+{
+	calcchecksum(block,0x18400,0x9EC,0x18DEE);
+}
 void write(const char* file_name, pokemon_obj& data) // Writes the given Pokemon data to the given file name.
 {
 	bool encryptstatus[2] = {data.ispartydatadecrypted,data.isboxdatadecrypted};
@@ -650,6 +665,19 @@ void setsavetrainername(bw2sav_obj *sav, wchar_t input[], int length)
 		memset(&(sav->cur.trainername[OTLENGTH-1]), 0xffff, 2);
 	}
 }
+
+void setsaveboxname(bw2sav_obj *sav, int box, wchar_t input[], int length)
+{
+	if(length > BOXNAMELENGTH){length = BOXNAMELENGTH;}
+	memset(&(sav->cur.boxnames[box]), '\0', BOXNAMELENGTH*2);
+	memcpy(&(sav->cur.boxnames[box]),input,length*2);
+	if(length < BOXNAMELENGTH)
+	{
+		memset(&(sav->cur.boxnames[box][length]), 0xffff, 2);
+		memset(&(sav->cur.boxnames[box][BOXNAMELENGTH-1]), 0xffff, 2);
+	}
+}
+
 Genders::genders getpkmgender(const pokemon_obj &pkm)
 {
 	if (pkm.female){return Genders::female;};
@@ -688,7 +716,8 @@ bool getpkmshiny(const pokemon_obj &pkm){
 	F = p1 ^ p2;
 	return (E ^ F) < 8;
 }
-bool pkmmetasegg(const pokemon_obj &pkm){
+bool pkmmetasegg(const pokemon_obj &pkm)
+{
 	return ((pkm.eggdate.year != 0) & (pkm.eggdate.month != 0) & (pkm.eggdate.day != 0));
 }
 void setpkmgender(pokemon_obj *pkm, int gender)
