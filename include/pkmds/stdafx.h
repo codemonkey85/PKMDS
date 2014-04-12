@@ -33,6 +33,7 @@ static const int GENERATION = 5;
 static const int BUFF_SIZE = 955;
 static const int NICKLENGTH = 11;
 static const int OTLENGTH = 8;
+static const int BOXNAMELENGTH = 40;
 /*
 static const int NICKLENGTH_G6 = 12;
 static const int OTLENGTH_G6 = 11;
