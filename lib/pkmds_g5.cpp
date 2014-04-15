@@ -247,7 +247,7 @@ void encryptpkm(party_pkm* pkm)
 void decryptpkm(party_pkm* pkm)
 {
 	pkmcrypt(pkm);
-	pkmcrypt(pkm->party_data,pkm->pid);
+	pkmcrypt(&(pkm->party_data),pkm->pid);
 	unshufflepkm(pkm);
 	pkm->ispartydatadecrypted = true;
 	pkm->isboxdatadecrypted = true;
