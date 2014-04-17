@@ -845,7 +845,6 @@ string DllExport lookupmovetypename(const pokemon_obj *pkm, const int movenum, c
 {
 	return lookuptypename(getmovetype(pkm->moves[movenum]),langid);
 }
-
 string lookupmoveflavortext(const uint16 moveid, const int langid, const int versiongroup)
 {
 	string ret = getastring(getmoveflavortextsql(moveid,langid,versiongroup));
@@ -1630,4 +1629,8 @@ void insertitem(bw2sav_obj * sav, item_obj * item, int slot)
 			bag[slot] = *item;
 		}
 	}
+}
+string lookupitemflavortext(const int itemid, const int generation, const int langid, const int versiongroup)
+{
+	return getastring(lookupitemflavortextsql(itemid, generation,langid,versiongroup));
 }
