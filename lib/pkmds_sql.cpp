@@ -270,16 +270,16 @@ string lookupitemflavortextsql(const int itemid, const int generation, const int
 	ostringstream o;
 	o << ""
 		<< "SELECT item_flavor_text.flavor_text "
-		<< "FROM   item_flavor_text "
-		<< "       INNER JOIN item_game_indices "
-		<< "               ON item_flavor_text.item_id = item_game_indices.item_id "
-		<< "       INNER JOIN items "
-		<< "               ON item_flavor_text.item_id = items.id "
-		<< "                  AND item_game_indices.item_id = items.id "
-		<< "WHERE  ( item_flavor_text.language_id = " << langid << " ) "
-		<< "       AND ( item_game_indices.generation_id = " << generation << " ) "
-		<< "       AND ( item_game_indices.game_index = " << itemid << " ) "
-		<< "       AND ( item_flavor_text.version_group_id = " << versiongroup << " ) ";
+		<< "FROM item_flavor_text "
+		<< "INNER JOIN item_game_indices "
+		<< "ON item_flavor_text.item_id = item_game_indices.item_id "
+		<< "INNER JOIN items "
+		<< "ON item_flavor_text.item_id = items.id "
+		<< "AND item_game_indices.item_id = items.id "
+		<< "WHERE (item_flavor_text.language_id =  " << langid << ") "
+		<< "AND (item_game_indices.generation_id = " << generation << ") "
+		<< "AND (item_game_indices.game_index = " << itemid << ") "
+		<< "AND (item_flavor_text.version_group_id = " << versiongroup << ")";
 	return o.str();
 }
 string lookuppkmcolornamesql(const int species, const int langid)
@@ -378,16 +378,16 @@ string getmoveppsql(const Moves::moves moveid)
 }
 void getspritesql(ostringstream& o, const pokemon_obj & pkm, int generation)
 {
-    if(bool(pkm.isegg))
-    {
-        o << "SELECT image FROM front_male_normal_sprites WHERE identifier = 'egg";
-        if(pkm.species == Species::manaphy)
-        {
-            o << "-manaphy";
-        }
-        o << "'";
-        return;
-    }
+	if(bool(pkm.isegg))
+	{
+		o << "SELECT image FROM front_male_normal_sprites WHERE identifier = 'egg";
+		if(pkm.species == Species::manaphy)
+		{
+			o << "-manaphy";
+		}
+		o << "'";
+		return;
+	}
 	o
 		<< "SELECT pokemon_forms.form_identifier "
 		<< "FROM   pokemon_forms "
@@ -459,18 +459,18 @@ void getspritesql(ostringstream& o, const pokemon_obj & pkm, int generation)
 }
 void getspritesql(ostringstream& o, const pokemon_obj * pkm, int generation)
 {
-    if(bool(pkm->isegg))
-    {
-        o << "SELECT image FROM front_male_normal_sprites WHERE identifier = 'egg";
-        if(pkm->species == Species::manaphy)
-        {
-            o << "-manaphy";
-        }
-        o << "'";
-        return;
-    }
-    o
-        << "SELECT pokemon_forms.form_identifier "
+	if(bool(pkm->isegg))
+	{
+		o << "SELECT image FROM front_male_normal_sprites WHERE identifier = 'egg";
+		if(pkm->species == Species::manaphy)
+		{
+			o << "-manaphy";
+		}
+		o << "'";
+		return;
+	}
+	o
+		<< "SELECT pokemon_forms.form_identifier "
 		<< "FROM   pokemon_forms "
 		<< "       INNER JOIN pokemon_form_generations "
 		<< "               ON pokemon_forms.id = pokemon_form_generations.pokemon_form_id "
@@ -478,7 +478,7 @@ void getspritesql(ostringstream& o, const pokemon_obj * pkm, int generation)
 		<< "               ON pokemon_forms.pokemon_id = pokemon.id "
 		<< "WHERE  ( pokemon_form_generations.generation_id = " << generation << " ) "
 		<< "       AND ( pokemon.species_id = " << pkm->species_int << " ) "
-        << "       AND ( pokemon_form_generations.game_index = " << (int)pkm->form_int << " ) ";
+		<< "       AND ( pokemon_form_generations.game_index = " << (int)pkm->form_int << " ) ";
 	//            << "SELECT pokemon_forms.form_identifier "
 	//            << "FROM   pokemon_form_names "
 	//            << "       INNER JOIN pokemon_forms "
@@ -541,7 +541,7 @@ void getspritesql(ostringstream& o, const pokemon_obj * pkm, int generation)
 void geticonsql(ostringstream& o, const pokemon_obj & pkm, int generation)
 {
 	string formid;
-    if(pkm.isegg)
+	if(pkm.isegg)
 	{
 		if(pkm.species == Species::manaphy)
 		{
@@ -628,7 +628,7 @@ void geticonsql(ostringstream& o, const pokemon_obj & pkm, int generation)
 void geticonsql(ostringstream& o, const pokemon_obj * pkm, int generation)
 {
 	string formid;
-    if(pkm->isegg)
+	if(pkm->isegg)
 	{
 		if(pkm->species == Species::manaphy)
 		{
@@ -658,7 +658,7 @@ void geticonsql(ostringstream& o, const pokemon_obj * pkm, int generation)
 				<< "               ON pokemon_forms.pokemon_id = pokemon.id "
 				<< "WHERE  ( pokemon_form_generations.generation_id = " << generation << " ) "
 				<< "       AND ( pokemon.species_id = " << pkm->species_int << " ) "
-                << "       AND ( pokemon_form_generations.game_index = " << (int)pkm->form_int << " ) ";
+				<< "       AND ( pokemon_form_generations.game_index = " << (int)pkm->form_int << " ) ";
 			//            << "SELECT pokemon_forms.form_identifier "
 			//            << "FROM   pokemon_form_names "
 			//            << "       INNER JOIN pokemon_forms "
@@ -812,7 +812,7 @@ string getsetlevelsql(pokemon_obj *pkm, int level)
 }
 string getpkmformnamesql(const pokemon_obj *pkm, const int generation, const int langid)
 {
-    return getpkmformnamesql(pkm->species_int,(int)pkm->form_int,generation,langid);
+	return getpkmformnamesql(pkm->species_int,(int)pkm->form_int,generation,langid);
 }
 string getpkmformnamesql(const int speciesid, const int formid, const int generation, const int langid)
 {
