@@ -6,7 +6,7 @@
 int balltoitem(int ball)
 {
 	int item = 0;
-	switch((Balls::balls)ball)
+	switch ((Balls::balls)ball)
 	{
 	case Balls::pokeball:
 		item = (int)Items::pokeball;
@@ -93,18 +93,18 @@ int balltoitem(int ball)
 	return item;
 }
 const byte t_shuffle[24][4] = {
-	{0,1,2,3}, {0,1,3,2}, {0,2,1,3}, {0,2,3,1},
-	{0,3,1,2}, {0,3,2,1}, {1,0,2,3}, {1,0,3,2},
-	{1,2,0,3}, {1,2,3,0}, {1,3,0,2}, {1,3,2,0},
-	{2,0,1,3}, {2,0,3,1}, {2,1,0,3}, {2,1,3,0},
-	{2,3,0,1}, {2,3,1,0}, {3,0,1,2}, {3,0,2,1},
-	{3,1,0,2}, {3,1,2,0}, {3,2,0,1}, {3,2,1,0}
+	{ 0, 1, 2, 3 }, { 0, 1, 3, 2 }, { 0, 2, 1, 3 }, { 0, 2, 3, 1 },
+	{ 0, 3, 1, 2 }, { 0, 3, 2, 1 }, { 1, 0, 2, 3 }, { 1, 0, 3, 2 },
+	{ 1, 2, 0, 3 }, { 1, 2, 3, 0 }, { 1, 3, 0, 2 }, { 1, 3, 2, 0 },
+	{ 2, 0, 1, 3 }, { 2, 0, 3, 1 }, { 2, 1, 0, 3 }, { 2, 1, 3, 0 },
+	{ 2, 3, 0, 1 }, { 2, 3, 1, 0 }, { 3, 0, 1, 2 }, { 3, 0, 2, 1 },
+	{ 3, 1, 0, 2 }, { 3, 1, 2, 0 }, { 3, 2, 0, 1 }, { 3, 2, 1, 0 }
 };
 void shuffle(pokemon_obj * pkm, bool un)
 {
 	byte * raw = pkm->_raw_data_u8; // reinterpret_cast<byte*>(pkm);
 	byte temp[128];
-	byte mode = (((((uint32*) raw)[0] >> 0xD) & 0x1F) % 24);
+	byte mode = (((((uint32*)raw)[0] >> 0xD) & 0x1F) % 24);
 
 	if (un)
 	{
@@ -126,7 +126,7 @@ void shuffle(pokemon_obj & pkm, bool un)
 {
 	byte * raw = pkm._raw_data_u8; // reinterpret_cast<byte*>(&pkm);
 	byte temp[128];
-	byte mode = (((((uint32*) raw)[0] >> 0xD) & 0x1F) % 24);
+	byte mode = (((((uint32*)raw)[0] >> 0xD) & 0x1F) % 24);
 
 	if (un)
 	{
@@ -146,26 +146,26 @@ void shuffle(pokemon_obj & pkm, bool un)
 }
 void unshufflepkm(pokemon_obj *pkm)
 {
-	shuffle(pkm,true);
+	shuffle(pkm, true);
 }
 void shufflepkm(pokemon_obj *pkm)
 {
-	shuffle(pkm,false);
+	shuffle(pkm, false);
 }
 void unshufflepkm(pokemon_obj &pkm)
 {
-	shuffle(pkm,true);
+	shuffle(pkm, true);
 }
 void shufflepkm(pokemon_obj &pkm)
 {
-	shuffle(pkm,false);
+	shuffle(pkm, false);
 }
 void pkmcrypt(pokemon_obj& pkm)
 {
 	pkmprng prng;
 	prng.mseed = pkm.checksum;
 	uint16 * words = pkm._raw_data_u16; // reinterpret_cast<uint16*>(&pkm);
-	for(int i = 4; i < 68; i++)
+	for (int i = 4; i < 68; i++)
 	{
 		words[i] = (words[i]) ^ (prng.nextnum() >> 0x10);
 	}
@@ -175,7 +175,7 @@ void pkmcrypt(party_field& pkm, uint32 pid)
 	pkmprng prng;
 	prng.mseed = pid;
 	uint16 * words = reinterpret_cast<uint16*>(&pkm);
-	for(int i = 0x0; i < 0x2a; i++)
+	for (int i = 0x0; i < 0x2a; i++)
 	{
 		words[i] = (words[i]) ^ (prng.nextnum() >> 0x10);
 	}
@@ -185,7 +185,7 @@ void pkmcrypt(party_field* pkm, uint32 pid)
 	pkmprng prng;
 	prng.mseed = pid;
 	uint16 * words = reinterpret_cast<uint16*>(pkm);
-	for(int i = 0x0; i < 0x2a; i++)
+	for (int i = 0x0; i < 0x2a; i++)
 	{
 		words[i] = (words[i]) ^ (prng.nextnum() >> 0x10);
 	}
@@ -224,14 +224,14 @@ void encryptpkm(party_pkm& pkm)
 {
 	shufflepkm(&pkm);
 	pkmcrypt(&pkm);
-	pkmcrypt(pkm.party_data,pkm.pid);
+	pkmcrypt(pkm.party_data, pkm.pid);
 	pkm.ispartydatadecrypted = false;
 	pkm.isboxdatadecrypted = false;
 }
 void decryptpkm(party_pkm& pkm)
 {
 	pkmcrypt(&pkm);
-	pkmcrypt(pkm.party_data,pkm.pid);
+	pkmcrypt(pkm.party_data, pkm.pid);
 	unshufflepkm(&pkm);
 	pkm.ispartydatadecrypted = true;
 	pkm.isboxdatadecrypted = true;
@@ -240,14 +240,14 @@ void encryptpkm(party_pkm* pkm)
 {
 	shufflepkm(pkm);
 	pkmcrypt(pkm);
-	pkmcrypt(pkm->party_data,pkm->pid);
+	pkmcrypt(pkm->party_data, pkm->pid);
 	pkm->ispartydatadecrypted = false;
 	pkm->isboxdatadecrypted = false;
 }
 void decryptpkm(party_pkm* pkm)
 {
 	pkmcrypt(pkm);
-	pkmcrypt(&(pkm->party_data),pkm->pid);
+	pkmcrypt(&(pkm->party_data), pkm->pid);
 	unshufflepkm(pkm);
 	pkm->ispartydatadecrypted = true;
 	pkm->isboxdatadecrypted = true;
@@ -257,7 +257,7 @@ void pkmcrypt(pokemon_obj* pkm)
 	pkmprng prng;
 	prng.mseed = pkm->checksum;
 	uint16 * words = pkm->_raw_data_u16; // reinterpret_cast<uint16*>(pkm);
-	for(int i = 4; i < 68; i++)
+	for (int i = 4; i < 68; i++)
 	{
 		words[i] = (words[i]) ^ (prng.nextnum() >> 0x10);
 	}
@@ -290,16 +290,16 @@ uint16 getchecksum(pokemon_obj * pkm)
 uint16 getchecksum(bw2savblock_obj &block, const int start, const int length){
 	byte* data = reinterpret_cast<byte*>(&block);
 	int sum = 0xFFFF;
-	for ( int i = start; i < start + length; i++ )
+	for (int i = start; i < start + length; i++)
 	{
-		sum = (sum << 8) ^ SeedTable[ (byte)(data[i] ^ (byte)(sum>>8)) ];
+		sum = (sum << 8) ^ SeedTable[(byte)(data[i] ^ (byte)(sum >> 8))];
 	}
 	return (uint16)sum;
 }
 void calcpartychecksum(bw2savblock_obj &block, bool bw2)
 {
 	int start = 0;
-	if(bw2)
+	if (bw2)
 	{
 		start = BW2_OFFSETS::partypkm;
 	}
@@ -307,7 +307,7 @@ void calcpartychecksum(bw2savblock_obj &block, bool bw2)
 	{
 		start = BW_OFFSETS::partypkm;
 	}
-	uint16 chk = getchecksum(block,start,partysize);
+	uint16 chk = getchecksum(block, start, partysize);
 	block.party.checksum = chk;
 	byte* data = reinterpret_cast<byte*>(&block);
 	if (bw2)
@@ -322,7 +322,7 @@ void calcpartychecksum(bw2savblock_obj &block, bool bw2)
 void calcboxchecksum(bw2savblock_obj &block, int boxindex, bool bw2)
 {
 	int start = (0x400 + (boxindex * 0x1000));
-	uint16 chk = getchecksum(block,start,boxsize);
+	uint16 chk = getchecksum(block, start, boxsize);
 	block.boxes[boxindex].checksum = chk;
 	byte* data = reinterpret_cast<byte*>(&block);
 	if (bw2)
@@ -338,12 +338,12 @@ void calcchecksum(bw2savblock_obj &block, int start, int length, int loc)
 {
 	byte* data = reinterpret_cast<byte*>(&block);
 	int sum = 0xFFFF;
-	for ( int i = start; i < start + length; i++ )
+	for (int i = start; i < start + length; i++)
 	{
-		sum = (sum << 8) ^ SeedTable[ (byte)(data[i] ^ (byte)(sum>>8)) ];
+		sum = (sum << 8) ^ SeedTable[(byte)(data[i] ^ (byte)(sum >> 8))];
 	}
 	uint16 chk = (uint16)sum;
-	memcpy(&*(data+loc),&chk,2);
+	memcpy(&*(data + loc), &chk, 2);
 }
 uint16 getchkfromsav(bw2savblock_obj &block, bool bw2)
 {
@@ -351,11 +351,11 @@ uint16 getchkfromsav(bw2savblock_obj &block, bool bw2)
 	uint16 chk;
 	if (bw2)
 	{
-		chk = (data[(long)BW2_OFFSETS::chkloc]) + (data[(long)BW2_OFFSETS::chkloc+1] * 256);
+		chk = (data[(long)BW2_OFFSETS::chkloc]) + (data[(long)BW2_OFFSETS::chkloc + 1] * 256);
 	}
 	else
 	{
-		chk = (data[(long)BW_OFFSETS::chkloc]) + (data[(long)BW_OFFSETS::chkloc+1] * 256);
+		chk = (data[(long)BW_OFFSETS::chkloc]) + (data[(long)BW_OFFSETS::chkloc + 1] * 256);
 	}
 	return chk;
 }
@@ -374,16 +374,16 @@ uint16 getchecksum(bw2savblock_obj *block, const int start, const int length)
 {
 	byte* data = reinterpret_cast<byte*>(block);
 	int sum = 0xFFFF;
-	for ( int i = start; i < start + length; i++ )
+	for (int i = start; i < start + length; i++)
 	{
-		sum = (sum << 8) ^ SeedTable[ (byte)(data[i] ^ (byte)(sum>>8)) ];
+		sum = (sum << 8) ^ SeedTable[(byte)(data[i] ^ (byte)(sum >> 8))];
 	}
 	return (uint16)sum;
 }
 void calcpartychecksum(bw2savblock_obj *block, bool bw2)
 {
 	int start = 0;
-	if(bw2)
+	if (bw2)
 	{
 		start = BW2_OFFSETS::partypkm;
 	}
@@ -391,7 +391,7 @@ void calcpartychecksum(bw2savblock_obj *block, bool bw2)
 	{
 		start = BW_OFFSETS::partypkm;
 	}
-	uint16 chk = getchecksum(block,start,partysize);
+	uint16 chk = getchecksum(block, start, partysize);
 	block->party.checksum = chk;
 	byte* data = reinterpret_cast<byte*>(block);
 	if (bw2)
@@ -406,7 +406,7 @@ void calcpartychecksum(bw2savblock_obj *block, bool bw2)
 void calcboxchecksum(bw2savblock_obj *block, int boxindex, bool bw2)
 {
 	int start = (0x400 + (boxindex * 0x1000));
-	uint16 chk = getchecksum(block,start,boxsize);
+	uint16 chk = getchecksum(block, start, boxsize);
 	block->boxes[boxindex].checksum = chk;
 	byte* data = reinterpret_cast<byte*>(block);
 	if (bw2)
@@ -422,12 +422,12 @@ void calcchecksum(bw2savblock_obj *block, int start, int length, int loc)
 {
 	byte* data = reinterpret_cast<byte*>(block);
 	int sum = 0xFFFF;
-	for ( int i = start; i < start + length; i++ )
+	for (int i = start; i < start + length; i++)
 	{
-		sum = (sum << 8) ^ SeedTable[ (byte)(data[i] ^ (byte)(sum>>8)) ];
+		sum = (sum << 8) ^ SeedTable[(byte)(data[i] ^ (byte)(sum >> 8))];
 	}
 	uint16 chk = (uint16)sum;
-	memcpy(&*(data+loc),&chk,2);
+	memcpy(&*(data + loc), &chk, 2);
 }
 uint16 getchkfromsav(bw2savblock_obj *block, bool bw2)
 {
@@ -435,11 +435,11 @@ uint16 getchkfromsav(bw2savblock_obj *block, bool bw2)
 	uint16 chk;
 	if (bw2)
 	{
-		chk = (data[(long)BW2_OFFSETS::chkloc]) + (data[(long)BW2_OFFSETS::chkloc+1] * 256);
+		chk = (data[(long)BW2_OFFSETS::chkloc]) + (data[(long)BW2_OFFSETS::chkloc + 1] * 256);
 	}
 	else
 	{
-		chk = (data[(long)BW_OFFSETS::chkloc]) + (data[(long)BW_OFFSETS::chkloc+1] * 256);
+		chk = (data[(long)BW_OFFSETS::chkloc]) + (data[(long)BW_OFFSETS::chkloc + 1] * 256);
 	}
 	return chk;
 }
@@ -456,15 +456,15 @@ void calcchecksum(pokemon_obj* pkm) // Calculates and assigns the checksum for t
 }
 bool savisbw2(bw2sav_obj &sav)
 {
-	return (getchecksum(sav.cur,(long)BW2_OFFSETS::chkcalcloc,(long)BW2_OFFSETS::chkcalclen)) == (getchkfromsav(sav.cur,true));
+	return (getchecksum(sav.cur, (long)BW2_OFFSETS::chkcalcloc, (long)BW2_OFFSETS::chkcalclen)) == (getchkfromsav(sav.cur, true));
 }
 bool savisbw2(bw2sav_obj *sav)
 {
-	return (getchecksum(sav->cur,(long)BW2_OFFSETS::chkcalcloc,(long)BW2_OFFSETS::chkcalclen)) == (getchkfromsav(sav->cur,true));
+	return (getchecksum(sav->cur, (long)BW2_OFFSETS::chkcalcloc, (long)BW2_OFFSETS::chkcalclen)) == (getchkfromsav(sav->cur, true));
 }
 void fixsavchecksum(bw2sav_obj &sav, bool isbw2)
 {
-	if(isbw2)
+	if (isbw2)
 	{
 		calcchecksum(sav.cur, (long)BW2_OFFSETS::chkcalcloc, (long)BW2_OFFSETS::chkcalclen, (long)BW2_OFFSETS::chkloc);
 	}
@@ -475,7 +475,7 @@ void fixsavchecksum(bw2sav_obj &sav, bool isbw2)
 }
 void fixsavchecksum(bw2sav_obj *sav, bool isbw2)
 {
-	if(isbw2)
+	if (isbw2)
 	{
 		calcchecksum(sav->cur, (long)BW2_OFFSETS::chkcalcloc, (long)BW2_OFFSETS::chkcalclen, (long)BW2_OFFSETS::chkloc);
 	}
@@ -486,18 +486,18 @@ void fixsavchecksum(bw2sav_obj *sav, bool isbw2)
 }
 void fixtrainerdatachecksum(bw2savblock_obj * block)
 {
-	calcchecksum(block,0x19400,0xB0,0x194B2);
+	calcchecksum(block, 0x19400, 0xB0, 0x194B2);
 }
 void fixbagchecksum(bw2savblock_obj * block)
 {
-	calcchecksum(block,0x18400,0x9EC,0x18DEE);
+	calcchecksum(block, 0x18400, 0x9EC, 0x18DEE);
 }
 void write(const char* file_name, pokemon_obj& data) // Writes the given Pokemon data to the given file name.
 {
-	bool encryptstatus[2] = {data.ispartydatadecrypted,data.isboxdatadecrypted};
+	bool encryptstatus[2] = { data.ispartydatadecrypted, data.isboxdatadecrypted };
 	data.ispartydatadecrypted = false;
 	data.isboxdatadecrypted = false;
-	std::ofstream *out = new std::ofstream(file_name,std::ios::binary);
+	std::ofstream *out = new std::ofstream(file_name, std::ios::binary);
 	out->write(reinterpret_cast<char*>(&data), sizeof(pokemon_obj));
 	//out->write(data._raw_data_p, sizeof(pokemon_obj));
 	out->close();
@@ -508,10 +508,10 @@ void write(const char* file_name, pokemon_obj& data) // Writes the given Pokemon
 }
 void write(const char* file_name, pokemon_obj* data) // Writes the given Pokemon data to the given file name.
 {
-	bool encryptstatus[2] = {data->ispartydatadecrypted,data->isboxdatadecrypted};
+	bool encryptstatus[2] = { data->ispartydatadecrypted, data->isboxdatadecrypted };
 	data->ispartydatadecrypted = false;
 	data->isboxdatadecrypted = false;
-	std::ofstream *out = new std::ofstream(file_name,std::ios::binary);
+	std::ofstream *out = new std::ofstream(file_name, std::ios::binary);
 	out->write(reinterpret_cast<char*>(data), sizeof(pokemon_obj));
 	//out->write(data->_raw_data_p, sizeof(pokemon_obj));
 	out->close();
@@ -522,7 +522,7 @@ void write(const char* file_name, pokemon_obj* data) // Writes the given Pokemon
 }
 void write(const char* file_name, bw2sav_obj& data) //
 {
-	std::ofstream *out = new std::ofstream(file_name,std::ios::binary);
+	std::ofstream *out = new std::ofstream(file_name, std::ios::binary);
 	out->write(reinterpret_cast<char*>(&data), sizeof(bw2sav_obj));
 	out->close();
 	delete out;
@@ -530,7 +530,7 @@ void write(const char* file_name, bw2sav_obj& data) //
 }
 void write(const char* file_name, bw2sav_obj *data) //
 {
-	std::ofstream *out = new std::ofstream(file_name,std::ios::binary);
+	std::ofstream *out = new std::ofstream(file_name, std::ios::binary);
 	out->write(reinterpret_cast<char*>(data), sizeof(bw2sav_obj));
 	out->close();
 	delete out;
@@ -538,7 +538,7 @@ void write(const char* file_name, bw2sav_obj *data) //
 }
 void read(const char* file_name, pokemon_obj& data) // Reads the given file and assigns the data to the given Pokemon object.
 {
-	std::ifstream *in = new std::ifstream(file_name,std::ios::binary);
+	std::ifstream *in = new std::ifstream(file_name, std::ios::binary);
 	in->read(reinterpret_cast<char*>(&data), sizeof(pokemon_obj));
 	//in->read(data._raw_data_p, sizeof(pokemon_obj));
 	in->close();
@@ -547,7 +547,7 @@ void read(const char* file_name, pokemon_obj& data) // Reads the given file and 
 }
 void read(const char* file_name, pokemon_obj *data) // Reads the given file and assigns the data to the given save file object.
 {
-	std::ifstream *in = new std::ifstream(file_name,std::ios::binary);
+	std::ifstream *in = new std::ifstream(file_name, std::ios::binary);
 	in->read(reinterpret_cast<char*>(data), sizeof(pokemon_obj));
 	//in->read(data->_raw_data_p, sizeof(pokemon_obj));
 	in->close();
@@ -556,7 +556,7 @@ void read(const char* file_name, pokemon_obj *data) // Reads the given file and 
 }
 void read(const char* file_name, bw2sav_obj& data) // Reads the given file and assigns the data to the given save file object.
 {
-	std::ifstream *in = new std::ifstream(file_name,std::ios::binary);
+	std::ifstream *in = new std::ifstream(file_name, std::ios::binary);
 	in->read(reinterpret_cast<char*>(&data), sizeof(bw2sav_obj));
 	in->close();
 	delete in;
@@ -564,7 +564,7 @@ void read(const char* file_name, bw2sav_obj& data) // Reads the given file and a
 }
 void read(const char* file_name, bw2sav_obj *data) // Reads the given file and assigns the data to the given save file object.
 {
-	std::ifstream *in = new std::ifstream(file_name,std::ios::binary);
+	std::ifstream *in = new std::ifstream(file_name, std::ios::binary);
 	in->read(reinterpret_cast<char*>(data), sizeof(bw2sav_obj));
 	in->close();
 	delete in;
@@ -572,7 +572,7 @@ void read(const char* file_name, bw2sav_obj *data) // Reads the given file and a
 }
 void read(const char* file_name, sav_object *data) // Reads the given file and assigns the data to the given save file object.
 {
-	std::ifstream *in = new std::ifstream(file_name,std::ios::binary);
+	std::ifstream *in = new std::ifstream(file_name, std::ios::binary);
 	in->read(reinterpret_cast<char*>(&(data->DATA)), sizeof(bw2sav_obj));
 	in->close();
 	delete in;
@@ -596,24 +596,24 @@ std::wstring getpkmotname(const pokemon_obj &pkm)
 }
 void setpkmnickname(pokemon_obj &pkm, wchar_t input[], int length)
 {
-	if(length > NICKLENGTH){length = NICKLENGTH;}
-	memset(&(pkm.nickname), '\0', NICKLENGTH*2);
-	memcpy(&(pkm.nickname),input,length*2);
-	if(length < NICKLENGTH)
+	if (length > NICKLENGTH){ length = NICKLENGTH; }
+	memset(&(pkm.nickname), '\0', NICKLENGTH * 2);
+	memcpy(&(pkm.nickname), input, length * 2);
+	if (length < NICKLENGTH)
 	{
 		memset(&(pkm.nickname[length]), 0xffff, 2);
-		memset(&(pkm.nickname[NICKLENGTH-1]), 0xffff, 2);
+		memset(&(pkm.nickname[NICKLENGTH - 1]), 0xffff, 2);
 	}
 }
 void setpkmotname(pokemon_obj &pkm, wchar_t input[], int length)
 {
-	if(length > OTLENGTH){length = OTLENGTH;}
-	memset(&(pkm.otname), '\0', OTLENGTH*2);
-	memcpy(&(pkm.otname),input,length*2);
-	if(length < OTLENGTH)
+	if (length > OTLENGTH){ length = OTLENGTH; }
+	memset(&(pkm.otname), '\0', OTLENGTH * 2);
+	memcpy(&(pkm.otname), input, length * 2);
+	if (length < OTLENGTH)
 	{
 		memset(&(pkm.otname[length]), 0xffff, 2);
-		memset(&(pkm.otname[OTLENGTH-1]), 0xffff, 2);
+		memset(&(pkm.otname[OTLENGTH - 1]), 0xffff, 2);
 	}
 }
 std::wstring getpkmnickname(const pokemon_obj *pkm)
@@ -634,60 +634,60 @@ std::wstring getpkmotname(const pokemon_obj *pkm)
 }
 void setpkmnickname(pokemon_obj *pkm, wchar_t input[], int length)
 {
-	if(length > NICKLENGTH){length = NICKLENGTH;}
-	memset(&(pkm->nickname), '\0', NICKLENGTH*2);
-	memcpy(&(pkm->nickname),input,length*2);
-	if(length < NICKLENGTH)
+	if (length > NICKLENGTH){ length = NICKLENGTH; }
+	memset(&(pkm->nickname), '\0', NICKLENGTH * 2);
+	memcpy(&(pkm->nickname), input, length * 2);
+	if (length < NICKLENGTH)
 	{
 		memset(&(pkm->nickname[length]), 0xffff, 2);
-		memset(&(pkm->nickname[NICKLENGTH-1]), 0xffff, 2);
+		memset(&(pkm->nickname[NICKLENGTH - 1]), 0xffff, 2);
 	}
 }
 void setpkmotname(pokemon_obj *pkm, wchar_t input[], int length)
 {
-	if(length > OTLENGTH){length = OTLENGTH;}
-	memset(&(pkm->otname), '\0', OTLENGTH*2);
-	memcpy(&(pkm->otname),input,length*2);
-	if(length < OTLENGTH)
+	if (length > OTLENGTH){ length = OTLENGTH; }
+	memset(&(pkm->otname), '\0', OTLENGTH * 2);
+	memcpy(&(pkm->otname), input, length * 2);
+	if (length < OTLENGTH)
 	{
 		memset(&(pkm->otname[length]), 0xffff, 2);
-		memset(&(pkm->otname[OTLENGTH-1]), 0xffff, 2);
+		memset(&(pkm->otname[OTLENGTH - 1]), 0xffff, 2);
 	}
 }
 void setsavetrainername(bw2sav_obj *sav, wchar_t input[], int length)
 {
-	if(length > OTLENGTH){length = OTLENGTH;}
-	memset(&(sav->cur.trainername), '\0', OTLENGTH*2);
-	memcpy(&(sav->cur.trainername),input,length*2);
-	if(length < OTLENGTH)
+	if (length > OTLENGTH){ length = OTLENGTH; }
+	memset(&(sav->cur.trainername), '\0', OTLENGTH * 2);
+	memcpy(&(sav->cur.trainername), input, length * 2);
+	if (length < OTLENGTH)
 	{
 		memset(&(sav->cur.trainername[length]), 0xffff, 2);
-		memset(&(sav->cur.trainername[OTLENGTH-1]), 0xffff, 2);
+		memset(&(sav->cur.trainername[OTLENGTH - 1]), 0xffff, 2);
 	}
 }
 
 void setsaveboxname(bw2sav_obj *sav, int box, wchar_t input[], int length)
 {
-	if(length > BOXNAMELENGTH){length = BOXNAMELENGTH;}
-	memset(&(sav->cur.boxnames[box]), '\0', BOXNAMELENGTH*2);
-	memcpy(&(sav->cur.boxnames[box]),input,length*2);
-	if(length < BOXNAMELENGTH)
+	if (length > BOXNAMELENGTH){ length = BOXNAMELENGTH; }
+	memset(&(sav->cur.boxnames[box]), '\0', BOXNAMELENGTH * 2);
+	memcpy(&(sav->cur.boxnames[box]), input, length * 2);
+	if (length < BOXNAMELENGTH)
 	{
 		memset(&(sav->cur.boxnames[box][length]), 0xffff, 2);
-		memset(&(sav->cur.boxnames[box][BOXNAMELENGTH-1]), 0xffff, 2);
+		memset(&(sav->cur.boxnames[box][BOXNAMELENGTH - 1]), 0xffff, 2);
 	}
 }
 
 Genders::genders getpkmgender(const pokemon_obj &pkm)
 {
-	if (pkm.female){return Genders::female;};
-	if (pkm.genderless){return Genders::genderless;};
+	if (pkm.female){ return Genders::female; };
+	if (pkm.genderless){ return Genders::genderless; };
 	return Genders::male;
 }
 Genders::genders getpkmgender(const pokemon_obj *pkm)
 {
-	if (pkm->female){return Genders::female;};
-	if (pkm->genderless){return Genders::genderless;};
+	if (pkm->female){ return Genders::female; };
+	if (pkm->genderless){ return Genders::genderless; };
 	return Genders::male;
 }
 void setpkmgender(pokemon_obj &pkm, int gender)
@@ -752,7 +752,7 @@ bool pkmmetasegg(const pokemon_obj *pkm){
 }
 void put_pkm(box_obj &box, const int slot, pokemon_obj &pkm, const bool isencrypted)
 {
-	if(! isencrypted)
+	if (!isencrypted)
 	{
 		encryptpkm(pkm);
 	}
@@ -760,7 +760,7 @@ void put_pkm(box_obj &box, const int slot, pokemon_obj &pkm, const bool isencryp
 }
 void swap_pkm(box_obj &frombox, const int fromslot, box_obj &tobox, const int toslot)
 {
-	std::swap(frombox.pokemon[fromslot],tobox.pokemon[toslot]);
+	std::swap(frombox.pokemon[fromslot], tobox.pokemon[toslot]);
 	//pokemon_obj frompkm, topkm;
 	//frompkm = frombox.pokemon[fromslot];
 	//topkm = tobox.pokemon[toslot];
@@ -769,7 +769,7 @@ void swap_pkm(box_obj &frombox, const int fromslot, box_obj &tobox, const int to
 }
 void swap_pkm(box_obj *frombox, const int fromslot, box_obj *tobox, const int toslot)
 {
-	std::swap(frombox->pokemon[fromslot],tobox->pokemon[toslot]);
+	std::swap(frombox->pokemon[fromslot], tobox->pokemon[toslot]);
 	//pokemon_obj frompkm, topkm;
 	//frompkm = frombox->pokemon[fromslot];
 	//topkm = tobox->pokemon[toslot];
@@ -778,51 +778,51 @@ void swap_pkm(box_obj *frombox, const int fromslot, box_obj *tobox, const int to
 }
 void swap_pkm(party_pkm *a, party_pkm *b)
 {
-	std::swap(*a,*b);
+	std::swap(*a, *b);
 }
 void swap_pkm(pokemon_obj *a, pokemon_obj *b)
 {
-	std::swap(*a,*b);
+	std::swap(*a, *b);
 }
 void swap_pkm(party_pkm *a, pokemon_obj *b)
 {
-	memset(&(a->party_data),0,sizeof(party_field));
+	memset(&(a->party_data), 0, sizeof(party_field));
 	pokemon_obj * pkmpa = new pokemon_obj();
 	pkmpa = a;
-	std::swap(*pkmpa,*b);
+	std::swap(*pkmpa, *b);
 }
 void swap_pkm(pokemon_obj *a, party_pkm *b)
 {
-	memset(&(b->party_data),0,sizeof(party_field));
+	memset(&(b->party_data), 0, sizeof(party_field));
 	pokemon_obj * pkmpb = new pokemon_obj();
 	pkmpb = b;
-	std::swap(*pkmpb,*a);
+	std::swap(*pkmpb, *a);
 }
 void swap_pkm(party_pkm &a, party_pkm &b)
 {
-	std::swap(a,b);
+	std::swap(a, b);
 }
 void swap_pkm(pokemon_obj &a, pokemon_obj &b)
 {
-	std::swap(a,b);
+	std::swap(a, b);
 }
 void swap_pkm(party_pkm &a, pokemon_obj &b)
 {
-	memset(&(a.party_data),0,sizeof(party_field));
+	memset(&(a.party_data), 0, sizeof(party_field));
 	pokemon_obj * pkmpa = new pokemon_obj();
 	pkmpa = &a;
-	std::swap(*pkmpa,b);
+	std::swap(*pkmpa, b);
 }
 void swap_pkm(pokemon_obj &a, party_pkm &b)
 {
-	memset(&(b.party_data),0,sizeof(party_field));
+	memset(&(b.party_data), 0, sizeof(party_field));
 	pokemon_obj * pkmpb = new pokemon_obj();
 	pkmpb = &b;
-	std::swap(*pkmpb,a);
+	std::swap(*pkmpb, a);
 }
 void put_pkm(box_obj *box, const int slot, pokemon_obj *pkm, const bool isencrypted)
 {
-	if(! isencrypted)
+	if (!isencrypted)
 	{
 		encryptpkm(pkm);
 	}
@@ -833,7 +833,7 @@ void remove_pkm(box_obj &box, const int slot)
 	// TODO: Test blank pkm
 	//pokemon_obj blank = {};
 	pokemon_obj blank;
-	memset(&blank,0,sizeof(pokemon_obj));
+	memset(&blank, 0, sizeof(pokemon_obj));
 	encryptpkm(blank);
 	box.pokemon[slot] = blank;
 }
@@ -841,24 +841,24 @@ void remove_pkm(box_obj *box, const int slot)
 {
 	//pokemon_obj blank = {};
 	pokemon_obj blank;
-	memset(&blank,0,sizeof(pokemon_obj));
+	memset(&blank, 0, sizeof(pokemon_obj));
 	encryptpkm(blank);
 	box->pokemon[slot] = blank;
 }
 void remove_pkm(bw2savblock_obj * block, const int slot)
 {
 	std::vector<party_pkm> party(6);
-	std::copy(block->party.pokemon.begin(),block->party.pokemon.end(),party.begin());
+	std::copy(block->party.pokemon.begin(), block->party.pokemon.end(), party.begin());
 	party.erase(party.begin() + slot);
 	party_pkm * blankpp = new party_pkm;
-	std::fill(block->party.pokemon.begin(),block->party.pokemon.end(),(*blankpp));
-	std::copy(party.begin(),party.end(),block->party.pokemon.begin());
+	std::fill(block->party.pokemon.begin(), block->party.pokemon.end(), (*blankpp));
+	std::copy(party.begin(), party.end(), block->party.pokemon.begin());
 }
 void remove_pkm(pokemon_obj * pkm, bool encrypt)
 {
 	pokemon_obj blankpkm;
 	*pkm = blankpkm;
-	if(encrypt)
+	if (encrypt)
 	{
 		encryptpkm(pkm);
 	}
@@ -867,7 +867,7 @@ void remove_pkm(party_pkm * pkm, bool encrypt)
 {
 	party_pkm blankpkm;
 	*pkm = blankpkm;
-	if(encrypt)
+	if (encrypt)
 	{
 		encryptpkm(pkm);
 	}
@@ -875,8 +875,8 @@ void remove_pkm(party_pkm * pkm, bool encrypt)
 void depositpkm(bw2savblock_obj * block, const int party_slot, box_obj * box, const int box_slot)
 {
 	party_pkm ppkm = block->party.pokemon[party_slot];
-	remove_pkm(block,party_slot);
-	put_pkm(box,box_slot,&ppkm,!(ppkm.isboxdatadecrypted));
+	remove_pkm(block, party_slot);
+	put_pkm(box, box_slot, &ppkm, !(ppkm.isboxdatadecrypted));
 }
 pokemon_obj * getpcstorageavailableslot(bw2sav_obj * sav, int & box, int & slot, int startbox)
 {
@@ -885,16 +885,16 @@ pokemon_obj * getpcstorageavailableslot(bw2sav_obj * sav, int & box, int & slot,
 	pokemon_obj * pkm = new pokemon_obj();
 	Species::species speciestest = Species::NOTHING;
 	int boxcount = 0;
-	for(int boxc = startbox; boxcount < 24; boxc++)
+	for (int boxc = startbox; boxcount < 24; boxc++)
 	{
-		if(boxc == 24)
+		if (boxc == 24)
 		{
 			boxc = 0;
 		}
-		for(int slotc = 0; slotc < 30; slotc++)
+		for (int slotc = 0; slotc < 30; slotc++)
 		{
 			pkm = &(sav->cur.boxes[boxc].pokemon[slotc]);
-			if(pkm->isboxdatadecrypted == false)
+			if (pkm->isboxdatadecrypted == false)
 			{
 				decryptpkm(pkm);
 				speciestest = pkm->species;
@@ -904,7 +904,7 @@ pokemon_obj * getpcstorageavailableslot(bw2sav_obj * sav, int & box, int & slot,
 			{
 				speciestest = pkm->species;
 			}
-			if(speciestest == Species::NOTHING)
+			if (speciestest == Species::NOTHING)
 			{
 				box = boxc;
 				slot = slotc;
@@ -919,8 +919,8 @@ void storepkm(bw2sav_obj * sav, pokemon_obj * pkm)
 {
 	int box = 0;
 	int slot = 0;
-	pokemon_obj * pcslot = getpcstorageavailableslot(sav,box,slot);
-	if((box != -1) & (slot != -1))
+	pokemon_obj * pcslot = getpcstorageavailableslot(sav, box, slot);
+	if ((box != -1) & (slot != -1))
 	{
 		*pcslot = *pkm;
 	}
@@ -943,7 +943,7 @@ int getpkmhatchsteps(const pokemon_obj *pkm)
 }
 std::string getgendername(const int gender)
 {
-	switch(gender)
+	switch (gender)
 	{
 	case Genders::male:
 		return "Male";
@@ -962,20 +962,20 @@ std::string getpkmotgendername(const pokemon_obj &pkm)
 int gethiddenpowerpower(const pokemon_obj &pkm)
 {
 	int power = 0;
-	int u=0,v=0,w=0,x=0,y=0,z=0;
-	if((pkm.ivs.hp % 4 == 2) | (pkm.ivs.hp % 4 == 3)){u = 1;}
-	if((pkm.ivs.attack % 4 == 2) | (pkm.ivs.attack % 4 == 3)){v = 1;}
-	if((pkm.ivs.defense % 4 == 2) | (pkm.ivs.defense % 4 == 3)){w = 1;}
-	if((pkm.ivs.speed % 4 == 2) | (pkm.ivs.speed % 4 == 3)){x = 1;}
-	if((pkm.ivs.spatk % 4 == 2) | (pkm.ivs.spatk % 4 == 3)){y = 1;}
-	if((pkm.ivs.spdef % 4 == 2) | (pkm.ivs.spdef % 4 == 3)){z = 1;}
+	int u = 0, v = 0, w = 0, x = 0, y = 0, z = 0;
+	if ((pkm.ivs.hp % 4 == 2) | (pkm.ivs.hp % 4 == 3)){ u = 1; }
+	if ((pkm.ivs.attack % 4 == 2) | (pkm.ivs.attack % 4 == 3)){ v = 1; }
+	if ((pkm.ivs.defense % 4 == 2) | (pkm.ivs.defense % 4 == 3)){ w = 1; }
+	if ((pkm.ivs.speed % 4 == 2) | (pkm.ivs.speed % 4 == 3)){ x = 1; }
+	if ((pkm.ivs.spatk % 4 == 2) | (pkm.ivs.spatk % 4 == 3)){ y = 1; }
+	if ((pkm.ivs.spdef % 4 == 2) | (pkm.ivs.spdef % 4 == 3)){ z = 1; }
 	power = (int)(floor((double)(((u + 2 * v + 4 * w + 8 * x + 16 * y + 32 * z) * 40 / 63) + 30)));
 	return power;
 }
 int gethiddenpowertype(const pokemon_obj &pkm)
 {
 	int type = 0;
-	int a=0,b=0,c=0,d=0,e=0,f=0;
+	int a = 0, b = 0, c = 0, d = 0, e = 0, f = 0;
 	a = (int)(!(pkm.ivs.hp % 2 == 0));
 	b = (int)(!(pkm.ivs.attack % 2 == 0));
 	c = (int)(!(pkm.ivs.defense % 2 == 0));
@@ -992,20 +992,20 @@ std::string getpkmotgendername(const pokemon_obj *pkm)
 int gethiddenpowerpower(const pokemon_obj *pkm)
 {
 	int power = 0;
-	int u=0,v=0,w=0,x=0,y=0,z=0;
-	if((pkm->ivs.hp % 4 == 2) | (pkm->ivs.hp % 4 == 3)){u = 1;}
-	if((pkm->ivs.attack % 4 == 2) | (pkm->ivs.attack % 4 == 3)){v = 1;}
-	if((pkm->ivs.defense % 4 == 2) | (pkm->ivs.defense % 4 == 3)){w = 1;}
-	if((pkm->ivs.speed % 4 == 2) | (pkm->ivs.speed % 4 == 3)){x = 1;}
-	if((pkm->ivs.spatk % 4 == 2) | (pkm->ivs.spatk % 4 == 3)){y = 1;}
-	if((pkm->ivs.spdef % 4 == 2) | (pkm->ivs.spdef % 4 == 3)){z = 1;}
+	int u = 0, v = 0, w = 0, x = 0, y = 0, z = 0;
+	if ((pkm->ivs.hp % 4 == 2) | (pkm->ivs.hp % 4 == 3)){ u = 1; }
+	if ((pkm->ivs.attack % 4 == 2) | (pkm->ivs.attack % 4 == 3)){ v = 1; }
+	if ((pkm->ivs.defense % 4 == 2) | (pkm->ivs.defense % 4 == 3)){ w = 1; }
+	if ((pkm->ivs.speed % 4 == 2) | (pkm->ivs.speed % 4 == 3)){ x = 1; }
+	if ((pkm->ivs.spatk % 4 == 2) | (pkm->ivs.spatk % 4 == 3)){ y = 1; }
+	if ((pkm->ivs.spdef % 4 == 2) | (pkm->ivs.spdef % 4 == 3)){ z = 1; }
 	power = (int)(floor((double)(((u + 2 * v + 4 * w + 8 * x + 16 * y + 32 * z) * 40 / 63) + 30)));
 	return power;
 }
 int gethiddenpowertype(const pokemon_obj *pkm)
 {
 	int type = 0;
-	int a=0,b=0,c=0,d=0,e=0,f=0;
+	int a = 0, b = 0, c = 0, d = 0, e = 0, f = 0;
 	a = (int)(!(pkm->ivs.hp % 2 == 0));
 	b = (int)(!(pkm->ivs.attack % 2 == 0));
 	c = (int)(!(pkm->ivs.defense % 2 == 0));
@@ -1027,7 +1027,7 @@ std::string getballname(const pokemon_obj *pkm)
 {
 	return getballname(pkm->ball);
 }
-std::wstring getboxname(const bw2savblock_obj *block,int boxnum)
+std::wstring getboxname(const bw2savblock_obj *block, int boxnum)
 {
 	std::wstring name;
 #if ! defined(MARKUP_SIZEOFWCHAR)
@@ -1040,13 +1040,13 @@ std::wstring getboxname(const bw2savblock_obj *block,int boxnum)
 	name = block->boxnames[boxnum];
 #endif
 #endif
-	if(name.find((wchar_t)0xffff))
+	if (name.find((wchar_t)0xffff))
 	{
-		name = name.substr(0,name.find((wchar_t)0xffff));
+		name = name.substr(0, name.find((wchar_t)0xffff));
 	}
 	return name;
 }
-std::wstring getboxname(const bw2savblock_obj &block,int boxnum)
+std::wstring getboxname(const bw2savblock_obj &block, int boxnum)
 {
 	std::wstring name;
 #if ! defined(MARKUP_SIZEOFWCHAR)
@@ -1060,9 +1060,9 @@ std::wstring getboxname(const bw2savblock_obj &block,int boxnum)
 #endif
 #endif
 
-	if(name.find((wchar_t)0xffff))
+	if (name.find((wchar_t)0xffff))
 	{
-		name = name.substr(0,name.find((wchar_t)0xffff));
+		name = name.substr(0, name.find((wchar_t)0xffff));
 	}
 	return name;
 }
@@ -1131,24 +1131,24 @@ std::wstring getsavtrainername(const bw2savblock_obj * block)
 std::wstring getwstring(std::wstring in, int maxlength)
 {
 	std::wstring out = in;
-	if(maxlength == 0)
+	if (maxlength == 0)
 	{
-		if(out.find((wchar_t)0xffff))
+		if (out.find((wchar_t)0xffff))
 		{
-			out = out.substr(0,out.find((wchar_t)0xffff));
+			out = out.substr(0, out.find((wchar_t)0xffff));
 		}
 	}
 	else
 	{
-		if(out.find((wchar_t)0xffff))
+		if (out.find((wchar_t)0xffff))
 		{
-			if(out.find((wchar_t)0xffff) < maxlength)
+			if (out.find((wchar_t)0xffff) < maxlength)
 			{
-				out = out.substr(0,out.find((wchar_t)0xffff));
+				out = out.substr(0, out.find((wchar_t)0xffff));
 			}
 			else
 			{
-				out = out.substr(0,maxlength);
+				out = out.substr(0, maxlength);
 			}
 		}
 	}
@@ -1157,9 +1157,9 @@ std::wstring getwstring(std::wstring in, int maxlength)
 std::wstring getwstring(std::string in)
 {
 	std::string out = in;
-	if(out.find((char)0xffff))
+	if (out.find((char)0xffff))
 	{
-		out = out.substr(0,out.find((char)0xffff));
+		out = out.substr(0, out.find((char)0xffff));
 	}
 	std::wstring retval(out.begin(), out.end());
 	return retval;
@@ -1167,9 +1167,9 @@ std::wstring getwstring(std::string in)
 std::wstring getwstring(char* in, int len)
 {
 	unsigned char arr[24]; //Large enough for longest text value stored in game
-	memset(arr,'\0',24);
-	memcpy(arr,&in,len);
-	for(int i = 0; i < len; i++)
+	memset(arr, '\0', 24);
+	memcpy(arr, &in, len);
+	for (int i = 0; i < len; i++)
 	{
 		//        if(arr[i] == 0xFF)
 		//        {
@@ -1177,13 +1177,13 @@ std::wstring getwstring(char* in, int len)
 		//        }
 		//        else
 		//        {
-		arr[i] = in[2*i];
+		arr[i] = in[2 * i];
 		//        }
 	}
 	std::string out = (char*)arr;
-	if(out.find((char)0xffff))
+	if (out.find((char)0xffff))
 	{
-		out = out.substr(0,out.find((char)0xffff));
+		out = out.substr(0, out.find((char)0xffff));
 	}
 	std::wstring retval(out.begin(), out.end());
 	return retval;
@@ -1215,11 +1215,11 @@ Types::types getarceustype(int form)
 std::string getpkrsstatus(const pokemon_obj * pkm)
 {
 	std::string status = "";
-	if((pkm->pkrs.days > 0) & (pkm->pkrs.strain > 0))
+	if ((pkm->pkrs.days > 0) & (pkm->pkrs.strain > 0))
 	{
 		status = "Infected";
 	}
-	if((pkm->pkrs.days == 0) & (pkm->pkrs.strain > 0))
+	if ((pkm->pkrs.days == 0) & (pkm->pkrs.strain > 0))
 	{
 		status = "Cured";
 	}
@@ -1229,51 +1229,51 @@ std::array<bool, 80> getribbonswitches(const pokemon_obj * pkm)
 {
 	int ribnum = 0;
 	std::array<bool, 80> switches;
-	for(int bit = 0; bit < 16; bit++)
+	for (int bit = 0; bit < 16; bit++)
 	{
 		uint16 rib;
-		memcpy(&rib,&(pkm->sribbon1),2);
-		switches[ribnum] = (getbit(rib,bit) == 1);
+		memcpy(&rib, &(pkm->sribbon1), 2);
+		switches[ribnum] = (getbit(rib, bit) == 1);
 		ribnum++;
 		//		switches.push_back(getbit(rib,bit) == 1);
 	}
-	for(int bit = 0; bit < 12; bit++)
+	for (int bit = 0; bit < 12; bit++)
 	{
 		uint16 rib;
-		memcpy(&rib,&(pkm->uribbon),2);
-		switches[ribnum] = (getbit(rib,bit) == 1);
+		memcpy(&rib, &(pkm->uribbon), 2);
+		switches[ribnum] = (getbit(rib, bit) == 1);
 		ribnum++;
 		//		switches.push_back(getbit(rib,bit) == 1);
 	}
-	for(int bit = 0; bit < 16; bit++)
+	for (int bit = 0; bit < 16; bit++)
 	{
 		uint16 rib;
-		memcpy(&rib,&(pkm->sribbon3),2);
-		switches[ribnum] = (getbit(rib,bit) == 1);
+		memcpy(&rib, &(pkm->sribbon3), 2);
+		switches[ribnum] = (getbit(rib, bit) == 1);
 		ribnum++;
 		//		switches.push_back(getbit(rib,bit) == 1);
 	}
-	for(int bit = 0; bit < 4; bit++)
+	for (int bit = 0; bit < 4; bit++)
 	{
 		byte rib;
-		memcpy(&rib,&(pkm->sribbon4),1);
-		switches[ribnum] = (getbit(rib,bit) == 1);
+		memcpy(&rib, &(pkm->sribbon4), 1);
+		switches[ribnum] = (getbit(rib, bit) == 1);
 		ribnum++;
 		//		switches.push_back(getbit(rib,bit) == 1);
 	}
-	for(int bit = 0; bit < 16; bit++)
+	for (int bit = 0; bit < 16; bit++)
 	{
 		uint16 rib;
-		memcpy(&rib,&(pkm->hribbon1),2);
-		switches[ribnum] = (getbit(rib,bit) == 1);
+		memcpy(&rib, &(pkm->hribbon1), 2);
+		switches[ribnum] = (getbit(rib, bit) == 1);
 		ribnum++;
 		//		switches.push_back(getbit(rib,bit) == 1);
 	}
-	for(int bit = 0; bit < 16; bit++)
+	for (int bit = 0; bit < 16; bit++)
 	{
 		uint16 rib;
-		memcpy(&rib,&(pkm->hribbon2),2);
-		switches[ribnum] = (getbit(rib,bit) == 1);
+		memcpy(&rib, &(pkm->hribbon2), 2);
+		switches[ribnum] = (getbit(rib, bit) == 1);
 		ribnum++;
 		//		switches.push_back(getbit(rib,bit) == 1);
 	}
@@ -1282,56 +1282,56 @@ std::array<bool, 80> getribbonswitches(const pokemon_obj * pkm)
 std::vector<std::string> getobtainedribbons(const pokemon_obj * pkm)
 {
 	std::vector<std::string> ribbonnames;
-	for(int bit = 0; bit < 16; bit++)
+	for (int bit = 0; bit < 16; bit++)
 	{
 		uint16 rib;
-		memcpy(&rib,&(pkm->sribbon1),2);
-		if(getbit(rib,bit) == 1)
+		memcpy(&rib, &(pkm->sribbon1), 2);
+		if (getbit(rib, bit) == 1)
 		{
 			ribbonnames.push_back(ribbon_names[bit]);
 		}
 	}
-	for(int bit = 0; bit < 12; bit++)
+	for (int bit = 0; bit < 12; bit++)
 	{
 		uint16 rib;
-		memcpy(&rib,&(pkm->uribbon),2);
-		if(getbit(rib,bit) == 1)
+		memcpy(&rib, &(pkm->uribbon), 2);
+		if (getbit(rib, bit) == 1)
 		{
 			ribbonnames.push_back(ribbon_names[bit + 16]);
 		}
 	}
-	for(int bit = 0; bit < 16; bit++)
+	for (int bit = 0; bit < 16; bit++)
 	{
 		uint16 rib;
-		memcpy(&rib,&(pkm->sribbon3),2);
-		if(getbit(rib,bit) == 1)
+		memcpy(&rib, &(pkm->sribbon3), 2);
+		if (getbit(rib, bit) == 1)
 		{
 			ribbonnames.push_back(ribbon_names[bit + 12]);
 		}
 	}
-	for(int bit = 0; bit < 4; bit++)
+	for (int bit = 0; bit < 4; bit++)
 	{
 		byte rib;
-		memcpy(&rib,&(pkm->sribbon4),1);
-		if(getbit(rib,bit) == 1)
+		memcpy(&rib, &(pkm->sribbon4), 1);
+		if (getbit(rib, bit) == 1)
 		{
 			ribbonnames.push_back(ribbon_names[bit + 16]);
 		}
 	}
-	for(int bit = 0; bit < 16; bit++)
+	for (int bit = 0; bit < 16; bit++)
 	{
 		uint16 rib;
-		memcpy(&rib,&(pkm->hribbon1),2);
-		if(getbit(rib,bit) == 1)
+		memcpy(&rib, &(pkm->hribbon1), 2);
+		if (getbit(rib, bit) == 1)
 		{
 			ribbonnames.push_back(ribbon_names[bit + 4]);
 		}
 	}
-	for(int bit = 0; bit < 16; bit++)
+	for (int bit = 0; bit < 16; bit++)
 	{
 		uint16 rib;
-		memcpy(&rib,&(pkm->hribbon2),2);
-		if(getbit(rib,bit) == 1)
+		memcpy(&rib, &(pkm->hribbon2), 2);
+		if (getbit(rib, bit) == 1)
 		{
 			ribbonnames.push_back(ribbon_names[bit + 16]);
 		}
@@ -1340,27 +1340,27 @@ std::vector<std::string> getobtainedribbons(const pokemon_obj * pkm)
 }
 void deletemove(pokemon_obj * pkm, byte move)
 {
-	std::array<Moves::moves,4> moves = pkm->moves;
+	std::array<Moves::moves, 4> moves = pkm->moves;
 	std::vector<Moves::moves> temp(4);
-	std::copy(moves.begin(),moves.end(),temp.begin());
-	temp.erase(temp.begin()+move);
-	std::fill(moves.begin(),moves.end(),Moves::NOTHING);
-	std::copy(temp.begin(),temp.end(),moves.begin());
-	std::array<byte,4> move_pp = pkm->pp;
+	std::copy(moves.begin(), moves.end(), temp.begin());
+	temp.erase(temp.begin() + move);
+	std::fill(moves.begin(), moves.end(), Moves::NOTHING);
+	std::copy(temp.begin(), temp.end(), moves.begin());
+	std::array<byte, 4> move_pp = pkm->pp;
 	std::vector<byte> temppp(4);
-	std::copy(move_pp.begin(),move_pp.end(),temppp.begin());
-	temppp.erase(temppp.begin()+move);
-	std::fill(move_pp.begin(),move_pp.end(),0);
-	std::copy(temppp.begin(),temppp.end(),move_pp.begin());
-	std::array<byte,4> move_ppups = pkm->ppup;
+	std::copy(move_pp.begin(), move_pp.end(), temppp.begin());
+	temppp.erase(temppp.begin() + move);
+	std::fill(move_pp.begin(), move_pp.end(), 0);
+	std::copy(temppp.begin(), temppp.end(), move_pp.begin());
+	std::array<byte, 4> move_ppups = pkm->ppup;
 	std::vector<byte> tempppups(4);
-	std::copy(move_ppups.begin(),move_ppups.end(),tempppups.begin());
-	tempppups.erase(tempppups.begin()+move);
-	std::fill(move_ppups.begin(),move_ppups.end(),0);
-	std::copy(tempppups.begin(),tempppups.end(),move_ppups.begin());
-	for(int i = 0; i < 4; i++)
+	std::copy(move_ppups.begin(), move_ppups.end(), tempppups.begin());
+	tempppups.erase(tempppups.begin() + move);
+	std::fill(move_ppups.begin(), move_ppups.end(), 0);
+	std::copy(tempppups.begin(), tempppups.end(), move_ppups.begin());
+	for (int i = 0; i < 4; i++)
 	{
-		if(moves[i] == Moves::NOTHING)
+		if (moves[i] == Moves::NOTHING)
 		{
 			pkm->pp[i] = 0;
 			pkm->ppup[0] = 0;
@@ -1369,11 +1369,11 @@ void deletemove(pokemon_obj * pkm, byte move)
 	pkm->moves = moves;
 	pkm->pp = move_pp;
 	pkm->ppup = move_ppups;
-	if(pkm->species == Species::keldeo)
+	if (pkm->species == Species::keldeo)
 	{
-		for(int i = 0; i < 4; i++)
+		for (int i = 0; i < 4; i++)
 		{
-			if(pkm->moves[i] != Moves::sacredsword)
+			if (pkm->moves[i] != Moves::sacredsword)
 			{
 				pkm->form.keldeo_form = Forms::Keldeo::ordinary;
 			}
@@ -1382,31 +1382,31 @@ void deletemove(pokemon_obj * pkm, byte move)
 }
 void decryptparty(party_obj & party)
 {
-	std::for_each(party.pokemon.begin(),party.pokemon.end(),decryptpartypkm_it);
+	std::for_each(party.pokemon.begin(), party.pokemon.end(), decryptpartypkm_it);
 }
 void decryptbox(box_obj & box)
 {
-	std::for_each(box.pokemon.begin(),box.pokemon.end(),decryptpkm_it);
+	std::for_each(box.pokemon.begin(), box.pokemon.end(), decryptpkm_it);
 }
 void decryptpc(bw2savblock_obj & block)
 {
-	std::for_each(block.boxes.begin(),block.boxes.end(),decryptbox);
+	std::for_each(block.boxes.begin(), block.boxes.end(), decryptbox);
 }
 void encryptparty(party_obj & party)
 {
-	std::for_each(party.pokemon.begin(),party.pokemon.end(),encryptpartypkm_it);
+	std::for_each(party.pokemon.begin(), party.pokemon.end(), encryptpartypkm_it);
 }
 void encryptbox(box_obj & box)
 {
-	std::for_each(box.pokemon.begin(),box.pokemon.end(),encryptpkm_it);
+	std::for_each(box.pokemon.begin(), box.pokemon.end(), encryptpkm_it);
 }
 void encryptpc(bw2savblock_obj & block)
 {
-	std::for_each(block.boxes.begin(),block.boxes.end(),encryptbox);
+	std::for_each(block.boxes.begin(), block.boxes.end(), encryptbox);
 }
 uint32 getpkmcolorhex(int pkmcolor)
 {
-	switch(pkmcolor)
+	switch (pkmcolor)
 	{
 	case 1:// 1 = black
 		return 0x5A5A5A;
@@ -1445,9 +1445,9 @@ uint32 getpkmcolorhex(int pkmcolor)
 }
 void deletehms(pokemon_obj * pkm)
 {
-	for(int move = 3; move >= 0; move--)
+	for (int move = 3; move >= 0; move--)
 	{
-		if(
+		if (
 			(pkm->moves[move] == Moves::cut) |
 			(pkm->moves[move] == Moves::fly) |
 			(pkm->moves[move] == Moves::surf) |
@@ -1456,10 +1456,10 @@ void deletehms(pokemon_obj * pkm)
 			(pkm->moves[move] == Moves::dive)
 			)
 		{
-			deletemove(pkm,byte(move));
+			deletemove(pkm, byte(move));
 		}
 	}
-	if(pkm->moves[0] == Moves::NOTHING)
+	if (pkm->moves[0] == Moves::NOTHING)
 	{
 		pkm->moves[0] = Moves::return_;
 	}

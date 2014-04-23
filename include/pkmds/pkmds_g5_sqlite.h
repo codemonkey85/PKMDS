@@ -49,8 +49,10 @@ void DllExport closeimgdb();
 using namespace std;
 void getapic(const ostringstream &o, byte ** picdata, int * size);
 string DllExport getastring(const ostringstream &o);
+wstring DllExport getawstring(const ostringstream &o);
 int DllExport getanint(const ostringstream &o);
 string DllExport getastring(const string &str);
+//wstring DllExport getawstring(const wstring &str);
 int DllExport getanint(const string &str);
 void DllExport dostatement(const string &cmd);
 struct ivtest{
@@ -110,6 +112,7 @@ int DllExport getmoveaccuracy(const Moves::moves moveid);
 string DllExport lookuppkmname(const int speciesid, const int langid = LANG_ID);
 string DllExport lookuppkmname(const pokemon_obj &pkm, const int langid = LANG_ID);
 string DllExport lookuppkmname(const pokemon_obj *pkm, const int langid = LANG_ID);
+wstring DllExport lookuppkmnamewstring(const pokemon_obj *pkm, const int langid = LANG_ID);
 string DllExport lookupmovename(const int moveid, const int langid = LANG_ID);
 string DllExport lookupmovename(const pokemon_obj &pkm, const int movenum, const int langid = LANG_ID);
 string DllExport lookupmovename(const pokemon_obj *pkm, const int movenum, const int langid = LANG_ID);
