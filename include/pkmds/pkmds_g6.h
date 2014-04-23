@@ -2776,7 +2776,7 @@ byte : 8; // unused
 			wchar_t nickname[12];
 #endif
 #endif
-uint16 : 16; // unused
+uint16 : 16; // null terminator
 			union
 			{
 				std::array<Moves_g6::moves,4> moves;
@@ -2811,7 +2811,7 @@ byte : 6;
 			wchar_t not_ot_name[12];
 #endif
 #endif
-uint16 : 16; // unused
+uint16 : 16; // null terminator
 			union
 			{
 				Genders::genders not_ot_gender;
@@ -2840,7 +2840,7 @@ uint16 : 16; // unused
 			wchar_t otname[12];
 #endif
 #endif
-uint16 : 16; // unused
+uint16 : 16; // null terminator
 			byte ot_tameness;
 			byte ot_affection;
 			byte ot_memory_text_bank;
