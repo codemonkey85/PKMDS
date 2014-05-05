@@ -1306,11 +1306,11 @@ namespace Hometowns
 		platinum,
 		colosseum = 15,
 		white = 20,
-		black = 21,
-		white2 = 22,
-		black2 = 23,
-		x = 24,
-		y = 25
+		black,
+		white2,
+		black2,
+		x,
+		y
 	};
 }
 namespace Stat_IDs
