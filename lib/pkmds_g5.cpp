@@ -860,7 +860,15 @@ void remove_pkm(bw2sav_obj * sav, const int slot)
 	std::copy(sav->cur.party.pokemon.begin(), sav->cur.party.pokemon.end(), party.begin());
 	party.erase(party.begin() + slot);
 	party_pkm * blankpp = new party_pkm;
+	blankpp->isboxdatadecrypted = true;
 	std::fill(sav->cur.party.pokemon.begin(), sav->cur.party.pokemon.end(), (*blankpp));
+	for (int i = 0; i < party.size(); i++)
+	{
+		if (party[i].species == Species::NOTHING)
+		{
+			party.erase(party.begin() + i);
+		}
+	}
 	std::copy(party.begin(), party.end(), sav->cur.party.pokemon.begin());
 }
 void remove_pkm(pokemon_obj * pkm, bool encrypt)
@@ -1043,7 +1051,7 @@ std::wstring getboxname(const bw2savblock_obj *block, int boxnum)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
 	std::string str_name = block->boxnames[boxnum];
 	wchar_t boxname_buffer[11];
-	memset(boxname_buffer,0,11);
+	memset(boxname_buffer, 0, 11);
 	mbstowcs(boxname_buffer, str_name.c_str(), 11);
 #else
 	name = block->boxnames[boxnum];
@@ -1062,7 +1070,7 @@ std::wstring getboxname(const bw2savblock_obj &block, int boxnum)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
 	std::string str_name = block.boxnames[boxnum];
 	wchar_t boxname_buffer[11];
-	memset(boxname_buffer,0,11);
+	memset(boxname_buffer, 0, 11);
 	mbstowcs(boxname_buffer, str_name.c_str(), 11);
 #else
 	name = block.boxnames[boxnum];
