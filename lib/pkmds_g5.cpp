@@ -854,6 +854,15 @@ void remove_pkm(bw2savblock_obj * block, const int slot)
 	std::fill(block->party.pokemon.begin(), block->party.pokemon.end(), (*blankpp));
 	std::copy(party.begin(), party.end(), block->party.pokemon.begin());
 }
+void remove_pkm(bw2sav_obj * sav, const int slot)
+{
+	std::vector<party_pkm> party(6);
+	std::copy(sav->cur.party.pokemon.begin(), sav->cur.party.pokemon.end(), party.begin());
+	party.erase(party.begin() + slot);
+	party_pkm * blankpp = new party_pkm;
+	std::fill(sav->cur.party.pokemon.begin(), sav->cur.party.pokemon.end(), (*blankpp));
+	std::copy(party.begin(), party.end(), sav->cur.party.pokemon.begin());
+}
 void remove_pkm(pokemon_obj * pkm, bool encrypt)
 {
 	pokemon_obj blankpkm;
@@ -915,11 +924,11 @@ pokemon_obj * getpcstorageavailableslot(bw2sav_obj * sav, int & box, int & slot,
 	}
 	return pkm;
 }
-void storepkm(bw2sav_obj * sav, pokemon_obj * pkm)
+void storepkm(bw2sav_obj * sav, pokemon_obj * pkm, int startbox)
 {
 	int box = 0;
 	int slot = 0;
-	pokemon_obj * pcslot = getpcstorageavailableslot(sav, box, slot);
+	pokemon_obj * pcslot = getpcstorageavailableslot(sav, box, slot, startbox);
 	if ((box != -1) & (slot != -1))
 	{
 		*pcslot = *pkm;
