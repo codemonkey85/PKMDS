@@ -2309,7 +2309,9 @@ namespace Locations
 		pledgegrove,
 		daycarecouple_g4=2000,
 		poketransfer=30001,
-		pokemondreamradar=30015,
+		specialplace_a = 30012,
+		specialplace_b = 30012,
+		pokemondreamradar = 30015,
 		lovelyplace=40001,
 		daycarecouple=60002
 	};
