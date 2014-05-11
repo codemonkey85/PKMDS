@@ -170,28 +170,28 @@ string getpkmstatsql(const pokemon_obj &pkm, const Stat_IDs::stat_ids stat_id)
 	o << ""
 		<< "SELECT pokemon_stats.base_stat "
 		<< "FROM   pokemon_stats "
-		<< "       INNER JOIN pokemon_forms "
-		<< "               ON pokemon_stats.pokemon_id = pokemon_forms.pokemon_id "
-		<< "       INNER JOIN stats "
-		<< "               ON pokemon_stats.stat_id = stats.id "
-		<< "       INNER JOIN stat_names "
-		<< "               ON stats.id = stat_names.stat_id "
-		<< "       INNER JOIN pokemon_species_names "
-		<< "               ON stat_names.local_language_id = "
-		<< "                  pokemon_species_names.local_language_id "
-		<< "       INNER JOIN pokemon "
-		<< "               ON pokemon_stats.pokemon_id = pokemon.id "
-		<< "                  AND pokemon_forms.pokemon_id = pokemon.id "
-		<< "                  AND pokemon_species_names.pokemon_species_id = "
-		<< "                      pokemon.species_id "
+		<< "INNER JOIN pokemon_forms "
+		<< " ON pokemon_stats.pokemon_id = pokemon_forms.pokemon_id "
+		<< "INNER JOIN stats "
+		<< " ON pokemon_stats.stat_id = stats.id "
+		<< "INNER JOIN stat_names "
+		<< " ON stats.id = stat_names.stat_id "
+		<< "INNER JOIN pokemon_species_names "
+		<< " ON stat_names.local_language_id = "
+		<< " pokemon_species_names.local_language_id "
+		<< "INNER JOIN pokemon "
+		<< " ON pokemon_stats.pokemon_id = pokemon.id "
+		<< " AND pokemon_forms.pokemon_id = pokemon.id "
+		<< " AND pokemon_species_names.pokemon_species_id = "
+		<< " pokemon.species_id "
 		<< "WHERE  ( pokemon_species_names.local_language_id = 9 ) "
-		<< "       AND ( stat_names.local_language_id = 9 ) "
-		<< "       AND ( pokemon_species_names.pokemon_species_id = " << pkm.species_int << " ) ";
+		<< "AND ( stat_names.local_language_id = 9 ) "
+		<< "AND ( pokemon_species_names.pokemon_species_id = " << (int)pkm.species_int << " ) ";
 	if(getpkmformname(pkm) != "")
 	{
-		o << "       AND ( pokemon_forms.form_order = " << pkm.form_int << " + 1 ) ";
+		o << "AND ( pokemon_forms.form_order = " << (int)pkm.form_int << " + 1 ) ";
 	}
-	o << "       AND ( stat_names.stat_id = " << (int)stat_id << " ) ";
+	o << "AND ( stat_names.stat_id = " << (int)stat_id << " ) ";
 	return o.str();
 }
 string getpkmstatsql(const pokemon_obj *pkm, const Stat_IDs::stat_ids stat_id)
@@ -200,28 +200,28 @@ string getpkmstatsql(const pokemon_obj *pkm, const Stat_IDs::stat_ids stat_id)
 	o << ""
 		<< "SELECT pokemon_stats.base_stat "
 		<< "FROM   pokemon_stats "
-		<< "       INNER JOIN pokemon_forms "
-		<< "               ON pokemon_stats.pokemon_id = pokemon_forms.pokemon_id "
-		<< "       INNER JOIN stats "
-		<< "               ON pokemon_stats.stat_id = stats.id "
-		<< "       INNER JOIN stat_names "
-		<< "               ON stats.id = stat_names.stat_id "
-		<< "       INNER JOIN pokemon_species_names "
-		<< "               ON stat_names.local_language_id = "
-		<< "                  pokemon_species_names.local_language_id "
-		<< "       INNER JOIN pokemon "
-		<< "               ON pokemon_stats.pokemon_id = pokemon.id "
-		<< "                  AND pokemon_forms.pokemon_id = pokemon.id "
-		<< "                  AND pokemon_species_names.pokemon_species_id = "
-		<< "                      pokemon.species_id "
+		<< "INNER JOIN pokemon_forms "
+		<< " ON pokemon_stats.pokemon_id = pokemon_forms.pokemon_id "
+		<< "INNER JOIN stats "
+		<< " ON pokemon_stats.stat_id = stats.id "
+		<< "INNER JOIN stat_names "
+		<< " ON stats.id = stat_names.stat_id "
+		<< "INNER JOIN pokemon_species_names "
+		<< " ON stat_names.local_language_id = "
+		<< " pokemon_species_names.local_language_id "
+		<< "INNER JOIN pokemon "
+		<< " ON pokemon_stats.pokemon_id = pokemon.id "
+		<< " AND pokemon_forms.pokemon_id = pokemon.id "
+		<< " AND pokemon_species_names.pokemon_species_id = "
+		<< " pokemon.species_id "
 		<< "WHERE  ( pokemon_species_names.local_language_id = 9 ) "
-		<< "       AND ( stat_names.local_language_id = 9 ) "
-		<< "       AND ( pokemon_species_names.pokemon_species_id = " << pkm->species_int << " ) ";
+		<< "AND ( stat_names.local_language_id = 9 ) "
+		<< "AND ( pokemon_species_names.pokemon_species_id = " << (int)pkm->species_int << " ) ";
 	if(getpkmformname(pkm) != "")
 	{
-		o << "       AND ( pokemon_forms.form_order = " << pkm->form_int << " + 1 ) ";
+		o << "AND ( pokemon_forms.form_order = " << (int)pkm->form_int << " + 1 ) ";
 	}
-	o << "       AND ( stat_names.stat_id = " << (int)stat_id << " ) ";
+	o << "AND ( stat_names.stat_id = " << (int)stat_id << " ) ";
 	return o.str();
 }
 string pkmhasgenddiffsql(const int species)
