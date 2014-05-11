@@ -1306,11 +1306,11 @@ namespace Hometowns
 		platinum,
 		colosseum = 15,
 		white = 20,
-		black = 21,
-		white2 = 22,
-		black2 = 23,
-		x = 24,
-		y = 25
+		black,
+		white2,
+		black2,
+		x,
+		y
 	};
 }
 namespace Stat_IDs
@@ -2309,7 +2309,9 @@ namespace Locations
 		pledgegrove,
 		daycarecouple_g4=2000,
 		poketransfer=30001,
-		pokemondreamradar=30015,
+		specialplace_a = 30012,
+		specialplace_b = 30012,
+		pokemondreamradar = 30015,
 		lovelyplace=40001,
 		daycarecouple=60002
 	};
@@ -4144,9 +4146,12 @@ static const int SeedTable[] =
 static const long boxsize = 0xff0;
 static const long partysize = 0x534; // 0x524;
 uint16 DllExport getchecksum(bw2savblock_obj &block, const int start, const int length);
+uint16 DllExport getchecksum(pokemon_obj * pkm);
 void DllExport calcboxchecksum(bw2savblock_obj &block, int boxindex, bool bw2);
 void DllExport calcpartychecksum(bw2savblock_obj &block, bool bw2); // ,bool bw2);
 void DllExport calcchecksum(bw2savblock_obj &block, int start, int length, int loc);
+void DllExport fixtrainerdatachecksum(bw2savblock_obj * block);
+void DllExport fixbagchecksum(bw2savblock_obj * block);
 uint16 DllExport getchkfromsav(bw2savblock_obj &block, bool bw2);
 uint16 DllExport getchecksum(bw2savblock_obj *block, const int start, const int length);
 void DllExport calcboxchecksum(bw2savblock_obj *block, int boxindex, bool bw2);
@@ -4204,6 +4209,8 @@ std::wstring DllExport getpkmnickname(const pokemon_obj &pkm);
 std::wstring DllExport getpkmotname(const pokemon_obj &pkm);
 std::wstring DllExport getpkmnickname(const pokemon_obj *pkm);
 std::wstring DllExport getpkmotname(const pokemon_obj *pkm);
+void DllExport setsavetrainername(bw2sav_obj *sav, wchar_t input[], int length);
+void DllExport setsaveboxname(bw2sav_obj *sav, int box, wchar_t input[], int length);
 void DllExport setpkmnickname(pokemon_obj &pkm, wchar_t input[], int length);
 void DllExport setpkmotname(pokemon_obj &pkm, wchar_t input[], int length);
 void DllExport setpkmnickname(pokemon_obj *pkm, wchar_t input[], int length);
@@ -4234,7 +4241,7 @@ void remove_pkm(pokemon_obj * pkm, bool encrypt = false);
 void remove_pkm(party_pkm * pkm, bool encrypt = false);
 void DllExport depositpkm(bw2savblock_obj * block, const int party_slot, box_obj * box, const int box_slot);
 DllExport pokemon_obj * getpcstorageavailableslot(bw2sav_obj * sav, int & box, int & slot, int startbox = 0);
-void DllExport storepkm(bw2sav_obj * sav, pokemon_obj * pkm);
+void DllExport storepkm(bw2sav_obj * sav, pokemon_obj * pkm, int startbox = 0);
 double DllExport getpkmhappiness(const pokemon_obj &pkm);
 double DllExport getpkmhappiness(const pokemon_obj *pkm);
 int DllExport getpkmhatchsteps(const pokemon_obj &pkm);
@@ -4257,7 +4264,7 @@ DllExport time_t * advstrttime(const bw2savblock_obj *block);
 //std::string &advstrttimestring(const bw2savblock_obj *block);
 std::wstring DllExport getsavtrainername(const bw2savblock_obj & block);
 std::wstring DllExport getsavtrainername(const bw2savblock_obj * block);
-std::wstring DllExport getwstring(std::wstring in);
+std::wstring DllExport getwstring(std::wstring in, int maxlength = 0);
 std::wstring DllExport getwstring(std::string in);
 std::wstring DllExport getwstring(char* in, int len); //Linux needs this
 std::string DllExport getpkrsstatus(const pokemon_obj * pkm);
@@ -4265,6 +4272,7 @@ std::array<bool, 80> DllExport getribbonswitches(const pokemon_obj * pkm);
 std::vector<std::string> DllExport getobtainedribbons(const pokemon_obj * pkm);
 void DllExport deletemove(pokemon_obj * pkm, byte move);
 void DllExport remove_pkm(bw2savblock_obj * block, const int slot);
+void DllExport remove_pkm(bw2sav_obj * sav, const int slot);
 void DllExport decryptparty(party_obj & party);
 void DllExport decryptbox(box_obj & box);
 void DllExport decryptpc(bw2savblock_obj & block);

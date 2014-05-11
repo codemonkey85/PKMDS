@@ -35,6 +35,31 @@ void closeimgdb()
 {
 	sqlite3_close(imgdatabase);
 }
+void getapic(const ostringstream &o, byte ** picdata, int * size)
+{
+    const void * blob;
+    size_t thesize = 0;
+    char cmd[BUFF_SIZE];
+    strcpy__(cmd,o.str().c_str());
+    if(sqlite3_prepare_v2(imgdatabase,cmd,-1,&imgstatement,0) == SQLITE_OK)
+    {
+        int cols = sqlite3_column_count(imgstatement);
+        int result = 0;
+        result = sqlite3_step(imgstatement);
+        if((result == SQLITE_ROW) | (result == SQLITE_DONE))
+        {
+            for(int col = 0; col < cols; col++)
+            {
+                blob = sqlite3_column_blob(imgstatement,col);
+                thesize = sqlite3_column_bytes(imgstatement,col);
+				*picdata=new byte[thesize];
+				memcpy(*picdata,blob,thesize);
+				*size = thesize;
+            }
+        }
+        sqlite3_finalize(imgstatement);
+    }
+}
 string getastring(const ostringstream &o)
 {
 	string s = "";
@@ -42,22 +67,52 @@ string getastring(const ostringstream &o)
 #if defined (__linux__) || defined (__APPLE__) || defined(__CYGWIN__)
 	strcpy(cmd,o.str().c_str());
 #else
-	strcpy_s(cmd,o.str().c_str());
+	strcpy_s(cmd, o.str().c_str());
 #endif
-	if(sqlite3_prepare_v2(database,cmd,-1,&statement,0) == SQLITE_OK)
+	if (sqlite3_prepare_v2(database, cmd, -1, &statement, 0) == SQLITE_OK)
 	{
 		int cols = sqlite3_column_count(statement);
 		int result = 0;
 		result = sqlite3_step(statement);
-		if((result == SQLITE_ROW) | (result == SQLITE_DONE))
+		if ((result == SQLITE_ROW) | (result == SQLITE_DONE))
 		{
-			for(int col = 0; col < cols; col++)
+			for (int col = 0; col < cols; col++)
 			{
 				const unsigned char* test;
 				test = sqlite3_column_text(statement, col);
-				if(sqlite3_column_text(statement, col) != 0)
+				if (sqlite3_column_text(statement, col) != 0)
 				{
 					s = (char*)test;
+				}
+			}
+		}
+		sqlite3_finalize(statement);
+	}
+	return s;
+}
+wstring getawstring(const ostringstream &o)
+{
+	wchar_t s[] = L"\0\0\0\0\0\0\0\0\0\0\0";
+	char cmd[BUFF_SIZE];
+#if defined (__linux__) || defined (__APPLE__) || defined(__CYGWIN__)
+	strcpy(cmd,o.str().c_str());
+#else
+	strcpy_s(cmd, o.str().c_str());
+#endif
+	if (sqlite3_prepare_v2(database, cmd, -1, &statement, 0) == SQLITE_OK)
+	{
+		int cols = sqlite3_column_count(statement);
+		int result = 0;
+		result = sqlite3_step(statement);
+		if ((result == SQLITE_ROW) | (result == SQLITE_DONE))
+		{
+			for (int col = 0; col < cols; col++)
+			{
+				const unsigned char* test;
+				test = sqlite3_column_text(statement, col);
+				if (sqlite3_column_text(statement, col) != 0)
+				{
+					std::copy(test, test + NICKLENGTH, s);
 				}
 			}
 		}
@@ -100,20 +155,20 @@ string getastring(const string &str)
 #if defined (__linux__) || defined (__APPLE__) || defined (__CYGWIN__)
 	strcpy(cmd,str.c_str());
 #else
-	strcpy_s(cmd,str.c_str());
+	strcpy_s(cmd, str.c_str());
 #endif
-	if(sqlite3_prepare_v2(database,cmd,-1,&statement,0) == SQLITE_OK)
+	if (sqlite3_prepare_v2(database, cmd, -1, &statement, 0) == SQLITE_OK)
 	{
 		int cols = sqlite3_column_count(statement);
 		int result = 0;
 		result = sqlite3_step(statement);
-		if((result == SQLITE_ROW) | (result == SQLITE_DONE))
+		if ((result == SQLITE_ROW) | (result == SQLITE_DONE))
 		{
-			for(int col = 0; col < cols; col++)
+			for (int col = 0; col < cols; col++)
 			{
 				const unsigned char* test;
 				test = sqlite3_column_text(statement, col);
-				if(sqlite3_column_text(statement, col) != 0)
+				if (sqlite3_column_text(statement, col) != 0)
 				{
 					s = (char*)test;
 				}
@@ -123,6 +178,39 @@ string getastring(const string &str)
 	}
 	return s;
 }
+//wstring getawstring(const wstring &str)
+//{
+//
+//	wstring test = str;
+//
+//	wstring s = L"";
+//	char cmd[BUFF_SIZE];
+//#if defined (__linux__) || defined (__APPLE__) || defined (__CYGWIN__)
+//	strcpy(cmd, str.c_str());
+//#else
+//	strcpy_s(cmd, str.c_str());
+//#endif
+//	if (sqlite3_prepare_v2(database, cmd, -1, &statement, 0) == SQLITE_OK)
+//	{
+//		int cols = sqlite3_column_count(statement);
+//		int result = 0;
+//		result = sqlite3_step(statement);
+//		if ((result == SQLITE_ROW) | (result == SQLITE_DONE))
+//		{
+//			for (int col = 0; col < cols; col++)
+//			{
+//				const unsigned char* test;
+//				test = sqlite3_column_text(statement, col);
+//				if (sqlite3_column_text(statement, col) != 0)
+//				{
+//					s = (wchar_t*)test;
+//				}
+//			}
+//		}
+//		sqlite3_finalize(statement);
+//	}
+//	return s;
+//}
 int getanint(const string &str)
 {
 	int i = 0;
@@ -820,7 +908,6 @@ string DllExport lookupmovetypename(const pokemon_obj *pkm, const int movenum, c
 {
 	return lookuptypename(getmovetype(pkm->moves[movenum]),langid);
 }
-
 string lookupmoveflavortext(const uint16 moveid, const int langid, const int versiongroup)
 {
 	string ret = getastring(getmoveflavortextsql(moveid,langid,versiongroup));
@@ -1084,7 +1171,13 @@ string lookuppkmname(const pokemon_obj &pkm, const int langid)
 }
 string lookuppkmname(const pokemon_obj *pkm, const int langid)
 {
-	return getastring(getspeciesnamesql(pkm->species,langid));
+	return getastring(getspeciesnamesql(pkm->species, langid));
+}
+wstring lookuppkmnamewstring(const pokemon_obj *pkm, const int langid)
+{
+	ostringstream o;
+	o << getspeciesnamesql(pkm->species, langid);
+	return getawstring(o);
 }
 string lookupmovename(const int moveid, const int langid)
 {
@@ -1605,4 +1698,8 @@ void insertitem(bw2sav_obj * sav, item_obj * item, int slot)
 			bag[slot] = *item;
 		}
 	}
+}
+string lookupitemflavortext(const int itemid, const int generation, const int langid, const int versiongroup)
+{
+	return getastring(lookupitemflavortextsql(itemid, generation,langid,versiongroup));
 }
