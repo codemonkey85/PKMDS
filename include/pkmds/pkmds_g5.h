@@ -667,626 +667,626 @@ namespace Items
 {
 	enum items : uint16
 	{
-		NOTHING =  0x0000,
-		masterball =  0x0001,
-		ultraball =  0x0002,
-		greatball =  0x0003,
-		pokeball =  0x0004,
-		safariball =  0x0005,
-		netball =  0x0006,
-		diveball =  0x0007,
-		nestball =  0x0008,
-		repeatball =  0x0009,
-		timerball =  0x000a,
-		luxuryball =  0x000b,
-		premierball =  0x000c,
-		duskball =  0x000d,
-		healball =  0x000e,
-		quickball =  0x000f,
-		cherishball =  0x0010,
-		potion =  0x0011,
-		antidote =  0x0012,
-		burnheal =  0x0013,
-		iceheal =  0x0014,
-		awakening =  0x0015,
-		parlyzheal =  0x0016,
-		fullrestore =  0x0017,
-		maxpotion =  0x0018,
-		hyperpotion =  0x0019,
-		superpotion =  0x001a,
-		fullheal =  0x001b,
-		revive =  0x001c,
-		maxrevive =  0x001d,
-		freshwater =  0x001e,
-		sodapop =  0x001f,
-		lemonade =  0x0020,
-		moomoomilk =  0x0021,
-		energypowder =  0x0022,
-		energyroot =  0x0023,
-		healpowder =  0x0024,
-		revivalherb =  0x0025,
-		ether =  0x0026,
-		maxether =  0x0027,
-		elixir =  0x0028,
-		maxelixir =  0x0029,
-		lavacookie =  0x002a,
-		berryjuice =  0x002b,
-		sacredash =  0x002c,
-		hpup =  0x002d,
-		protein =  0x002e,
-		iron =  0x002f,
-		carbos =  0x0030,
-		calcium =  0x0031,
-		rarecandy =  0x0032,
-		ppup =  0x0033,
-		zinc =  0x0034,
-		ppmax =  0x0035,
-		oldgateau =  0x0036,
-		guardspec =  0x0037,
-		direhit =  0x0038,
-		xattack =  0x0039,
-		xdefend =  0x003a,
-		xspeed =  0x003b,
-		xaccuracy =  0x003c,
-		xspecial =  0x003d,
-		xspdef =  0x003e,
-		pokedoll =  0x003f,
-		fluffytail =  0x0040,
-		blueflute =  0x0041,
-		yellowflute =  0x0042,
-		redflute =  0x0043,
-		blackflute =  0x0044,
-		whiteflute =  0x0045,
-		shoalsalt =  0x0046,
-		shoalshell =  0x0047,
-		redshard =  0x0048,
-		blueshard =  0x0049,
-		yellowshard =  0x004a,
-		greenshard =  0x004b,
-		superrepel =  0x004c,
-		maxrepel =  0x004d,
-		escaperope =  0x004e,
-		repel =  0x004f,
-		sunstone =  0x0050,
-		moonstone =  0x0051,
-		firestone =  0x0052,
-		thunderstone =  0x0053,
-		waterstone =  0x0054,
-		leafstone =  0x0055,
-		tinymushroom =  0x0056,
-		bigmushroom =  0x0057,
-		pearl =  0x0058,
-		bigpearl =  0x0059,
-		stardust =  0x005a,
-		starpiece =  0x005b,
-		nugget =  0x005c,
-		heartscale =  0x005d,
-		honey =  0x005e,
-		growthmulch =  0x005f,
-		dampmulch =  0x0060,
-		stablemulch =  0x0061,
-		gooeymulch =  0x0062,
-		rootfossil =  0x0063,
-		clawfossil =  0x0064,
-		helixfossil =  0x0065,
-		domefossil =  0x0066,
-		oldamber =  0x0067,
-		armorfossil =  0x0068,
-		skullfossil =  0x0069,
-		rarebone =  0x006a,
-		shinystone =  0x006b,
-		duskstone =  0x006c,
-		dawnstone =  0x006d,
-		ovalstone =  0x006e,
-		oddkeystone =  0x006f,
-		griseousorb =  0x0070,
-		dousedrive =  0x0074,
-		shockdrive =  0x0075,
-		burndrive =  0x0076,
-		chilldrive =  0x0077,
-		sweetheart =  0x0086,
-		adamantorb =  0x0087,
-		lustrousorb =  0x0088,
-		greetmail =  0x0089,
-		favoredmail =  0x008a,
-		rsvpmail =  0x008b,
-		thanksmail =  0x008c,
-		inquirymail =  0x008d,
-		likemail =  0x008e,
-		replymail =  0x008f,
-		bridgemails =  0x0090,
-		bridgemaild =  0x0091,
-		bridgemailt =  0x0092,
-		bridgemailv =  0x0093,
-		bridgemailm =  0x0094,
-		cheriberry =  0x0095,
-		chestoberry =  0x0096,
-		pechaberry =  0x0097,
-		rawstberry =  0x0098,
-		aspearberry =  0x0099,
-		leppaberry =  0x009a,
-		oranberry =  0x009b,
-		persimberry =  0x009c,
-		lumberry =  0x009d,
-		sitrusberry =  0x009e,
-		figyberry =  0x009f,
-		wikiberry =  0x00a0,
-		magoberry =  0x00a1,
-		aguavberry =  0x00a2,
-		iapapaberry =  0x00a3,
-		razzberry =  0x00a4,
-		blukberry =  0x00a5,
-		nanabberry =  0x00a6,
-		wepearberry =  0x00a7,
-		pinapberry =  0x00a8,
-		pomegberry =  0x00a9,
-		kelpsyberry =  0x00aa,
-		qualotberry =  0x00ab,
-		hondewberry =  0x00ac,
-		grepaberry =  0x00ad,
-		tamatoberry =  0x00ae,
-		cornnberry =  0x00af,
-		magostberry =  0x00b0,
-		rabutaberry =  0x00b1,
-		nomelberry =  0x00b2,
-		spelonberry =  0x00b3,
-		pamtreberry =  0x00b4,
-		watmelberry =  0x00b5,
-		durinberry =  0x00b6,
-		belueberry =  0x00b7,
-		occaberry =  0x00b8,
-		passhoberry =  0x00b9,
-		wacanberry =  0x00ba,
-		rindoberry =  0x00bb,
-		yacheberry =  0x00bc,
-		chopleberry =  0x00bd,
-		kebiaberry =  0x00be,
-		shucaberry =  0x00bf,
-		cobaberry =  0x00c0,
-		payapaberry =  0x00c1,
-		tangaberry =  0x00c2,
-		chartiberry =  0x00c3,
-		kasibberry =  0x00c4,
-		habanberry =  0x00c5,
-		colburberry =  0x00c6,
-		babiriberry =  0x00c7,
-		chilanberry =  0x00c8,
-		liechiberry =  0x00c9,
-		ganlonberry =  0x00ca,
-		salacberry =  0x00cb,
-		petayaberry =  0x00cc,
-		apicotberry =  0x00cd,
-		lansatberry =  0x00ce,
-		starfberry =  0x00cf,
-		enigmaberry =  0x00d0,
-		micleberry =  0x00d1,
-		custapberry =  0x00d2,
-		jabocaberry =  0x00d3,
-		rowapberry =  0x00d4,
-		brightpowder =  0x00d5,
-		whiteherb =  0x00d6,
-		machobrace =  0x00d7,
-		expshare =  0x00d8,
-		quickclaw =  0x00d9,
-		soothebell =  0x00da,
-		mentalherb =  0x00db,
-		choiceband =  0x00dc,
-		kingsrock =  0x00dd,
-		silverpowder =  0x00de,
-		amuletcoin =  0x00df,
-		cleansetag =  0x00e0,
-		souldew =  0x00e1,
-		deepseatooth =  0x00e2,
-		deepseascale =  0x00e3,
-		smokeball =  0x00e4,
-		everstone =  0x00e5,
-		focusband =  0x00e6,
-		luckyegg =  0x00e7,
-		scopelens =  0x00e8,
-		metalcoat =  0x00e9,
-		leftovers =  0x00ea,
-		dragonscale =  0x00eb,
-		lightball =  0x00ec,
-		softsand =  0x00ed,
-		hardstone =  0x00ee,
-		miracleseed =  0x00ef,
-		blackglasses =  0x00f0,
-		blackbelt =  0x00f1,
-		magnet =  0x00f2,
-		mysticwater =  0x00f3,
-		sharpbeak =  0x00f4,
-		poisonbarb =  0x00f5,
-		nevermeltice =  0x00f6,
-		spelltag =  0x00f7,
-		twistedspoon =  0x00f8,
-		charcoal =  0x00f9,
-		dragonfang =  0x00fa,
-		silkscarf =  0x00fb,
-		upgrade =  0x00fc,
-		shellbell =  0x00fd,
-		seaincense =  0x00fe,
-		laxincense =  0x00ff,
-		luckypunch =  0x0100,
-		metalpowder =  0x0101,
-		thickclub =  0x0102,
-		stick =  0x0103,
-		redscarf =  0x0104,
-		bluescarf =  0x0105,
-		pinkscarf =  0x0106,
-		greenscarf =  0x0107,
-		yellowscarf =  0x0108,
-		widelens =  0x0109,
-		muscleband =  0x010a,
-		wiseglasses =  0x010b,
-		expertbelt =  0x010c,
-		lightclay =  0x010d,
-		lifeorb =  0x010e,
-		powerherb =  0x010f,
-		toxicorb =  0x0110,
-		flameorb =  0x0111,
-		quickpowder =  0x0112,
-		focussash =  0x0113,
-		zoomlens =  0x0114,
-		metronome =  0x0115,
-		ironball =  0x0116,
-		laggingtail =  0x0117,
-		destinyknot =  0x0118,
-		blacksludge =  0x0119,
-		icyrock =  0x011a,
-		smoothrock =  0x011b,
-		heatrock =  0x011c,
-		damprock =  0x011d,
-		gripclaw =  0x011e,
-		choicescarf =  0x011f,
-		stickybarb =  0x0120,
-		powerbracer =  0x0121,
-		powerbelt =  0x0122,
-		powerlens =  0x0123,
-		powerband =  0x0124,
-		poweranklet =  0x0125,
-		powerweight =  0x0126,
-		shedshell =  0x0127,
-		bigroot =  0x0128,
-		choicespecs =  0x0129,
-		flameplate =  0x012a,
-		splashplate =  0x012b,
-		zapplate =  0x012c,
-		meadowplate =  0x012d,
-		icicleplate =  0x012e,
-		fistplate =  0x012f,
-		toxicplate =  0x0130,
-		earthplate =  0x0131,
-		skyplate =  0x0132,
-		mindplate =  0x0133,
-		insectplate =  0x0134,
-		stoneplate =  0x0135,
-		spookyplate =  0x0136,
-		dracoplate =  0x0137,
-		dreadplate =  0x0138,
-		ironplate =  0x0139,
-		oddincense =  0x013a,
-		rockincense =  0x013b,
-		fullincense =  0x013c,
-		waveincense =  0x013d,
-		roseincense =  0x013e,
-		luckincense =  0x013f,
-		pureincense =  0x0140,
-		protector =  0x0141,
-		electirizer =  0x0142,
-		magmarizer =  0x0143,
-		dubiousdisc =  0x0144,
-		reapercloth =  0x0145,
-		razorclaw =  0x0146,
-		razorfang =  0x0147,
-		tm01 =  0x0148,
-		tm02 =  0x0149,
-		tm03 =  0x014a,
-		tm04 =  0x014b,
-		tm05 =  0x014c,
-		tm06 =  0x014d,
-		tm07 =  0x014e,
-		tm08 =  0x014f,
-		tm09 =  0x0150,
-		tm10 =  0x0151,
-		tm11 =  0x0152,
-		tm12 =  0x0153,
-		tm13 =  0x0154,
-		tm14 =  0x0155,
-		tm15 =  0x0156,
-		tm16 =  0x0157,
-		tm17 =  0x0158,
-		tm18 =  0x0159,
-		tm19 =  0x015a,
-		tm20 =  0x015b,
-		tm21 =  0x015c,
-		tm22 =  0x015d,
-		tm23 =  0x015e,
-		tm24 =  0x015f,
-		tm25 =  0x0160,
-		tm26 =  0x0161,
-		tm27 =  0x0162,
-		tm28 =  0x0163,
-		tm29 =  0x0164,
-		tm30 =  0x0165,
-		tm31 =  0x0166,
-		tm32 =  0x0167,
-		tm33 =  0x0168,
-		tm34 =  0x0169,
-		tm35 =  0x016a,
-		tm36 =  0x016b,
-		tm37 =  0x016c,
-		tm38 =  0x016d,
-		tm39 =  0x016e,
-		tm40 =  0x016f,
-		tm41 =  0x0170,
-		tm42 =  0x0171,
-		tm43 =  0x0172,
-		tm44 =  0x0173,
-		tm45 =  0x0174,
-		tm46 =  0x0175,
-		tm47 =  0x0176,
-		tm48 =  0x0177,
-		tm49 =  0x0178,
-		tm50 =  0x0179,
-		tm51 =  0x017a,
-		tm52 =  0x017b,
-		tm53 =  0x017c,
-		tm54 =  0x017d,
-		tm55 =  0x017e,
-		tm56 =  0x017f,
-		tm57 =  0x0180,
-		tm58 =  0x0181,
-		tm59 =  0x0182,
-		tm60 =  0x0183,
-		tm61 =  0x0184,
-		tm62 =  0x0185,
-		tm63 =  0x0186,
-		tm64 =  0x0187,
-		tm65 =  0x0188,
-		tm66 =  0x0189,
-		tm67 =  0x018a,
-		tm68 =  0x018b,
-		tm69 =  0x018c,
-		tm70 =  0x018d,
-		tm71 =  0x018e,
-		tm72 =  0x018f,
-		tm73 =  0x0190,
-		tm74 =  0x0191,
-		tm75 =  0x0192,
-		tm76 =  0x0193,
-		tm77 =  0x0194,
-		tm78 =  0x0195,
-		tm79 =  0x0196,
-		tm80 =  0x0197,
-		tm81 =  0x0198,
-		tm82 =  0x0199,
-		tm83 =  0x019a,
-		tm84 =  0x019b,
-		tm85 =  0x019c,
-		tm86 =  0x019d,
-		tm87 =  0x019e,
-		tm88 =  0x019f,
-		tm89 =  0x01a0,
-		tm90 =  0x01a1,
-		tm91 =  0x01a2,
-		tm92 =  0x01a3,
-		hm01 =  0x01a4,
-		hm02 =  0x01a5,
-		hm03 =  0x01a6,
-		hm04 =  0x01a7,
-		hm05 =  0x01a8,
-		hm06 =  0x01a9,
-		explorerkit =  0x01ac,
-		lootsack =  0x01ad,
-		rulebook =  0x01ae,
-		pokeradar =  0x01af,
-		pointcard =  0x01b0,
-		journal =  0x01b1,
-		sealcase =  0x01b2,
-		fashioncase =  0x01b3,
-		sealbag =  0x01b4,
-		palpad =  0x01b5,
-		workskey =  0x01b6,
-		oldcharm =  0x01b7,
-		galactickey =  0x01b8,
-		redchain =  0x01b9,
-		townmap =  0x01ba,
-		vsseeker =  0x01bb,
-		coincase =  0x01bc,
-		oldrod =  0x01bd,
-		goodrod =  0x01be,
-		superrod =  0x01bf,
-		sprayduck =  0x01c0,
-		poffincase =  0x01c1,
-		bicycle =  0x01c2,
-		suitekey =  0x01c3,
-		oaksletter =  0x01c4,
-		lunarwing =  0x01c5,
-		membercard =  0x01c6,
-		azureflute =  0x01c7,
-		ssticket =  0x01c8,
-		contestpass =  0x01c9,
-		magmastone =  0x01ca,
-		parcel =  0x01cb,
-		coupon1 =  0x01cc,
-		coupon2 =  0x01cd,
-		coupon3 =  0x01ce,
-		storagekey =  0x01cf,
-		secretpotion =  0x01d0,
-		vsrecorder =  0x01d1,
-		gracidea =  0x01d2,
-		secretkey =  0x01d3,
-		apricornbox =  0x01d4,
-		unownreport =  0x01d5,
-		berrypots =  0x01d6,
-		dowsingmchn =  0x01d7,
-		bluecard =  0x01d8,
-		slowpoketail =  0x01d9,
-		clearbell =  0x01da,
-		cardkey =  0x01db,
-		basementkey =  0x01dc,
-		squirtbottle =  0x01dd,
-		redscale =  0x01de,
-		lostitem =  0x01df,
-		pass =  0x01e0,
-		machinepart =  0x01e1,
-		silverwing =  0x01e2,
-		rainbowwing =  0x01e3,
-		mysteryegg =  0x01e4,
-		redapricorn =  0x01e5,
-		ylwapricorn =  0x01e6,
-		bluapricorn =  0x01e7,
-		grnapricorn =  0x01e8,
-		pnkapricorn =  0x01e9,
-		whtapricorn =  0x01ea,
-		blkapricorn =  0x01eb,
-		fastball =  0x01ec,
-		levelball =  0x01ed,
-		lureball =  0x01ee,
-		heavyball =  0x01ef,
-		loveball =  0x01f0,
-		friendball =  0x01f1,
-		moonball =  0x01f2,
-		sportball =  0x01f3,
-		parkball =  0x01f4,
-		photoalbum =  0x01f5,
-		gbsounds =  0x01f6,
-		tidalbell =  0x01f7,
-		ragecandybar =  0x01f8,
-		datacard01 =  0x01f9,
-		datacard02 =  0x01fa,
-		datacard03 =  0x01fb,
-		datacard04 =  0x01fc,
-		datacard05 =  0x01fd,
-		datacard06 =  0x01fe,
-		datacard07 =  0x01ff,
-		datacard08 =  0x0200,
-		datacard09 =  0x0201,
-		datacard10 =  0x0202,
-		datacard11 =  0x0203,
-		datacard12 =  0x0204,
-		datacard13 =  0x0205,
-		datacard14 =  0x0206,
-		datacard15 =  0x0207,
-		datacard16 =  0x0208,
-		datacard17 =  0x0209,
-		datacard18 =  0x020a,
-		datacard19 =  0x020b,
-		datacard20 =  0x020c,
-		datacard21 =  0x020d,
-		datacard22 =  0x020e,
-		datacard23 =  0x020f,
-		datacard24 =  0x0210,
-		datacard25 =  0x0211,
-		datacard26 =  0x0212,
-		datacard27 =  0x0213,
-		jadeorb =  0x0214,
-		lockcapsule =  0x0215,
-		redorb =  0x0216,
-		blueorb =  0x0217,
-		enigmastone =  0x0218,
-		prismscale =  0x0219,
-		eviolite =  0x021a,
-		floatstone =  0x021b,
-		rockyhelmet =  0x021c,
-		airballoon =  0x021d,
-		redcard =  0x021e,
-		ringtarget =  0x021f,
-		bindingband =  0x0220,
-		absorbbulb =  0x0221,
-		cellbattery =  0x0222,
-		ejectbutton =  0x0223,
-		firegem =  0x0224,
-		watergem =  0x0225,
-		electricgem =  0x0226,
-		grassgem =  0x0227,
-		icegem =  0x0228,
-		fightinggem =  0x0229,
-		poisongem =  0x022a,
-		groundgem =  0x022b,
-		flyinggem =  0x022c,
-		psychicgem =  0x022d,
-		buggem =  0x022e,
-		rockgem =  0x022f,
-		ghostgem =  0x0230,
-		dragongem =  0x0231,
-		darkgem =  0x0232,
-		steelgem =  0x0233,
-		normalgem =  0x0234,
-		healthwing =  0x0235,
-		musclewing =  0x0236,
-		resistwing =  0x0237,
-		geniuswing =  0x0238,
-		cleverwing =  0x0239,
-		swiftwing =  0x023a,
-		prettywing =  0x023b,
-		coverfossil =  0x023c,
-		plumefossil =  0x023d,
-		libertypass =  0x023e,
-		passorb =  0x023f,
-		dreamball =  0x0240,
-		poketoy =  0x0241,
-		propcase =  0x0242,
-		dragonskull =  0x0243,
-		balmmushroom =  0x0244,
-		bignugget =  0x0245,
-		pearlstring =  0x0246,
-		cometshard =  0x0247,
-		reliccopper =  0x0248,
-		relicsilver =  0x0249,
-		relicgold =  0x024a,
-		relicvase =  0x024b,
-		relicband =  0x024c,
-		relicstatue =  0x024d,
-		reliccrown =  0x024e,
-		casteliacone =  0x024f,
-		direhit2 =  0x0250,
-		xspeed2 =  0x0251,
-		xspecial2 =  0x0252,
-		xspdef2 =  0x0253,
-		xdefend2 =  0x0254,
-		xattack2 =  0x0255,
-		xaccuracy2 =  0x0256,
-		xspeed3 =  0x0257,
-		xspecial3 =  0x0258,
-		xspdef3 =  0x0259,
-		xdefend3 =  0x025a,
-		xattack3 =  0x025b,
-		xaccuracy3 =  0x025c,
-		xspeed6 =  0x025d,
-		xspecial6 =  0x025e,
-		xspdef6 =  0x025f,
-		xdefend6 =  0x0260,
-		xattack6 =  0x0261,
-		xaccuracy6 =  0x0262,
-		abilityurge =  0x0263,
-		itemdrop =  0x0264,
-		itemurge =  0x0265,
-		reseturge =  0x0266,
-		direhit3 =  0x0267,
-		lightstone =  0x0268,
-		darkstone =  0x0269,
-		tm93 =  0x026a,
-		tm94 =  0x026b,
-		tm95 =  0x026c,
-		xtransceiver =  0x026d,
-		godstone =  0x026e,
-		gram1 =  0x026f,
-		gram2 =  0x0270,
-		gram3 =  0x0271,
-		xtransceiver2 =  0x0272,
-		medalbox =  0x0273,
-		dnasplicers =  0x0274,
-		dnasplicers2 =  0x0275,
-		permit =  0x0276,
-		ovalcharm =  0x0277,
-		shinycharm =  0x0278,
-		plasmacard =  0x0279,
-		grubbyhanky =  0x027a,
-		colressmchn =  0x027b,
-		droppeditem =  0x027c,
-		droppeditem2 =  0x027d,
-		revealglass =  0x027e
+		NOTHING = 0x0000,
+		masterball = 0x0001,
+		ultraball = 0x0002,
+		greatball = 0x0003,
+		pokeball = 0x0004,
+		safariball = 0x0005,
+		netball = 0x0006,
+		diveball = 0x0007,
+		nestball = 0x0008,
+		repeatball = 0x0009,
+		timerball = 0x000a,
+		luxuryball = 0x000b,
+		premierball = 0x000c,
+		duskball = 0x000d,
+		healball = 0x000e,
+		quickball = 0x000f,
+		cherishball = 0x0010,
+		potion = 0x0011,
+		antidote = 0x0012,
+		burnheal = 0x0013,
+		iceheal = 0x0014,
+		awakening = 0x0015,
+		parlyzheal = 0x0016,
+		fullrestore = 0x0017,
+		maxpotion = 0x0018,
+		hyperpotion = 0x0019,
+		superpotion = 0x001a,
+		fullheal = 0x001b,
+		revive = 0x001c,
+		maxrevive = 0x001d,
+		freshwater = 0x001e,
+		sodapop = 0x001f,
+		lemonade = 0x0020,
+		moomoomilk = 0x0021,
+		energypowder = 0x0022,
+		energyroot = 0x0023,
+		healpowder = 0x0024,
+		revivalherb = 0x0025,
+		ether = 0x0026,
+		maxether = 0x0027,
+		elixir = 0x0028,
+		maxelixir = 0x0029,
+		lavacookie = 0x002a,
+		berryjuice = 0x002b,
+		sacredash = 0x002c,
+		hpup = 0x002d,
+		protein = 0x002e,
+		iron = 0x002f,
+		carbos = 0x0030,
+		calcium = 0x0031,
+		rarecandy = 0x0032,
+		ppup = 0x0033,
+		zinc = 0x0034,
+		ppmax = 0x0035,
+		oldgateau = 0x0036,
+		guardspec = 0x0037,
+		direhit = 0x0038,
+		xattack = 0x0039,
+		xdefend = 0x003a,
+		xspeed = 0x003b,
+		xaccuracy = 0x003c,
+		xspecial = 0x003d,
+		xspdef = 0x003e,
+		pokedoll = 0x003f,
+		fluffytail = 0x0040,
+		blueflute = 0x0041,
+		yellowflute = 0x0042,
+		redflute = 0x0043,
+		blackflute = 0x0044,
+		whiteflute = 0x0045,
+		shoalsalt = 0x0046,
+		shoalshell = 0x0047,
+		redshard = 0x0048,
+		blueshard = 0x0049,
+		yellowshard = 0x004a,
+		greenshard = 0x004b,
+		superrepel = 0x004c,
+		maxrepel = 0x004d,
+		escaperope = 0x004e,
+		repel = 0x004f,
+		sunstone = 0x0050,
+		moonstone = 0x0051,
+		firestone = 0x0052,
+		thunderstone = 0x0053,
+		waterstone = 0x0054,
+		leafstone = 0x0055,
+		tinymushroom = 0x0056,
+		bigmushroom = 0x0057,
+		pearl = 0x0058,
+		bigpearl = 0x0059,
+		stardust = 0x005a,
+		starpiece = 0x005b,
+		nugget = 0x005c,
+		heartscale = 0x005d,
+		honey = 0x005e,
+		growthmulch = 0x005f,
+		dampmulch = 0x0060,
+		stablemulch = 0x0061,
+		gooeymulch = 0x0062,
+		rootfossil = 0x0063,
+		clawfossil = 0x0064,
+		helixfossil = 0x0065,
+		domefossil = 0x0066,
+		oldamber = 0x0067,
+		armorfossil = 0x0068,
+		skullfossil = 0x0069,
+		rarebone = 0x006a,
+		shinystone = 0x006b,
+		duskstone = 0x006c,
+		dawnstone = 0x006d,
+		ovalstone = 0x006e,
+		oddkeystone = 0x006f,
+		griseousorb = 0x0070,
+		dousedrive = 0x0074,
+		shockdrive = 0x0075,
+		burndrive = 0x0076,
+		chilldrive = 0x0077,
+		sweetheart = 0x0086,
+		adamantorb = 0x0087,
+		lustrousorb = 0x0088,
+		greetmail = 0x0089,
+		favoredmail = 0x008a,
+		rsvpmail = 0x008b,
+		thanksmail = 0x008c,
+		inquirymail = 0x008d,
+		likemail = 0x008e,
+		replymail = 0x008f,
+		bridgemails = 0x0090,
+		bridgemaild = 0x0091,
+		bridgemailt = 0x0092,
+		bridgemailv = 0x0093,
+		bridgemailm = 0x0094,
+		cheriberry = 0x0095,
+		chestoberry = 0x0096,
+		pechaberry = 0x0097,
+		rawstberry = 0x0098,
+		aspearberry = 0x0099,
+		leppaberry = 0x009a,
+		oranberry = 0x009b,
+		persimberry = 0x009c,
+		lumberry = 0x009d,
+		sitrusberry = 0x009e,
+		figyberry = 0x009f,
+		wikiberry = 0x00a0,
+		magoberry = 0x00a1,
+		aguavberry = 0x00a2,
+		iapapaberry = 0x00a3,
+		razzberry = 0x00a4,
+		blukberry = 0x00a5,
+		nanabberry = 0x00a6,
+		wepearberry = 0x00a7,
+		pinapberry = 0x00a8,
+		pomegberry = 0x00a9,
+		kelpsyberry = 0x00aa,
+		qualotberry = 0x00ab,
+		hondewberry = 0x00ac,
+		grepaberry = 0x00ad,
+		tamatoberry = 0x00ae,
+		cornnberry = 0x00af,
+		magostberry = 0x00b0,
+		rabutaberry = 0x00b1,
+		nomelberry = 0x00b2,
+		spelonberry = 0x00b3,
+		pamtreberry = 0x00b4,
+		watmelberry = 0x00b5,
+		durinberry = 0x00b6,
+		belueberry = 0x00b7,
+		occaberry = 0x00b8,
+		passhoberry = 0x00b9,
+		wacanberry = 0x00ba,
+		rindoberry = 0x00bb,
+		yacheberry = 0x00bc,
+		chopleberry = 0x00bd,
+		kebiaberry = 0x00be,
+		shucaberry = 0x00bf,
+		cobaberry = 0x00c0,
+		payapaberry = 0x00c1,
+		tangaberry = 0x00c2,
+		chartiberry = 0x00c3,
+		kasibberry = 0x00c4,
+		habanberry = 0x00c5,
+		colburberry = 0x00c6,
+		babiriberry = 0x00c7,
+		chilanberry = 0x00c8,
+		liechiberry = 0x00c9,
+		ganlonberry = 0x00ca,
+		salacberry = 0x00cb,
+		petayaberry = 0x00cc,
+		apicotberry = 0x00cd,
+		lansatberry = 0x00ce,
+		starfberry = 0x00cf,
+		enigmaberry = 0x00d0,
+		micleberry = 0x00d1,
+		custapberry = 0x00d2,
+		jabocaberry = 0x00d3,
+		rowapberry = 0x00d4,
+		brightpowder = 0x00d5,
+		whiteherb = 0x00d6,
+		machobrace = 0x00d7,
+		expshare = 0x00d8,
+		quickclaw = 0x00d9,
+		soothebell = 0x00da,
+		mentalherb = 0x00db,
+		choiceband = 0x00dc,
+		kingsrock = 0x00dd,
+		silverpowder = 0x00de,
+		amuletcoin = 0x00df,
+		cleansetag = 0x00e0,
+		souldew = 0x00e1,
+		deepseatooth = 0x00e2,
+		deepseascale = 0x00e3,
+		smokeball = 0x00e4,
+		everstone = 0x00e5,
+		focusband = 0x00e6,
+		luckyegg = 0x00e7,
+		scopelens = 0x00e8,
+		metalcoat = 0x00e9,
+		leftovers = 0x00ea,
+		dragonscale = 0x00eb,
+		lightball = 0x00ec,
+		softsand = 0x00ed,
+		hardstone = 0x00ee,
+		miracleseed = 0x00ef,
+		blackglasses = 0x00f0,
+		blackbelt = 0x00f1,
+		magnet = 0x00f2,
+		mysticwater = 0x00f3,
+		sharpbeak = 0x00f4,
+		poisonbarb = 0x00f5,
+		nevermeltice = 0x00f6,
+		spelltag = 0x00f7,
+		twistedspoon = 0x00f8,
+		charcoal = 0x00f9,
+		dragonfang = 0x00fa,
+		silkscarf = 0x00fb,
+		upgrade = 0x00fc,
+		shellbell = 0x00fd,
+		seaincense = 0x00fe,
+		laxincense = 0x00ff,
+		luckypunch = 0x0100,
+		metalpowder = 0x0101,
+		thickclub = 0x0102,
+		stick = 0x0103,
+		redscarf = 0x0104,
+		bluescarf = 0x0105,
+		pinkscarf = 0x0106,
+		greenscarf = 0x0107,
+		yellowscarf = 0x0108,
+		widelens = 0x0109,
+		muscleband = 0x010a,
+		wiseglasses = 0x010b,
+		expertbelt = 0x010c,
+		lightclay = 0x010d,
+		lifeorb = 0x010e,
+		powerherb = 0x010f,
+		toxicorb = 0x0110,
+		flameorb = 0x0111,
+		quickpowder = 0x0112,
+		focussash = 0x0113,
+		zoomlens = 0x0114,
+		metronome = 0x0115,
+		ironball = 0x0116,
+		laggingtail = 0x0117,
+		destinyknot = 0x0118,
+		blacksludge = 0x0119,
+		icyrock = 0x011a,
+		smoothrock = 0x011b,
+		heatrock = 0x011c,
+		damprock = 0x011d,
+		gripclaw = 0x011e,
+		choicescarf = 0x011f,
+		stickybarb = 0x0120,
+		powerbracer = 0x0121,
+		powerbelt = 0x0122,
+		powerlens = 0x0123,
+		powerband = 0x0124,
+		poweranklet = 0x0125,
+		powerweight = 0x0126,
+		shedshell = 0x0127,
+		bigroot = 0x0128,
+		choicespecs = 0x0129,
+		flameplate = 0x012a,
+		splashplate = 0x012b,
+		zapplate = 0x012c,
+		meadowplate = 0x012d,
+		icicleplate = 0x012e,
+		fistplate = 0x012f,
+		toxicplate = 0x0130,
+		earthplate = 0x0131,
+		skyplate = 0x0132,
+		mindplate = 0x0133,
+		insectplate = 0x0134,
+		stoneplate = 0x0135,
+		spookyplate = 0x0136,
+		dracoplate = 0x0137,
+		dreadplate = 0x0138,
+		ironplate = 0x0139,
+		oddincense = 0x013a,
+		rockincense = 0x013b,
+		fullincense = 0x013c,
+		waveincense = 0x013d,
+		roseincense = 0x013e,
+		luckincense = 0x013f,
+		pureincense = 0x0140,
+		protector = 0x0141,
+		electirizer = 0x0142,
+		magmarizer = 0x0143,
+		dubiousdisc = 0x0144,
+		reapercloth = 0x0145,
+		razorclaw = 0x0146,
+		razorfang = 0x0147,
+		tm01 = 0x0148,
+		tm02 = 0x0149,
+		tm03 = 0x014a,
+		tm04 = 0x014b,
+		tm05 = 0x014c,
+		tm06 = 0x014d,
+		tm07 = 0x014e,
+		tm08 = 0x014f,
+		tm09 = 0x0150,
+		tm10 = 0x0151,
+		tm11 = 0x0152,
+		tm12 = 0x0153,
+		tm13 = 0x0154,
+		tm14 = 0x0155,
+		tm15 = 0x0156,
+		tm16 = 0x0157,
+		tm17 = 0x0158,
+		tm18 = 0x0159,
+		tm19 = 0x015a,
+		tm20 = 0x015b,
+		tm21 = 0x015c,
+		tm22 = 0x015d,
+		tm23 = 0x015e,
+		tm24 = 0x015f,
+		tm25 = 0x0160,
+		tm26 = 0x0161,
+		tm27 = 0x0162,
+		tm28 = 0x0163,
+		tm29 = 0x0164,
+		tm30 = 0x0165,
+		tm31 = 0x0166,
+		tm32 = 0x0167,
+		tm33 = 0x0168,
+		tm34 = 0x0169,
+		tm35 = 0x016a,
+		tm36 = 0x016b,
+		tm37 = 0x016c,
+		tm38 = 0x016d,
+		tm39 = 0x016e,
+		tm40 = 0x016f,
+		tm41 = 0x0170,
+		tm42 = 0x0171,
+		tm43 = 0x0172,
+		tm44 = 0x0173,
+		tm45 = 0x0174,
+		tm46 = 0x0175,
+		tm47 = 0x0176,
+		tm48 = 0x0177,
+		tm49 = 0x0178,
+		tm50 = 0x0179,
+		tm51 = 0x017a,
+		tm52 = 0x017b,
+		tm53 = 0x017c,
+		tm54 = 0x017d,
+		tm55 = 0x017e,
+		tm56 = 0x017f,
+		tm57 = 0x0180,
+		tm58 = 0x0181,
+		tm59 = 0x0182,
+		tm60 = 0x0183,
+		tm61 = 0x0184,
+		tm62 = 0x0185,
+		tm63 = 0x0186,
+		tm64 = 0x0187,
+		tm65 = 0x0188,
+		tm66 = 0x0189,
+		tm67 = 0x018a,
+		tm68 = 0x018b,
+		tm69 = 0x018c,
+		tm70 = 0x018d,
+		tm71 = 0x018e,
+		tm72 = 0x018f,
+		tm73 = 0x0190,
+		tm74 = 0x0191,
+		tm75 = 0x0192,
+		tm76 = 0x0193,
+		tm77 = 0x0194,
+		tm78 = 0x0195,
+		tm79 = 0x0196,
+		tm80 = 0x0197,
+		tm81 = 0x0198,
+		tm82 = 0x0199,
+		tm83 = 0x019a,
+		tm84 = 0x019b,
+		tm85 = 0x019c,
+		tm86 = 0x019d,
+		tm87 = 0x019e,
+		tm88 = 0x019f,
+		tm89 = 0x01a0,
+		tm90 = 0x01a1,
+		tm91 = 0x01a2,
+		tm92 = 0x01a3,
+		hm01 = 0x01a4,
+		hm02 = 0x01a5,
+		hm03 = 0x01a6,
+		hm04 = 0x01a7,
+		hm05 = 0x01a8,
+		hm06 = 0x01a9,
+		explorerkit = 0x01ac,
+		lootsack = 0x01ad,
+		rulebook = 0x01ae,
+		pokeradar = 0x01af,
+		pointcard = 0x01b0,
+		journal = 0x01b1,
+		sealcase = 0x01b2,
+		fashioncase = 0x01b3,
+		sealbag = 0x01b4,
+		palpad = 0x01b5,
+		workskey = 0x01b6,
+		oldcharm = 0x01b7,
+		galactickey = 0x01b8,
+		redchain = 0x01b9,
+		townmap = 0x01ba,
+		vsseeker = 0x01bb,
+		coincase = 0x01bc,
+		oldrod = 0x01bd,
+		goodrod = 0x01be,
+		superrod = 0x01bf,
+		sprayduck = 0x01c0,
+		poffincase = 0x01c1,
+		bicycle = 0x01c2,
+		suitekey = 0x01c3,
+		oaksletter = 0x01c4,
+		lunarwing = 0x01c5,
+		membercard = 0x01c6,
+		azureflute = 0x01c7,
+		ssticket = 0x01c8,
+		contestpass = 0x01c9,
+		magmastone = 0x01ca,
+		parcel = 0x01cb,
+		coupon1 = 0x01cc,
+		coupon2 = 0x01cd,
+		coupon3 = 0x01ce,
+		storagekey = 0x01cf,
+		secretpotion = 0x01d0,
+		vsrecorder = 0x01d1,
+		gracidea = 0x01d2,
+		secretkey = 0x01d3,
+		apricornbox = 0x01d4,
+		unownreport = 0x01d5,
+		berrypots = 0x01d6,
+		dowsingmchn = 0x01d7,
+		bluecard = 0x01d8,
+		slowpoketail = 0x01d9,
+		clearbell = 0x01da,
+		cardkey = 0x01db,
+		basementkey = 0x01dc,
+		squirtbottle = 0x01dd,
+		redscale = 0x01de,
+		lostitem = 0x01df,
+		pass = 0x01e0,
+		machinepart = 0x01e1,
+		silverwing = 0x01e2,
+		rainbowwing = 0x01e3,
+		mysteryegg = 0x01e4,
+		redapricorn = 0x01e5,
+		ylwapricorn = 0x01e6,
+		bluapricorn = 0x01e7,
+		grnapricorn = 0x01e8,
+		pnkapricorn = 0x01e9,
+		whtapricorn = 0x01ea,
+		blkapricorn = 0x01eb,
+		fastball = 0x01ec,
+		levelball = 0x01ed,
+		lureball = 0x01ee,
+		heavyball = 0x01ef,
+		loveball = 0x01f0,
+		friendball = 0x01f1,
+		moonball = 0x01f2,
+		sportball = 0x01f3,
+		parkball = 0x01f4,
+		photoalbum = 0x01f5,
+		gbsounds = 0x01f6,
+		tidalbell = 0x01f7,
+		ragecandybar = 0x01f8,
+		datacard01 = 0x01f9,
+		datacard02 = 0x01fa,
+		datacard03 = 0x01fb,
+		datacard04 = 0x01fc,
+		datacard05 = 0x01fd,
+		datacard06 = 0x01fe,
+		datacard07 = 0x01ff,
+		datacard08 = 0x0200,
+		datacard09 = 0x0201,
+		datacard10 = 0x0202,
+		datacard11 = 0x0203,
+		datacard12 = 0x0204,
+		datacard13 = 0x0205,
+		datacard14 = 0x0206,
+		datacard15 = 0x0207,
+		datacard16 = 0x0208,
+		datacard17 = 0x0209,
+		datacard18 = 0x020a,
+		datacard19 = 0x020b,
+		datacard20 = 0x020c,
+		datacard21 = 0x020d,
+		datacard22 = 0x020e,
+		datacard23 = 0x020f,
+		datacard24 = 0x0210,
+		datacard25 = 0x0211,
+		datacard26 = 0x0212,
+		datacard27 = 0x0213,
+		jadeorb = 0x0214,
+		lockcapsule = 0x0215,
+		redorb = 0x0216,
+		blueorb = 0x0217,
+		enigmastone = 0x0218,
+		prismscale = 0x0219,
+		eviolite = 0x021a,
+		floatstone = 0x021b,
+		rockyhelmet = 0x021c,
+		airballoon = 0x021d,
+		redcard = 0x021e,
+		ringtarget = 0x021f,
+		bindingband = 0x0220,
+		absorbbulb = 0x0221,
+		cellbattery = 0x0222,
+		ejectbutton = 0x0223,
+		firegem = 0x0224,
+		watergem = 0x0225,
+		electricgem = 0x0226,
+		grassgem = 0x0227,
+		icegem = 0x0228,
+		fightinggem = 0x0229,
+		poisongem = 0x022a,
+		groundgem = 0x022b,
+		flyinggem = 0x022c,
+		psychicgem = 0x022d,
+		buggem = 0x022e,
+		rockgem = 0x022f,
+		ghostgem = 0x0230,
+		dragongem = 0x0231,
+		darkgem = 0x0232,
+		steelgem = 0x0233,
+		normalgem = 0x0234,
+		healthwing = 0x0235,
+		musclewing = 0x0236,
+		resistwing = 0x0237,
+		geniuswing = 0x0238,
+		cleverwing = 0x0239,
+		swiftwing = 0x023a,
+		prettywing = 0x023b,
+		coverfossil = 0x023c,
+		plumefossil = 0x023d,
+		libertypass = 0x023e,
+		passorb = 0x023f,
+		dreamball = 0x0240,
+		poketoy = 0x0241,
+		propcase = 0x0242,
+		dragonskull = 0x0243,
+		balmmushroom = 0x0244,
+		bignugget = 0x0245,
+		pearlstring = 0x0246,
+		cometshard = 0x0247,
+		reliccopper = 0x0248,
+		relicsilver = 0x0249,
+		relicgold = 0x024a,
+		relicvase = 0x024b,
+		relicband = 0x024c,
+		relicstatue = 0x024d,
+		reliccrown = 0x024e,
+		casteliacone = 0x024f,
+		direhit2 = 0x0250,
+		xspeed2 = 0x0251,
+		xspecial2 = 0x0252,
+		xspdef2 = 0x0253,
+		xdefend2 = 0x0254,
+		xattack2 = 0x0255,
+		xaccuracy2 = 0x0256,
+		xspeed3 = 0x0257,
+		xspecial3 = 0x0258,
+		xspdef3 = 0x0259,
+		xdefend3 = 0x025a,
+		xattack3 = 0x025b,
+		xaccuracy3 = 0x025c,
+		xspeed6 = 0x025d,
+		xspecial6 = 0x025e,
+		xspdef6 = 0x025f,
+		xdefend6 = 0x0260,
+		xattack6 = 0x0261,
+		xaccuracy6 = 0x0262,
+		abilityurge = 0x0263,
+		itemdrop = 0x0264,
+		itemurge = 0x0265,
+		reseturge = 0x0266,
+		direhit3 = 0x0267,
+		lightstone = 0x0268,
+		darkstone = 0x0269,
+		tm93 = 0x026a,
+		tm94 = 0x026b,
+		tm95 = 0x026c,
+		xtransceiver = 0x026d,
+		godstone = 0x026e,
+		gram1 = 0x026f,
+		gram2 = 0x0270,
+		gram3 = 0x0271,
+		xtransceiver2 = 0x0272,
+		medalbox = 0x0273,
+		dnasplicers = 0x0274,
+		dnasplicers2 = 0x0275,
+		permit = 0x0276,
+		ovalcharm = 0x0277,
+		shinycharm = 0x0278,
+		plasmacard = 0x0279,
+		grubbyhanky = 0x027a,
+		colressmchn = 0x027b,
+		droppeditem = 0x027c,
+		droppeditem2 = 0x027d,
+		revealglass = 0x027e
 	};
 }
 namespace Hometowns
@@ -2158,7 +2158,7 @@ namespace Locations
 		NOTHING,
 		unovamysteryzone,
 		unovafarawayplace,
-		nuvematown=4,
+		nuvematown = 4,
 		accumulatown,
 		striatoncity,
 		nacrenecity,
@@ -2292,7 +2292,7 @@ namespace Locations
 		plasmafrigate,
 		relicpassage,
 		claytunnel,
-		whitetreehollow=139,
+		whitetreehollow = 139,
 		blacktower,
 		seasidecave,
 		caveofbeing,
@@ -2307,13 +2307,13 @@ namespace Locations
 		glacierroom,
 		ironroom,
 		pledgegrove,
-		daycarecouple_g4=2000,
-		poketransfer=30001,
+		daycarecouple_g4 = 2000,
+		poketransfer = 30001,
 		specialplace_a = 30012,
 		specialplace_b = 30012,
 		pokemondreamradar = 30015,
-		lovelyplace=40001,
-		daycarecouple=60002
+		lovelyplace = 40001,
+		daycarecouple = 60002
 	};
 }
 namespace Encounters
@@ -2321,13 +2321,13 @@ namespace Encounters
 	enum encounters : byte
 	{
 		palpark_egg_hatched_specialevent,
-		tallgrass=0x2,
-		dialga_palkia_ingameevent=0x4,
+		tallgrass = 0x2,
+		dialga_palkia_ingameevent = 0x4,
 		cave_halloforigin,
-		surfing_fishing=0x7,
-		building=0x9,
-		greatmarsh_safarizone=0xa,
-		starter_fossil_gift=0xc
+		surfing_fishing = 0x7,
+		building = 0x9,
+		greatmarsh_safarizone = 0xa,
+		starter_fossil_gift = 0xc
 	};
 }
 namespace Balls
@@ -2439,7 +2439,7 @@ namespace MoveCategories
 {
 	enum movecategories : byte
 	{
-		other=1,
+		other = 1,
 		physical,
 		special
 	};
@@ -2448,7 +2448,7 @@ namespace PokemonColors
 {
 	enum pokemoncolors : byte
 	{
-		black=1,
+		black = 1,
 		blue,
 		brown,
 		gray,
@@ -2464,7 +2464,7 @@ namespace ItemPockets
 {
 	enum itempockets : byte
 	{
-		misc=1,
+		misc = 1,
 		medicine,
 		pokeballs,
 		machines,
@@ -2685,6 +2685,24 @@ namespace Forms
 		};
 	}
 }
+namespace SpindaColors
+{
+	enum Base
+	{
+		BaseLight = 0xe6d6a5,
+		BaseShaded = 0xcea573
+	};
+	enum NormalSpot
+	{
+		NormalSpotLight = 0xef524a,
+		NormalSpotShaded = 0xbd4a31
+	};
+	enum ShinySpot
+	{
+		ShinySpotLight = 0xa5ce10,
+		ShinyShaded = 0x7b9c00
+	};
+}
 uint32 DllExport getpkmcolorhex(int pkmcolor);
 int DllExport balltoitem(int ball);
 Types::types DllExport getarceustype(int form);
@@ -2695,7 +2713,7 @@ struct pokerus {
 /*
 fetchPKMDataIfValid fields
 
-	0- pid
+0- pid
 1- (sanity)party pkm part is decrypted (bit 0)
 2- (sanity)box pkm part is decrypted (bit 1)
 3- (sanity)is species egg (bit 2)
@@ -2868,17 +2886,17 @@ struct spindaspots_struct
 {
 	/*
 	P =Personality value
-		C =Coordinates
+	C =Coordinates
 	S =Which Spot
 
 	<------------
-P: 0 x N N  N N  N N  N N
-	   | |  | |  | |  | |
-C:     y x  y x  y x  y x
-		   \/   \/   \/   \/
-S:      BL   BR   TL   TR
+	P: 0 x N N  N N  N N  N N
+	| |  | |  | |  | |
+	C:     y x  y x  y x  y x
+	\/   \/   \/   \/
+	S:      BL   BR   TL   TR
 
-			Example is given in little-endian 32bits.
+	Example is given in little-endian 32bits.
 	Spots were identified from Spinda's perspective.
 	So to an observer, Spinda's left would be their right.
 	*/
@@ -2919,7 +2937,7 @@ struct markingsfield { // Bitfield for the "Markings" of a Pokemon.
 	bool heart : 1; // Heart
 	bool star : 1; // Star
 	bool diamond : 1; // Diamond
-byte : 2; // Unused bits
+byte: 2; // Unused bits
 };
 //Individual Values
 struct ivsfield { // Bitfield for the Pokemon's Individual Values (IVs).
@@ -2929,7 +2947,7 @@ struct ivsfield { // Bitfield for the Pokemon's Individual Values (IVs).
 	uint32 speed : 5; // Speed
 	uint32 spatk : 5; // Special Attack
 	uint32 spdef : 5; // Special Defense
-uint32 : 2;
+uint32: 2;
 };
 //Forms
 struct formsfield { // Bitfield for determining the Pokemon's form, fateful encounter, and gender.
@@ -2942,97 +2960,97 @@ struct formsfield { // Bitfield for determining the Pokemon's form, fateful enco
 		//		};
 		struct
 		{
-byte : 3;
+		byte: 3;
 			Forms::Arceus::arceus arceus_form : 5;
 		};
 		struct
 		{
-byte : 3;
+		byte: 3;
 			Forms::Basculin::basculin basculin_form : 5;
 		};
 		struct
 		{
-byte : 3;
+		byte: 3;
 			Forms::Burmy_Wormadam::burmy_wormadam burmy_wormadam_form : 5;
 		};
 		struct
 		{
-byte : 3;
+		byte: 3;
 			Forms::Castform::castform castform_form : 5;
 		};
 		struct
 		{
-byte : 3;
+		byte: 3;
 			Forms::Cherrim::cherrim cherrim_form : 5;
 		};
 		struct
 		{
-byte : 3;
+		byte: 3;
 			Forms::Darmanitan::darmanitan darmanitan_form : 5;
 		};
 		struct
 		{
-byte : 3;
+		byte: 3;
 			Forms::Deerling_Sawsbuck::deerling_sawsbuck deerling_sawsbuck_form : 5;
 		};
 		struct
 		{
-byte : 3;
+		byte: 3;
 			Forms::Deoxys::deoxys deoxys_form : 5;
 		};
 		struct
 		{
-byte : 3;
+		byte: 3;
 			Forms::Genesect::genesect genesect_form : 5;
 		};
 		struct
 		{
-byte : 3;
+		byte: 3;
 			Forms::Giratina::giratina giratina_form : 5;
 		};
 		struct
 		{
-byte : 3;
+		byte: 3;
 			Forms::Keldeo::keldeo keldeo_form : 5;
 		};
 		struct
 		{
-byte : 3;
+		byte: 3;
 			Forms::Kyurem::kyurem kyurem_form : 5;
 		};
 		struct
 		{
-byte : 3;
+		byte: 3;
 			Forms::Meloetta::meloetta meloetta_form : 5;
 		};
 		struct
 		{
-byte : 3;
+		byte: 3;
 			Forms::Pichu::pichu pichu_form : 5;
 		};
 		struct
 		{
-byte : 3;
+		byte: 3;
 			Forms::Rotom::rotom rotom_form : 5;
 		};
 		struct
 		{
-byte : 3;
+		byte: 3;
 			Forms::Shaymin::shaymin shaymin_form : 5;
 		};
 		struct
 		{
-byte : 3;
+		byte: 3;
 			Forms::Shellos_Gastrodon::shellos_gastrodon shellos_gastrodon_form : 5;
 		};
 		struct
 		{
-byte : 3;
+		byte: 3;
 			Forms::Tornadus_Thundurus_Landorus::tornadus_thundurus_landorus tornadus_thundurus_landorus_form : 5;
 		};
 		struct
 		{
-byte : 3;
+		byte: 3;
 			Forms::Unown::unown unown_form : 5;
 		};
 	};
@@ -3086,7 +3104,7 @@ struct unovarib
 	bool wishing_ribbon : 1; // New to Unova
 	bool classic_ribbon : 1; //
 	bool premier_ribbon : 1; //
-byte : 4; // Padding to 16 bits
+byte: 4; // Padding to 16 bits
 };
 struct hoennrib1{ // 16 bits
 	bool cool_ribbon : 1; //
@@ -3147,9 +3165,9 @@ struct sinnohrib4 { // 8 bits
 	bool tough_ribbon_great : 1; //
 	bool tough_ribbon_ultra : 1; //
 	bool tough_ribbon_master : 1; //
-byte : 4; // Padding to 8 bits
+byte: 4; // Padding to 8 bits
 };
-struct pkmribbons : sinnohrib1,/*sinnohrib2*/unovarib,hoennrib1,hoennrib2,sinnohrib3,sinnohrib4 {};
+struct pkmribbons : sinnohrib1,/*sinnohrib2*/unovarib, hoennrib1, hoennrib2, sinnohrib3, sinnohrib4 {};
 struct pokemon_obj
 {
 	union
@@ -3165,8 +3183,8 @@ struct pokemon_obj
 			bool ispartydatadecrypted : 1;
 			bool isboxdatadecrypted : 1;
 			bool isspeciesegg : 1;
-byte : 5;
-byte : 8;
+		byte: 5;
+		byte: 8;
 			uint16 checksum; // The checksum for the Pokemon data; used to validate data and for encryption / decryption.
 			// Block A
 			union
@@ -3208,12 +3226,12 @@ byte : 8;
 			union
 			{
 				evsfield evs;
-				std::array<byte,6> ev_ints;
+				std::array<byte, 6> ev_ints;
 			};
 			union
 			{
 				contestfield contest;
-				std::array<byte,6> contest_ints;
+				std::array<byte, 6> contest_ints;
 			};
 			union
 			{
@@ -3228,19 +3246,19 @@ byte : 8;
 			// Block B
 			union
 			{
-				std::array<Moves::moves,4> moves;
-				std::array<uint16,4> move_ints;
+				std::array<Moves::moves, 4> moves;
+				std::array<uint16, 4> move_ints;
 			};
-			std::array<byte,4> pp; // Current PP array
-			std::array<byte,4> ppup; // PP Ups used array
+			std::array<byte, 4> pp; // Current PP array
+			std::array<byte, 4> ppup; // PP Ups used array
 			union
 			{
 				ivsfield ivs; // Individual Values
 				struct
 				{
-uint16 : 16;
-byte : 8;
-byte : 6;
+				uint16: 16;
+				byte: 8;
+				byte: 6;
 					bool isegg : 1;
 					bool isnicknamed : 1;
 				};
@@ -3263,11 +3281,11 @@ byte : 6;
 					bool fencounter : 1; // Fateful encounter flag.
 					bool female : 1; // Flag to determine if this Pokemon is female.
 					bool genderless : 1; // Flag to determine if this Pokemon is genderless.
-byte : 5;
+				byte: 5;
 				};
 				struct
 				{
-byte : 3;
+				byte: 3;
 					byte form_int : 5; // Index number of this Pokemon's form.
 				};
 			};
@@ -3278,10 +3296,10 @@ byte : 3;
 			};
 			bool hasdwability : 1; // Dream World Ability flag
 			bool n_pkm : 1; // N's Pokemon Flag
-byte : 6; //
-byte : 8; //
-uint16 : 16; //
-uint16 : 16; //
+		byte: 6; //
+		byte: 8; //
+		uint16: 16; //
+		uint16: 16; //
 			//Block C
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
@@ -3290,7 +3308,7 @@ uint16 : 16; //
 			wchar_t nickname[NICKLENGTH/*+1*/];
 #endif
 #endif
-byte : 8;
+		byte: 8;
 			union
 			{
 				Hometowns::hometowns hometown; // Original game
@@ -3306,8 +3324,8 @@ byte : 8;
 				sinnohrib4 sribbon4; // Sinnoh Ribbons 4
 				byte sribbon4_int;
 			};
-byte : 8;
-uint32 : 32; //
+		byte: 8;
+		uint32: 32; //
 			//Block D
 #if ! defined(MARKUP_SIZEOFWCHAR)
 #if __SIZEOF_WCHAR_T__ == 4 || __WCHAR_MAX__ > 0x10000
@@ -3349,19 +3367,19 @@ uint32 : 32; //
 				Encounters::encounters encounter; // Encounter type (unused since Gen V?)
 				byte encounter_int;
 			};
-byte : 8; //
-byte : 8; //
+		byte: 8; //
+		byte: 8; //
 		};
 		byte _raw_data_u8[136];
 		uint16 _raw_data_u16[68];
 		uint32 _raw_data_u32[34];
 		//char * _raw_data_p;
-	//	const char * _raw_data_cp;
+		//	const char * _raw_data_cp;
 	};
 	pokemon_obj()
 	{
-	//_raw_data_p = new char();
-		memset(this,0,sizeof(pokemon_obj));
+		//_raw_data_p = new char();
+		memset(this, 0, sizeof(pokemon_obj));
 	}
 };
 struct status_field {
@@ -3378,10 +3396,10 @@ struct party_field { // Size: 0x54
 		status_field status;
 		byte status_int;
 	};
-byte : 8;
-uint16 : 16;
+byte: 8;
+uint16: 16;
 	byte level;
-byte : 8;
+byte: 8;
 	uint16 hp;
 	union
 	{
@@ -3394,7 +3412,7 @@ byte : 8;
 			uint16 spatk;
 			uint16 spdef;
 		};
-		std::array<uint16,6> stats;
+		std::array<uint16, 6> stats;
 	};
 	byte unknown[0x40];
 };
@@ -3408,7 +3426,7 @@ struct party_pkm : pokemon_obj { // Size: 0xDC
 	};
 	party_pkm()
 	{
-		memset(this,0,sizeof(party_pkm));
+		memset(this, 0, sizeof(party_pkm));
 	}
 };
 byte DllExport getpkmshuffleindex(const uint32 pid);
@@ -3435,13 +3453,13 @@ void DllExport pkmcrypt(pokemon_obj* pkm);
 void DllExport encryptpkm(pokemon_obj* pkm);
 void DllExport decryptpkm(pokemon_obj* pkm);
 struct box_obj { // size: 0x1000
-	std::array<pokemon_obj,30> pokemon; //
-uint16 : 16;
+	std::array<pokemon_obj, 30> pokemon; //
+uint16: 16;
 	uint16 checksum;
 	byte buf[0x0c];
 	box_obj()
 	{
-		memset(this,0,sizeof(box_obj));
+		memset(this, 0, sizeof(box_obj));
 	}
 };
 struct item_obj
@@ -3450,7 +3468,7 @@ struct item_obj
 	uint16 quantity;
 	item_obj()
 	{
-		memset(this,0,sizeof(item_obj));
+		memset(this, 0, sizeof(item_obj));
 	}
 	item_obj& operator+=(const int& rhs) // compound assignment
 	{
@@ -3505,36 +3523,36 @@ struct badge_obj
 	byte year;
 	byte month;
 	byte day;
-byte : 8;
+byte: 8;
 	badge_obj()
 	{
-		memset(this,0,sizeof(badge_obj));
+		memset(this, 0, sizeof(badge_obj));
 	}
 };
 struct bag_obj { // size: 0x9c0
-	std::array<item_obj,ITEMS_POCKET_SIZE> items_pocket;
-	std::array<item_obj,KEYITEMS_POCKET_SIZE> keyitems_pocket;
-	std::array<item_obj,TMS_POCKET_SIZE> tms_pocket;
-	std::array<item_obj,MEDICINE_POCKET_SIZE> medicine_pocket;
-	std::array<item_obj,BERRIES_POCKET_SIZE> berries_pocket;
+	std::array<item_obj, ITEMS_POCKET_SIZE> items_pocket;
+	std::array<item_obj, KEYITEMS_POCKET_SIZE> keyitems_pocket;
+	std::array<item_obj, TMS_POCKET_SIZE> tms_pocket;
+	std::array<item_obj, MEDICINE_POCKET_SIZE> medicine_pocket;
+	std::array<item_obj, BERRIES_POCKET_SIZE> berries_pocket;
 	byte data[0x66];
 	uint16 checksum;
 	bag_obj()
 	{
-		memset(this,0,sizeof(bag_obj));
+		memset(this, 0, sizeof(bag_obj));
 	}
 };
 struct party_obj { // size: 0x534
-uint32 : 32;
+uint32: 32;
 	uint32 size;
-	std::array<party_pkm,6> pokemon; // size: 0x528
-uint16 : 16;
-uint16 : 16;
-uint16 : 16;
+	std::array<party_pkm, 6> pokemon; // size: 0x528
+uint16: 16;
+uint16: 16;
+uint16: 16;
 	uint16 checksum;
 	party_obj()
 	{
-		memset(this,0,sizeof(party_obj));
+		memset(this, 0, sizeof(party_obj));
 	}
 };
 struct wcrib1
@@ -3549,7 +3567,7 @@ struct wcrib1
 	bool Birthday_Ribbon : 1;
 	wcrib1()
 	{
-		memset(this,0,sizeof(wcrib1));
+		memset(this, 0, sizeof(wcrib1));
 	}
 };
 struct wcrib2
@@ -3561,10 +3579,10 @@ struct wcrib2
 	bool Regional_Champ_Ribbon : 1;
 	bool National_Champ_Ribbon : 1;
 	bool World_Champ_Ribbon : 1;
-byte : 1;
+byte: 1;
 	wcrib2()
 	{
-		memset(this,0,sizeof(wcrib2));
+		memset(this, 0, sizeof(wcrib2));
 	}
 };
 struct gift_data
@@ -3577,11 +3595,11 @@ struct gift_data
 	wcrib1 rib1;
 	wcrib2 rib2;
 	Balls::balls ball;
-byte : 8;
+byte: 8;
 	Items::items item;
 	Moves::moves moves[4];
 	Species::species species;
-byte : 8;
+byte: 8;
 	byte language_flag;
 	wchar_t nickname[11];
 	byte nature_flag;
@@ -3593,155 +3611,155 @@ byte : 8;
 	byte level_;
 	byte conteststats[6];
 	byte ivs_flags[6];
-byte : 8;
+byte: 8;
 	wchar_t trainer_name[8];
 	byte trainer_gender_flag;
 	byte level_flag;
 	byte egg_flag;
 	byte unused2[3];
-		/*
-	0x00-0x01	 Trainer ID Number, Item Number, Power Type
-	0x02-0x03	 Secret ID Number
-	0x04	 Hometown
-	00 - Game Received In
-	01 - Hoenn(Sapphire)
-	Values follow in standard order through 21
+	/*
+0x00-0x01	 Trainer ID Number, Item Number, Power Type
+0x02-0x03	 Secret ID Number
+0x04	 Hometown
+00 - Game Received In
+01 - Hoenn(Sapphire)
+Values follow in standard order through 21
 
-	0x05-0x07	Unused
-	0x08-0x0B	 PID
-	Unset = 00000000
+0x05-0x07	Unused
+0x08-0x0B	 PID
+Unset = 00000000
 
-	0x0C	 Primary Ribbons
-	Ribbon data available below.
+0x0C	 Primary Ribbons
+Ribbon data available below.
 
-	0x0D	 Secondary Ribbons
-	Ribbon data available below.
+0x0D	 Secondary Ribbons
+Ribbon data available below.
 
-	0x0E	 PokéBall
-	0x0F	Unused
-	0x10-0x11	 Held Item
-	0x12-0x13	 Move ID #1
-	0x14-0x15	 Move ID #2
-	0x16-0x17	 Move ID #3
-	0x18-0x19	 Move ID #4
-	0x1A-0x1B	 PokéDex Number
-	0x1C	Unused
-	0x1D	 Language
-	00 for Game Received In
+0x0E	 PokéBall
+0x0F	Unused
+0x10-0x11	 Held Item
+0x12-0x13	 Move ID #1
+0x14-0x15	 Move ID #2
+0x16-0x17	 Move ID #3
+0x18-0x19	 Move ID #4
+0x1A-0x1B	 PokéDex Number
+0x1C	Unused
+0x1D	 Language
+00 for Game Received In
 
-	0x1E-0x33	 Pokémon Nickname
-	(0x32-0x33 FF FF terminated)
-	If no nickname, all FF.
+0x1E-0x33	 Pokémon Nickname
+(0x32-0x33 FF FF terminated)
+If no nickname, all FF.
 
-	0x34	 Nature
-	FF - Unset
+0x34	 Nature
+FF - Unset
 
-	0x35	 Pokémon Gender
-	00 - Male
-	01 - Female
-	02 - Random
+0x35	 Pokémon Gender
+00 - Male
+01 - Female
+02 - Random
 
-	0x36	 Pokémon Ability
-	00 - Ability 1
-	01 - Ability 2
-	02 - Dream World Ability
-	03 - RND(Abil1, Abil2)
-	04 - RND(Abil1, Abil2, AbilDW)
-	0x37	 Shiny Toggle
-	00 - Not Shiny
-	01 - Allow Shiny
-	02 - Generate Shiny PID
-	Shows Shiny Pokemon on Card
+0x36	 Pokémon Ability
+00 - Ability 1
+01 - Ability 2
+02 - Dream World Ability
+03 - RND(Abil1, Abil2)
+04 - RND(Abil1, Abil2, AbilDW)
+0x37	 Shiny Toggle
+00 - Not Shiny
+01 - Allow Shiny
+02 - Generate Shiny PID
+Shows Shiny Pokemon on Card
 
-	0x38-0x39	 Egg Met Location
-	0x3A-0x3B	 Met Location of Pokémon
-	0x3C	 Level - unused(?)
-	0x3D-0x42	 Contest Stats
-	Last byte is Sheen
+0x38-0x39	 Egg Met Location
+0x3A-0x3B	 Met Location of Pokémon
+0x3C	 Level - unused(?)
+0x3D-0x42	 Contest Stats
+Last byte is Sheen
 
-	0x43-0x48	 IVs
-	FFs for unset IVs
+0x43-0x48	 IVs
+FFs for unset IVs
 
-	0x49	Unused
-	0x4A-0x59	 OT Name
-	0x5A	 OT Gender
-	00 - Male
-	01 - Female
-	03 - Recipient's Gender
+0x49	Unused
+0x4A-0x59	 OT Name
+0x5A	 OT Gender
+00 - Male
+01 - Female
+03 - Recipient's Gender
 
-	0x5B	 Level(random if set to 0)
-	0x5C	 Egg Flag
-	00 - Is Not Egg
-	01 - Is Egg
+0x5B	 Level(random if set to 0)
+0x5C	 Egg Flag
+00 - Is Not Egg
+01 - Is Egg
 
-	0x5D-0x5F	Unused
-	*/
+0x5D-0x5F	Unused
+*/
 	gift_data()
 	{
-		memset(this,0,sizeof(gift_data));
+		memset(this, 0, sizeof(gift_data));
 	}
 };
 struct card_data
 {
 	wchar_t card_title[37];
-uint16 : 16;
+uint16: 16;
 	byte card_received_date[4];
 	uint16 card_id;
 	byte card_from_loc;
 	byte card_type;
 	byte gift_status;
 	byte unused[23];
-		/*
-	0x60-0xA9	 Card Title
-	0xAA-0xAB	Unknown
-	0xAC-0xAF	 Date Card Received
-	0xB0-0xB1	 Card ID
-	0xB2	 "Card From" Location
-	0xB3	 Card Type [Color]
-	01 - Pokémon [Blue]
-	02 - (Key) Item [Pink]
-		03 - Power [Yellow]
-	0xB4	 Gift Status: Used / Unused
-	00 - Repeatable gift
-	01 - Unused
-	03 - Used
-	0xB5-0xCB	Unused
-	*/
+	/*
+0x60-0xA9	 Card Title
+0xAA-0xAB	Unknown
+0xAC-0xAF	 Date Card Received
+0xB0-0xB1	 Card ID
+0xB2	 "Card From" Location
+0xB3	 Card Type [Color]
+01 - Pokémon [Blue]
+02 - (Key) Item [Pink]
+03 - Power [Yellow]
+0xB4	 Gift Status: Used / Unused
+00 - Repeatable gift
+01 - Unused
+03 - Used
+0xB5-0xCB	Unused
+*/
 	card_data()
 	{
-		memset(this,0,sizeof(card_data));
+		memset(this, 0, sizeof(card_data));
 	}
 };
 struct wondercard_obj : gift_data, card_data
 {
 	wondercard_obj()
 	{
-		memset(this,0,sizeof(wondercard_obj));
+		memset(this, 0, sizeof(wondercard_obj));
 	}
 };
 /*
 	The structure of a save file differs between sets of games:
-1. Diamond/Pearl
-2. Platinum
-3. HeartGold/SoulSilver
-4. Black/White
-5. Black 2/White 2
+	1. Diamond/Pearl
+	2. Platinum
+	3. HeartGold/SoulSilver
+	4. Black/White
+	5. Black 2/White 2
 
-To cover all save structures, I will write a
-SAV object which carries an unsigned char * as
-a member, which will point to the raw data, as
-well as a function that determines which kind
-of SAV the object is, and then a series of
-members which will be initialized from the raw
-data upon calling new(), which will get their
-offsets from an enumeration based upon which
-type of SAV the obeject is derived from.
+	To cover all save structures, I will write a
+	SAV object which carries an unsigned char * as
+	a member, which will point to the raw data, as
+	well as a function that determines which kind
+	of SAV the object is, and then a series of
+	members which will be initialized from the raw
+	data upon calling new(), which will get their
+	offsets from an enumeration based upon which
+	type of SAV the obeject is derived from.
 
-I will need to figure out how to deal with the
-difference in size for party Pokémon within the
-save files, which is 236 in Gen IV and 220 in
-Gen V, at a later time.
-*/
+	I will need to figure out how to deal with the
+	difference in size for party Pokémon within the
+	save files, which is 236 in Gen IV and 220 in
+	Gen V, at a later time.
+	*/
 namespace SAV_TYPES
 {
 	enum sav_types : byte
@@ -3804,7 +3822,7 @@ struct sav_object
 	void setdata(SAV_TYPES::sav_types savType)
 	{
 		this->sav_type = savType;
-		switch(sav_type)
+		switch (sav_type)
 		{
 		case SAV_TYPES::DP:
 			//pc_storage = reinterpret_cast<box_obj*>(DATA + DP_OFFSETS::boxesstart);
@@ -3849,11 +3867,11 @@ struct bw2savblock_obj { //
 	wchar_t boxnames[24][20]; // size: 0x3C0
 #endif
 #endif
-	std::array<Wallpapers::wallpapers,24> boxwallpapers; // size: 0x18
+	std::array<Wallpapers::wallpapers, 24> boxwallpapers; // size: 0x18
 	byte unknown1[6];
 	uint16 block1checksum;
 	byte unknown2[0x1c]; //
-	std::array<box_obj,24> boxes; // size: 0x18000
+	std::array<box_obj, 24> boxes; // size: 0x18000
 	bag_obj bag; // size: 0xA00
 	party_obj party; // size: 0x534
 	byte unknown3[0xC8]; //
@@ -3873,7 +3891,7 @@ struct bw2savblock_obj { //
 	byte unknown7[0xCAF4];
 	bw2savblock_obj()
 	{
-		memset(this,0,sizeof(bw2savblock_obj));
+		memset(this, 0, sizeof(bw2savblock_obj));
 	}
 };
 struct bw2sav_obj { //
@@ -3882,7 +3900,7 @@ struct bw2sav_obj { //
 	byte unknown[0x34000];
 	bw2sav_obj()
 	{
-		memset(this,0,sizeof(bw2sav_obj));
+		memset(this, 0, sizeof(bw2sav_obj));
 	}
 };
 static const std::string ballnames[26] = {
@@ -4159,36 +4177,36 @@ void DllExport calcpartychecksum(bw2savblock_obj *block, bool bw2); // ,bool bw2
 void DllExport calcchecksum(bw2savblock_obj *block, int start, int length, int loc);
 uint16 DllExport getchkfromsav(bw2savblock_obj *block, bool bw2);
 const byte natureconvert[25][2] =
-{{0,1},
-{1,6},
-{2,21},
-{3,11},
-{4,17},
-{5,2},
-{6,7},
-{7,22},
-{8,12},
-{9,18},
-{10,5},
-{11,10},
-{12,25},
-{13,16},
-{14,20},
-{15,3},
-{16,8},
-{17,23},
-{18,13},
-{19,15},
-{20,4},
-{21,9},
-{22,24},
-{23,14},
-{24,19}};
+{ { 0, 1 },
+{ 1, 6 },
+{ 2, 21 },
+{ 3, 11 },
+{ 4, 17 },
+{ 5, 2 },
+{ 6, 7 },
+{ 7, 22 },
+{ 8, 12 },
+{ 9, 18 },
+{ 10, 5 },
+{ 11, 10 },
+{ 12, 25 },
+{ 13, 16 },
+{ 14, 20 },
+{ 15, 3 },
+{ 16, 8 },
+{ 17, 23 },
+{ 18, 13 },
+{ 19, 15 },
+{ 20, 4 },
+{ 21, 9 },
+{ 22, 24 },
+{ 23, 14 },
+{ 24, 19 } };
 const byte pokerusstrains[0x10] = {
-	1,2,3,4,
-	1,2,3,4,
-	1,2,3,4,
-	1,2,3,4
+	1, 2, 3, 4,
+	1, 2, 3, 4,
+	1, 2, 3, 4,
+	1, 2, 3, 4
 };
 void DllExport calcchecksum(pokemon_obj& pkm); // Calculates and assigns the checksum for the given Pokemon object.
 void DllExport calcchecksum(pokemon_obj* pkm);
@@ -4256,8 +4274,8 @@ int DllExport gethiddenpowertype(const pokemon_obj *pkm);
 std::string DllExport getballname(const int ball);
 std::string DllExport getballname(const pokemon_obj &pkm);
 std::string DllExport getballname(const pokemon_obj *pkm);
-std::wstring DllExport getboxname(const bw2savblock_obj *block,int boxnum);
-std::wstring DllExport getboxname(const bw2savblock_obj &block,int boxnum);
+std::wstring DllExport getboxname(const bw2savblock_obj *block, int boxnum);
+std::wstring DllExport getboxname(const bw2savblock_obj &block, int boxnum);
 DllExport time_t * advstrttime(const bw2savblock_obj &block);
 DllExport time_t * advstrttime(const bw2savblock_obj *block);
 //std::string &advstrttimestring(const bw2savblock_obj &block);
