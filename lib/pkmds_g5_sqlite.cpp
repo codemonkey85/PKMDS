@@ -37,28 +37,57 @@ void closeimgdb()
 }
 void getapic(const ostringstream &o, byte ** picdata, int * size)
 {
-    const void * blob;
-    size_t thesize = 0;
-    char cmd[BUFF_SIZE];
-    strcpy__(cmd,o.str().c_str());
-    if(sqlite3_prepare_v2(imgdatabase,cmd,-1,&imgstatement,0) == SQLITE_OK)
-    {
-        int cols = sqlite3_column_count(imgstatement);
-        int result = 0;
-        result = sqlite3_step(imgstatement);
-        if((result == SQLITE_ROW) | (result == SQLITE_DONE))
-        {
-            for(int col = 0; col < cols; col++)
-            {
-                blob = sqlite3_column_blob(imgstatement,col);
-                thesize = sqlite3_column_bytes(imgstatement,col);
-				*picdata=new byte[thesize];
-				memcpy(*picdata,blob,thesize);
+	const void * blob;
+	size_t thesize = 0;
+	char cmd[BUFF_SIZE];
+	strcpy__(cmd, o.str().c_str());
+	if (sqlite3_prepare_v2(imgdatabase, cmd, -1, &imgstatement, 0) == SQLITE_OK)
+	{
+		int cols = sqlite3_column_count(imgstatement);
+		int result = 0;
+		result = sqlite3_step(imgstatement);
+		if ((result == SQLITE_ROW) | (result == SQLITE_DONE))
+		{
+			for (int col = 0; col < cols; col++)
+			{
+				blob = sqlite3_column_blob(imgstatement, col);
+				thesize = sqlite3_column_bytes(imgstatement, col);
+				*picdata = new byte[thesize];
+				memcpy(*picdata, blob, thesize);
 				*size = thesize;
-            }
-        }
-        sqlite3_finalize(imgstatement);
-    }
+			}
+		}
+		sqlite3_finalize(imgstatement);
+	}
+}
+void getapic(const string &str, byte ** picdata, int * size)
+{
+	const void * blob;
+	size_t thesize = 0;
+	char cmd[BUFF_SIZE];
+#if defined (__linux__) || defined (__APPLE__) || defined (__CYGWIN__)
+	strcpy(cmd, str.c_str());
+#else
+	strcpy_s(cmd, str.c_str());
+#endif
+	if (sqlite3_prepare_v2(imgdatabase, cmd, -1, &imgstatement, 0) == SQLITE_OK)
+	{
+		int cols = sqlite3_column_count(imgstatement);
+		int result = 0;
+		result = sqlite3_step(imgstatement);
+		if ((result == SQLITE_ROW) | (result == SQLITE_DONE))
+		{
+			for (int col = 0; col < cols; col++)
+			{
+				blob = sqlite3_column_blob(imgstatement, col);
+				thesize = sqlite3_column_bytes(imgstatement, col);
+				*picdata = new byte[thesize];
+				memcpy(*picdata, blob, thesize);
+				*size = thesize;
+			}
+		}
+		sqlite3_finalize(imgstatement);
+	}
 }
 string getastring(const ostringstream &o)
 {
@@ -147,9 +176,6 @@ int getanint(const ostringstream &o)
 }
 string getastring(const string &str)
 {
-
-	string test = str;
-
 	string s = "";
 	char cmd[BUFF_SIZE];
 #if defined (__linux__) || defined (__APPLE__) || defined (__CYGWIN__)

@@ -4216,12 +4216,16 @@ void DllExport fixsavchecksum(bw2sav_obj &sav, bool isbw2);
 void DllExport fixsavchecksum(bw2sav_obj *sav, bool isbw2);
 void DllExport write(const char* file_name, pokemon_obj& data); // Writes the given Pokemon data to the given file name.
 void DllExport write(const char* file_name, pokemon_obj* data); // Writes the given Pokemon data to the given file name.
+void DllExport write(const wchar_t* file_name, pokemon_obj* data); // Writes the given Pokemon data to the given file name.
 void DllExport write(const char* file_name, bw2sav_obj& data); //, int start, int length, int loc) //
 void DllExport write(const char* file_name, bw2sav_obj *data); //, int start, int length, int loc) //
+void DllExport write(const wchar_t* file_name, bw2sav_obj *data); //, int start, int length, int loc) //
 void DllExport read(const char* file_name, pokemon_obj& data); // Reads the given file and assigns the data to the given Pokemon object.
 void DllExport read(const char* file_name, pokemon_obj *data); // Reads the given file and assigns the data to the given Pokemon object.
+void DllExport read(const wchar_t* file_name, pokemon_obj *data); // Reads the given file and assigns the data to the given Pokemon object.
 void DllExport read(const char* file_name, bw2sav_obj& data); // Reads the given file and assigns the data to the given save file object.
 void DllExport read(const char* file_name, bw2sav_obj *data); // Reads the given file and assigns the data to the given save file object.
+void DllExport read(const wchar_t* file_name, bw2sav_obj *data);
 void DllExport read(const char* file_name, sav_object *data);
 std::wstring DllExport getpkmnickname(const pokemon_obj &pkm);
 std::wstring DllExport getpkmotname(const pokemon_obj &pkm);

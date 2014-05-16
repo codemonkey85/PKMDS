@@ -520,6 +520,20 @@ void write(const char* file_name, pokemon_obj* data) // Writes the given Pokemon
 	data->ispartydatadecrypted = encryptstatus[0];
 	data->isboxdatadecrypted = encryptstatus[1];
 }
+void write(const wchar_t* file_name, pokemon_obj* data) // Writes the given Pokemon data to the given file name.
+{
+	bool encryptstatus[2] = { data->ispartydatadecrypted, data->isboxdatadecrypted };
+	data->ispartydatadecrypted = false;
+	data->isboxdatadecrypted = false;
+	std::ofstream *out = new std::ofstream(file_name, std::ios::binary);
+	out->write(reinterpret_cast<char*>(data), sizeof(pokemon_obj));
+	//out->write(data->_raw_data_p, sizeof(pokemon_obj));
+	out->close();
+	delete out;
+	out = 0;
+	data->ispartydatadecrypted = encryptstatus[0];
+	data->isboxdatadecrypted = encryptstatus[1];
+}
 void write(const char* file_name, bw2sav_obj& data) //
 {
 	std::ofstream *out = new std::ofstream(file_name, std::ios::binary);
@@ -529,6 +543,14 @@ void write(const char* file_name, bw2sav_obj& data) //
 	out = 0;
 }
 void write(const char* file_name, bw2sav_obj *data) //
+{
+	std::ofstream *out = new std::ofstream(file_name, std::ios::binary);
+	out->write(reinterpret_cast<char*>(data), sizeof(bw2sav_obj));
+	out->close();
+	delete out;
+	out = 0;
+}
+void write(const wchar_t* file_name, bw2sav_obj *data) //
 {
 	std::ofstream *out = new std::ofstream(file_name, std::ios::binary);
 	out->write(reinterpret_cast<char*>(data), sizeof(bw2sav_obj));
@@ -554,6 +576,15 @@ void read(const char* file_name, pokemon_obj *data) // Reads the given file and 
 	delete in;
 	in = 0;
 }
+void read(const wchar_t* file_name, pokemon_obj *data) // Reads the given file and assigns the data to the given save file object.
+{
+	std::ifstream *in = new std::ifstream(file_name, std::ios::binary);
+	in->read(reinterpret_cast<char*>(data), sizeof(pokemon_obj));
+	//in->read(data->_raw_data_p, sizeof(pokemon_obj));
+	in->close();
+	delete in;
+	in = 0;
+}
 void read(const char* file_name, bw2sav_obj& data) // Reads the given file and assigns the data to the given save file object.
 {
 	std::ifstream *in = new std::ifstream(file_name, std::ios::binary);
@@ -563,6 +594,14 @@ void read(const char* file_name, bw2sav_obj& data) // Reads the given file and a
 	in = 0;
 }
 void read(const char* file_name, bw2sav_obj *data) // Reads the given file and assigns the data to the given save file object.
+{
+	std::ifstream *in = new std::ifstream(file_name, std::ios::binary);
+	in->read(reinterpret_cast<char*>(data), sizeof(bw2sav_obj));
+	in->close();
+	delete in;
+	in = 0;
+}
+void read(const wchar_t* file_name, bw2sav_obj *data) // Reads the given file and assigns the data to the given save file object.
 {
 	std::ifstream *in = new std::ifstream(file_name, std::ios::binary);
 	in->read(reinterpret_cast<char*>(data), sizeof(bw2sav_obj));
@@ -665,7 +704,6 @@ void setsavetrainername(bw2sav_obj *sav, wchar_t input[], int length)
 		memset(&(sav->cur.trainername[OTLENGTH - 1]), 0xffff, 2);
 	}
 }
-
 void setsaveboxname(bw2sav_obj *sav, int box, wchar_t input[], int length)
 {
 	if (length > BOXNAMELENGTH){ length = BOXNAMELENGTH; }
@@ -677,7 +715,6 @@ void setsaveboxname(bw2sav_obj *sav, int box, wchar_t input[], int length)
 		memset(&(sav->cur.boxnames[box][BOXNAMELENGTH - 1]), 0xffff, 2);
 	}
 }
-
 Genders::genders getpkmgender(const pokemon_obj &pkm)
 {
 	if (pkm.female){ return Genders::female; };

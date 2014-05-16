@@ -47,7 +47,8 @@ void DllExport openimgdb(const char db_file[] = theimgDB);
 void DllExport closeimgdb();
 #endif
 using namespace std;
-void getapic(const ostringstream &o, byte ** picdata, int * size);
+void DllExport getapic(const ostringstream &o, byte ** picdata, int * size);
+void DllExport getapic(const string &str, byte ** picdata, int * size);
 string DllExport getastring(const ostringstream &o);
 wstring DllExport getawstring(const ostringstream &o);
 int DllExport getanint(const ostringstream &o);
