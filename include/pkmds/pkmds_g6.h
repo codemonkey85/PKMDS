@@ -2332,7 +2332,7 @@ namespace Locations_g6
 		winding_woods = 0x0061,
 		pokemon_village = 0x0062,
 		route_21 = 0x0064,
-		dernière_way = 0x0065,
+		derniere_way = 0x0065,
 		route_22 = 0x0066,
 		detourner_way = 0x0067,
 		victory_road = 0x0068,
