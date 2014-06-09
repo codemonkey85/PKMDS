@@ -1171,7 +1171,7 @@ std::wstring getsavtrainername(const bw2savblock_obj & block)
 #if (defined __linux__) || (defined __APPLE__) || (defined __CYGWIN__)
 	return getwstring((char*)block.trainername, 0x10);
 #else
-	return getwstring(block.trainername);
+	return getwstring(block.trainername, OTLENGTH);
 #endif
 }
 std::wstring getsavtrainername(const bw2savblock_obj * block)
@@ -1179,7 +1179,7 @@ std::wstring getsavtrainername(const bw2savblock_obj * block)
 #if (defined __linux__) || (defined __APPLE__) || (defined __CYGWIN__)
 	return getwstring((char*)block->trainername, 0x10);
 #else
-	return getwstring(block->trainername);
+	return getwstring(block->trainername, OTLENGTH);
 #endif
 }
 std::wstring getwstring(std::wstring in, int maxlength)
