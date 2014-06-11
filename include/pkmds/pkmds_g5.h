@@ -4233,6 +4233,7 @@ std::wstring DllExport getpkmnickname(const pokemon_obj *pkm);
 std::wstring DllExport getpkmotname(const pokemon_obj *pkm);
 void DllExport setsavetrainername(bw2sav_obj *sav, wchar_t input[], int length);
 void DllExport setsaveboxname(bw2sav_obj *sav, int box, wchar_t input[], int length);
+void DllExport setsaveboxname(bw2sav_obj *sav, int box, const wchar_t input[], int length);
 void DllExport setpkmnickname(pokemon_obj &pkm, wchar_t input[], int length);
 void DllExport setpkmotname(pokemon_obj &pkm, wchar_t input[], int length);
 void DllExport setpkmnickname(pokemon_obj *pkm, wchar_t input[], int length);

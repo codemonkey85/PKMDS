@@ -593,7 +593,7 @@ void setlevel(pokemon_obj *pkm, int level)
 }
 int lookuppkmtype(const pokemon_obj *pkm, const int slot, const int generation)
 {
-	return lookuppkmtype(pkm->species_int,pkm->form_int,slot,generation);
+	return lookuppkmtype(pkm->species_int,int(pkm->form_int),slot,generation);
 }
 int lookuppkmevolvedspecies(int speciesid)
 {
