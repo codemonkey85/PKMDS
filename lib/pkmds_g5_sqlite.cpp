@@ -342,7 +342,7 @@ int getnatureincrease(const int natureid)
 }
 int getnatureincrease(const pokemon_obj &pkm)
 {
-	if (pkm.nature_int == 0 && pkm.hometown != Hometowns::black && pkm.hometown != Hometowns::white)
+	if (pkm.nature_int == 0 && pkm.hometown != Hometowns::black && pkm.hometown != Hometowns::white && pkm.hometown != Hometowns::black2 && pkm.hometown != Hometowns::white2)
 	{
 		return getnatureincrease(pkm.pid % 25);
 	}
@@ -353,7 +353,7 @@ int getnatureincrease(const pokemon_obj &pkm)
 }
 int getnatureincrease(const pokemon_obj *pkm)
 {
-	if (pkm->nature_int == 0 && pkm->hometown != Hometowns::black && pkm->hometown != Hometowns::white)
+	if (pkm->nature_int == 0 && pkm->hometown != Hometowns::black && pkm->hometown != Hometowns::white && pkm->hometown != Hometowns::black2 && pkm->hometown != Hometowns::white2)
 	{
 		return getnatureincrease(pkm->pid % 25);
 	}
@@ -368,7 +368,7 @@ int getnaturedecrease(const int natureid)
 }
 int getnaturedecrease(const pokemon_obj &pkm)
 {
-	if ((pkm.nature_int == 0) && (pkm.hometown != Hometowns::black) && (pkm.hometown != Hometowns::white))
+	if ((pkm.nature_int == 0) && (pkm.hometown != Hometowns::black) && (pkm.hometown != Hometowns::white) && (pkm.hometown != Hometowns::black2) && (pkm.hometown != Hometowns::white2))
 	{
 		return getnaturedecrease(pkm.pid % 25);
 	}
@@ -379,7 +379,7 @@ int getnaturedecrease(const pokemon_obj &pkm)
 }
 int getnaturedecrease(const pokemon_obj *pkm)
 {
-	if ((pkm->nature_int == 0) && (pkm->hometown != Hometowns::black) && (pkm->hometown != Hometowns::white))
+	if ((pkm->nature_int == 0) && (pkm->hometown != Hometowns::black) && (pkm->hometown != Hometowns::white) && (pkm->hometown != Hometowns::black2) && (pkm->hometown != Hometowns::white2))
 	{
 		return getnaturedecrease(pkm->pid % 25);
 	}
@@ -1253,7 +1253,7 @@ string getnaturename(const int natureid, const int langid)
 }
 string getnaturename(const pokemon_obj &pkm, const int langid)
 {
-	if ((pkm.nature_int == 0) && (pkm.hometown != Hometowns::black) && (pkm.hometown != Hometowns::white))
+	if ((pkm.nature_int == 0) && (pkm.hometown != Hometowns::black) && (pkm.hometown != Hometowns::white) && (pkm.hometown != Hometowns::black2) && (pkm.hometown != Hometowns::white2))
 	{
 		return getastring(getnaturenamesql(pkm.pid % 25, langid));
 	}
@@ -1264,7 +1264,7 @@ string getnaturename(const pokemon_obj &pkm, const int langid)
 }
 string getnaturename(const pokemon_obj *pkm, const int langid)
 {
-	if ((pkm->nature == 0) && (pkm->hometown != Hometowns::black) && (pkm->hometown != Hometowns::white))
+	if ((pkm->nature_int == 0) && (pkm->hometown != Hometowns::black) && (pkm->hometown != Hometowns::white) && (pkm->hometown != Hometowns::black2) && (pkm->hometown != Hometowns::white2))
 	{
 		return getastring(getnaturenamesql(pkm->pid % 25, langid));
 	}
