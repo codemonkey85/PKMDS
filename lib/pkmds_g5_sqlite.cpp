@@ -621,7 +621,7 @@ int lookuppkmtype(const pokemon_obj *pkm, const int slot, const int generation)
 		(species == Species::genesect)
 		)
 	{
-		int(pkm->form_int);
+		form = int(pkm->form_int);
 	}
 	return lookuppkmtype(pkm->species_int, form, slot, generation);
 }
