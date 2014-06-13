@@ -9,16 +9,16 @@ sqlite3 *database;
 sqlite3_stmt *statement;
 void opendb(const char db_file[])
 {
-//#if (defined __APPLE__)
-//    CFURLRef appUrlRef = CFBundleCopyBundleURL(CFBundleGetMainBundle());
-//    CFStringRef macPath = CFURLCopyFileSystemPath(appUrlRef,
-//                                           kCFURLPOSIXPathStyle);
-//    const char *pathPtr = CFStringGetCStringPtr(macPath,
-//                                           CFStringGetSystemEncoding());
-//    qDebug("Path = %s", pathPtr);
-//    CFRelease(appUrlRef);
-//    CFRelease(macPath);
-//#endif
+	//#if (defined __APPLE__)
+	//    CFURLRef appUrlRef = CFBundleCopyBundleURL(CFBundleGetMainBundle());
+	//    CFStringRef macPath = CFURLCopyFileSystemPath(appUrlRef,
+	//                                           kCFURLPOSIXPathStyle);
+	//    const char *pathPtr = CFStringGetCStringPtr(macPath,
+	//                                           CFStringGetSystemEncoding());
+	//    qDebug("Path = %s", pathPtr);
+	//    CFRelease(appUrlRef);
+	//    CFRelease(macPath);
+	//#endif
 	sqlite3_open(db_file, &database);
 }
 void closedb()
@@ -156,16 +156,16 @@ int getanint(const ostringstream &o)
 #if defined (__linux__) || defined (__APPLE__) || defined(__CYGWIN__)
 	strcpy(cmd,o.str().c_str());
 #else
-	strcpy_s(cmd,o.str().c_str());
+	strcpy_s(cmd, o.str().c_str());
 #endif
-	if(sqlite3_prepare_v2(database,cmd,-1,&statement,0) == SQLITE_OK)
+	if (sqlite3_prepare_v2(database, cmd, -1, &statement, 0) == SQLITE_OK)
 	{
 		int cols = sqlite3_column_count(statement);
 		int result = 0;
 		result = sqlite3_step(statement);
-		if((result == SQLITE_ROW) | (result == SQLITE_DONE))
+		if ((result == SQLITE_ROW) | (result == SQLITE_DONE))
 		{
-			for(int col = 0; col < cols; col++)
+			for (int col = 0; col < cols; col++)
 			{
 				i = sqlite3_column_int(statement, col);
 			}
@@ -244,16 +244,16 @@ int getanint(const string &str)
 #if defined (__linux__) || defined (__APPLE__) || defined (__CYGWIN__)
 	strcpy(cmd,str.c_str());
 #else
-	strcpy_s(cmd,str.c_str());
+	strcpy_s(cmd, str.c_str());
 #endif
-	if(sqlite3_prepare_v2(database,cmd,-1,&statement,0) == SQLITE_OK)
+	if (sqlite3_prepare_v2(database, cmd, -1, &statement, 0) == SQLITE_OK)
 	{
 		int cols = sqlite3_column_count(statement);
 		int result = 0;
 		result = sqlite3_step(statement);
-		if((result == SQLITE_ROW) | (result == SQLITE_DONE))
+		if ((result == SQLITE_ROW) | (result == SQLITE_DONE))
 		{
-			for(int col = 0; col < cols; col++)
+			for (int col = 0; col < cols; col++)
 			{
 				i = sqlite3_column_int(statement, col);
 			}
@@ -264,7 +264,7 @@ int getanint(const string &str)
 }
 void dostatement(const string &cmd)
 {
-	sqlite3_prepare_v2(database,cmd.c_str(),-1,&statement,0);
+	sqlite3_prepare_v2(database, cmd.c_str(), -1, &statement, 0);
 	sqlite3_step(statement);
 }
 #else
@@ -297,23 +297,23 @@ void dostatement(const string &cmd)
 #endif
 int getpkmlevel(const int id, const int exp)
 {
-	return getanint(getpkmlevelsql(id,exp));
+	return getanint(getpkmlevelsql(id, exp));
 }
 int getpkmlevel(const pokemon_obj &pkm)
 {
-	return getpkmlevel(pkm.species,pkm.exp);
+	return getpkmlevel(pkm.species, pkm.exp);
 }
 int getpkmlevel(const pokemon_obj *pkm)
 {
-	return getpkmlevel(pkm->species_int,pkm->exp);
+	return getpkmlevel(pkm->species_int, pkm->exp);
 }
 int getpkmexptonext(const int id, const int exp)
 {
-	if(getpkmlevel(id,exp) == 100)
+	if (getpkmlevel(id, exp) == 100)
 	{
 		return 0;
 	};
-	int expatnext = getanint(getpkmexptonextsql(id,exp));
+	int expatnext = getanint(getpkmexptonextsql(id, exp));
 	return expatnext - exp;
 }
 int getpkmexptonext(const pokemon_obj &pkm)
@@ -322,19 +322,19 @@ int getpkmexptonext(const pokemon_obj &pkm)
 }
 int getpkmexpatcur(const int id, const int exp)
 {
-	return getanint(getpkmexpatcursql(id,exp));
+	return getanint(getpkmexpatcursql(id, exp));
 }
 uint32 getpkmexpatlevel(const int id, const int level)
 {
-	return getanint(getpkmexpatlevelsql(id,level));
+	return getanint(getpkmexpatlevelsql(id, level));
 }
 uint32 getpkmexpatlevel(const Species::species id, const int level)
 {
-	return getanint(getpkmexpatlevelsql(id,level));
+	return getanint(getpkmexpatlevelsql(id, level));
 }
 int getpkmexpatcur(const pokemon_obj &pkm)
 {
-	return getpkmexpatcur(pkm.species,pkm.exp);
+	return getpkmexpatcur(pkm.species, pkm.exp);
 }
 int getnatureincrease(const int natureid)
 {
@@ -342,7 +342,7 @@ int getnatureincrease(const int natureid)
 }
 int getnatureincrease(const pokemon_obj &pkm)
 {
-	if(pkm.nature_int == 0 && pkm.hometown != Hometowns::black && pkm.hometown != Hometowns::white)
+	if (pkm.nature_int == 0 && pkm.hometown != Hometowns::black && pkm.hometown != Hometowns::white && pkm.hometown != Hometowns::black2 && pkm.hometown != Hometowns::white2)
 	{
 		return getnatureincrease(pkm.pid % 25);
 	}
@@ -353,7 +353,7 @@ int getnatureincrease(const pokemon_obj &pkm)
 }
 int getnatureincrease(const pokemon_obj *pkm)
 {
-	if(pkm->nature_int == 0 && pkm->hometown != Hometowns::black && pkm->hometown != Hometowns::white)
+	if (pkm->nature_int == 0 && pkm->hometown != Hometowns::black && pkm->hometown != Hometowns::white && pkm->hometown != Hometowns::black2 && pkm->hometown != Hometowns::white2)
 	{
 		return getnatureincrease(pkm->pid % 25);
 	}
@@ -368,7 +368,7 @@ int getnaturedecrease(const int natureid)
 }
 int getnaturedecrease(const pokemon_obj &pkm)
 {
-	if((pkm.nature_int == 0) && (pkm.hometown != Hometowns::black) && (pkm.hometown != Hometowns::white))
+	if ((pkm.nature_int == 0) && (pkm.hometown != Hometowns::black) && (pkm.hometown != Hometowns::white) && (pkm.hometown != Hometowns::black2) && (pkm.hometown != Hometowns::white2))
 	{
 		return getnaturedecrease(pkm.pid % 25);
 	}
@@ -379,7 +379,7 @@ int getnaturedecrease(const pokemon_obj &pkm)
 }
 int getnaturedecrease(const pokemon_obj *pkm)
 {
-	if((pkm->nature_int == 0) && (pkm->hometown != Hometowns::black) && (pkm->hometown != Hometowns::white))
+	if ((pkm->nature_int == 0) && (pkm->hometown != Hometowns::black) && (pkm->hometown != Hometowns::white) && (pkm->hometown != Hometowns::black2) && (pkm->hometown != Hometowns::white2))
 	{
 		return getnaturedecrease(pkm->pid % 25);
 	}
@@ -395,16 +395,16 @@ as needed. As of this time, this function queries the database 2 - 4 times.
 */
 int getpkmstat(const pokemon_obj &pkm, const Stat_IDs::stat_ids stat_id)
 {
-	int basestat = getanint(getpkmstatsql(pkm,stat_id));
+	int basestat = getanint(getpkmstatsql(pkm, stat_id));
 	int level = getpkmlevel(pkm);
 	int iv = 0;
 	int ev = 0;
-	switch(stat_id)
+	switch (stat_id)
 	{
 	case Stat_IDs::hp:
 		iv = pkm.ivs.hp;
 		ev = pkm.evs.hp;
-		return (int)((floor((double)(floor((double)(((iv + (2 * basestat) + floor((double)(ev/4))+100) * level) / 100)) + 10))));
+		return (int)((floor((double)(floor((double)(((iv + (2 * basestat) + floor((double)(ev / 4)) + 100) * level) / 100)) + 10))));
 		break;
 	case Stat_IDs::attack:
 		iv = pkm.ivs.attack;
@@ -438,21 +438,21 @@ int getpkmstat(const pokemon_obj &pkm, const Stat_IDs::stat_ids stat_id)
 			naturemod = 0.9;
 		};
 	};
-	return (int)((floor((double)(floor((double)(((iv + (2 * basestat) + floor((double)(ev/4))) * level) / 100)) + 5)) * naturemod));
+	return (int)((floor((double)(floor((double)(((iv + (2 * basestat) + floor((double)(ev / 4))) * level) / 100)) + 5)) * naturemod));
 	return 0;
 }
 int getpkmstat(const pokemon_obj *pkm, const Stat_IDs::stat_ids stat_id)
 {
-	int basestat = getanint(getpkmstatsql(pkm,stat_id));
+	int basestat = getanint(getpkmstatsql(pkm, stat_id));
 	int level = getpkmlevel(pkm);
 	int iv = 0;
 	int ev = 0;
-	switch(stat_id)
+	switch (stat_id)
 	{
 	case Stat_IDs::hp:
 		iv = pkm->ivs.hp;
 		ev = pkm->evs.hp;
-		return (int)((floor((double)(floor((double)(((iv + (2 * basestat) + floor((double)(ev/4))+100) * level) / 100)) + 10))));
+		return (int)((floor((double)(floor((double)(((iv + (2 * basestat) + floor((double)(ev / 4)) + 100) * level) / 100)) + 10))));
 		break;
 	case Stat_IDs::attack:
 		iv = pkm->ivs.attack;
@@ -486,7 +486,7 @@ int getpkmstat(const pokemon_obj *pkm, const Stat_IDs::stat_ids stat_id)
 			naturemod = 0.9;
 		};
 	};
-	return (int)((floor((double)(floor((double)(((iv + (2 * basestat) + floor((double)(ev/4))) * level) / 100)) + 5)) * naturemod));
+	return (int)((floor((double)(floor((double)(((iv + (2 * basestat) + floor((double)(ev / 4))) * level) / 100)) + 5)) * naturemod));
 	return 0;
 }
 bool pkmhasgenddiff(const int species)
@@ -520,10 +520,10 @@ bool compareivbyorder(const ivtest &a, const ivtest &b)
 }
 int lookuppkmtype(const int species, const int form, const int slot, const int generation)
 {
-	switch((Species::species)species)
+	switch ((Species::species)species)
 	{
 	case Species::arceus:
-		if(slot == 2)
+		if (slot == 2)
 		{
 			return -1;
 		}
@@ -565,11 +565,11 @@ int lookuppkmtype(const int species, const int form, const int slot, const int g
 }
 int lookuppkmtype(const pokemon_obj &pkm, const int slot, const int generation)
 {
-	return lookuppkmtype(pkm.species_int,pkm.form_int,slot,generation);
+	return lookuppkmtype(pkm.species_int, pkm.form_int, slot, generation);
 }
 void setlevel(pokemon_obj &pkm, int level)
 {
-	pkm.exp = getanint(getsetlevelsql(pkm,level));
+	pkm.exp = getanint(getsetlevelsql(pkm, level));
 }
 int getpkmexptonext(const pokemon_obj *pkm)
 {
@@ -577,7 +577,7 @@ int getpkmexptonext(const pokemon_obj *pkm)
 }
 int getpkmexpatcur(const pokemon_obj *pkm)
 {
-	return getpkmexpatcur(pkm->species_int,pkm->exp);
+	return getpkmexpatcur(pkm->species_int, pkm->exp);
 }
 bool pkmhasgenddiff(const pokemon_obj *pkm)
 {
@@ -589,11 +589,41 @@ int lookuppkmcolorid(const pokemon_obj *pkm)
 }
 void setlevel(pokemon_obj *pkm, int level)
 {
-	pkm->exp = getanint(getsetlevelsql(pkm,level));
+	pkm->exp = getanint(getsetlevelsql(pkm, level));
 }
 int lookuppkmtype(const pokemon_obj *pkm, const int slot, const int generation)
 {
-	return lookuppkmtype(pkm->species_int,pkm->form_int,slot,generation);
+	int form = 0;
+	Species::species species = pkm->species;
+	if (
+		(species == Species::unown) ||
+		(species == Species::castform) ||
+		(species == Species::deoxys) ||
+		(species == Species::burmy) ||
+		(species == Species::wormadam) ||
+		(species == Species::cherrim) ||
+		(species == Species::shellos) ||
+		(species == Species::gastrodon) ||
+		(species == Species::rotom) ||
+		(species == Species::giratina) ||
+		(species == Species::shaymin) ||
+		(species == Species::basculin) ||
+		(species == Species::darmanitan) ||
+		(species == Species::deerling) ||
+		(species == Species::sawsbuck) ||
+		(species == Species::tornadus) ||
+		(species == Species::thundurus) ||
+		(species == Species::landorus) ||
+		(species == Species::kyurem) ||
+		(species == Species::keldeo) ||
+		(species == Species::meloetta) ||
+		(species == Species::arceus) ||
+		(species == Species::genesect)
+		)
+	{
+		form = int(pkm->form_int);
+	}
+	return lookuppkmtype(pkm->species_int, form, slot, generation);
 }
 int lookuppkmevolvedspecies(int speciesid)
 {
@@ -601,50 +631,50 @@ int lookuppkmevolvedspecies(int speciesid)
 }
 void pctoparty(party_pkm *ppkm, const pokemon_obj *pkm)
 {
-	memcpy(ppkm,pkm,sizeof(pokemon_obj));
-	ppkm->party_data.maxhp = getpkmstat(pkm,Stat_IDs::hp);
+	memcpy(ppkm, pkm, sizeof(pokemon_obj));
+	ppkm->party_data.maxhp = getpkmstat(pkm, Stat_IDs::hp);
 	ppkm->party_data.hp = ppkm->party_data.maxhp;
-	ppkm->party_data.attack = getpkmstat(pkm,Stat_IDs::attack);
-	ppkm->party_data.defense = getpkmstat(pkm,Stat_IDs::defense);
-	ppkm->party_data.speed = getpkmstat(pkm,Stat_IDs::speed);
-	ppkm->party_data.spatk = getpkmstat(pkm,Stat_IDs::spatk);
-	ppkm->party_data.spdef = getpkmstat(pkm,Stat_IDs::spdef);
+	ppkm->party_data.attack = getpkmstat(pkm, Stat_IDs::attack);
+	ppkm->party_data.defense = getpkmstat(pkm, Stat_IDs::defense);
+	ppkm->party_data.speed = getpkmstat(pkm, Stat_IDs::speed);
+	ppkm->party_data.spatk = getpkmstat(pkm, Stat_IDs::spatk);
+	ppkm->party_data.spdef = getpkmstat(pkm, Stat_IDs::spdef);
 	ppkm->party_data.level = getpkmlevel(pkm);
 }
 void pctoparty(party_pkm &ppkm, const pokemon_obj *pkm)
 {
-	memcpy(&ppkm,pkm,sizeof(pokemon_obj));
-	ppkm.party_data.maxhp = getpkmstat(pkm,Stat_IDs::hp);
+	memcpy(&ppkm, pkm, sizeof(pokemon_obj));
+	ppkm.party_data.maxhp = getpkmstat(pkm, Stat_IDs::hp);
 	ppkm.party_data.hp = ppkm.party_data.maxhp;
-	ppkm.party_data.attack = getpkmstat(pkm,Stat_IDs::attack);
-	ppkm.party_data.defense = getpkmstat(pkm,Stat_IDs::defense);
-	ppkm.party_data.speed = getpkmstat(pkm,Stat_IDs::speed);
-	ppkm.party_data.spatk = getpkmstat(pkm,Stat_IDs::spatk);
-	ppkm.party_data.spdef = getpkmstat(pkm,Stat_IDs::spdef);
+	ppkm.party_data.attack = getpkmstat(pkm, Stat_IDs::attack);
+	ppkm.party_data.defense = getpkmstat(pkm, Stat_IDs::defense);
+	ppkm.party_data.speed = getpkmstat(pkm, Stat_IDs::speed);
+	ppkm.party_data.spatk = getpkmstat(pkm, Stat_IDs::spatk);
+	ppkm.party_data.spdef = getpkmstat(pkm, Stat_IDs::spdef);
 	ppkm.party_data.level = getpkmlevel(pkm);
 }
 void pctoparty(party_pkm *ppkm, const pokemon_obj &pkm)
 {
-	memcpy(ppkm,&pkm,sizeof(pokemon_obj));
-	ppkm->party_data.maxhp = getpkmstat(pkm,Stat_IDs::hp);
+	memcpy(ppkm, &pkm, sizeof(pokemon_obj));
+	ppkm->party_data.maxhp = getpkmstat(pkm, Stat_IDs::hp);
 	ppkm->party_data.hp = ppkm->party_data.maxhp;
-	ppkm->party_data.attack = getpkmstat(pkm,Stat_IDs::attack);
-	ppkm->party_data.defense = getpkmstat(pkm,Stat_IDs::defense);
-	ppkm->party_data.speed = getpkmstat(pkm,Stat_IDs::speed);
-	ppkm->party_data.spatk = getpkmstat(pkm,Stat_IDs::spatk);
-	ppkm->party_data.spdef = getpkmstat(pkm,Stat_IDs::spdef);
+	ppkm->party_data.attack = getpkmstat(pkm, Stat_IDs::attack);
+	ppkm->party_data.defense = getpkmstat(pkm, Stat_IDs::defense);
+	ppkm->party_data.speed = getpkmstat(pkm, Stat_IDs::speed);
+	ppkm->party_data.spatk = getpkmstat(pkm, Stat_IDs::spatk);
+	ppkm->party_data.spdef = getpkmstat(pkm, Stat_IDs::spdef);
 	ppkm->party_data.level = getpkmlevel(pkm);
 }
 void pctoparty(party_pkm &ppkm, const pokemon_obj &pkm)
 {
-	memcpy(&ppkm,&pkm,sizeof(pokemon_obj));
-	ppkm.party_data.maxhp = getpkmstat(pkm,Stat_IDs::hp);
+	memcpy(&ppkm, &pkm, sizeof(pokemon_obj));
+	ppkm.party_data.maxhp = getpkmstat(pkm, Stat_IDs::hp);
 	ppkm.party_data.hp = ppkm.party_data.maxhp;
-	ppkm.party_data.attack = getpkmstat(pkm,Stat_IDs::attack);
-	ppkm.party_data.defense = getpkmstat(pkm,Stat_IDs::defense);
-	ppkm.party_data.speed = getpkmstat(pkm,Stat_IDs::speed);
-	ppkm.party_data.spatk = getpkmstat(pkm,Stat_IDs::spatk);
-	ppkm.party_data.spdef = getpkmstat(pkm,Stat_IDs::spdef);
+	ppkm.party_data.attack = getpkmstat(pkm, Stat_IDs::attack);
+	ppkm.party_data.defense = getpkmstat(pkm, Stat_IDs::defense);
+	ppkm.party_data.speed = getpkmstat(pkm, Stat_IDs::speed);
+	ppkm.party_data.spatk = getpkmstat(pkm, Stat_IDs::spatk);
+	ppkm.party_data.spdef = getpkmstat(pkm, Stat_IDs::spdef);
 	ppkm.party_data.level = getpkmlevel(pkm);
 }
 //void displaypkminconsole(pokemon_obj * pkm)
@@ -788,7 +818,7 @@ int getmovepp(const pokemon_obj * pkm, const int movenum)
 }
 int getmovetotalpp(const pokemon_obj * pkm, const int movenum)
 {
-	int curpp = getmovepp(pkm,movenum);
+	int curpp = getmovepp(pkm, movenum);
 	double multiplier = pkm->ppup[movenum] * 20;
 	multiplier = (multiplier + 100) / 100;
 	return (int)(curpp * multiplier);
@@ -805,7 +835,7 @@ Genders::genders calcpkmgender(const pokemon_obj * pkm)
 {
 	int genderrate = getpkmgenderrate(pkm->species);
 	int ratiobin = 0;
-	switch(genderrate)
+	switch (genderrate)
 	{
 	case -1:
 		return Genders::genderless;
@@ -833,7 +863,7 @@ Genders::genders calcpkmgender(const pokemon_obj * pkm)
 		break;
 	}
 	int pidbin = (pkm->pid) % 256;
-	if(pidbin >= ratiobin)
+	if (pidbin >= ratiobin)
 	{
 		return Genders::male;
 	}
@@ -843,7 +873,7 @@ Genders::genders calcpkmgender(const pokemon_obj & pkm)
 {
 	int genderrate = getpkmgenderrate(pkm.species);
 	int ratiobin = 0;
-	switch(genderrate)
+	switch (genderrate)
 	{
 	case -1:
 		return Genders::genderless;
@@ -871,7 +901,7 @@ Genders::genders calcpkmgender(const pokemon_obj & pkm)
 		break;
 	}
 	int pidbin = (pkm.pid) % 256;
-	if(pidbin >= ratiobin)
+	if (pidbin >= ratiobin)
 	{
 		return Genders::male;
 	}
@@ -911,56 +941,56 @@ Types::types getmovetype(Moves::moves moveid)
 		<< "SELECT type_id "
 		<< "FROM   moves "
 		<< "WHERE  ( id = " << (int)moveid << " ) ";
-	return (Types::types)(getanint(o)-1);
+	return (Types::types)(getanint(o) - 1);
 }
 string lookuptypename(const Types::types type, const int langid)
 {
-	return getastring(lookuptypenamesql((int)type,langid));
+	return getastring(lookuptypenamesql((int)type, langid));
 }
 string lookuptypename(const int type, const int langid)
 {
-	return getastring(lookuptypenamesql(type,langid));
+	return getastring(lookuptypenamesql(type, langid));
 }
 
 string DllExport lookupmovetypename(const int moveid, const int langid)
 {
-	return lookuptypename(getmovetype(Moves::moves(moveid)),langid);
+	return lookuptypename(getmovetype(Moves::moves(moveid)), langid);
 }
 string DllExport lookupmovetypename(const pokemon_obj &pkm, const int movenum, const int langid)
 {
-	return lookuptypename(getmovetype(pkm.moves[movenum]),langid);
+	return lookuptypename(getmovetype(pkm.moves[movenum]), langid);
 }
 string DllExport lookupmovetypename(const pokemon_obj *pkm, const int movenum, const int langid)
 {
-	return lookuptypename(getmovetype(pkm->moves[movenum]),langid);
+	return lookuptypename(getmovetype(pkm->moves[movenum]), langid);
 }
 string lookupmoveflavortext(const uint16 moveid, const int langid, const int versiongroup)
 {
-	string ret = getastring(getmoveflavortextsql(moveid,langid,versiongroup));
-	replace(ret.begin(),ret.end(),'\n',' ');
+	string ret = getastring(getmoveflavortextsql(moveid, langid, versiongroup));
+	replace(ret.begin(), ret.end(), '\n', ' ');
 	return ret;
 }
 string lookupmoveflavortext(const pokemon_obj &pkm, const int movenum, const int langid, const int versiongroup)
 {
-	return lookupmoveflavortext((uint16)pkm.moves[movenum],langid,versiongroup);
+	return lookupmoveflavortext((uint16)pkm.moves[movenum], langid, versiongroup);
 }
 string lookupmoveflavortext(const pokemon_obj *pkm, const int movenum, const int langid, const int versiongroup)
 {
-	return lookupmoveflavortext((uint16)pkm->moves[movenum],langid,versiongroup);
+	return lookupmoveflavortext((uint16)pkm->moves[movenum], langid, versiongroup);
 }
 string lookupabilityflavortext(const pokemon_obj *pkm, const int version_group, const int langid)
 {
-	return getastring(lookupabilityflavortext(pkm->ability,version_group,langid));
+	return getastring(lookupabilityflavortext(pkm->ability, version_group, langid));
 }
 string lookupabilityflavortext(const int abilityid, const int version_group, const int langid)
 {
-	string ret = getastring(lookupabilityflavortextsql(abilityid,version_group,langid));
-	replace(ret.begin(),ret.end(),'\n',' ');
+	string ret = getastring(lookupabilityflavortextsql(abilityid, version_group, langid));
+	replace(ret.begin(), ret.end(), '\n', ' ');
 	return ret;
 }
 string lookupabilityflavortext(const pokemon_obj &pkm, const int version_group, const int langid)
 {
-	return getastring(lookupabilityflavortext(pkm.ability,version_group,langid));
+	return getastring(lookupabilityflavortext(pkm.ability, version_group, langid));
 }
 /*
 # PokeTools
@@ -1061,7 +1091,7 @@ return SpecialDefense[ref]
 */
 string lookupcharacteristic(const int statid, const int iv, const int langid)
 {
-	return getastring(lookupcharacteristicsql(statid,iv,langid));
+	return getastring(lookupcharacteristicsql(statid, iv, langid));
 }
 string lookupcharacteristic(const pokemon_obj &pkm, const int langid)
 {
@@ -1093,37 +1123,37 @@ string lookupcharacteristic(const pokemon_obj &pkm, const int langid)
 	ivbuf.val = pkm.ivs.spdef;
 	ivbuf.order = 5;
 	ivs.push_back(ivbuf);
-	sort(ivs.begin(),ivs.end(),compareivbyval);
+	sort(ivs.begin(), ivs.end(), compareivbyval);
 	highval = ivs[0].val;
-	sort(ivs.begin(),ivs.end(),compareivbyorder);
+	sort(ivs.begin(), ivs.end(), compareivbyorder);
 	int highcount = 0;
-	for(int i=0;i<6;i++)
+	for (int i = 0; i < 6; i++)
 	{
-		if(ivs[i].val == highval)
+		if (ivs[i].val == highval)
 		{
-			statid = i+1;
+			statid = i + 1;
 			highcount++;
 		}
 	}
-	if(highcount == 1)
+	if (highcount == 1)
 	{
-		return lookupcharacteristic(statid,highval,langid);
+		return lookupcharacteristic(statid, highval, langid);
 	}
 	int startindex = pkm.pid % 6;
 
-	for(int i=0; i<6; i++)
+	for (int i = 0; i < 6; i++)
 	{
-		if(ivs[startindex].val == highval)
+		if (ivs[startindex].val == highval)
 		{
-			return lookupcharacteristic(ivs[startindex].id,highval,langid);
+			return lookupcharacteristic(ivs[startindex].id, highval, langid);
 		}
 		startindex++;
-		if(startindex ==6)
+		if (startindex == 6)
 		{
 			startindex = 0;
 		}
 	}
-	return lookupcharacteristic(statid,highval,langid);
+	return lookupcharacteristic(statid, highval, langid);
 }
 string lookupcharacteristic(const pokemon_obj *pkm, const int langid)
 {
@@ -1155,45 +1185,45 @@ string lookupcharacteristic(const pokemon_obj *pkm, const int langid)
 	ivbuf.val = pkm->ivs.spdef;
 	ivbuf.order = 5;
 	ivs.push_back(ivbuf);
-	sort(ivs.begin(),ivs.end(),compareivbyval);
+	sort(ivs.begin(), ivs.end(), compareivbyval);
 	highval = ivs[0].val;
-	sort(ivs.begin(),ivs.end(),compareivbyorder);
+	sort(ivs.begin(), ivs.end(), compareivbyorder);
 	int highcount = 0;
-	for(int i=0;i<6;i++)
+	for (int i = 0; i < 6; i++)
 	{
-		if(ivs[i].val == highval)
+		if (ivs[i].val == highval)
 		{
 			statid = (int)(ivs[i].id); //i+1;
 			highcount++;
 		}
 	}
-	if(highcount == 1)
+	if (highcount == 1)
 	{
-		return lookupcharacteristic(statid,highval,langid);
+		return lookupcharacteristic(statid, highval, langid);
 	}
 	int startindex = pkm->pid % 6;
 
-	for(int i=0; i<6; i++)
+	for (int i = 0; i < 6; i++)
 	{
-		if(ivs[startindex].val == highval)
+		if (ivs[startindex].val == highval)
 		{
-			return lookupcharacteristic(ivs[startindex].id,highval,langid);
+			return lookupcharacteristic(ivs[startindex].id, highval, langid);
 		}
 		startindex++;
-		if(startindex ==6)
+		if (startindex == 6)
 		{
 			startindex = 0;
 		}
 	}
-	return lookupcharacteristic(statid,highval,langid);
+	return lookupcharacteristic(statid, highval, langid);
 }
 string lookuppkmname(const int speciesid, const int langid)
 {
-	return getastring(getspeciesnamesql(speciesid,langid));
+	return getastring(getspeciesnamesql(speciesid, langid));
 }
 string lookuppkmname(const pokemon_obj &pkm, const int langid)
 {
-	return getastring(getspeciesnamesql(pkm.species,langid));
+	return getastring(getspeciesnamesql(pkm.species, langid));
 }
 string lookuppkmname(const pokemon_obj *pkm, const int langid)
 {
@@ -1207,74 +1237,74 @@ wstring lookuppkmnamewstring(const pokemon_obj *pkm, const int langid)
 }
 string lookupmovename(const int moveid, const int langid)
 {
-	return getastring(getmovenamesql(moveid,langid));
+	return getastring(getmovenamesql(moveid, langid));
 }
 string lookupmovename(const pokemon_obj &pkm, const int movenum, const int langid)
 {
-	return getastring(getmovenamesql(pkm.moves[movenum],langid));
+	return getastring(getmovenamesql(pkm.moves[movenum], langid));
 }
 string lookupmovename(const pokemon_obj *pkm, const int movenum, const int langid)
 {
-	return getastring(getmovenamesql(pkm->moves[movenum],langid));
+	return getastring(getmovenamesql(pkm->moves[movenum], langid));
 }
 string getnaturename(const int natureid, const int langid)
 {
-	return getastring(getnaturenamesql(natureid,langid));
+	return getastring(getnaturenamesql(natureid, langid));
 }
 string getnaturename(const pokemon_obj &pkm, const int langid)
 {
-	if((pkm.nature_int == 0) && (pkm.hometown != Hometowns::black) && (pkm.hometown != Hometowns::white))
+	if ((pkm.nature_int == 0) && (pkm.hometown != Hometowns::black) && (pkm.hometown != Hometowns::white) && (pkm.hometown != Hometowns::black2) && (pkm.hometown != Hometowns::white2))
 	{
-		return getastring(getnaturenamesql(pkm.pid % 25,langid));
+		return getastring(getnaturenamesql(pkm.pid % 25, langid));
 	}
 	else
 	{
-		return getastring(getnaturenamesql(pkm.nature_int,langid));
+		return getastring(getnaturenamesql(pkm.nature_int, langid));
 	}
 }
 string getnaturename(const pokemon_obj *pkm, const int langid)
 {
-	if((pkm->nature == 0) && (pkm->hometown != Hometowns::black) && (pkm->hometown != Hometowns::white))
+	if ((pkm->nature_int == 0) && (pkm->hometown != Hometowns::black) && (pkm->hometown != Hometowns::white) && (pkm->hometown != Hometowns::black2) && (pkm->hometown != Hometowns::white2))
 	{
-		return getastring(getnaturenamesql(pkm->pid % 25,langid));
+		return getastring(getnaturenamesql(pkm->pid % 25, langid));
 	}
 	else
 	{
-		return getastring(getnaturenamesql(pkm->nature_int,langid));
+		return getastring(getnaturenamesql(pkm->nature_int, langid));
 	}
 }
 string lookupitemname(const int itemid, const int generation, const int langid)
 {
-	if(itemid == int(Items::godstone)){return "God Stone";}
-	if(itemid == int(Items::xtransceiver2)){return lookupitemname(Items::xtransceiver,generation,langid);}
-	if(itemid == int(Items::droppeditem2)){return lookupitemname(Items::droppeditem,generation,langid);}
-	return getastring(lookupitemnamesql(itemid,generation,langid));
+	if (itemid == int(Items::godstone)){ return "God Stone"; }
+	if (itemid == int(Items::xtransceiver2)){ return lookupitemname(Items::xtransceiver, generation, langid); }
+	if (itemid == int(Items::droppeditem2)){ return lookupitemname(Items::droppeditem, generation, langid); }
+	return getastring(lookupitemnamesql(itemid, generation, langid));
 }
 string lookupitemname(const pokemon_obj &pkm, const int generation, const int langid)
 {
-	if(pkm.item == Items::godstone){return "God Stone";}
-	if(pkm.item == Items::xtransceiver2){return lookupitemname(Items::xtransceiver,generation,langid);}
-	if(pkm.item == Items::droppeditem2){return lookupitemname(Items::droppeditem,generation,langid);}
-	return getastring(lookupitemnamesql(pkm.item,generation,langid));
+	if (pkm.item == Items::godstone){ return "God Stone"; }
+	if (pkm.item == Items::xtransceiver2){ return lookupitemname(Items::xtransceiver, generation, langid); }
+	if (pkm.item == Items::droppeditem2){ return lookupitemname(Items::droppeditem, generation, langid); }
+	return getastring(lookupitemnamesql(pkm.item, generation, langid));
 }
 string lookupitemname(const pokemon_obj *pkm, const int generation, const int langid)
 {
-	if(pkm->item == Items::godstone){return "God Stone";}
-	if(pkm->item == Items::xtransceiver2){return lookupitemname(Items::xtransceiver,generation,langid);}
-	if(pkm->item == Items::droppeditem2){return lookupitemname(Items::droppeditem,generation,langid);}
-	return getastring(lookupitemnamesql(pkm->item,generation,langid));
+	if (pkm->item == Items::godstone){ return "God Stone"; }
+	if (pkm->item == Items::xtransceiver2){ return lookupitemname(Items::xtransceiver, generation, langid); }
+	if (pkm->item == Items::droppeditem2){ return lookupitemname(Items::droppeditem, generation, langid); }
+	return getastring(lookupitemnamesql(pkm->item, generation, langid));
 }
 string lookupabilityname(const int abilityid, const int langid)
 {
-	return getastring(lookupabilitynamesql(abilityid,langid));
+	return getastring(lookupabilitynamesql(abilityid, langid));
 }
 string lookupabilityname(const pokemon_obj &pkm, const int langid)
 {
-	return getastring(lookupabilitynamesql(pkm.ability,langid));
+	return getastring(lookupabilitynamesql(pkm.ability, langid));
 }
 string lookupabilityname(const pokemon_obj *pkm, const int langid)
 {
-	return getastring(lookupabilitynamesql(pkm->ability,langid));
+	return getastring(lookupabilitynamesql(pkm->ability, langid));
 }
 string getpkmgendername(const pokemon_obj &pkm)
 {
@@ -1286,46 +1316,46 @@ string getpkmgendername(const pokemon_obj *pkm)
 }
 string getpkmmetlocname(const pokemon_obj &pkm, const int gen, const int langid)
 {
-	return lookuplocname(pkm.met,gen,langid);
+	return lookuplocname(pkm.met, gen, langid);
 }
 string getpkmmetlocname(const pokemon_obj *pkm, const int gen, const int langid)
 {
-	return lookuplocname(pkm->met,gen,langid);
+	return lookuplocname(pkm->met, gen, langid);
 }
 string getpkmegglocname(const pokemon_obj &pkm, const int gen, const int langid)
 {
-	return lookuplocname(pkm.eggmet,gen,langid);
+	return lookuplocname(pkm.eggmet, gen, langid);
 }
 string getpkmegglocname(const pokemon_obj *pkm, const int gen, const int langid)
 {
-	return lookuplocname(pkm->eggmet,gen,langid);
+	return lookuplocname(pkm->eggmet, gen, langid);
 }
 string lookuplocname(const int locid, const int gen, const int langid)
 {
-	if(locid == (int)Locations::unovavictoryroad2)
+	if (locid == (int)Locations::unovavictoryroad2)
 	{
 		return "Victory Road (2)";
 	}
 	else
 	{
-		return getastring(lookuplocnamesql(locid,gen,langid));
+		return getastring(lookuplocnamesql(locid, gen, langid));
 	}
 }
 string getpkmformname(const pokemon_obj &pkm, const int generation, const int langid)
 {
-	return getastring(getpkmformnamesql(pkm,generation,langid));
+	return getastring(getpkmformnamesql(pkm, generation, langid));
 }
 string getpkmformname(const pokemon_obj *pkm, const int generation, const int langid)
 {
-	return getastring(getpkmformnamesql(pkm,generation,langid));
+	return getastring(getpkmformnamesql(pkm, generation, langid));
 }
 string getpkmformname(const int speciesid, const int formid, const int generation, const int langid)
 {
-	return getastring(getpkmformnamesql(speciesid,formid,generation,langid));
+	return getastring(getpkmformnamesql(speciesid, formid, generation, langid));
 }
 string getmachinetypename(const Items::items itemid, const int generation, const int version_group)
 {
-	return getastring(getmachinetypesql(itemid,generation,version_group));
+	return getastring(getmachinetypesql(itemid, generation, version_group));
 }
 string getpokemoncolorstring(const Species::species speciesid)
 {
@@ -1338,7 +1368,7 @@ int getpokemoncolor(const Species::species speciesid)
 uint32 getpkmcolor(const Species::species species)
 {
 	uint32 pkmcolor = getpkmcolorhex(getpokemoncolor(species));
-	if(pkmcolor == 0)
+	if (pkmcolor == 0)
 	{
 		return 0xF0F0F0;
 	}
@@ -1346,31 +1376,31 @@ uint32 getpkmcolor(const Species::species species)
 }
 string getmachinemovename(const Items::items itemid, const int generation, const int version_group, const int langid)
 {
-	return getastring(getmachinemovenamesql(itemid,generation,version_group,langid));
+	return getastring(getmachinemovenamesql(itemid, generation, version_group, langid));
 }
 int getitempocket(const Items::items itemid, const int generation)
 {
 	//if(itemid == int(Items::godstone)){return "God Stone";}
-	if(itemid == Items::xtransceiver2){return getitempocket(Items::xtransceiver,generation);}
-	if(itemid == Items::droppeditem2){return getitempocket(Items::droppeditem,generation);}
-	return getanint(getitempocketsql(itemid,generation));
+	if (itemid == Items::xtransceiver2){ return getitempocket(Items::xtransceiver, generation); }
+	if (itemid == Items::droppeditem2){ return getitempocket(Items::droppeditem, generation); }
+	return getanint(getitempocketsql(itemid, generation));
 }
 string getitempocketname(const Items::items itemid, const int generation, const int langid)
 {
-	if(itemid == Items::xtransceiver2){return getitempocketname(Items::xtransceiver,generation,langid);}
-	if(itemid == Items::droppeditem2){return getitempocketname(Items::droppeditem,generation,langid);}
-	return getastring(getitempocketnamesql(itemid,generation,langid));
+	if (itemid == Items::xtransceiver2){ return getitempocketname(Items::xtransceiver, generation, langid); }
+	if (itemid == Items::droppeditem2){ return getitempocketname(Items::droppeditem, generation, langid); }
+	return getastring(getitempocketnamesql(itemid, generation, langid));
 }
 item_obj * finditeminbag(bw2sav_obj * sav, Items::items itemid, int & slot)
 {
 	item_obj * itemp = new item_obj();
 	slot = -1;
-	switch(ItemPockets::itempockets(getitempocket(itemid)))
+	switch (ItemPockets::itempockets(getitempocket(itemid)))
 	{
 	case ItemPockets::battle:
-		for(int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
+		for (int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
 		{
-			if(sav->cur.bag.items_pocket[i].id == itemid)
+			if (sav->cur.bag.items_pocket[i].id == itemid)
 			{
 				itemp = &(sav->cur.bag.items_pocket[i]);
 				slot = i;
@@ -1380,9 +1410,9 @@ item_obj * finditeminbag(bw2sav_obj * sav, Items::items itemid, int & slot)
 		return itemp;
 		break;
 	case ItemPockets::berries:
-		for(int i = 0; i < sav->cur.bag.berries_pocket.size(); i++)
+		for (int i = 0; i < sav->cur.bag.berries_pocket.size(); i++)
 		{
-			if(sav->cur.bag.berries_pocket[i].id == itemid)
+			if (sav->cur.bag.berries_pocket[i].id == itemid)
 			{
 				itemp = &(sav->cur.bag.berries_pocket[i]);
 				slot = i;
@@ -1392,9 +1422,9 @@ item_obj * finditeminbag(bw2sav_obj * sav, Items::items itemid, int & slot)
 		return itemp;
 		break;
 	case ItemPockets::key:
-		for(int i = 0; i < sav->cur.bag.keyitems_pocket.size(); i++)
+		for (int i = 0; i < sav->cur.bag.keyitems_pocket.size(); i++)
 		{
-			if(sav->cur.bag.keyitems_pocket[i].id == itemid)
+			if (sav->cur.bag.keyitems_pocket[i].id == itemid)
 			{
 				itemp = &(sav->cur.bag.keyitems_pocket[i]);
 				slot = i;
@@ -1404,9 +1434,9 @@ item_obj * finditeminbag(bw2sav_obj * sav, Items::items itemid, int & slot)
 		return itemp;
 		break;
 	case ItemPockets::machines:
-		for(int i = 0; i < sav->cur.bag.tms_pocket.size(); i++)
+		for (int i = 0; i < sav->cur.bag.tms_pocket.size(); i++)
 		{
-			if(sav->cur.bag.tms_pocket[i].id == itemid)
+			if (sav->cur.bag.tms_pocket[i].id == itemid)
 			{
 				itemp = &(sav->cur.bag.tms_pocket[i]);
 				slot = i;
@@ -1416,9 +1446,9 @@ item_obj * finditeminbag(bw2sav_obj * sav, Items::items itemid, int & slot)
 		return itemp;
 		break;
 	case ItemPockets::medicine:
-		for(int i = 0; i < sav->cur.bag.medicine_pocket.size(); i++)
+		for (int i = 0; i < sav->cur.bag.medicine_pocket.size(); i++)
 		{
-			if(sav->cur.bag.medicine_pocket[i].id == itemid)
+			if (sav->cur.bag.medicine_pocket[i].id == itemid)
 			{
 				itemp = &(sav->cur.bag.medicine_pocket[i]);
 				slot = i;
@@ -1428,9 +1458,9 @@ item_obj * finditeminbag(bw2sav_obj * sav, Items::items itemid, int & slot)
 		return itemp;
 		break;
 	case ItemPockets::misc:
-		for(int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
+		for (int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
 		{
-			if(sav->cur.bag.items_pocket[i].id == itemid)
+			if (sav->cur.bag.items_pocket[i].id == itemid)
 			{
 				itemp = &(sav->cur.bag.items_pocket[i]);
 				slot = i;
@@ -1440,9 +1470,9 @@ item_obj * finditeminbag(bw2sav_obj * sav, Items::items itemid, int & slot)
 		return itemp;
 		break;
 	case ItemPockets::pokeballs:
-		for(int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
+		for (int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
 		{
-			if(sav->cur.bag.items_pocket[i].id == itemid)
+			if (sav->cur.bag.items_pocket[i].id == itemid)
 			{
 				itemp = &(sav->cur.bag.items_pocket[i]);
 				slot = i;
@@ -1461,12 +1491,12 @@ item_obj * getavailablebagslot(bw2sav_obj * sav, ItemPockets::itempockets pocket
 	item_obj * itemp = new item_obj();
 	Items::items itemid = Items::NOTHING;
 	slot = -1;
-	switch(pocket)
+	switch (pocket)
 	{
 	case ItemPockets::battle:
-		for(int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
+		for (int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
 		{
-			if(sav->cur.bag.items_pocket[i].id == itemid)
+			if (sav->cur.bag.items_pocket[i].id == itemid)
 			{
 				itemp = &(sav->cur.bag.items_pocket[i]);
 				slot = i;
@@ -1476,9 +1506,9 @@ item_obj * getavailablebagslot(bw2sav_obj * sav, ItemPockets::itempockets pocket
 		return itemp;
 		break;
 	case ItemPockets::berries:
-		for(int i = 0; i < sav->cur.bag.berries_pocket.size(); i++)
+		for (int i = 0; i < sav->cur.bag.berries_pocket.size(); i++)
 		{
-			if(sav->cur.bag.berries_pocket[i].id == itemid)
+			if (sav->cur.bag.berries_pocket[i].id == itemid)
 			{
 				itemp = &(sav->cur.bag.berries_pocket[i]);
 				slot = i;
@@ -1488,9 +1518,9 @@ item_obj * getavailablebagslot(bw2sav_obj * sav, ItemPockets::itempockets pocket
 		return itemp;
 		break;
 	case ItemPockets::key:
-		for(int i = 0; i < sav->cur.bag.keyitems_pocket.size(); i++)
+		for (int i = 0; i < sav->cur.bag.keyitems_pocket.size(); i++)
 		{
-			if(sav->cur.bag.keyitems_pocket[i].id == itemid)
+			if (sav->cur.bag.keyitems_pocket[i].id == itemid)
 			{
 				itemp = &(sav->cur.bag.keyitems_pocket[i]);
 				slot = i;
@@ -1500,9 +1530,9 @@ item_obj * getavailablebagslot(bw2sav_obj * sav, ItemPockets::itempockets pocket
 		return itemp;
 		break;
 	case ItemPockets::machines:
-		for(int i = 0; i < sav->cur.bag.tms_pocket.size(); i++)
+		for (int i = 0; i < sav->cur.bag.tms_pocket.size(); i++)
 		{
-			if(sav->cur.bag.tms_pocket[i].id == itemid)
+			if (sav->cur.bag.tms_pocket[i].id == itemid)
 			{
 				itemp = &(sav->cur.bag.tms_pocket[i]);
 				slot = i;
@@ -1512,9 +1542,9 @@ item_obj * getavailablebagslot(bw2sav_obj * sav, ItemPockets::itempockets pocket
 		return itemp;
 		break;
 	case ItemPockets::medicine:
-		for(int i = 0; i < sav->cur.bag.medicine_pocket.size(); i++)
+		for (int i = 0; i < sav->cur.bag.medicine_pocket.size(); i++)
 		{
-			if(sav->cur.bag.medicine_pocket[i].id == itemid)
+			if (sav->cur.bag.medicine_pocket[i].id == itemid)
 			{
 				itemp = &(sav->cur.bag.medicine_pocket[i]);
 				slot = i;
@@ -1524,9 +1554,9 @@ item_obj * getavailablebagslot(bw2sav_obj * sav, ItemPockets::itempockets pocket
 		return itemp;
 		break;
 	case ItemPockets::misc:
-		for(int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
+		for (int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
 		{
-			if(sav->cur.bag.items_pocket[i].id == itemid)
+			if (sav->cur.bag.items_pocket[i].id == itemid)
 			{
 				itemp = &(sav->cur.bag.items_pocket[i]);
 				slot = i;
@@ -1536,9 +1566,9 @@ item_obj * getavailablebagslot(bw2sav_obj * sav, ItemPockets::itempockets pocket
 		return itemp;
 		break;
 	case ItemPockets::pokeballs:
-		for(int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
+		for (int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
 		{
-			if(sav->cur.bag.items_pocket[i].id == itemid)
+			if (sav->cur.bag.items_pocket[i].id == itemid)
 			{
 				itemp = &(sav->cur.bag.items_pocket[i]);
 				slot = i;
@@ -1554,16 +1584,16 @@ item_obj * getavailablebagslot(bw2sav_obj * sav, ItemPockets::itempockets pocket
 }
 void removeitem(bw2sav_obj * sav, pokemon_obj * pkm)
 {
-	if(pkm->species != Species::NOTHING)
+	if (pkm->species != Species::NOTHING)
 	{
-		if(pkm->item != Items::NOTHING)
+		if (pkm->item != Items::NOTHING)
 		{
 			int itemslot = 0;
-			item_obj * itemp = finditeminbag(sav,pkm->item,itemslot);
-			if(itemslot == -1)
+			item_obj * itemp = finditeminbag(sav, pkm->item, itemslot);
+			if (itemslot == -1)
 			{
-				itemp = getavailablebagslot(sav,ItemPockets::itempockets(getitempocket(pkm->item)),itemslot);
-				if(itemslot != -1)
+				itemp = getavailablebagslot(sav, ItemPockets::itempockets(getitempocket(pkm->item)), itemslot);
+				if (itemslot != -1)
 				{
 					itemp->id = pkm->item;
 					itemp->quantity = 1;
@@ -1575,7 +1605,7 @@ void removeitem(bw2sav_obj * sav, pokemon_obj * pkm)
 				itemp->quantity++;
 				pkm->item = Items::NOTHING;
 			}
-			switch(pkm->species)
+			switch (pkm->species)
 			{
 			case Species::giratina:
 				pkm->form.giratina_form = Forms::Giratina::altered;
@@ -1587,7 +1617,7 @@ void removeitem(bw2sav_obj * sav, pokemon_obj * pkm)
 item_obj * getpocket(bw2sav_obj * sav, ItemPockets::itempockets pocket)
 {
 	item_obj * itemp = new item_obj();
-	switch(pocket)
+	switch (pocket)
 	{
 	case ItemPockets::battle:
 		itemp = &(sav->cur.bag.items_pocket[0]);
@@ -1621,11 +1651,11 @@ void tossitem(bw2sav_obj * sav, item_obj * item)
 	int bagsize = 0;
 	item_obj blankitem;
 	item_obj * bag = new item_obj();
-	item_obj * testitem = finditeminbag(sav,item->id,slot);
-	if((slot != -1) & (testitem == item))
+	item_obj * testitem = finditeminbag(sav, item->id, slot);
+	if ((slot != -1) & (testitem == item))
 	{
-		bag = getpocket(sav,ItemPockets::itempockets(getitempocket(item->id)));
-		switch(ItemPockets::itempockets(getitempocket(item->id)))
+		bag = getpocket(sav, ItemPockets::itempockets(getitempocket(item->id)));
+		switch (ItemPockets::itempockets(getitempocket(item->id)))
 		{
 		case ItemPockets::battle:
 			bagsize = sav->cur.bag.items_pocket.size();
@@ -1651,14 +1681,14 @@ void tossitem(bw2sav_obj * sav, item_obj * item)
 		default:
 			break;
 		}
-		if(slot >= bagsize-1)
+		if (slot >= bagsize - 1)
 		{
-			bag[bagsize-1] = blankitem;
+			bag[bagsize - 1] = blankitem;
 		}
 		else
 		{
-			memcpy(&(bag[slot]),&(bag[slot+1]),sizeof(item_obj)*(bagsize-slot));
-			bag[bagsize-1] = blankitem;
+			memcpy(&(bag[slot]), &(bag[slot + 1]), sizeof(item_obj)*(bagsize - slot));
+			bag[bagsize - 1] = blankitem;
 		}
 	}
 }
@@ -1666,14 +1696,14 @@ void giveitem(bw2sav_obj * sav, item_obj * item, pokemon_obj * pkm)
 {
 	pkm->item = item->id;
 	item->quantity--;
-	if(item->quantity == 0)
+	if (item->quantity == 0)
 	{
-		tossitem(sav,item);
+		tossitem(sav, item);
 	}
-	switch(pkm->species)
+	switch (pkm->species)
 	{
 	case Species::giratina:
-		if(item->id == Items::griseousorb)
+		if (item->id == Items::griseousorb)
 		{
 			pkm->form.giratina_form = Forms::Giratina::origin;
 		}
@@ -1683,12 +1713,12 @@ void giveitem(bw2sav_obj * sav, item_obj * item, pokemon_obj * pkm)
 void insertitem(bw2sav_obj * sav, item_obj * item, int slot)
 {
 	int test = 0;
-	getavailablebagslot(sav,ItemPockets::itempockets(getitempocket(item->id)),test);
-	item_obj * bag = getpocket(sav,ItemPockets::itempockets(getitempocket(item->id)));
-	if(test != -1)
+	getavailablebagslot(sav, ItemPockets::itempockets(getitempocket(item->id)), test);
+	item_obj * bag = getpocket(sav, ItemPockets::itempockets(getitempocket(item->id)));
+	if (test != -1)
 	{
 		int bagsize = 0;
-		switch(ItemPockets::itempockets(getitempocket(item->id)))
+		switch (ItemPockets::itempockets(getitempocket(item->id)))
 		{
 		case ItemPockets::battle:
 			bagsize = sav->cur.bag.items_pocket.size();
@@ -1714,18 +1744,18 @@ void insertitem(bw2sav_obj * sav, item_obj * item, int slot)
 		default:
 			break;
 		}
-		if(slot >= bagsize)
+		if (slot >= bagsize)
 		{
-			bag[bagsize-1] = *item;
+			bag[bagsize - 1] = *item;
 		}
 		else
 		{
-			memcpy(bag+slot,bag+slot-1,sizeof(item_obj) * (bagsize-slot-1));
+			memcpy(bag + slot, bag + slot - 1, sizeof(item_obj)* (bagsize - slot - 1));
 			bag[slot] = *item;
 		}
 	}
 }
 string lookupitemflavortext(const int itemid, const int generation, const int langid, const int versiongroup)
 {
-	return getastring(lookupitemflavortextsql(itemid, generation,langid,versiongroup));
+	return getastring(lookupitemflavortextsql(itemid, generation, langid, versiongroup));
 }

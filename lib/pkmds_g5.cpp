@@ -466,22 +466,22 @@ void fixsavchecksum(bw2sav_obj &sav, bool isbw2)
 {
 	if (isbw2)
 	{
-		calcchecksum(sav.cur, (long)BW2_OFFSETS::chkcalcloc, (long)BW2_OFFSETS::chkcalclen, (long)BW2_OFFSETS::chkloc);
+		calcchecksum(&(sav.cur), (long)BW2_OFFSETS::chkcalcloc, (long)BW2_OFFSETS::chkcalclen, (long)BW2_OFFSETS::chkloc);
 	}
 	else
 	{
-		calcchecksum(sav.cur, (long)BW_OFFSETS::chkcalcloc, (long)BW_OFFSETS::chkcalclen, (long)BW_OFFSETS::chkloc);
+		calcchecksum(&(sav.cur), (long)BW_OFFSETS::chkcalcloc, (long)BW_OFFSETS::chkcalclen, (long)BW_OFFSETS::chkloc);
 	}
 }
 void fixsavchecksum(bw2sav_obj *sav, bool isbw2)
 {
 	if (isbw2)
 	{
-		calcchecksum(sav->cur, (long)BW2_OFFSETS::chkcalcloc, (long)BW2_OFFSETS::chkcalclen, (long)BW2_OFFSETS::chkloc);
+		calcchecksum(&(sav->cur), (long)BW2_OFFSETS::chkcalcloc, (long)BW2_OFFSETS::chkcalclen, (long)BW2_OFFSETS::chkloc);
 	}
 	else
 	{
-		calcchecksum(sav->cur, (long)BW_OFFSETS::chkcalcloc, (long)BW_OFFSETS::chkcalclen, (long)BW_OFFSETS::chkloc);
+		calcchecksum(&(sav->cur), (long)BW_OFFSETS::chkcalcloc, (long)BW_OFFSETS::chkcalclen, (long)BW_OFFSETS::chkloc);
 	}
 }
 void fixtrainerdatachecksum(bw2savblock_obj * block)
@@ -499,7 +499,6 @@ void write(const char* file_name, pokemon_obj& data) // Writes the given Pokemon
 	data.isboxdatadecrypted = false;
 	std::ofstream *out = new std::ofstream(file_name, std::ios::binary);
 	out->write(reinterpret_cast<char*>(&data), sizeof(pokemon_obj));
-	//out->write(data._raw_data_p, sizeof(pokemon_obj));
 	out->close();
 	delete out;
 	out = 0;
@@ -712,7 +711,18 @@ void setsaveboxname(bw2sav_obj *sav, int box, wchar_t input[], int length)
 	if (length < BOXNAMELENGTH)
 	{
 		memset(&(sav->cur.boxnames[box][length]), 0xffff, 2);
-		memset(&(sav->cur.boxnames[box][BOXNAMELENGTH - 1]), 0xffff, 2);
+		//memset(&(sav->cur.boxnames[box][BOXNAMELENGTH - 1]), 0xffff, 2);
+	}
+}
+void setsaveboxname(bw2sav_obj *sav, int box, const wchar_t input[], int length)
+{
+	if (length > BOXNAMELENGTH){ length = BOXNAMELENGTH; }
+	memset(&(sav->cur.boxnames[box]), '\0', BOXNAMELENGTH * 2);
+	memcpy(&(sav->cur.boxnames[box]), input, length * 2);
+	if (length < BOXNAMELENGTH)
+	{
+		memset(&(sav->cur.boxnames[box][length]), 0xffff, 2);
+		//memset(&(sav->cur.boxnames[box][BOXNAMELENGTH - 1]), 0xffff, 2);
 	}
 }
 Genders::genders getpkmgender(const pokemon_obj &pkm)
@@ -1171,7 +1181,7 @@ std::wstring getsavtrainername(const bw2savblock_obj & block)
 #if (defined __linux__) || (defined __APPLE__) || (defined __CYGWIN__)
 	return getwstring((char*)block.trainername, 0x10);
 #else
-	return getwstring(block.trainername);
+	return getwstring(block.trainername, OTLENGTH);
 #endif
 }
 std::wstring getsavtrainername(const bw2savblock_obj * block)
@@ -1179,7 +1189,7 @@ std::wstring getsavtrainername(const bw2savblock_obj * block)
 #if (defined __linux__) || (defined __APPLE__) || (defined __CYGWIN__)
 	return getwstring((char*)block->trainername, 0x10);
 #else
-	return getwstring(block->trainername);
+	return getwstring(block->trainername, OTLENGTH);
 #endif
 }
 std::wstring getwstring(std::wstring in, int maxlength)
