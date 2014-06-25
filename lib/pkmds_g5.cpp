@@ -519,6 +519,7 @@ void write(const char* file_name, pokemon_obj* data) // Writes the given Pokemon
 	data->ispartydatadecrypted = encryptstatus[0];
 	data->isboxdatadecrypted = encryptstatus[1];
 }
+#ifdef _MSC_VER
 void write(const wchar_t* file_name, pokemon_obj* data) // Writes the given Pokemon data to the given file name.
 {
 	bool encryptstatus[2] = { data->ispartydatadecrypted, data->isboxdatadecrypted };
@@ -533,6 +534,7 @@ void write(const wchar_t* file_name, pokemon_obj* data) // Writes the given Poke
 	data->ispartydatadecrypted = encryptstatus[0];
 	data->isboxdatadecrypted = encryptstatus[1];
 }
+#endif
 void write(const char* file_name, bw2sav_obj& data) //
 {
 	std::ofstream *out = new std::ofstream(file_name, std::ios::binary);
@@ -549,6 +551,7 @@ void write(const char* file_name, bw2sav_obj *data) //
 	delete out;
 	out = 0;
 }
+#ifdef _MSC_VER
 void write(const wchar_t* file_name, bw2sav_obj *data) //
 {
 	std::ofstream *out = new std::ofstream(file_name, std::ios::binary);
@@ -557,6 +560,7 @@ void write(const wchar_t* file_name, bw2sav_obj *data) //
 	delete out;
 	out = 0;
 }
+#endif
 void read(const char* file_name, pokemon_obj& data) // Reads the given file and assigns the data to the given Pokemon object.
 {
 	std::ifstream *in = new std::ifstream(file_name, std::ios::binary);
@@ -575,6 +579,7 @@ void read(const char* file_name, pokemon_obj *data) // Reads the given file and 
 	delete in;
 	in = 0;
 }
+#ifdef _MSC_VER
 void read(const wchar_t* file_name, pokemon_obj *data) // Reads the given file and assigns the data to the given save file object.
 {
 	std::ifstream *in = new std::ifstream(file_name, std::ios::binary);
@@ -584,6 +589,7 @@ void read(const wchar_t* file_name, pokemon_obj *data) // Reads the given file a
 	delete in;
 	in = 0;
 }
+#endif
 void read(const char* file_name, bw2sav_obj& data) // Reads the given file and assigns the data to the given save file object.
 {
 	std::ifstream *in = new std::ifstream(file_name, std::ios::binary);
@@ -600,6 +606,7 @@ void read(const char* file_name, bw2sav_obj *data) // Reads the given file and a
 	delete in;
 	in = 0;
 }
+#ifdef _MSC_VER
 void read(const wchar_t* file_name, bw2sav_obj *data) // Reads the given file and assigns the data to the given save file object.
 {
 	std::ifstream *in = new std::ifstream(file_name, std::ios::binary);
@@ -608,6 +615,7 @@ void read(const wchar_t* file_name, bw2sav_obj *data) // Reads the given file an
 	delete in;
 	in = 0;
 }
+#endif
 void read(const char* file_name, sav_object *data) // Reads the given file and assigns the data to the given save file object.
 {
 	std::ifstream *in = new std::ifstream(file_name, std::ios::binary);
