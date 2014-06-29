@@ -1250,8 +1250,13 @@ uint16 : 16;
 						struct
 						{
 							uint16 metlevel : 7;
+                            #ifdef _MSC_VER
 							GBAGames::gbagames game : 4;
 							GBABalls::gbaballs ball : 4;
+                            #else
+                            byte game : 4;
+                            byte ball : 4;
+                            #endif
 uint16 : 1;
 						};
 						struct
