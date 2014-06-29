@@ -1485,6 +1485,7 @@ item_obj * finditeminbag(bw2sav_obj * sav, Items::items itemid, int & slot)
 		break;
 		return itemp;
 	}
+    return itemp; //For "not all control paths return a value" warning
 }
 item_obj * getavailablebagslot(bw2sav_obj * sav, ItemPockets::itempockets pocket, int & slot)
 {
@@ -1610,6 +1611,9 @@ void removeitem(bw2sav_obj * sav, pokemon_obj * pkm)
 			case Species::giratina:
 				pkm->form.giratina_form = Forms::Giratina::altered;
 				break;
+
+            default:
+                break;
 			}
 		}
 	}
@@ -1708,6 +1712,9 @@ void giveitem(bw2sav_obj * sav, item_obj * item, pokemon_obj * pkm)
 			pkm->form.giratina_form = Forms::Giratina::origin;
 		}
 		break;
+
+    default:
+        break;
 	}
 }
 void insertitem(bw2sav_obj * sav, item_obj * item, int slot)

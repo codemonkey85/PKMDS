@@ -279,6 +279,8 @@ string lookupitemflavortextsql(const int itemid, const int generation, const int
 	case Items::droppeditem2:
 		item = (int)(Items::droppeditem);
 		break;
+    default:
+        break;
 	}
 	ostringstream o;
 	o << ""
@@ -624,9 +626,15 @@ void geticonsql(ostringstream& o, const pokemon_obj & pkm, int generation)
 				break;
 			}
 		}
+        #ifdef _MSC_VER
 		if ((pkm.species == Species::kyurem) && (pkm.form.kyurem_form != Forms::Kyurem::normal))
 		{
 			if (pkm.form.kyurem_form == Forms::Kyurem::white)
+        #else
+		if ((pkm.species == Species::kyurem) && (pkm.form.kyurem_form != int(Forms::Kyurem::normal)))
+		{
+			if (pkm.form.kyurem_form == int(Forms::Kyurem::white))
+        #endif
 			{
 				formid = "646-white";
 			}
@@ -711,9 +719,15 @@ void geticonsql(ostringstream& o, const pokemon_obj * pkm, int generation)
 				break;
 			}
 		}
+        #ifdef _MSC_VER
 		if ((pkm->species == Species::kyurem) && (pkm->form.kyurem_form != Forms::Kyurem::normal))
 		{
 			if (pkm->form.kyurem_form == Forms::Kyurem::white)
+        #else
+		if ((pkm->species == Species::kyurem) && (pkm->form.kyurem_form != int(Forms::Kyurem::normal)))
+		{
+			if (pkm->form.kyurem_form == int(Forms::Kyurem::white))
+        #endif
 			{
 				formid = "646-white";
 			}

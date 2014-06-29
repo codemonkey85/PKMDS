@@ -2505,132 +2505,236 @@ struct formsfield_g6 { // Bitfield for determining the Pokemon's form, fateful e
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Arceus::arceus arceus_form : 5;
+            #else
+            byte arceus_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Basculin::basculin basculin_form : 5;
+            #else
+            byte basculin_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Burmy_Wormadam::burmy_wormadam burmy_wormadam_form : 5;
+            #else
+            byte burmy_wormadam_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Castform::castform castform_form : 5;
+            #else
+            byte castform_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Cherrim::cherrim cherrim_form : 5;
+            #else
+            byte cherrim_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Darmanitan::darmanitan darmanitan_form : 5;
+            #else
+            byte darmanitan_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Deerling_Sawsbuck::deerling_sawsbuck deerling_sawsbuck_form : 5;
+            #else
+            byte deerling_sawsbuck_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Deoxys::deoxys deoxys_form : 5;
+            #else
+            byte deoxys_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Genesect::genesect genesect_form : 5;
+            #else
+            byte genesect_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Giratina::giratina giratina_form : 5;
+            #else
+            byte giratina_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Keldeo::keldeo keldeo_form : 5;
+            #else
+            byte keldeo_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Kyurem::kyurem kyurem_form : 5;
+            #else
+            byte kyurem_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Meloetta::meloetta meloetta_form : 5;
+            #else
+            byte meloetta_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Pichu::pichu pichu_form : 5;
+            #else
+            byte pichu_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Rotom::rotom rotom_form : 5;
+            #else
+            byte rotom_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Shaymin::shaymin shaymin_form : 5;
+            #else
+            byte shaymin_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Shellos_Gastrodon::shellos_gastrodon shellos_gastrodon_form : 5;
+            #else
+            byte shellos_gastrodon_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Tornadus_Thundurus_Landorus::tornadus_thundurus_landorus tornadus_thundurus_landorus_form : 5;
+            #else
+            byte tornadus_thundurus_landorus_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Unown::unown unown_form : 5;
+            #else
+            byte unown_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Aegislash::aegislash aegislash_form : 5;
+            #else
+            byte aegislash_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Flabebe_Floette_Florges::flabebe_floette_florges flabebe_floette_florges_form : 5;
+            #else
+            byte flabebe_floette_florges_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Furfrou::furfrou furfrou_form : 5;
+            #else
+            byte furfrou_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Meowstic::meowstic meowstic_form : 5;
+            #else
+            byte meowstic_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Pumpkaboo_Gourgeist::pumpkaboo_gourgeist pumpkaboo_gourgeist_form : 5;
+            #else
+            byte pumpkaboo_gourgeist_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Vivillon::vivillon vivillon_form : 5;
+            #else
+            byte vivillon_form : 5;
+            #endif
 		};
 		struct
 		{
 byte : 3;
+            #ifdef _MSC_VER
 			Forms::Xerneas::xerneas xerneas_form : 5;
+            #else
+            byte xerneas_form : 5;
+            #endif
 		};
 	};
 };
