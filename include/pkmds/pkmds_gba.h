@@ -1171,6 +1171,7 @@ struct ppbonuses_struct
 	byte move3 : 2;
 	byte move4 : 2;
 };
+#pragma pack(push, 1)
 struct pokemon_gen3
 {
 	union
@@ -1263,11 +1264,12 @@ uint16 : 1;
 						{
 byte : 8;
 byte : 7;
-#if (defined __linux__) || (defined __APPLE__) || (defined __CYGWIN__)
-							byte trainergender: 1; //To stop GCC from throwing a warning
+#ifdef _MSC_VER
+                            Genders::genders trainergender : 1; //Flag to determine if the original trainer was female.
 #else
-							Genders::genders trainergender : 1;
+                            byte trainergender: 1;
 #endif
+
 						};
 					};
 					union
@@ -1397,6 +1399,7 @@ struct gbasavefile
 		memset(this,0,sizeof(gbasavefile));
 	};
 };
+#pragma pack(pop)
 
 void buildgbasave(gbasavefilepacked * savin, gbasavefile * savout);
 

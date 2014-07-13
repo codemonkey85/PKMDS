@@ -65,11 +65,7 @@ void getapic(const string &str, byte ** picdata, int * size)
 	const void * blob;
 	size_t thesize = 0;
 	char cmd[BUFF_SIZE];
-#if defined (__linux__) || defined (__APPLE__) || defined (__CYGWIN__)
-	strcpy(cmd, str.c_str());
-#else
-	strcpy_s(cmd, str.c_str());
-#endif
+    strcpy__(cmd, str.c_str());
 	if (sqlite3_prepare_v2(imgdatabase, cmd, -1, &imgstatement, 0) == SQLITE_OK)
 	{
 		int cols = sqlite3_column_count(imgstatement);
@@ -93,11 +89,7 @@ string getastring(const ostringstream &o)
 {
 	string s = "";
 	char cmd[BUFF_SIZE];
-#if defined (__linux__) || defined (__APPLE__) || defined(__CYGWIN__)
-	strcpy(cmd,o.str().c_str());
-#else
-	strcpy_s(cmd, o.str().c_str());
-#endif
+    strcpy__(cmd, o.str().c_str());
 	if (sqlite3_prepare_v2(database, cmd, -1, &statement, 0) == SQLITE_OK)
 	{
 		int cols = sqlite3_column_count(statement);
@@ -123,11 +115,7 @@ wstring getawstring(const ostringstream &o)
 {
 	wchar_t s[] = L"\0\0\0\0\0\0\0\0\0\0\0";
 	char cmd[BUFF_SIZE];
-#if defined (__linux__) || defined (__APPLE__) || defined(__CYGWIN__)
-	strcpy(cmd,o.str().c_str());
-#else
-	strcpy_s(cmd, o.str().c_str());
-#endif
+    strcpy__(cmd, o.str().c_str());
 	if (sqlite3_prepare_v2(database, cmd, -1, &statement, 0) == SQLITE_OK)
 	{
 		int cols = sqlite3_column_count(statement);
@@ -153,11 +141,7 @@ int getanint(const ostringstream &o)
 {
 	int i = 0;
 	char cmd[BUFF_SIZE];
-#if defined (__linux__) || defined (__APPLE__) || defined(__CYGWIN__)
-	strcpy(cmd,o.str().c_str());
-#else
-	strcpy_s(cmd, o.str().c_str());
-#endif
+    strcpy__(cmd, o.str().c_str());
 	if (sqlite3_prepare_v2(database, cmd, -1, &statement, 0) == SQLITE_OK)
 	{
 		int cols = sqlite3_column_count(statement);
@@ -178,11 +162,7 @@ string getastring(const string &str)
 {
 	string s = "";
 	char cmd[BUFF_SIZE];
-#if defined (__linux__) || defined (__APPLE__) || defined (__CYGWIN__)
-	strcpy(cmd,str.c_str());
-#else
-	strcpy_s(cmd, str.c_str());
-#endif
+    strcpy__(cmd, str.c_str());
 	if (sqlite3_prepare_v2(database, cmd, -1, &statement, 0) == SQLITE_OK)
 	{
 		int cols = sqlite3_column_count(statement);
@@ -241,11 +221,7 @@ int getanint(const string &str)
 {
 	int i = 0;
 	char cmd[BUFF_SIZE];
-#if defined (__linux__) || defined (__APPLE__) || defined (__CYGWIN__)
-	strcpy(cmd,str.c_str());
-#else
-	strcpy_s(cmd, str.c_str());
-#endif
+    strcpy__(cmd, str.c_str());
 	if (sqlite3_prepare_v2(database, cmd, -1, &statement, 0) == SQLITE_OK)
 	{
 		int cols = sqlite3_column_count(statement);
