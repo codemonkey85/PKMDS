@@ -4,11 +4,6 @@
 #else
 #define DllExport __attribute__((visibility("default")))
 #endif
-#ifdef PKMDS_CMAKE_USED
-#define PACK_H <pkmds/pack.h>
-#else
-#define PACK_H "pack.h"
-#endif
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -22,10 +17,10 @@
 typedef unsigned char byte; // 8 bits
 typedef unsigned short int uint16; // 16 bits
 typedef unsigned int uint32; // 32 bits
-#if (defined __linux__) || (defined __APPLE__)
-#define strcpy__ strcpy
-#else
+#ifdef _MSC_VER
 #define strcpy__ strcpy_s
+#else
+#define strcpy__ strcpy
 #endif
 static const int LANG_ID = 9;
 static const int VERSION_GROUP = 11;

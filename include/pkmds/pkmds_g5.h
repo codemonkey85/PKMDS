@@ -3244,6 +3244,7 @@ struct sinnohrib4 { // 8 bits
 byte: 4; // Padding to 8 bits
 };
 struct pkmribbons : sinnohrib1,/*sinnohrib2*/unovarib, hoennrib1, hoennrib2, sinnohrib3, sinnohrib4 {};
+#pragma pack(push, 1)
 struct pokemon_obj
 {
 	union
@@ -3433,10 +3434,10 @@ struct pokemon_obj
 				byte ball_int;
 			};
 			byte metlevel : 7; // The level at which this Pokemon was first encountered.
-#if (defined __linux__) || (defined __APPLE__) || (defined __CYGWIN__)
-			byte otgender: 1; //To stop GCC from throwing a warning
+#ifdef _MSC_VER
+            Genders::genders otgender : 1; //Flag to determine if the original trainer was female.
 #else
-			Genders::genders otgender : 1; // Flag to determine if the original trainer was female.
+            byte otgender: 1;
 #endif
 			union
 			{
@@ -3505,6 +3506,7 @@ struct party_pkm : pokemon_obj { // Size: 0xDC
 		memset(this, 0, sizeof(party_pkm));
 	}
 };
+#pragma pack(pop)
 byte DllExport getpkmshuffleindex(const uint32 pid);
 byte DllExport getpkmshuffleindex(const pokemon_obj &pkm);
 void DllExport unshufflepkm(pokemon_obj &pkm);

@@ -2815,6 +2815,7 @@ struct supertrainingflags // 32 bits
 	bool secret2_5 : 1;
 	bool secret2_6 : 1;
 };
+#pragma pack(push, 1)
 struct pokemonx_obj // The Pokemon object, containing 232 bytes of data (as stored in the PC storage system)
 {
 	union
@@ -2853,7 +2854,6 @@ byte : 5;
 byte : 8;
 			uint16 checksum; // The checksum for the Pokemon data; used to validate data.
 			// Block A
-#include PACK_H
 			union // National Pokedex ID
 			{
 				Species_g6::species species;
@@ -3041,10 +3041,10 @@ byte : 8; // Unknown / unused
 				byte ball_int;
 			};
 			byte metlevel : 7; // The level at which this Pokemon was first encountered.
-#if (defined __linux__) || (defined __APPLE__) || (defined __CYGWIN__)
-			byte otgender: 1; //To stop GCC from throwing a warning
+#ifdef _MSC_VER
+            Genders::genders otgender : 1; //Flag to determine if the original trainer was female.
 #else
-			Genders::genders otgender : 1; // Flag to determine if the original trainer was female.
+            byte otgender: 1;
 #endif
 			union // Encounter type (unused since Gen IV?)
 			{
@@ -3143,6 +3143,7 @@ struct xysavefile
 	xysavehalf sav2; // size 0x69000
 	byte unknown4[0x16000];
 };
+#pragma pack(pop)
 void DllExport pkmcrypt(partyx_field* pkx, uint32 pid);
 void DllExport encryptpkm(party_pkx* pkx);
 void DllExport decryptpkm(party_pkx* pkx);

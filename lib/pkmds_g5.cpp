@@ -626,18 +626,18 @@ void read(const char* file_name, sav_object *data) // Reads the given file and a
 }
 std::wstring getpkmnickname(const pokemon_obj &pkm)
 {
-#if (defined __linux__) || (defined __APPLE__)
-	return getwstring((char*)pkm.nickname, 22);
+#if _MSC_VER
+    return getwstring(pkm.nickname);
 #else
-	return getwstring(pkm.nickname);
+    return getwstring((char*)pkm.nickname, 22);
 #endif
 }
 std::wstring getpkmotname(const pokemon_obj &pkm)
 {
-#if (defined __linux__) || (defined __APPLE__)
-	return getwstring((char*)pkm.otname, 16);
+#ifdef _MSC_VER
+    return getwstring(pkm.otname);
 #else
-	return getwstring(pkm.otname);
+    return getwstring((char*)pkm.otname, 16);
 #endif
 }
 void setpkmnickname(pokemon_obj &pkm, wchar_t input[], int length)
@@ -664,18 +664,18 @@ void setpkmotname(pokemon_obj &pkm, wchar_t input[], int length)
 }
 std::wstring getpkmnickname(const pokemon_obj *pkm)
 {
-#if (defined __linux__) || (defined __APPLE__)
-	return getwstring((char*)pkm->nickname, NICKLENGTH*2);
+#ifdef _MSC_VER
+    return getwstring(pkm->nickname);
 #else
-	return getwstring(pkm->nickname);
+    return getwstring((char*)pkm->nickname, NICKLENGTH*2);
 #endif
 }
 std::wstring getpkmotname(const pokemon_obj *pkm)
 {
-#if (defined __linux__) || (defined __APPLE__)
-	return getwstring((char*)pkm->otname, OTLENGTH*2);
+#ifdef _MSC_VER
+    return getwstring(pkm->otname);
 #else
-	return getwstring(pkm->otname);
+    return getwstring((char*)pkm->otname, OTLENGTH*2);
 #endif
 }
 void setpkmnickname(pokemon_obj *pkm, wchar_t input[], int length)
@@ -1155,10 +1155,10 @@ std::string advstrttimestring(const bw2savblock_obj &block)
 	time_t * adstarttime = new time_t;
 	adstarttime = advstrttime(&block);
 	tm * ptm = new tm;
-#if (defined __linux__) || (defined __APPLE__) || (defined __CYGWIN__)
-	ptm = gmtime(adstarttime);
+#ifdef _MSC_VER
+    gmtime_s(ptm, adstarttime);
 #else
-	gmtime_s(ptm, adstarttime);
+    ptm = gmtime(adstarttime);
 #endif
 	ptm->tm_year += 1900;
 	std::ostringstream o;
@@ -1172,10 +1172,10 @@ std::string advstrttimestring(const bw2savblock_obj *block)
 	time_t * adstarttime = new time_t;
 	adstarttime = advstrttime(block);
 	tm * ptm = new tm;
-#if (defined __linux__) || (defined __APPLE__) || (defined __CYGWIN__)
-	ptm = gmtime(adstarttime);
+#ifdef _MSC_VER
+    gmtime_s(ptm, adstarttime);
 #else
-	gmtime_s(ptm, adstarttime);
+    ptm = gmtime(adstarttime);
 #endif
 	ptm->tm_year += 1900;
 	std::ostringstream o;
@@ -1186,18 +1186,18 @@ std::string advstrttimestring(const bw2savblock_obj *block)
 }
 std::wstring getsavtrainername(const bw2savblock_obj & block)
 {
-#if (defined __linux__) || (defined __APPLE__) || (defined __CYGWIN__)
-	return getwstring((char*)block.trainername, 0x10);
+#ifdef _MSC_VER
+    return getwstring(block.trainername, OTLENGTH);
 #else
-	return getwstring(block.trainername, OTLENGTH);
+    return getwstring((char*)block.trainername, 0x10);
 #endif
 }
 std::wstring getsavtrainername(const bw2savblock_obj * block)
 {
-#if (defined __linux__) || (defined __APPLE__) || (defined __CYGWIN__)
-	return getwstring((char*)block->trainername, 0x10);
+#ifdef _MSC_VER
+    return getwstring(block->trainername, 0x10);
 #else
-	return getwstring(block->trainername, OTLENGTH);
+    return getwstring((char*)block->trainername, 0x10);
 #endif
 }
 std::wstring getwstring(std::wstring in, int maxlength)
