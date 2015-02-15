@@ -1374,7 +1374,7 @@ item_obj * finditeminbag(bw2sav_obj * sav, Items::items itemid, int & slot)
 	switch (ItemPockets::itempockets(getitempocket(itemid)))
 	{
 	case ItemPockets::battle:
-		for (int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
+		for (int i = 0; i < int(sav->cur.bag.items_pocket.size()); i++)
 		{
 			if (sav->cur.bag.items_pocket[i].id == itemid)
 			{
@@ -1386,7 +1386,7 @@ item_obj * finditeminbag(bw2sav_obj * sav, Items::items itemid, int & slot)
 		return itemp;
 		break;
 	case ItemPockets::berries:
-		for (int i = 0; i < sav->cur.bag.berries_pocket.size(); i++)
+		for (int i = 0; i < int(sav->cur.bag.berries_pocket.size()); i++)
 		{
 			if (sav->cur.bag.berries_pocket[i].id == itemid)
 			{
@@ -1398,7 +1398,7 @@ item_obj * finditeminbag(bw2sav_obj * sav, Items::items itemid, int & slot)
 		return itemp;
 		break;
 	case ItemPockets::key:
-		for (int i = 0; i < sav->cur.bag.keyitems_pocket.size(); i++)
+		for (int i = 0; i < int(sav->cur.bag.keyitems_pocket.size()); i++)
 		{
 			if (sav->cur.bag.keyitems_pocket[i].id == itemid)
 			{
@@ -1410,7 +1410,7 @@ item_obj * finditeminbag(bw2sav_obj * sav, Items::items itemid, int & slot)
 		return itemp;
 		break;
 	case ItemPockets::machines:
-		for (int i = 0; i < sav->cur.bag.tms_pocket.size(); i++)
+		for (int i = 0; i < int(sav->cur.bag.tms_pocket.size()); i++)
 		{
 			if (sav->cur.bag.tms_pocket[i].id == itemid)
 			{
@@ -1422,7 +1422,7 @@ item_obj * finditeminbag(bw2sav_obj * sav, Items::items itemid, int & slot)
 		return itemp;
 		break;
 	case ItemPockets::medicine:
-		for (int i = 0; i < sav->cur.bag.medicine_pocket.size(); i++)
+		for (int i = 0; i < int(sav->cur.bag.medicine_pocket.size()); i++)
 		{
 			if (sav->cur.bag.medicine_pocket[i].id == itemid)
 			{
@@ -1434,7 +1434,7 @@ item_obj * finditeminbag(bw2sav_obj * sav, Items::items itemid, int & slot)
 		return itemp;
 		break;
 	case ItemPockets::misc:
-		for (int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
+		for (int i = 0; i < int(sav->cur.bag.items_pocket.size()); i++)
 		{
 			if (sav->cur.bag.items_pocket[i].id == itemid)
 			{
@@ -1446,7 +1446,7 @@ item_obj * finditeminbag(bw2sav_obj * sav, Items::items itemid, int & slot)
 		return itemp;
 		break;
 	case ItemPockets::pokeballs:
-		for (int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
+		for (int i = 0; i < int(sav->cur.bag.items_pocket.size()); i++)
 		{
 			if (sav->cur.bag.items_pocket[i].id == itemid)
 			{
@@ -1471,7 +1471,7 @@ item_obj * getavailablebagslot(bw2sav_obj * sav, ItemPockets::itempockets pocket
 	switch (pocket)
 	{
 	case ItemPockets::battle:
-		for (int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
+		for (int i = 0; i < int(sav->cur.bag.items_pocket.size()); i++)
 		{
 			if (sav->cur.bag.items_pocket[i].id == itemid)
 			{
@@ -1483,7 +1483,7 @@ item_obj * getavailablebagslot(bw2sav_obj * sav, ItemPockets::itempockets pocket
 		return itemp;
 		break;
 	case ItemPockets::berries:
-		for (int i = 0; i < sav->cur.bag.berries_pocket.size(); i++)
+		for (int i = 0; i < int(sav->cur.bag.berries_pocket.size()); i++)
 		{
 			if (sav->cur.bag.berries_pocket[i].id == itemid)
 			{
@@ -1495,7 +1495,7 @@ item_obj * getavailablebagslot(bw2sav_obj * sav, ItemPockets::itempockets pocket
 		return itemp;
 		break;
 	case ItemPockets::key:
-		for (int i = 0; i < sav->cur.bag.keyitems_pocket.size(); i++)
+		for (int i = 0; i < int(sav->cur.bag.keyitems_pocket.size()); i++)
 		{
 			if (sav->cur.bag.keyitems_pocket[i].id == itemid)
 			{
@@ -1507,7 +1507,7 @@ item_obj * getavailablebagslot(bw2sav_obj * sav, ItemPockets::itempockets pocket
 		return itemp;
 		break;
 	case ItemPockets::machines:
-		for (int i = 0; i < sav->cur.bag.tms_pocket.size(); i++)
+		for (int i = 0; i < int(sav->cur.bag.tms_pocket.size()); i++)
 		{
 			if (sav->cur.bag.tms_pocket[i].id == itemid)
 			{
@@ -1519,7 +1519,7 @@ item_obj * getavailablebagslot(bw2sav_obj * sav, ItemPockets::itempockets pocket
 		return itemp;
 		break;
 	case ItemPockets::medicine:
-		for (int i = 0; i < sav->cur.bag.medicine_pocket.size(); i++)
+		for (int i = 0; i < int(sav->cur.bag.medicine_pocket.size()); i++)
 		{
 			if (sav->cur.bag.medicine_pocket[i].id == itemid)
 			{
@@ -1531,7 +1531,7 @@ item_obj * getavailablebagslot(bw2sav_obj * sav, ItemPockets::itempockets pocket
 		return itemp;
 		break;
 	case ItemPockets::misc:
-		for (int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
+		for (int i = 0; i < int(sav->cur.bag.items_pocket.size()); i++)
 		{
 			if (sav->cur.bag.items_pocket[i].id == itemid)
 			{
@@ -1543,7 +1543,7 @@ item_obj * getavailablebagslot(bw2sav_obj * sav, ItemPockets::itempockets pocket
 		return itemp;
 		break;
 	case ItemPockets::pokeballs:
-		for (int i = 0; i < sav->cur.bag.items_pocket.size(); i++)
+		for (int i = 0; i < int(sav->cur.bag.items_pocket.size()); i++)
 		{
 			if (sav->cur.bag.items_pocket[i].id == itemid)
 			{

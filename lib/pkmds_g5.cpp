@@ -917,7 +917,7 @@ void remove_pkm(bw2sav_obj * sav, const int slot)
 	party_pkm * blankpp = new party_pkm;
 	blankpp->isboxdatadecrypted = true;
 	std::fill(sav->cur.party.pokemon.begin(), sav->cur.party.pokemon.end(), (*blankpp));
-	for (int i = 0; i < party.size(); i++)
+	for (int i = 0; i < int(party.size()); i++)
 	{
 		if (party[i].species == Species::NOTHING)
 		{
@@ -1214,7 +1214,7 @@ std::wstring getwstring(std::wstring in, int maxlength)
 	{
 		if (out.find((wchar_t)0xffff))
 		{
-			if (out.find((wchar_t)0xffff) < maxlength)
+			if (int(out.find((wchar_t)0xffff)) < maxlength)
 			{
 				out = out.substr(0, out.find((wchar_t)0xffff));
 			}
