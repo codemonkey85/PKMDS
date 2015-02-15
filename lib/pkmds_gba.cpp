@@ -127,7 +127,7 @@ void buildgbasave(gbasavefilepacked * savin, gbasavefile * savout)
 		block = reinterpret_cast<gbasaveblockpacked*>(&(savin->savea.blocks[i]));
 		if(block->footer.validation == 0x08012025)
 		{
-			if(block->footer.saveindex > cursave)
+			if(int(block->footer.saveindex) > cursave)
 			{
 				cursave = block->footer.saveindex;
 			}
@@ -138,7 +138,7 @@ void buildgbasave(gbasavefilepacked * savin, gbasavefile * savout)
 		block = reinterpret_cast<gbasaveblockpacked*>(&(savin->saveb.blocks[i]));
 		if(block->footer.validation == 0x08012025)
 		{
-			if(block->footer.saveindex > cursave)
+			if(int(block->footer.saveindex) > cursave)
 			{
 				cursave = block->footer.saveindex;
 			}
@@ -1733,7 +1733,7 @@ void convertgen3pkmtogen5(pokemon_gen3 * gbapkm, pokemon_obj * pkm)
 	}
 	string speciesname = lookuppkmname(pkm);
 	std::locale loc;
-	for(int i = 0; i < speciesname.length(); i++)
+	for(int i = 0; i < int(speciesname.length()); i++)
 	{
 		if(nickname[i] != std::toupper(speciesname[i],loc))
 		{
