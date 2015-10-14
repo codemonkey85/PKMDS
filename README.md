@@ -3,12 +3,6 @@ PKMDS
 
 A Pokémon save hacking library written in C++! (currently supports Gen V and limited portions of Gen III / VI)
 
-See pictures of the library in action: http://goo.gl/Fg7J1r
-
-Project outline: http://goo.gl/4KRDxN
-
-Collaboration document: http://goo.gl/iCTKme
-
 Created by Michael Bond (aka Codemonkey85): https://github.com/codemonkey85
 
 Follow me on Google+: https://plus.google.com/+MichaelBond
