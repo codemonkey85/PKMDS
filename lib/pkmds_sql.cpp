@@ -380,7 +380,7 @@ void getmovecatsql(ostringstream& o, const Moves::moves moveid)
 		catname = "other";
 		break;
 	}
-	o << "select image from move_categories where (identifier = \"" << catname << "\")";
+	o << "SELECT image FROM move_categories WHERE (identifier = \"" << catname << "\")";
 }
 string getmoveppsql(const Moves::moves moveid)
 {
@@ -462,7 +462,7 @@ void getspritesql(ostringstream& o, const pokemon_obj & pkm, int generation)
 	o.str("");
 	o.clear();
 	string tgender = "";
-	if ((pkmhasgenddiff(pkm) && (calcpkmgender(pkm) == Genders::female)) & (pkm.species != Species::torchic) & (pkm.species != Species::buizel) & (pkm.species != Species::floatzel))
+	if ((pkmhasgenddiff(pkm) && (calcpkmgender(pkm) == Genders::female)) && (pkm.species != Species::torchic) && (pkm.species != Species::buizel) && (pkm.species != Species::floatzel))
 	{
 		tgender = "female";
 	}
@@ -543,7 +543,7 @@ void getspritesql(ostringstream& o, const pokemon_obj * pkm, int generation)
 	o.str("");
 	o.clear();
 	string tgender = "";
-	if ((pkmhasgenddiff(pkm) && (calcpkmgender(pkm) == Genders::female)) & (pkm->species != Species::torchic) & (pkm->species != Species::buizel) & (pkm->species != Species::floatzel))
+	if ((pkmhasgenddiff(pkm) && (calcpkmgender(pkm) == Genders::female)) && (pkm->species != Species::torchic) && (pkm->species != Species::buizel) && (pkm->species != Species::floatzel))
 	{
 		tgender = "female";
 	}
@@ -609,7 +609,7 @@ void geticonsql(ostringstream& o, const pokemon_obj & pkm, int generation)
 		o.str("");
 		o.clear();
 		string tgender = "";
-		if (((pkm.species == Species::unfezant) | (pkm.species == Species::frillish) | (pkm.species == Species::jellicent)) && (calcpkmgender(pkm) == Genders::female))
+		if (((pkm.species == Species::unfezant) || (pkm.species == Species::frillish) || (pkm.species == Species::jellicent)) && (calcpkmgender(pkm) == Genders::female))
 		{
 			tgender = "fe";
 		}
@@ -702,7 +702,7 @@ void geticonsql(ostringstream& o, const pokemon_obj * pkm, int generation)
 		o.str("");
 		o.clear();
 		string tgender = "";
-		if (((pkm->species == Species::unfezant) | (pkm->species == Species::frillish) | (pkm->species == Species::jellicent)) && (calcpkmgender(pkm) == Genders::female))
+		if (((pkm->species == Species::unfezant) || (pkm->species == Species::frillish) || (pkm->species == Species::jellicent)) && (calcpkmgender(pkm) == Genders::female))
 		{
 			tgender = "fe";
 		}
@@ -743,21 +743,21 @@ void gettypesql(ostringstream& o, const Types::types type)
 {
 	string type_name = lookuptypename((int)type, 9);
 	type_name[0] = tolower(type_name[0]);
-	o << "Select image from types where (identifier = \"" << type_name << "\")";
+	o << "SELECT image FROM types WHERE (identifier = \"" << type_name << "\")";
 }
 void gettypesql(ostringstream& o, const int type)
 {
 	string type_name = lookuptypename(type, 9);
 	type_name[0] = tolower(type_name[0]);
-	o << "Select image from types where (identifier = \"" << type_name << "\")";
+	o << "SELECT image FROM types WHERE (identifier = \"" << type_name << "\")";
 }
 void getwallpapersql(ostringstream& o, const int wallpaper)
 {
-	o << "Select image from wallpapers where (identifier = " << wallpaper << ")";
+	o << "SELECT image FROM wallpapers WHERE (identifier = " << wallpaper << ")";
 }
 void getwallpapersql(ostringstream& o, const Wallpapers::wallpapers wallpaper)
 {
-	o << "Select image from wallpapers where (identifier = " << (int)wallpaper << ")";
+	o << "SELECT image FROM wallpapers WHERE (identifier = " << (int)wallpaper << ")";
 }
 void getitemsql(ostringstream& itemsql, const uint16 itemid, const int generation)
 {
@@ -771,11 +771,11 @@ void getitemsql(ostringstream& itemsql, const uint16 itemid, const int generatio
 		<< "WHERE  ( item_game_indices.game_index = " << itemid << " ) "
 		<< "       AND ( item_game_indices.generation_id = " << generation << ") ";
 	identifier = getastring(o);
-	itemsql << "select image from items where (identifier = \"" << identifier << "\")";
+	itemsql << "SELECT image FROM items WHERE (identifier = \"" << identifier << "\")";
 }
 void getmarkingsql(ostringstream& o, const Markings::markings mark, const bool marked)
 {
-	o << "select image from markings where (identifier = \"" << int(mark) << (int)marked << "\")";
+	o << "SELECT image FROM markings WHERE (identifier = \"" << int(mark) << (int)marked << "\")";
 }
 void getballsql(ostringstream& o, const Balls::balls ball, const int generation)
 {
@@ -845,16 +845,16 @@ string getpkmformnamesql(const int speciesid, const int formid, const int genera
 {
 	ostringstream o;
 	o << ""
-		<< "select pokemon_form_names.form_name "
-		<< "from pokemon "
-		<< "inner join pokemon_forms on pokemon.id = pokemon_forms.pokemon_id "
-		<< "inner join pokemon_form_names on pokemon_forms.id = pokemon_form_names.pokemon_form_id "
-		<< "inner join pokemon_form_generations on pokemon_forms.id = pokemon_form_generations.pokemon_form_id "
-		<< "where local_language_id = " << langid << " "
-		<< "and generation_id = " << generation << " "
-		<< "and species_id = " << speciesid << " "
-		<< "and game_index = " << formid << " "
-		<< "order by pokemon_form_generations.game_index";
+		<< "SELECT pokemon_form_names.form_name "
+		<< "FROM pokemon "
+		<< "INNER JOIN pokemon_forms ON pokemon.id = pokemon_forms.pokemon_id "
+		<< "INNER JOIN pokemon_form_names ON pokemon_forms.id = pokemon_form_names.pokemon_form_id "
+		<< "INNER JOIN pokemon_form_generations ON pokemon_forms.id = pokemon_form_generations.pokemon_form_id "
+		<< "WHERE local_language_id = " << langid << " "
+		<< "AND generation_id = " << generation << " "
+		<< "AND species_id = " << speciesid << " "
+		<< "AND game_index = " << formid << " "
+		<< "ORDER BY pokemon_form_generations.game_index";
 	return o.str();
 }
 string getmachinetypesql(const Items::items itemid, const int generation, const int version_group)
@@ -917,7 +917,7 @@ string getpokemoncolorsql(const Species::species speciesid)
 string getribbonsql(std::string ribbon, bool hoenn)
 {
 	string s;
-	s += "select image from ";
+	s += "SELECT image FROM ";
 	if (hoenn)
 	{
 		s += "ribbons_hoenn";
@@ -926,7 +926,7 @@ string getribbonsql(std::string ribbon, bool hoenn)
 	{
 		s += "ribbons_sinnoh";
 	}
-	s += " where identifier = \"" + ribbon + "\"";
+	s += " WHERE identifier = \"" + ribbon + "\"";
 	return s;
 }
 string getitempocketsql(const Items::items itemid, const int generation)

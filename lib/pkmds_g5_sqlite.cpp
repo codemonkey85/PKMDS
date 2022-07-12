@@ -46,7 +46,7 @@ void getapic(const ostringstream &o, byte ** picdata, int * size)
 		int cols = sqlite3_column_count(imgstatement);
 		int result = 0;
 		result = sqlite3_step(imgstatement);
-		if ((result == SQLITE_ROW) | (result == SQLITE_DONE))
+		if ((result == SQLITE_ROW) || (result == SQLITE_DONE))
 		{
 			for (int col = 0; col < cols; col++)
 			{
@@ -71,7 +71,7 @@ void getapic(const string &str, byte ** picdata, int * size)
 		int cols = sqlite3_column_count(imgstatement);
 		int result = 0;
 		result = sqlite3_step(imgstatement);
-		if ((result == SQLITE_ROW) | (result == SQLITE_DONE))
+		if ((result == SQLITE_ROW) || (result == SQLITE_DONE))
 		{
 			for (int col = 0; col < cols; col++)
 			{
@@ -95,7 +95,7 @@ string getastring(const ostringstream &o)
 		int cols = sqlite3_column_count(statement);
 		int result = 0;
 		result = sqlite3_step(statement);
-		if ((result == SQLITE_ROW) | (result == SQLITE_DONE))
+		if ((result == SQLITE_ROW) || (result == SQLITE_DONE))
 		{
 			for (int col = 0; col < cols; col++)
 			{
@@ -121,7 +121,7 @@ wstring getawstring(const ostringstream &o)
 		int cols = sqlite3_column_count(statement);
 		int result = 0;
 		result = sqlite3_step(statement);
-		if ((result == SQLITE_ROW) | (result == SQLITE_DONE))
+		if ((result == SQLITE_ROW) || (result == SQLITE_DONE))
 		{
 			for (int col = 0; col < cols; col++)
 			{
@@ -147,7 +147,7 @@ int getanint(const ostringstream &o)
 		int cols = sqlite3_column_count(statement);
 		int result = 0;
 		result = sqlite3_step(statement);
-		if ((result == SQLITE_ROW) | (result == SQLITE_DONE))
+		if ((result == SQLITE_ROW) || (result == SQLITE_DONE))
 		{
 			for (int col = 0; col < cols; col++)
 			{
@@ -168,7 +168,7 @@ string getastring(const string &str)
 		int cols = sqlite3_column_count(statement);
 		int result = 0;
 		result = sqlite3_step(statement);
-		if ((result == SQLITE_ROW) | (result == SQLITE_DONE))
+		if ((result == SQLITE_ROW) || (result == SQLITE_DONE))
 		{
 			for (int col = 0; col < cols; col++)
 			{
@@ -227,7 +227,7 @@ int getanint(const string &str)
 		int cols = sqlite3_column_count(statement);
 		int result = 0;
 		result = sqlite3_step(statement);
-		if ((result == SQLITE_ROW) | (result == SQLITE_DONE))
+		if ((result == SQLITE_ROW) || (result == SQLITE_DONE))
 		{
 			for (int col = 0; col < cols; col++)
 			{
@@ -1632,7 +1632,7 @@ void tossitem(bw2sav_obj * sav, item_obj * item)
 	item_obj blankitem;
 	item_obj * bag = new item_obj();
 	item_obj * testitem = finditeminbag(sav, item->id, slot);
-	if ((slot != -1) & (testitem == item))
+	if ((slot != -1) && (testitem == item))
 	{
 		bag = getpocket(sav, ItemPockets::itempockets(getitempocket(item->id)));
 		switch (ItemPockets::itempockets(getitempocket(item->id)))

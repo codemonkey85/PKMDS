@@ -124,9 +124,6 @@ std::vector<pokemon_obj*> *getpcvectorp(bw2savblock_obj * block, const bool encr
 	}
 	return vpkm;
 }
-
-
-
 bool comparebyspeciesascp(pokemon_obj *a, pokemon_obj *b)
 {
 	//return a->blocka.species < b->blocka.species;

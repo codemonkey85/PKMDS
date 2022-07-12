@@ -773,7 +773,7 @@ bool getpkmshiny(const pokemon_obj &pkm){
 }
 bool pkmmetasegg(const pokemon_obj &pkm)
 {
-	return ((pkm.eggdate.year != 0) & (pkm.eggdate.month != 0) & (pkm.eggdate.day != 0));
+	return ((pkm.eggdate.year != 0) && (pkm.eggdate.month != 0) && (pkm.eggdate.day != 0));
 }
 void setpkmgender(pokemon_obj *pkm, int gender)
 {
@@ -803,7 +803,7 @@ bool getpkmshiny(const pokemon_obj *pkm){
 	return (E ^ F) < 8;
 }
 bool pkmmetasegg(const pokemon_obj *pkm){
-	return (((bool)(pkm->isegg)) | ((pkm->eggdate.year != 0) & (pkm->eggdate.month != 0) & (pkm->eggdate.day != 0)));
+	return (((bool)(pkm->isegg)) || ((pkm->eggdate.year != 0) && (pkm->eggdate.month != 0) && (pkm->eggdate.day != 0)));
 }
 void put_pkm(box_obj &box, const int slot, pokemon_obj &pkm, const bool isencrypted)
 {
@@ -992,7 +992,7 @@ void storepkm(bw2sav_obj * sav, pokemon_obj * pkm, int startbox)
 	int box = 0;
 	int slot = 0;
 	pokemon_obj * pcslot = getpcstorageavailableslot(sav, box, slot, startbox);
-	if ((box != -1) & (slot != -1))
+	if ((box != -1) && (slot != -1))
 	{
 		*pcslot = *pkm;
 	}
@@ -1035,12 +1035,12 @@ int gethiddenpowerpower(const pokemon_obj &pkm)
 {
 	int power = 0;
 	int u = 0, v = 0, w = 0, x = 0, y = 0, z = 0;
-	if ((pkm.ivs.hp % 4 == 2) | (pkm.ivs.hp % 4 == 3)){ u = 1; }
-	if ((pkm.ivs.attack % 4 == 2) | (pkm.ivs.attack % 4 == 3)){ v = 1; }
-	if ((pkm.ivs.defense % 4 == 2) | (pkm.ivs.defense % 4 == 3)){ w = 1; }
-	if ((pkm.ivs.speed % 4 == 2) | (pkm.ivs.speed % 4 == 3)){ x = 1; }
-	if ((pkm.ivs.spatk % 4 == 2) | (pkm.ivs.spatk % 4 == 3)){ y = 1; }
-	if ((pkm.ivs.spdef % 4 == 2) | (pkm.ivs.spdef % 4 == 3)){ z = 1; }
+	if ((pkm.ivs.hp % 4 == 2) || (pkm.ivs.hp % 4 == 3)){ u = 1; }
+	if ((pkm.ivs.attack % 4 == 2) || (pkm.ivs.attack % 4 == 3)){ v = 1; }
+	if ((pkm.ivs.defense % 4 == 2) || (pkm.ivs.defense % 4 == 3)){ w = 1; }
+	if ((pkm.ivs.speed % 4 == 2) || (pkm.ivs.speed % 4 == 3)){ x = 1; }
+	if ((pkm.ivs.spatk % 4 == 2) || (pkm.ivs.spatk % 4 == 3)){ y = 1; }
+	if ((pkm.ivs.spdef % 4 == 2) || (pkm.ivs.spdef % 4 == 3)){ z = 1; }
 	power = (int)(floor((double)(((u + 2 * v + 4 * w + 8 * x + 16 * y + 32 * z) * 40 / 63) + 30)));
 	return power;
 }
@@ -1065,12 +1065,12 @@ int gethiddenpowerpower(const pokemon_obj *pkm)
 {
 	int power = 0;
 	int u = 0, v = 0, w = 0, x = 0, y = 0, z = 0;
-	if ((pkm->ivs.hp % 4 == 2) | (pkm->ivs.hp % 4 == 3)){ u = 1; }
-	if ((pkm->ivs.attack % 4 == 2) | (pkm->ivs.attack % 4 == 3)){ v = 1; }
-	if ((pkm->ivs.defense % 4 == 2) | (pkm->ivs.defense % 4 == 3)){ w = 1; }
-	if ((pkm->ivs.speed % 4 == 2) | (pkm->ivs.speed % 4 == 3)){ x = 1; }
-	if ((pkm->ivs.spatk % 4 == 2) | (pkm->ivs.spatk % 4 == 3)){ y = 1; }
-	if ((pkm->ivs.spdef % 4 == 2) | (pkm->ivs.spdef % 4 == 3)){ z = 1; }
+	if ((pkm->ivs.hp % 4 == 2) || (pkm->ivs.hp % 4 == 3)){ u = 1; }
+	if ((pkm->ivs.attack % 4 == 2) || (pkm->ivs.attack % 4 == 3)){ v = 1; }
+	if ((pkm->ivs.defense % 4 == 2) || (pkm->ivs.defense % 4 == 3)){ w = 1; }
+	if ((pkm->ivs.speed % 4 == 2) || (pkm->ivs.speed % 4 == 3)){ x = 1; }
+	if ((pkm->ivs.spatk % 4 == 2) || (pkm->ivs.spatk % 4 == 3)){ y = 1; }
+	if ((pkm->ivs.spdef % 4 == 2) || (pkm->ivs.spdef % 4 == 3)){ z = 1; }
 	power = (int)(floor((double)(((u + 2 * v + 4 * w + 8 * x + 16 * y + 32 * z) * 40 / 63) + 30)));
 	return power;
 }
@@ -1287,11 +1287,11 @@ Types::types getarceustype(int form)
 std::string getpkrsstatus(const pokemon_obj * pkm)
 {
 	std::string status = "";
-	if ((pkm->pkrs.days > 0) & (pkm->pkrs.strain > 0))
+	if ((pkm->pkrs.days > 0) && (pkm->pkrs.strain > 0))
 	{
 		status = "Infected";
 	}
-	if ((pkm->pkrs.days == 0) & (pkm->pkrs.strain > 0))
+	if ((pkm->pkrs.days == 0) && (pkm->pkrs.strain > 0))
 	{
 		status = "Cured";
 	}
@@ -1520,11 +1520,11 @@ void deletehms(pokemon_obj * pkm)
 	for (int move = 3; move >= 0; move--)
 	{
 		if (
-			(pkm->moves[move] == Moves::cut) |
-			(pkm->moves[move] == Moves::fly) |
-			(pkm->moves[move] == Moves::surf) |
-			(pkm->moves[move] == Moves::strength) |
-			(pkm->moves[move] == Moves::waterfall) |
+			(pkm->moves[move] == Moves::cut) ||
+			(pkm->moves[move] == Moves::fly) ||
+			(pkm->moves[move] == Moves::surf) ||
+			(pkm->moves[move] == Moves::strength) ||
+			(pkm->moves[move] == Moves::waterfall) ||
 			(pkm->moves[move] == Moves::dive)
 			)
 		{
